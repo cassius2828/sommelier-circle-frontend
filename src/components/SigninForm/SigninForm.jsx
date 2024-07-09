@@ -1,15 +1,16 @@
+/* eslint-disable react/prop-types */
 // SigninForm
 
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import * as authService from '../../services/authService'; // import the authservice
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { signin } from "../../services/authService";
 
 const SigninForm = (props) => {
   const navigate = useNavigate(); // added this for navigation purposes
-  const [message, setMessage] = useState(['']);
+  const [message, setMessage] = useState([""]);
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
+    username: "",
+    password: "",
   });
 
   const updateMessage = (msg) => {
@@ -17,17 +18,17 @@ const SigninForm = (props) => {
   };
 
   const handleChange = (e) => {
-    updateMessage('');
+    updateMessage("");
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const user = await authService.signin(formData); // TODO build signin service function
-	  console.log(user, " <- response sign in")
+      const user = await signin(formData); // TODO build signin service function
+      console.log(user, " <- response sign in");
       props.setUser(user);
-      navigate('/');
+      navigate("/");
     } catch (err) {
       updateMessage(err.message);
     }

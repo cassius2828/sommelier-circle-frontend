@@ -1,45 +1,41 @@
-import { useEffect, useState} from 'react'
-import { useParams } from 'react-router-dom'
-import * as profileService from '../../services/profileService'
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getProfileService } from "../../services/profileService";
 
-export default function ProfilePage(){
+export default function ProfilePage() {
+  const { userId } = useParams();
+  const [photo, setPhoto] = useState("");
 
-	const { userId } = useParams()
-	const [photo, setPhoto] = useState('')
+  useEffect(() => {
+    console.log(userId);
+    console.log("useeffect is running");
 
-	useEffect(() => {
-		console.log(userId)
-		console.log('useeffect is running')
+    async function getProfile() {
+      try {
+        const userProfile = await getProfileService(userId);
+        console.log(userProfile);
+      } catch (err) {
+        console.log(err);
+      }
+    }
 
-		async function getProfile(){
-			try {
-				const userProfile = await profileService.getProfile(userId)
-				console.log(userProfile)
-			} catch(err){
-				console.log(err)
-			}
-		}
+    getProfile();
+  }, []);
 
-		getProfile()
+  function handleFileInput(e) {
+    console.log(e.target.files);
+    setPhoto(e.target.files[0]);
+  }
 
-	}, [])
+  return (
+    <>
+      <h1>Profile Page!</h1>
 
-
-	function handleFileInput(e){
-		console.log(e.target.files)
-		setPhoto(e.target.files[0])
-	}
-
-	return(
-		<>
-			<h1>Profile Page!</h1>
-			
-			<form action="">
-				<label htmlFor="upload-photo"></label>
-				<input type="file" id='upload-photo' onChange={handleFileInput}/>
-				<button>Upload</button>
-			</form>
-		</>
-		
-	)
+      <form action="">
+        <label htmlFor="upload-photo"></label>
+        <input type="file" id="upload-photo" onChange={handleFileInput} />
+        <button>Upload</button>
+      </form>
+    </>
+  );
 }
