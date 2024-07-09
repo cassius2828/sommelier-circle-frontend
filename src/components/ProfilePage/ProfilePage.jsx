@@ -8,7 +8,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     console.log(userId);
-    console.log("useeffect is running");
+    console.log("useEffect is running");
 
     async function getProfile() {
       try {
@@ -20,7 +20,7 @@ export default function ProfilePage() {
     }
 
     getProfile();
-  }, []);
+  }, [userId]);
 
   function handleFileInput(e) {
     console.log(e.target.files);
@@ -28,14 +28,30 @@ export default function ProfilePage() {
   }
 
   return (
-    <>
-      <h1>Profile Page!</h1>
-
-      <form action="">
-        <label htmlFor="upload-photo"></label>
-        <input type="file" id="upload-photo" onChange={handleFileInput} />
-        <button>Upload</button>
-      </form>
-    </>
+    <main className="bg-theme-dn min-h-screen flex flex-col items-center justify-center">
+      <div className="bg-theme-sand p-8 rounded-lg shadow-md w-full max-w-md">
+        <h1 className="text-3xl text-gray-100 mb-4 text-center">Profile Page!</h1>
+        
+        <form className="space-y-6">
+          <div>
+            <label htmlFor="upload-photo" className="block text-gray-100 mb-2">Upload Photo:</label>
+            <input
+              type="file"
+              id="upload-photo"
+              onChange={handleFileInput}
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-theme-sand"
+            />
+          </div>
+          <div className="flex justify-center items-center">
+            <button
+              type="submit"
+              className="bg-theme-dn text-theme-sand px-4 py-2 rounded-md focus:outline-none hover:bg-gray-800 transition-colors duration-200"
+            >
+              Upload
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
   );
 }
