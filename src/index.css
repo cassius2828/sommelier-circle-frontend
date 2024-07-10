@@ -31,6 +31,10 @@ a {
   cursor: pointer;
 }
 
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
 /* quill styles */
 
 .preview, .saved-content {
@@ -76,5 +80,9 @@ a {
 }
 
 .ql-editor img {
-max-width: 25rem;
+  aspect-ratio: 16/9;
+  width: 100%; /* Ensure the image scales to the width of its container */
+  height: auto; /* Maintain the aspect ratio */
+  object-fit: cover;
+  object-position: center;
 }

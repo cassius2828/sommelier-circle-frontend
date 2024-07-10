@@ -6,7 +6,7 @@ const MyBlogs = () => {
   const { myBlogs, setMyBlogs } = useBlogContext();
   console.log(myBlogs);
   return (
-    <div>
+    <div className="flex flex-wrap gap-4 w-full lg:w-[80vw]  mx-auto">
       {myBlogs?.map((blog, idx) => {
         return (
           <Blog
