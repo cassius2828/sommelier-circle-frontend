@@ -14,6 +14,9 @@ const NavBar = ({ user, handleLogout }) => {
           <Link to={`/${user._id}`} className="hover:text-theme-sand transition-colors duration-200">Profile</Link>
         </li>
         <li>
+          <Link to={`/blogs/new`} className="hover:text-theme-sand transition-colors duration-200">Create a Blog</Link>
+        </li>
+        <li>
           <Link onClick={() => handleLogout()} to="" className="hover:text-theme-sand transition-colors duration-200">
             Sign Out
           </Link>
