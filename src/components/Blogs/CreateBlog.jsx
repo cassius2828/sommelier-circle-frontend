@@ -1,20 +1,23 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactQuill from "react-quill";
 import { useNavigate } from "react-router-dom";
 import { createBlog } from "../../services/blogService";
 import DOMPurify from "dompurify";
+import useAuthContext from "../../context/blog/auth/useAuthContext";
 
 const MyEditor = () => {
+  const { user } = useAuthContext();
   const [title, setTitle] = useState("");
   const [img, setImg] = useState("");
   const [editorState, setEditorState] = useState("");
   const navigate = useNavigate();
-
+  const ref = useRef();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const dataToSendToServer = new FormData();
+    dataToSendToServer.append("owner", user._id);
     dataToSendToServer.append("img", img);
     dataToSendToServer.append("title", title);
     dataToSendToServer.append("content", editorState);
@@ -31,7 +34,10 @@ const MyEditor = () => {
     const { target } = e;
     setImg(target.files[0]);
   };
-  //   sanitize function
+  useEffect(() => {
+    console.log(editorState);
+    console.log(ref);
+  }, [editorState]);
 
   const modules = {
     toolbar: [
@@ -114,10 +120,19 @@ const MyEditor = () => {
       </div>
       <div className="w-full h-[75svh] lg:w-1/2 bg-gray-200 text-gray-800 rounded-lg shadow-md p-4">
         <h2 className="text-xl font-semibold mb-2">Preview</h2>
-        <div
-          className="preview bg-gray-100 p-4 rounded-lg"
-          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(editorState) }}
-        ></div>
+        <div className="ql-snow">
+          <div
+            ref={ref}
+            // must add ql-editor class to parent for the styles to properly load
+            className="preview ql-editor bg-gray-100 p-4 rounded-lg"
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(editorState, {
+                ADD_ATTR: ["style", "class"],
+              }),
+            }}
+            //   dangerouslySetInnerHTML={{ __html: editorState }}
+          ></div>
+        </div>
       </div>
     </div>
   );

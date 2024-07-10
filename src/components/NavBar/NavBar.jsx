@@ -35,7 +35,7 @@ const NavBar = () => {
             </li>{" "}
             <li>
               <Link
-                to={`/blogs/my-blogs`}
+                to={`/blogs/user-blogs/${user._id}`}
                 className="hover:text-theme-sand transition-colors duration-200"
               >
                 My Blogs

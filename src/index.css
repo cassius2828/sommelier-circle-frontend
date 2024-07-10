@@ -74,3 +74,7 @@ a {
 .ql-editor a {
   color: #1d4ed8; /* Example of customizing link color */
 }
+
+.ql-editor img {
+max-width: 25rem;
+}
