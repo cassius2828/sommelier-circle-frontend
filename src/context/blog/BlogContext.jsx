@@ -13,16 +13,16 @@ export const BlogProvider = ({ children }) => {
   const { user } = useAuthContext();
 
   useEffect(() => {
-    const fetchAllBlogs = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/blogs");
-        setBlogs(response.data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+    // const fetchAllBlogs = async () => {
+    //   try {
+    //     const response = await axios.get("http://localhost:3000/blogs");
+    //     setBlogs(response.data);
+    //   } catch (err) {
+    //     setError(err.message);
+    //   } finally {
+    //     setLoading(false);
+    //   }
+    // };
     const fetchCurrentUserBlogs = async () => {
       try {
         const options = {
@@ -42,7 +42,7 @@ export const BlogProvider = ({ children }) => {
         setLoading(false);
       }
     };
-    fetchAllBlogs();
+    // fetchAllBlogs();
     fetchCurrentUserBlogs();
   }, []);
 

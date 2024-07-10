@@ -1,19 +1,31 @@
 import DOMPurify from "dompurify";
+import Blog from "./Blog";
+import { getBlog } from "../../services/blogService";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 /* eslint-disable react/prop-types */
-const LandingBlogGallery = ({ title, img, content }) => {
-  return (
-    <div className="blog-container p-5 border ql-snow ql-editor w-[50rem]  mx-auto">
-      <div>
-        <img className="max-w-96 mx-auto my-8" src={img} alt="" />
-      </div>
-      <h2 className=" text-5xl text-center">{title}</h2>
+const ShowBlog = () => {
+  const [blog, setBlog] = useState(null);
+  const { blogId } = useParams();
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        const blogData = await getBlog(blogId);
+        setBlog(blogData);
+      } catch (error) {
+        console.error("Error fetching the blog:", error);
+      }
+    };
 
-      <div
-        className="preview test bg-gray-100 p-4  ql-editor  "
-        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
-      ></div>
+    fetchBlog();
+  }, [blogId]);
+
+  if (!blog) return <div>Loading...</div>;
+  return (
+    <div className="blog-container p-5  ql-snow ql-editor w-[50rem]  mx-auto">
+      <Blog title={blog?.title} img={blog?.img} content={blog?.content} />
     </div>
   );
 };
-export default LandingBlogGallery;
+export default ShowBlog;
