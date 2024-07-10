@@ -3,7 +3,7 @@ import { useState } from "react";
 import ReactQuill from "react-quill";
 import { useNavigate } from "react-router-dom";
 import { createBlog } from "../../services/blogService";
-
+import sanitize from "sanitize-html";
 const MyEditor = () => {
   const [title, setTitle] = useState("");
   const [img, setImg] = useState("");
@@ -30,7 +30,13 @@ const MyEditor = () => {
     const { target } = e;
     setImg(target.files[0]);
   };
-
+  const sanitizedContent = sanitize(editorState, {
+    allowedTags: sanitize.defaults.allowedTags.concat([ 'img' ]),
+    allowedAttributes: {
+      ...sanitize.defaults.allowedAttributes,
+      'img': [ 'src', 'alt', 'title', 'width', 'height' ]
+    },
+  });
   const modules = {
     toolbar: [
       [{ header: "1" }, { header: "2" }, { font: [] }],
@@ -114,7 +120,7 @@ const MyEditor = () => {
         <h2 className="text-xl font-semibold mb-2">Preview</h2>
         <div
           className="preview bg-gray-100 p-4 rounded-lg"
-          dangerouslySetInnerHTML={{ __html: editorState }}
+          dangerouslySetInnerHTML={{ __html: sanitizedContent }}
         ></div>
       </div>
     </div>
