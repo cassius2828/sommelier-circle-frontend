@@ -2,6 +2,9 @@ import axios from "axios";
 
 const BLOG_BASE_URL = "http://localhost:3000/blogs";
 
+///////////////////////////
+// ? POST | Create a new blog
+///////////////////////////
 export const createBlog = async (formData) => {
   const options = {
     headers: {
@@ -20,6 +23,9 @@ export const createBlog = async (formData) => {
   }
 };
 
+///////////////////////////
+// ! DELETE | Delete a blog by ID
+///////////////////////////
 export const deleteBlog = async (blogId) => {
   const options = {
     headers: {
@@ -36,6 +42,9 @@ export const deleteBlog = async (blogId) => {
   }
 };
 
+///////////////////////////
+// GET | Retrieve a single blog by ID
+///////////////////////////
 export const getBlog = async (blogId) => {
   try {
     const response = await axios.get(`${BLOG_BASE_URL}/${blogId}`);

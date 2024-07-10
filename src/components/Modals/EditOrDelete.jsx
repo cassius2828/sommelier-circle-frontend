@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 // src/components/BlogModal.jsx
 import React, { useState } from "react";
+import { deleteBlog } from "../../services/blogService";
+import { useParams } from "react-router-dom";
 
 const EditOrDeleteModal = ({
   isOpen,
@@ -10,16 +12,20 @@ const EditOrDeleteModal = ({
   subject,
 }) => {
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+  const { blogId } = useParams();
   if (!isOpen) return null;
   const showDeleteModal = () => {
     setShowConfirmDelete(true);
   };
-  const handleDelete = () => {
-    console.log("delete blog");
+  const handleDelete = async () => {
+    try {
+      await deleteBlog(blogId);
+    } catch (err) {
+      console.error(err);
+    }
   };
   const handleCancel = () => {
     setShowConfirmDelete(false);
-  
   };
   return (
     <>
