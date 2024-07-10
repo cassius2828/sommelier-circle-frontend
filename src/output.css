@@ -554,6 +554,11 @@ video {
   --tw-contain-style:  ;
 }
 
+.my-8 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -562,12 +567,20 @@ video {
   margin-bottom: 1rem;
 }
 
+.mt-4 {
+  margin-top: 1rem;
+}
+
 .block {
   display: block;
 }
 
 .flex {
   display: flex;
+}
+
+.h-\[75svh\] {
+  height: 75svh;
 }
 
 .min-h-screen {
@@ -600,6 +613,10 @@ video {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.gap-4 {
+  gap: 1rem;
 }
 
 .space-x-4 > :not([hidden]) ~ :not([hidden]) {
@@ -635,24 +652,39 @@ video {
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
 }
 
-.border-theme-sand {
-  --tw-border-opacity: 1;
-  border-color: rgb(232 209 174 / var(--tw-border-opacity));
-}
-
 .border-gray-400 {
   --tw-border-opacity: 1;
   border-color: rgb(156 163 175 / var(--tw-border-opacity));
 }
 
-.bg-gray-300 {
+.bg-gray-100 {
   --tw-bg-opacity: 1;
-  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+}
+
+.bg-gray-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+}
+
+.bg-gray-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(75 85 99 / var(--tw-bg-opacity));
 }
 
 .bg-gray-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+}
+
+.bg-stone-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(120 113 108 / var(--tw-bg-opacity));
+}
+
+.bg-theme-darkest {
+  --tw-bg-opacity: 1;
+  background-color: rgb(1 0 25 / var(--tw-bg-opacity));
 }
 
 .bg-theme-dn {
@@ -663,21 +695,6 @@ video {
 .bg-theme-sand {
   --tw-bg-opacity: 1;
   background-color: rgb(232 209 174 / var(--tw-bg-opacity));
-}
-
-.bg-theme-darkest {
-  --tw-bg-opacity: 1;
-  background-color: rgb(1 0 25 / var(--tw-bg-opacity));
-}
-
-.bg-stone-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(120 113 108 / var(--tw-bg-opacity));
-}
-
-.bg-stone-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(168 162 158 / var(--tw-bg-opacity));
 }
 
 .p-2 {
@@ -730,19 +747,26 @@ video {
   font-weight: 700;
 }
 
+.font-semibold {
+  font-weight: 600;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.italic {
+  font-style: italic;
+}
+
 .text-gray-100 {
   --tw-text-opacity: 1;
   color: rgb(243 244 246 / var(--tw-text-opacity));
 }
 
-.text-theme-dn {
+.text-gray-200 {
   --tw-text-opacity: 1;
-  color: rgb(3 12 33 / var(--tw-text-opacity));
-}
-
-.text-theme-sand {
-  --tw-text-opacity: 1;
-  color: rgb(232 209 174 / var(--tw-text-opacity));
+  color: rgb(229 231 235 / var(--tw-text-opacity));
 }
 
 .text-gray-800 {
@@ -750,10 +774,27 @@ video {
   color: rgb(31 41 55 / var(--tw-text-opacity));
 }
 
+.text-theme-sand {
+  --tw-text-opacity: 1;
+  color: rgb(232 209 174 / var(--tw-text-opacity));
+}
+
+.underline {
+  text-decoration-line: underline;
+}
+
 .shadow-md {
   --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.transition {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
 
 .transition-colors {
@@ -764,6 +805,10 @@ video {
 
 .duration-200 {
   transition-duration: 200ms;
+}
+
+.duration-300 {
+  transition-duration: 300ms;
 }
 
 /* general resets */
@@ -796,9 +841,53 @@ a {
   cursor: pointer;
 }
 
-.hover\:bg-gray-400:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(156 163 175 / var(--tw-bg-opacity));
+/* quill styles */
+
+.preview, .saved-content {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #f9f9f9;
+}
+
+.preview h1, .saved-content h1,
+.preview h2, .saved-content h2,
+.preview h3, .saved-content h3 {
+  color: #1f2937;
+}
+
+.preview p, .saved-content p {
+  font-size: 1.1em;
+  color: #1f2937;
+  line-height: 1.6;
+}
+
+/* quill toolbar */
+
+.ql-container {
+  background-color: #f3f4f6;
+  /* Set the background color */
+  color: #1f2937;
+  /* Set the text color */
+}
+
+.ql-toolbar {
+  background-color: #f3f4f6;
+  /* Set the background color for the toolbar */
+  color: #1f2937;
+  /* Set the text color for the toolbar icons */
+}
+
+.ql-editor {
+  min-height: 200px;
+  /* Ensure there's some minimum height */
+  padding: 10px;
+  /* Add some padding */
+}
+
+.ql-editor a {
+  color: #1d4ed8;
+  /* Example of customizing link color */
 }
 
 .hover\:bg-gray-600:hover {
@@ -806,14 +895,14 @@ a {
   background-color: rgb(75 85 99 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-gray-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-gray-800:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(31 41 55 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-stone-500:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(120 113 108 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-stone-600:hover {
@@ -821,14 +910,14 @@ a {
   background-color: rgb(87 83 78 / var(--tw-bg-opacity));
 }
 
-.hover\:text-theme-sand:hover {
-  --tw-text-opacity: 1;
-  color: rgb(232 209 174 / var(--tw-text-opacity));
-}
-
 .hover\:text-gray-100:hover {
   --tw-text-opacity: 1;
   color: rgb(243 244 246 / var(--tw-text-opacity));
+}
+
+.hover\:text-theme-sand:hover {
+  --tw-text-opacity: 1;
+  color: rgb(232 209 174 / var(--tw-text-opacity));
 }
 
 .focus\:border-\[\#e8d1ae\]:focus {
@@ -846,4 +935,12 @@ a {
   outline-offset: 2px;
 }
 
+@media (min-width: 1024px) {
+  .lg\:w-1\/2 {
+    width: 50%;
+  }
 
+  .lg\:flex-row {
+    flex-direction: row;
+  }
+}

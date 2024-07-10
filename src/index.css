@@ -31,4 +31,46 @@ a {
   cursor: pointer;
 }
 
+/* quill styles */
 
+.preview, .saved-content {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #f9f9f9;
+}
+
+.preview h1, .saved-content h1,
+.preview h2, .saved-content h2,
+.preview h3, .saved-content h3 {
+  color: #1f2937;
+}
+
+.preview p, .saved-content p {
+  font-size: 1.1em;
+  color: #1f2937;
+  line-height: 1.6;
+}
+
+
+/* quill toolbar */
+.ql-container {
+  background-color: #f3f4f6; /* Set the background color */
+  color: #1f2937; /* Set the text color */
+}
+
+.ql-toolbar {
+  background-color: #f3f4f6; /* Set the background color for the toolbar */
+  color: #1f2937; /* Set the text color for the toolbar icons */
+}
+
+.ql-editor {
+  min-height: 200px; /* Ensure there's some minimum height */
+  padding: 10px; /* Add some padding */
+}
+
+
+
+.ql-editor a {
+  color: #1d4ed8; /* Example of customizing link color */
+}
