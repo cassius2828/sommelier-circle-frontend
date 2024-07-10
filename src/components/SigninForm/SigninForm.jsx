@@ -4,8 +4,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signin } from "../../services/authService";
+import useAuthContext from "../../context/blog/auth/useAuthContext";
 
-const SigninForm = (props) => {
+const SigninForm = () => {
+  const { setUser } = useAuthContext();
   const navigate = useNavigate(); // added this for navigation purposes
   const [message, setMessage] = useState([""]);
   const [formData, setFormData] = useState({
@@ -27,7 +29,7 @@ const SigninForm = (props) => {
     try {
       const user = await signin(formData); // TODO build signin service function
       console.log(user, " <- response sign in");
-      props.setUser(user);
+      setUser(user);
       navigate("/");
     } catch (err) {
       updateMessage(err.message);

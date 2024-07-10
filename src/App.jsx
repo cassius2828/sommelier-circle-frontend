@@ -10,7 +10,6 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import SignupForm from "./components/SignupForm/SignupForm";
 import SigninForm from "./components/SigninForm/SigninForm";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
-import { getUser } from "./services/authService";
 
 // Blog Components
 import Blogs from "./components/Blogs";
@@ -38,22 +37,13 @@ import ShowEvent from "./components/Events/ShowEvent";
 // Spirit Components
 import Spirits from "./components/Spirits";
 import ShowSpirits from "./components/Spirits/ShowSpirits";
-
-
+import useAuthContext from "./context/blog/auth/useAuthContext";
 
 /////////////////////
 // App Component
 ///////////////////
 const App = () => {
-  const [user, setUser] = useState(getUser());
-
-  /////////////////////
-  // Handle Logout
-  /////////////////////
-  function handleLogout() {
-    localStorage.removeItem("token");
-    setUser(null);
-  }
+  const { user } = useAuthContext();
 
   //////////////////////////////////////////
   // If no user, show landing, signup, signin
@@ -61,11 +51,11 @@ const App = () => {
   if (!user) {
     return (
       <>
-        <NavBar user={user} />
+        <NavBar />
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/signup" element={<SignupForm setUser={setUser} />} />
-          <Route path="/signin" element={<SigninForm setUser={setUser} />} />
+          <Route path="/signup" element={<SignupForm />} />
+          <Route path="/signin" element={<SigninForm />} />
         </Routes>
       </>
     );
@@ -76,19 +66,19 @@ const App = () => {
   /////////////////////
   return (
     <>
-      <NavBar user={user} handleLogout={handleLogout} />
+      <NavBar />
       <Routes>
         {/* Landing Page */}
         <Route path="/" element={<Landing />} />
 
         {/* Dashboard */}
-        <Route path="/dashboard/:userId" element={<Dashboard user={user} />} />
+        <Route path="/dashboard/:userId" element={<Dashboard />} />
 
         {/* Signup */}
-        <Route path="/signup" element={<SignupForm setUser={setUser} />} />
+        <Route path="/signup" element={<SignupForm />} />
 
         {/* Signin */}
-        <Route path="/signin" element={<SigninForm setUser={setUser} />} />
+        <Route path="/signin" element={<SigninForm />} />
 
         {/* User Profile */}
         <Route path="/profile/:userId" element={<ProfilePage />} />

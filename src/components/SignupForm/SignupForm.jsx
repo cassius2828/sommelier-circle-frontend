@@ -4,8 +4,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signup } from "../../services/authService";
+import useAuthContext from "../../context/blog/auth/useAuthContext";
 
-const SignupForm = (props) => {
+const SignupForm = () => {
+  const { setUser } = useAuthContext();
   const navigate = useNavigate();
   const [message, setMessage] = useState([""]);
   const [formData, setFormData] = useState({
@@ -40,7 +42,7 @@ const SignupForm = (props) => {
     try {
       const user = await signup(dataToSendToServer);
       console.log(user);
-      props.setUser(user);
+      setUser(user);
       navigate("/");
     } catch (err) {
       console.log(err);
