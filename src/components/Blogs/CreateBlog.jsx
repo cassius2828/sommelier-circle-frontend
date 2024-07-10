@@ -3,7 +3,8 @@ import { useState } from "react";
 import ReactQuill from "react-quill";
 import { useNavigate } from "react-router-dom";
 import { createBlog } from "../../services/blogService";
-import sanitize from "sanitize-html";
+import { sanitize } from "../../utils/sanitizeContent";
+
 const MyEditor = () => {
   const [title, setTitle] = useState("");
   const [img, setImg] = useState("");
@@ -30,13 +31,8 @@ const MyEditor = () => {
     const { target } = e;
     setImg(target.files[0]);
   };
-  const sanitizedContent = sanitize(editorState, {
-    allowedTags: sanitize.defaults.allowedTags.concat([ 'img' ]),
-    allowedAttributes: {
-      ...sanitize.defaults.allowedAttributes,
-      'img': [ 'src', 'alt', 'title', 'width', 'height' ]
-    },
-  });
+//   sanitize function 
+  const sanitizedContent = sanitize(editorState);
   const modules = {
     toolbar: [
       [{ header: "1" }, { header: "2" }, { font: [] }],

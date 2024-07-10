@@ -1,11 +1,8 @@
+import { sanitize } from "../../utils/sanitizeContent";
+
 const Blog = () => {
-    const sanitizedContent = sanitizeHtml(content, {
-        allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img' ]),
-        allowedAttributes: {
-          ...sanitizeHtml.defaults.allowedAttributes,
-          'img': [ 'src', 'alt', 'title', 'width', 'height' ]
-        },
-      });
+
+//   const sanitizedContent = sanitize(editorState);
     
   return (
     <div className="blog-container">
