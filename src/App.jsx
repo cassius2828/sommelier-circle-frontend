@@ -38,6 +38,7 @@ import ShowEvent from "./components/Events/ShowEvent";
 import Spirits from "./components/Spirits";
 import ShowSpirits from "./components/Spirits/ShowSpirits";
 import useAuthContext from "./context/blog/auth/useAuthContext";
+import Header from "./components/Header";
 
 /////////////////////
 // App Component
@@ -51,6 +52,7 @@ const App = () => {
   if (!user) {
     return (
       <>
+      <Header/>
         <NavBar />
         <Routes>
           <Route path="/" element={<Landing />} />
@@ -66,6 +68,7 @@ const App = () => {
   /////////////////////
   return (
     <>
+      <Header/>
       <NavBar />
       <Routes>
         {/* Landing Page */}

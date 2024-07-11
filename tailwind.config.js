@@ -5,9 +5,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        'theme-darkest': '#010019',
+        'theme-darkest': '#03030c',
         'theme-dn': '#030c21',
         'theme-sand': '#e8d1ae',
+        'theme-sand-dark': '#c69963',
       },
     },
   },

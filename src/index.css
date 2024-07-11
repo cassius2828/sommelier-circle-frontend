@@ -17,8 +17,8 @@ html {
 
 body {
   box-sizing: inherit;
-  background-color: #030c21;
-
+  background-color: #040d21;
+  /* background-color: #03030c; */
 }
 
 ul,
@@ -35,27 +35,93 @@ a {
   cursor: pointer !important;
 }
 
+/* landing styles */
+#landing .overlay {
+  background: url("https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_675,q_75,w_1200/v1/clients/napavalley/Visit_Napa_Valley_fall_valley_sunset_08de2680-4aeb-4cf0-ae4b-26552ac11b2c.png");
+  background-size: cover;
+  filter: brightness(50%);
+}
+
+/* navigation bar */
+
+.w-40i {
+  width: 10rem !important;
+  max-width: 10rem !important;
+}
+.w-80i {
+  max-width: 20rem !important;
+  width: 20rem !important;
+}
+
+
+
+
+
+.staggered-list li {
+  opacity: 0;
+  transform: translateX(-50px);
+  margin: 10px 0;
+  padding: 10px;
+
+  color: white;
+
+  animation: fadeInFromLeft .5s forwards;
+}
+
+@keyframes fadeInFromLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Staggered effect */
+.staggered-list li:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.staggered-list li:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.staggered-list li:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.staggered-list li:nth-child(4) {
+  animation-delay: 0.5s;
+}
+
+.staggered-list li:nth-child(5) {
+  animation-delay: .6s;
+}
+
+
 /* quill styles */
 
-.preview, .saved-content {
+.preview,
+.saved-content {
   border: 1px solid #ddd;
   padding: 10px;
   margin-top: 20px;
   background-color: #f9f9f9;
 }
 
-.preview h1, .saved-content h1,
-.preview h2, .saved-content h2,
-.preview h3, .saved-content h3 {
+.preview h1,
+.saved-content h1,
+.preview h2,
+.saved-content h2,
+.preview h3,
+.saved-content h3 {
   color: #1f2937;
 }
 
-.preview p, .saved-content p {
+.preview p,
+.saved-content p {
   font-size: 1.1em;
   color: #1f2937;
   line-height: 1.6;
 }
-
 
 /* quill toolbar */
 .ql-container {
@@ -69,11 +135,8 @@ a {
 }
 
 .ql-editor {
- 
   padding: 10px; /* Add some padding */
 }
-
-
 
 .ql-editor a {
   color: #1d4ed8; /* Example of customizing link color */

@@ -2,15 +2,28 @@
 
 const Landing = () => {
   return (
-<section id="landing" className="bg-theme-dn text-gray-100 p-8 min-h-screen flex flex-col items-center justify-center">
-  <h1 className="text-4xl font-bold mb-4">Hello, you are on the landing page for visitors.</h1>
-  <h3 className="text-2xl text-center">
-    If you sign up for a new account, you will have the ability to sign in
-    and see your super secret dashboard.
-  </h3>
+    <><section id="landing" className="bg-theme-dn text-gray-100 p-8 w-screen h-screen flex flex-col items-center justify-center relative">
+  <div className="relative z-10 flex flex-col items-center justify-around">
+  <h1 className="text-7xl font-bold mb-4">Welcome to Sommelier Circle</h1>
+  <p className="text-3xl mb-8">Discover, Share, and Celebrate the World of Fine Wines</p>
+  <button className="px-6 py-4 border border-gray-100 text-gray-100 text-2xl rounded-md transition duration-300 hover:bg-gray-100 hover:text-gray-900">
+    Join Our Community
+  </button>
+  </div>
+ 
+<div className="overlay absolute w-screen h-screen"></div>
 </section>
+<Test/>
+    </>
+
 
   );
 };
 
 export default Landing;
+
+export const Test = () => {
+  return (
+    <div className="h-screen w-screen">Test</div>
+  )
+}
