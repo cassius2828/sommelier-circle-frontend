@@ -11,7 +11,26 @@ export const BlogProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { user } = useAuthContext();
-
+  
+  const fetchCurrentUserBlogs = async () => {
+    try {
+      const options = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      };
+      const response = await axios.get(
+        `http://localhost:3000/blogs/user-blogs/${user._id}`,
+        options
+      );
+      setMyBlogs(response.data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
     // const fetchAllBlogs = async () => {
     //   try {
@@ -23,25 +42,7 @@ export const BlogProvider = ({ children }) => {
     //     setLoading(false);
     //   }
     // };
-    const fetchCurrentUserBlogs = async () => {
-      try {
-        const options = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        };
-        const response = await axios.get(
-          `http://localhost:3000/blogs/user-blogs/${user._id}`,
-          options
-        );
-        setMyBlogs(response.data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+   
     // fetchAllBlogs();
     fetchCurrentUserBlogs();
   }, []);
@@ -55,7 +56,7 @@ export const BlogProvider = ({ children }) => {
         error,
         myBlogs,
         // fetchAllBlogs,
-        // fetchCurrentUserBlogs,
+        fetchCurrentUserBlogs,
       }}
     >
       {children}

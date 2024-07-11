@@ -4,13 +4,15 @@ import Blog from "./Blog";
 import { MultipleBlogsFull, MultipleBlogsList } from "./MultipleBlogs";
 
 const MyBlogs = () => {
-  const { myBlogs, setMyBlogs } = useBlogContext();
+  const { myBlogs, setMyBlogs, fetchCurrentUserBlogs } = useBlogContext();
   const [display, setDisplay] = useState("full");
 
   const handleDisplayChange = (e) => {
     setDisplay(e.target.value);
   };
-
+  useEffect(() => {
+    fetchCurrentUserBlogs();
+  }, []);
   console.log(myBlogs);
 
   return (
@@ -37,12 +39,15 @@ const MyBlogs = () => {
                 title={blog.title}
                 img={blog.img}
                 content={blog.content}
+                relativeTime={blog.relativeTime}
               />
             ) : (
               <MultipleBlogsList
                 path={`/blogs/${blog._id}`}
                 title={blog.title}
                 img={blog.img}
+                relativeTime={blog.relativeTime}
+
               />
             )}
           </li>

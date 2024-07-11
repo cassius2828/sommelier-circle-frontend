@@ -14,7 +14,7 @@ import ProfilePage from "./components/ProfilePage/ProfilePage";
 // Blog Components
 import Blogs from "./components/Blogs";
 import BlogsFollowing from "./components/Blogs/BlogsFollowing";
-import CreateBlog from "./components/Blogs/CreateBlog";
+import BlogManager from "./components/Blogs/BlogManager";
 import MyBlogs from "./components/Blogs/MyBlogs";
 import ShowBlog from "./components/Blogs/ShowBlog";
 
@@ -86,10 +86,10 @@ const App = () => {
         {/* Blogs */}
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/blogs/following" element={<BlogsFollowing />} />
-        <Route path="/blogs/new" element={<CreateBlog />} />
+        <Route path="/blogs/new" element={<BlogManager />} />
         <Route path={`/blogs/user-blogs/${user._id}`} element={<MyBlogs />} />
         <Route path="/blogs/:blogId" element={<ShowBlog />} />
-        <Route path="/blogs/:blogId/edit" element={<CreateBlog />} />
+        <Route path="/blogs/:blogId/edit" element={<BlogManager />} />
 
         {/* Wines */}
         <Route path="/wines" element={<Wines />} />

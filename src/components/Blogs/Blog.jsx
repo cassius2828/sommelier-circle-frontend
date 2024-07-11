@@ -4,7 +4,7 @@ import { useState } from "react";
 import EditOrDeleteModal from "../Modals/EditOrDelete";
 
 /* eslint-disable react/prop-types */
-const Blog = ({ title, img, content }) => {
+const Blog = ({ title, img, content, relativeTime }) => {
   const [isOpen, setIsOpen] = useState(false);
   const hanldeBlogNav = () => {
     console.log("nav");
@@ -12,6 +12,7 @@ const Blog = ({ title, img, content }) => {
   const handleToggleModal = () => {
     setIsOpen((prev) => !prev);
   };
+  console.log(relativeTime, "relative time ");
   return (
     <>
       <EditOrDeleteModal
@@ -23,11 +24,14 @@ const Blog = ({ title, img, content }) => {
       <div className="blog-container relative p-5  ql-snow ql-editor w-full max-w-[90rem]  mx-auto mb-20">
         <div
           onClick={handleToggleModal}
-          className="text-right text-gray-100 text-6xl  cursor-pointer"
+          className="text-right text-gray-100 text-6xl relative -top-12  cursor-pointer"
         >
           ...
         </div>{" "}
-        <h2 className=" text-5xl text-center text-gray-100">{title}</h2>
+        <div className="flex gap-4 relative">
+          <h2 className=" text-5xl text-center text-gray-100">{title}</h2>
+          <span className="text-xl absolute right-0 -top-12 text-gray-100">{relativeTime}</span>
+        </div>
         <img className="w-full mx- my-8" src={img} alt="" />
         <div
           className="preview test bg-gray-100 p-4  ql-editor  "

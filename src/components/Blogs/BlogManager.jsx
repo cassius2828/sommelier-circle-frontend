@@ -48,6 +48,7 @@ const MyEditor = () => {
       };
       try {
         await updateBlogNoImg(formData, blogId);
+        navigate(`/blogs/user-blogs/${user._id}`);
       } catch (err) {
         console.error(err);
         console.log(`Could not update blog post | (no photo updates)`);
@@ -59,6 +60,7 @@ const MyEditor = () => {
       dataToSendToServer.append("content", editorState);
       try {
         await updateBlogWithImg(dataToSendToServer, blogId);
+        navigate(`/blogs/user-blogs/${user._id}`);
       } catch (err) {
         console.error(err);
         console.log(`Could not update blog post | (YES photo update)`);
@@ -72,7 +74,7 @@ const MyEditor = () => {
       dataToSendToServer.append("content", editorState);
       try {
         await createBlog(dataToSendToServer);
-        navigate("/blogs/my-blogs");
+        navigate(`/blogs/user-blogs/${user._id}`);
       } catch (err) {
         console.error(err);
         console.log(`Could not create blog post`);
