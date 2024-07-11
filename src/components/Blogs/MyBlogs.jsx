@@ -2,18 +2,20 @@ import { useState, useEffect } from "react";
 import useBlogContext from "../../context/blog/useBlogContext";
 import Blog from "./Blog";
 import { MultipleBlogsFull, MultipleBlogsList } from "./MultipleBlogs";
+import { useParams } from "react-router-dom";
 
 const MyBlogs = () => {
   const { myBlogs, setMyBlogs, fetchCurrentUserBlogs } = useBlogContext();
   const [display, setDisplay] = useState("full");
-
+  const {userId} = useParams()
+console.log(userId)
   const handleDisplayChange = (e) => {
     setDisplay(e.target.value);
   };
   useEffect(() => {
     fetchCurrentUserBlogs();
-  }, []);
-  console.log(myBlogs);
+  }, [userId]);
+
 
   return (
     <div className="flex flex-col items-center gap-12 my-12">

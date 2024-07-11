@@ -11,7 +11,7 @@ export const BlogProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { user } = useAuthContext();
-  
+
   const fetchCurrentUserBlogs = async () => {
     try {
       const options = {
@@ -31,18 +31,17 @@ export const BlogProvider = ({ children }) => {
       setLoading(false);
     }
   };
+  const fetchAllBlogs = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/blogs");
+      setBlogs(response.data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    // const fetchAllBlogs = async () => {
-    //   try {
-    //     const response = await axios.get("http://localhost:3000/blogs");
-    //     setBlogs(response.data);
-    //   } catch (err) {
-    //     setError(err.message);
-    //   } finally {
-    //     setLoading(false);
-    //   }
-    // };
-   
     // fetchAllBlogs();
     fetchCurrentUserBlogs();
   }, []);
@@ -55,7 +54,7 @@ export const BlogProvider = ({ children }) => {
         loading,
         error,
         myBlogs,
-        // fetchAllBlogs,
+        fetchAllBlogs,
         fetchCurrentUserBlogs,
       }}
     >

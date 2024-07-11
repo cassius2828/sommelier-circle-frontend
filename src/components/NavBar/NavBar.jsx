@@ -75,6 +75,13 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
                 >
                   My Blogs
                 </Link>
+              </li>              <li>
+                <Link
+                  to={`/blogs/explore`}
+                  className="hover:text-theme-sand transition-colors duration-200"
+                >
+                  Explore Blogs
+                </Link>
               </li>
               <li>
                 <Link
@@ -104,7 +111,7 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
             >
               <li>
                 <Link
-                  to="/signin"
+                  to="auth/signin"
                   className="hover:text-theme-sand transition-colors duration-200"
                 >
                   Sign in
@@ -112,7 +119,7 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
               </li>
               <li>
                 <Link
-                  to="/signup"
+                  to="auth/signup"
                   className="hover:text-theme-sand transition-colors duration-200"
                 >
                   Sign Up

@@ -12,7 +12,7 @@ import SigninForm from "./components/SigninForm/SigninForm";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
 
 // Blog Components
-import Blogs from "./components/Blogs";
+import ExploreBlogs from "./components/Blogs/ExploreBlogs";
 import BlogsFollowing from "./components/Blogs/BlogsFollowing";
 import BlogManager from "./components/Blogs/BlogManager";
 import MyBlogs from "./components/Blogs/MyBlogs";
@@ -40,6 +40,7 @@ import ShowSpirits from "./components/Spirits/ShowSpirits";
 import useAuthContext from "./context/blog/auth/useAuthContext";
 import Header from "./components/Header";
 
+
 /////////////////////
 // App Component
 ///////////////////
@@ -56,8 +57,8 @@ const App = () => {
         <NavBar />
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/signup" element={<SignupForm />} />
-          <Route path="/signin" element={<SigninForm />} />
+          <Route path="auth/signup" element={<SignupForm />} />
+          <Route path="auth/signin" element={<SigninForm />} />
         </Routes>
       </>
     );
@@ -78,19 +79,19 @@ const App = () => {
         <Route path="/dashboard/:userId" element={<Dashboard />} />
 
         {/* Signup */}
-        <Route path="/signup" element={<SignupForm />} />
+        <Route path="auth/signup" element={<SignupForm />} />
 
         {/* Signin */}
-        <Route path="/signin" element={<SigninForm />} />
+        <Route path="auth/signin" element={<SigninForm />} />
 
         {/* User Profile */}
         <Route path="/profile/:userId" element={<ProfilePage />} />
 
         {/* Blogs */}
-        <Route path="/blogs" element={<Blogs />} />
+        <Route path="/blogs/explore" element={<ExploreBlogs />} />
         <Route path="/blogs/following" element={<BlogsFollowing />} />
         <Route path="/blogs/new" element={<BlogManager />} />
-        <Route path={`/blogs/user-blogs/${user._id}`} element={<MyBlogs />} />
+        <Route path={`/blogs/user-blogs/:userId`} element={<MyBlogs />} />
         <Route path="/blogs/:blogId" element={<ShowBlog />} />
         <Route path="/blogs/:blogId/edit" element={<BlogManager />} />
 

@@ -58,14 +58,14 @@ a {
 
 
 .staggered-list li {
-  opacity: 0;
-  transform: translateX(-50px);
+  /* opacity: 0; */
+  /* transform: translateX(-50px); */
   margin: 10px 0;
   padding: 10px;
 
   color: white;
 
-  animation: fadeInFromLeft .5s forwards;
+  /* animation: fadeInFromLeft .5s forwards; */
 }
 
 @keyframes fadeInFromLeft {

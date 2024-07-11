@@ -126,7 +126,7 @@ const MyEditor = () => {
   ];
 
   return (
-    <div className="flex flex-col lg:flex-row gap-4 p-4">
+    <div className="flex flex-col lg:flex-row gap-4 p-4 w-[90vw] ml-auto">
       <div className="w-full min-h-[75svh] flex flex-col justify-between lg:w-1/2 bg-gray-200 text-gray-800 rounded-lg shadow-md p-4">
         <div className=" ">
           <label className="text-4xl capitalize " htmlFor="title">
