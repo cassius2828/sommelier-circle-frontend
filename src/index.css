@@ -53,10 +53,6 @@ a {
   width: 20rem !important;
 }
 
-
-
-
-
 .staggered-list li {
   /* opacity: 0; */
   /* transform: translateX(-50px); */
@@ -93,11 +89,20 @@ a {
 }
 
 .staggered-list li:nth-child(5) {
-  animation-delay: .6s;
+  animation-delay: 0.6s;
 }
 
-
-
+/* view blog pages */
+.view-blog-img {
+  height: 5rem !important;
+  width: 5rem !important;
+}
+.blog-container::-webkit-scrollbar {
+  display: none;
+}
+.blog-container {
+  overflow:-moz-hidden-unscrollable;
+}
 /* quill styles */
 
 .preview,

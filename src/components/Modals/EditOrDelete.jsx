@@ -42,11 +42,11 @@ const EditOrDeleteModal = ({
           <div className="bg-slate-700 w-[80vw] lg:w-96 h-60 p-6 relative rounded-lg shadow-lg flex flex-col items-center justify-between gap-12">
             <span
               onClick={() => setIsOpen(false)}
-              className="absolute right-2 top-0 text-xl cursor-pointer"
+              className="absolute right-2 top-0 text-xl text-gray-100 cursor-pointer"
             >
               x
             </span>{" "}
-            <h2 className="text-2xl mb-4">Blog Actions</h2>
+            <h2 className="text-2xl mb-4 text-gray-100">Blog Actions</h2>
             <div className="flex justify-end space-x-4">
                 <Link to={`/blogs/${blogId}/edit`}>
                  <button

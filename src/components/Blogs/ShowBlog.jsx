@@ -22,10 +22,18 @@ const ShowBlog = () => {
   }, [blogId]);
 
   if (!blog) return <div>Loading...</div>;
-  console.log(blog)
+  console.log(blog);
   return (
-    <div className="blog-container p-5  ql-snow ql-editor w-[50rem]  mx-auto">
-      <Blog title={blog?.title} img={blog?.img} content={blog?.content} relativeTime={blog.relativeTime} />
+    <div className="blog-container p-5  ql-snow ql-editor w-[50rem] mx-auto">
+      <Blog
+        title={blog?.title}
+        img={blog?.img}
+        content={blog?.content}
+        createdAt={blog.createdAt}
+        id={blog.owner._id}
+        name={blog.owner.username}
+        profileImg={blog.owner.profileImg}
+      />
     </div>
   );
 };

@@ -44,7 +44,7 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
                 isOpen ? "flex" : "hidden"
               } flex-col space-x-4 items-center justify-around h-1/2 text-2xl staggered-list`}
             >
-              <li>
+              <li onClick={() => setIsOpen(false)}>
                 <Link
                   to="/"
                   className="hover:text-theme-sand transition-colors duration-200"
@@ -52,7 +52,7 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
                   Home
                 </Link>
               </li>
-              <li>
+              <li onClick={() => setIsOpen(false)}>
                 <Link
                   to={`/${user._id}`}
                   className="hover:text-theme-sand transition-colors duration-200"
@@ -60,22 +60,23 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
                   Profile
                 </Link>
               </li>
-              <li>
+              <li onClick={() => setIsOpen(false)}>
                 <Link
                   to={`/blogs/new`}
                   className="hover:text-theme-sand transition-colors duration-200"
                 >
                   Create a Blog
                 </Link>
-              </li>{" "}
-              <li>
+              </li>
+              <li onClick={() => setIsOpen(false)}>
                 <Link
                   to={`/blogs/user-blogs/${user._id}`}
                   className="hover:text-theme-sand transition-colors duration-200"
                 >
                   My Blogs
                 </Link>
-              </li>              <li>
+              </li>
+              <li onClick={() => setIsOpen(false)}>
                 <Link
                   to={`/blogs/explore`}
                   className="hover:text-theme-sand transition-colors duration-200"
@@ -83,7 +84,7 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
                   Explore Blogs
                 </Link>
               </li>
-              <li>
+              <li onClick={() => setIsOpen(false)}>
                 <Link
                   onClick={() => handleLogout()}
                   to=""
@@ -111,6 +112,7 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
             >
               <li>
                 <Link
+                  onClick={() => setIsOpen(false)}
                   to="auth/signin"
                   className="hover:text-theme-sand transition-colors duration-200"
                 >
@@ -119,6 +121,7 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
               </li>
               <li>
                 <Link
+                  onClick={() => setIsOpen(false)}
                   to="auth/signup"
                   className="hover:text-theme-sand transition-colors duration-200"
                 >
