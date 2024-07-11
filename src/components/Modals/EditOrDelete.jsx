@@ -2,7 +2,7 @@
 // src/components/BlogModal.jsx
 import React, { useState } from "react";
 import { deleteBlog } from "../../services/blogService";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const EditOrDeleteModal = ({
   isOpen,
@@ -27,6 +27,8 @@ const EditOrDeleteModal = ({
   const handleCancel = () => {
     setShowConfirmDelete(false);
   };
+
+
   return (
     <>
       {" "}
@@ -46,12 +48,15 @@ const EditOrDeleteModal = ({
             </span>{" "}
             <h2 className="text-2xl mb-4">Blog Actions</h2>
             <div className="flex justify-end space-x-4">
-              <button
+                <Link to={`/blogs/${blogId}/edit`}>
+                 <button
                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300"
-                onClick={onEdit}
+               
               >
                 Edit {subject}
-              </button>
+              </button>   
+                </Link>
+          
               <button
                 className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700 transition duration-300"
                 onClick={showDeleteModal}

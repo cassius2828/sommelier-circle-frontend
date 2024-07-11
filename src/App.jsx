@@ -89,6 +89,7 @@ const App = () => {
         <Route path="/blogs/new" element={<CreateBlog />} />
         <Route path={`/blogs/user-blogs/${user._id}`} element={<MyBlogs />} />
         <Route path="/blogs/:blogId" element={<ShowBlog />} />
+        <Route path="/blogs/:blogId/edit" element={<CreateBlog />} />
 
         {/* Wines */}
         <Route path="/wines" element={<Wines />} />

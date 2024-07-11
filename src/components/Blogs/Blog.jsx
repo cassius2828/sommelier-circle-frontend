@@ -20,21 +20,21 @@ const Blog = ({ title, img, content }) => {
         subject={"blog"}
       />
 
-      <div className="blog-container relative p-5  ql-snow ql-editor w-full max-w-[90rem]  mx-auto my-20">
+      <div className="blog-container relative p-5  ql-snow ql-editor w-full max-w-[90rem]  mx-auto mb-20">
         <div
           onClick={handleToggleModal}
-          className="text-right text-8xl absolute z-20 -top-16 right-0 cursor-pointer"
+          className="text-right text-gray-100 text-6xl  cursor-pointer"
         >
           ...
         </div>{" "}
-        <h2 className=" text-5xl text-center">{title}</h2>
+        <h2 className=" text-5xl text-center text-gray-100">{title}</h2>
         <img className="w-full mx- my-8" src={img} alt="" />
         <div
           className="preview test bg-gray-100 p-4  ql-editor  "
           dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
         ></div>
         <div className="share-container relative">
-          <span className="text-2xl absolute -top-16 left-1/2 -translate-x-1/2 ">
+          <span className="text-2xl text-gray-100 absolute -top-16 left-1/2 -translate-x-1/2 ">
             Share this blog with others!
           </span>
           <SocialIcons />

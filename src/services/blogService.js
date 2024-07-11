@@ -24,6 +24,56 @@ export const createBlog = async (formData) => {
 };
 
 ///////////////////////////
+// * PUT | Create a new blog
+///////////////////////////
+export const updateBlogWithImg = async (formData, blogId) => {
+  const options = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  };
+  console.log(formData);
+  try {
+    const response = await axios.put(
+      `${BLOG_BASE_URL}/${blogId}`,
+      formData,
+      options
+    );
+
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    console.log("Could not communicate with db to update blog including img");
+    throw err;
+  }
+};
+
+///////////////////////////
+// * PUT | Create a new blog
+///////////////////////////
+export const updateBlogNoImg = async (formData, blogId) => {
+    const options = {
+      headers: {
+        "Content-Type":'application/json',
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    };
+    console.log(formData);
+    try {
+      const response = await axios.put(
+        `${BLOG_BASE_URL}/${blogId}`,
+        formData,
+        options
+      );
+  
+      return response.data;
+    } catch (err) {
+      console.error(err);
+      console.log("Could not communicate with db to update blog without an image");
+      throw err;
+    }
+  };
+///////////////////////////
 // ! DELETE | Delete a blog by ID
 ///////////////////////////
 export const deleteBlog = async (blogId) => {

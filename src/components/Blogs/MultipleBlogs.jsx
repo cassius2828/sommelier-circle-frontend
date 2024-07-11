@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 export const MultipleBlogsFull = ({ title, img, content, path }) => {
   return (
     <Link to={path}>
-      <div className="blog-container p-5 border ql-snow ql-editor w-[50rem]  mx-auto">
+      <div className="blog-container max-h-[50rem]  p-5 border ql-snow ql-editor w-[50rem]  mx-auto cursor-pointer">
         <div>
-          <img className="max-w-96 mx-auto my-8" src={img} alt="" />
+          <img className="max-w-96 mx-auto my-8 cursor-pointer" src={img} alt="" />
         </div>
-        <h2 className=" text-5xl text-center">{title}</h2>
+        <h2 className=" text-5xl text-center text-gray-100">{title}</h2>
 
         <div
           className="preview test bg-gray-100 p-4  ql-editor  "
@@ -23,11 +23,11 @@ export const MultipleBlogsFull = ({ title, img, content, path }) => {
 export const MultipleBlogsList = ({ title, img, path }) => {
   return (
     <Link to={path}>
-      <div className="blog-container p-1 gap-4 border bg-zinc-700 rounded ql-snow ql-editor w-[50rem] flex items-center justify-between ">
+      <div className="blog-container p-1 gap-4 border bg-zinc-700 rounded ql-snow ql-editor w-[50rem] flex items-center justify-between cursor-pointer">
         <div>
-          <img className="max-w-28 mx-auto" src={img} alt="" />
+          <img className="max-w-28 mx-auto cursor-pointer" src={img} alt="" />
         </div>
-        <h2 className=" text-5xl text-center">{title}</h2>
+        <h2 className=" text-5xl text-center text-gray-100 cursor-pointer">{title.slice(0,25)}...</h2>
       </div>
     </Link>
   );

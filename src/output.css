@@ -554,38 +554,8 @@ video {
   --tw-contain-style:  ;
 }
 
-.container {
-  width: 100%;
-}
-
-@media (min-width: 640px) {
-  .container {
-    max-width: 640px;
-  }
-}
-
-@media (min-width: 768px) {
-  .container {
-    max-width: 768px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .container {
-    max-width: 1024px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .container {
-    max-width: 1280px;
-  }
-}
-
-@media (min-width: 1536px) {
-  .container {
-    max-width: 1536px;
-  }
+.pointer-events-none {
+  pointer-events: none;
 }
 
 .fixed {
@@ -668,20 +638,8 @@ video {
   margin-top: 1rem;
 }
 
-.mb-1 {
-  margin-bottom: 0.25rem;
-}
-
-.me-2 {
-  margin-inline-end: 0.5rem;
-}
-
-.me-auto {
-  margin-inline-end: auto;
-}
-
-.ms-2 {
-  margin-inline-start: 0.5rem;
+.mb-20 {
+  margin-bottom: 5rem;
 }
 
 .block {
@@ -700,12 +658,24 @@ video {
   height: 75svh;
 }
 
-.h-screen {
-  height: 100vh;
+.max-h-screen {
+  max-height: 100vh;
+}
+
+.max-h-\[40rem\] {
+  max-height: 40rem;
+}
+
+.max-h-\[50rem\] {
+  max-height: 50rem;
 }
 
 .min-h-screen {
   min-height: 100vh;
+}
+
+.min-h-\[75svh\] {
+  min-height: 75svh;
 }
 
 .w-1\/2 {
@@ -724,8 +694,8 @@ video {
   width: 100%;
 }
 
-.max-w-20 {
-  max-width: 5rem;
+.max-w-28 {
+  max-width: 7rem;
 }
 
 .max-w-96 {
@@ -738,14 +708,6 @@ video {
 
 .max-w-md {
   max-width: 28rem;
-}
-
-.max-w-24 {
-  max-width: 6rem;
-}
-
-.max-w-28 {
-  max-width: 7rem;
 }
 
 .-translate-x-1\/2 {
@@ -869,11 +831,6 @@ video {
   background-color: rgb(55 65 81 / var(--tw-bg-opacity));
 }
 
-.bg-red-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(252 165 165 / var(--tw-bg-opacity));
-}
-
 .bg-red-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(239 68 68 / var(--tw-bg-opacity));
@@ -907,16 +864,6 @@ video {
 .bg-theme-sand {
   --tw-bg-opacity: 1;
   background-color: rgb(232 209 174 / var(--tw-bg-opacity));
-}
-
-.bg-slate-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(203 213 225 / var(--tw-bg-opacity));
-}
-
-.bg-gray-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 
 .bg-zinc-700 {
@@ -998,6 +945,16 @@ video {
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
+}
+
+.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
+}
+
+.text-7xl {
+  font-size: 4.5rem;
+  line-height: 1;
 }
 
 .font-bold {
@@ -1096,7 +1053,6 @@ html {
 body {
   box-sizing: inherit;
   background-color: #030c21;
-  color: #f2f2f2;
 }
 
 ul,
