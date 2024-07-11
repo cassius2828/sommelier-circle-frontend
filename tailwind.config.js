@@ -6,6 +6,7 @@ export default {
     extend: {
       colors: {
         'theme-darkest': '#03030c',
+        'theme-smooth-dark': '#111213',
         'theme-dn': '#030c21',
         'theme-sand': '#e8d1ae',
         'theme-sand-dark': '#c69963',

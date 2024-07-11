@@ -17,7 +17,7 @@ html {
 
 body {
   box-sizing: inherit;
-  background-color: #040d21;
+  background-color: #111213;
   /* background-color: #03030c; */
 }
 
@@ -54,14 +54,14 @@ a {
 }
 
 .staggered-list li {
-  /* opacity: 0; */
-  /* transform: translateX(-50px); */
+  opacity: 0;
+  transform: translateX(-50px);
   margin: 10px 0;
   padding: 10px;
 
   color: white;
 
-  /* animation: fadeInFromLeft .5s forwards; */
+  animation: fadeInFromLeft .5s forwards;
 }
 
 @keyframes fadeInFromLeft {
@@ -90,6 +90,8 @@ a {
 
 .staggered-list li:nth-child(5) {
   animation-delay: 0.6s;
+}.staggered-list li:nth-child(6) {
+  animation-delay: 0.7s;
 }
 
 /* view blog pages */
@@ -101,16 +103,17 @@ a {
   display: none;
 }
 .blog-container {
-  overflow:-moz-hidden-unscrollable;
+  overflow: -moz-hidden-unscrollable;
 }
 /* quill styles */
 
 .preview,
 .saved-content {
-  border: 1px solid #ddd;
+ 
   padding: 10px;
   margin-top: 20px;
   background-color: #f9f9f9;
+  background-color: #111213; /* Set the background color */
 }
 
 .preview h1,
@@ -118,26 +121,30 @@ a {
 .preview h2,
 .saved-content h2,
 .preview h3,
-.saved-content h3 {
-  color: #1f2937;
+.saved-content h3,.preview h4,
+.saved-content h4, .preview li,
+.saved-content li  {
+  color: #f3f4f6;
 }
 
 .preview p,
 .saved-content p {
   font-size: 1.1em;
-  color: #1f2937;
+  color: #f3f4f6;
   line-height: 1.6;
 }
 
 /* quill toolbar */
 .ql-container {
   background-color: #f3f4f6; /* Set the background color */
+  background-color: #111213; /* Set the background color */
   color: #1f2937; /* Set the text color */
 }
 
 .ql-toolbar {
   background-color: #f3f4f6; /* Set the background color for the toolbar */
-  color: #1f2937; /* Set the text color for the toolbar icons */
+  background-color: #111213; /* Set the background color */
+  color: #f3f4f6; /* Set the text color for the toolbar icons */
 }
 
 .ql-editor {
@@ -154,4 +161,28 @@ a {
   height: auto; /* Maintain the aspect ratio */
   object-fit: cover;
   object-position: center;
+}
+
+/* blog styles */
+
+.ql-editor h1 {
+  font-size: 4.5rem !important;
+}
+.ql-editor h2 {
+  font-size: 3.5rem !important;
+}
+.ql-editor h3 {
+  font-size: 3rem !important;
+}
+.ql-editor h4 {
+  font-size: 2.5rem !important;
+}
+.ql-editor span,
+.ql-editor p,
+.ql-editor li {
+  font-size: 2rem !important;
+}
+
+.ql-editor p, .ql-editor li {
+  line-height: 4.5rem;
 }

@@ -17,14 +17,19 @@ const ShowBlog = () => {
         console.error("Error fetching the blog:", error);
       }
     };
-
+    const scrollToTop = () => {
+      window.scrollTo({
+        top: 0,
+      });
+    };
+    scrollToTop();
     fetchBlog();
   }, [blogId]);
 
   if (!blog) return <div>Loading...</div>;
   console.log(blog);
   return (
-    <div className="blog-container p-5  ql-snow ql-editor w-[50rem] mx-auto">
+    <div className="blog-container p-5  ql-snow ql-editor w-full mx-auto">
       <Blog
         title={blog?.title}
         img={blog?.img}

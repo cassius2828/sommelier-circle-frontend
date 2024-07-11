@@ -22,7 +22,7 @@ const Blog = ({ title, img, content, createdAt, id, name, profileImg }) => {
         setIsOpen={setIsOpen}
         subject={"blog"}
       />
-   <div className="flex items-center gap-4   text-gray-100 mt-20">
+   <div className="flex items-center gap-4  w-8/12 relative z-50  mx-auto text-gray-100 mt-20">
           <img className="rounded-full view-blog-img " src={profileImg} alt="" />
           <span className="text-2xl">{name}</span>{" "}
         </div>

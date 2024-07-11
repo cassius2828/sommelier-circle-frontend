@@ -1,8 +1,10 @@
+import { NavBarTop } from "../NavBar/NavBar"
+
 const Header = () => {
   return (
-    <header className="w-full h-48 bg-theme-darkest flex justify-center items-center">
-        <h1 className="text-8xl text-cente text-gray-100">Sommelier Circle</h1>
-
+    <header className="w-full h-52 bg-theme-darkest flex flex-col justify-center items-center relative">
+        <h1 className="text-8xl text-center text-gray-100 relative -top-5">Sommelier Circle</h1>
+<NavBarTop/>
     </header>
   )
 }
