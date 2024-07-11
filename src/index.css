@@ -36,7 +36,7 @@ a {
 }
 
 /* landing styles */
-#landing .overlay {
+#Hero .overlay {
   background: url("https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_675,q_75,w_1200/v1/clients/napavalley/Visit_Napa_Valley_fall_valley_sunset_08de2680-4aeb-4cf0-ae4b-26552ac11b2c.png");
   background-size: cover;
   filter: brightness(50%);
@@ -95,6 +95,7 @@ a {
 .staggered-list li:nth-child(5) {
   animation-delay: .6s;
 }
+
 
 
 /* quill styles */

@@ -1,29 +1,15 @@
-// src/components/Landing.jsx
+import Hero from "../Hero/Hero";
+import FeaturedWineCardList from "../Wines/FeaturedWineCardList";
+import FeaturedWineCategoryGallery from "../Wines/FeaturedWineCategoryGallery";
 
+// src/components/Landing.jsx
 const Landing = () => {
   return (
-    <><section id="landing" className="bg-theme-dn text-gray-100 p-8 w-screen h-screen flex flex-col items-center justify-center relative">
-  <div className="relative z-10 flex flex-col items-center justify-around">
-  <h1 className="text-7xl font-bold mb-4">Welcome to Sommelier Circle</h1>
-  <p className="text-3xl mb-8">Discover, Share, and Celebrate the World of Fine Wines</p>
-  <button className="px-6 py-4 border border-gray-100 text-gray-100 text-2xl rounded-md transition duration-300 hover:bg-gray-100 hover:text-gray-900">
-    Join Our Community
-  </button>
-  </div>
- 
-<div className="overlay absolute w-screen h-screen"></div>
-</section>
-<Test/>
-    </>
-
-
+    <div id="landing" className="pl-[10rem]">
+      <Hero />
+      <FeaturedWineCategoryGallery />
+      <FeaturedWineCardList />
+    </div>
   );
 };
-
 export default Landing;
-
-export const Test = () => {
-  return (
-    <div className="h-screen w-screen">Test</div>
-  )
-}
