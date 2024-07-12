@@ -19,9 +19,9 @@ const MyEditor = () => {
   const [editorState, setEditorState] = useState("");
   const navigate = useNavigate();
   const { blogId } = useParams();
-useEffect(() => {
-  console.log(img)
-},[img])
+  useEffect(() => {
+    console.log(img);
+  }, [img]);
   //   check to see if we are trying to edit the blog,
   //  then set the editorState with the content from that blog
   useEffect(() => {
@@ -88,7 +88,7 @@ useEffect(() => {
   const handleFileChange = (e) => {
     const { target } = e;
     setImg(target.files[0]);
-    setImgPreview(URL.createObjectURL(target.files[0]))
+    setImgPreview(URL.createObjectURL(target.files[0]));
   };
   useEffect(() => {
     console.log(editorState);
@@ -197,8 +197,27 @@ useEffect(() => {
       <div className="w-full min-h-[75svh] lg:w-1/2 bg-neutral-900 text-gray-300 rounded-lg shadow-md p-4">
         <h2 className="text-xl font-semibold mb-2">Preview</h2>
         <div className="ql-snow">
-          <img src={imgPreview} alt="header image to be used" />
-          <span className="text-6xl">title</span>
+          {/* header and date */}
+          <div className="mt-12">
+            <img
+              className="max-w-96 mx-auto my-8 cursor-pointer"
+              src={imgPreview}
+              alt=""
+            />
+            <div className=" w-9/12 text-start ml-20 mt-12">
+              <span className=" text-gray-100 text-xl ">
+                {new Date().toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}{" "}
+                &mdash; Sommelier Circle Community
+              </span>
+            </div>
+          </div>
+          <div className="text-center w-full my-12">
+            <span className="text-4xl ">{title}</span>
+          </div>
           <div
             // must add ql-editor class to parent for the styles to properly load
             className="preview ql-editor bg-[#111213] p-4 rounded-lg"
