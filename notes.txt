@@ -5,3 +5,13 @@ Current Issues
 - user specific data is being cached in browser. When a new user signs in, there is a brief second where the old user info is there before the Current
 user data is loaded
 Possible Solutions: Reset all state upon signout, refetch state on sign in / navigation from user 
+
+
+///////////////////////////
+Tips
+///////////////////////////
+____________________________
+Fixed Navbar Spacing
+____________________________
+The height of the header / navbar is 13rem, so for the mt for all components affected by its 
+fixed position, give them a mt-52 

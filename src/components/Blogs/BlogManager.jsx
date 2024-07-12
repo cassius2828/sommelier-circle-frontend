@@ -9,7 +9,7 @@ import {
   updateBlogWithImg,
 } from "../../services/blogService";
 import DOMPurify from "dompurify";
-import useAuthContext from "../../context/blog/auth/useAuthContext";
+import useAuthContext from "../../context/auth/useAuthContext";
 
 const MyEditor = () => {
   const { user } = useAuthContext();

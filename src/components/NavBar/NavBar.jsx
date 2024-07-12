@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Link, useLocation } from "react-router-dom";
-import useAuthContext from "../../context/blog/auth/useAuthContext";
+import useAuthContext from "../../context/auth/useAuthContext";
 import { useGSAP } from "@gsap/react";
 import { useEffect, useRef, useState } from "react";
 import { pinNavToTop } from "../../gsap/gsapFunctions";

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 // src/components/Dashboard.jsx
 
-import useAuthContext from "../../context/blog/auth/useAuthContext";
+import useAuthContext from "../../context/auth/useAuthContext";
 
 const Dashboard = () => {
   const { user } = useAuthContext();

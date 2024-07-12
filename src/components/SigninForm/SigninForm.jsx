@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signin } from "../../services/authService";
-import useAuthContext from "../../context/blog/auth/useAuthContext";
+import useAuthContext from "../../context/auth/useAuthContext";
 
 const SigninForm = () => {
   const { setUser } = useAuthContext();

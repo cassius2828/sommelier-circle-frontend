@@ -139,7 +139,7 @@ const WineStyles = () => {
   ];
 
   return (
-    <div className="bg-neutral-950 text-gray-100 min-h-screen p-8">
+    <div className="bg-neutral-950 text-gray-100 min-h-screen p-8 mt-52">
       <div className="max-w-[120rem] mx-auto">
         {/* Search Bar */}
         <div className="relative mb-8 w-1/2 mx-auto">

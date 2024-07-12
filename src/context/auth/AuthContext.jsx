@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { createContext, useState } from "react";
 
-import { getUser } from "../../../services/authService";
+import { getUser } from "../../services/authService";
 
 export const AuthContext = createContext();
 

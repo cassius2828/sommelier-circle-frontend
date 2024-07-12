@@ -2,7 +2,7 @@ import DOMPurify from "dompurify";
 import SocialIcons from "../Icons/Social-Icons";
 import { useState } from "react";
 import EditOrDeleteModal from "../Modals/EditOrDelete";
-import useAuthContext from "../../context/blog/auth/useAuthContext";
+import useAuthContext from "../../context/auth/useAuthContext";
 
 /* eslint-disable react/prop-types */
 const Blog = ({ title, img, content, createdAt, id, name, profileImg }) => {

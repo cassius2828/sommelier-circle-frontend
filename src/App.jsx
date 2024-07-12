@@ -37,7 +37,7 @@ import ShowEvent from "./components/Events/ShowEvent";
 // Spirit Components
 import Spirits from "./components/Spirits";
 import ShowSpirits from "./components/Spirits/ShowSpirits";
-import useAuthContext from "./context/blog/auth/useAuthContext";
+import useAuthContext from "./context/auth/useAuthContext";
 import Header from "./components/Header";
 
 

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
-import useAuthContext from "./auth/useAuthContext";
+import useAuthContext from "../auth/useAuthContext";
 
 export const BlogContext = createContext();
 
