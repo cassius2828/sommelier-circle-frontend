@@ -197,12 +197,15 @@ h1 ,h2{
 /* blog styles */
 
 .ql-editor h1 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 4.5rem !important;
 }
 .ql-editor h2 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 3.5rem !important;
 }
 .ql-editor h3 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 3rem !important;
 }
 .ql-editor h4 {

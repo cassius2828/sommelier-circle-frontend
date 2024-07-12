@@ -874,16 +874,12 @@ video {
   margin-top: 2rem;
 }
 
-.mt-96{
-  margin-top: 24rem;
-}
-
-.mt-60{
-  margin-top: 15rem;
-}
-
 .mt-80{
   margin-top: 20rem;
+}
+
+.mt-96{
+  margin-top: 24rem;
 }
 
 .block{
@@ -994,6 +990,10 @@ video {
   width: 75%;
 }
 
+.w-48{
+  width: 12rem;
+}
+
 .w-6{
   width: 1.5rem;
 }
@@ -1014,24 +1014,12 @@ video {
   width: 80vw;
 }
 
-.w-\[90vw\]{
-  width: 90vw;
-}
-
 .w-full{
   width: 100%;
 }
 
 .w-screen{
   width: 100vw;
-}
-
-.w-32{
-  width: 8rem;
-}
-
-.w-48{
-  width: 12rem;
 }
 
 .min-w-full{
@@ -1052,6 +1040,10 @@ video {
 
 .max-w-\[1240px\]{
   max-width: 1240px;
+}
+
+.max-w-\[160rem\]{
+  max-width: 160rem;
 }
 
 .max-w-\[45rem\]{
@@ -1185,16 +1177,16 @@ video {
   gap: 1rem;
 }
 
+.gap-5{
+  gap: 1.25rem;
+}
+
 .gap-6{
   gap: 1.5rem;
 }
 
 .gap-8{
   gap: 2rem;
-}
-
-.gap-5{
-  gap: 1.25rem;
 }
 
 .space-x-4 > :not([hidden]) ~ :not([hidden]){
@@ -1957,14 +1949,17 @@ h1 ,h2{
 /* blog styles */
 
 .ql-editor h1 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 4.5rem !important;
 }
 
 .ql-editor h2 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 3.5rem !important;
 }
 
 .ql-editor h3 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 3rem !important;
 }
 

@@ -15,10 +15,13 @@ const MyEditor = () => {
   const { user } = useAuthContext();
   const [title, setTitle] = useState("");
   const [img, setImg] = useState("");
+  const [imgPreview, setImgPreview] = useState("");
   const [editorState, setEditorState] = useState("");
   const navigate = useNavigate();
   const { blogId } = useParams();
-
+useEffect(() => {
+  console.log(img)
+},[img])
   //   check to see if we are trying to edit the blog,
   //  then set the editorState with the content from that blog
   useEffect(() => {
@@ -85,6 +88,7 @@ const MyEditor = () => {
   const handleFileChange = (e) => {
     const { target } = e;
     setImg(target.files[0]);
+    setImgPreview(URL.createObjectURL(target.files[0]))
   };
   useEffect(() => {
     console.log(editorState);
@@ -126,7 +130,7 @@ const MyEditor = () => {
   ];
 
   return (
-    <div className="flex flex-col lg:flex-row gap-4 p-4 w-[90vw] ml-auto mt-80">
+    <div className="flex flex-col lg:flex-row gap-4 p-4 max-w-[160rem] mx-auto mt-80">
       <div className="w-full min-h-[75svh] flex flex-col justify-between lg:w-1/2 bg-neutral-900 text-gray-300 rounded-lg shadow-md p-4">
         <div className=" ">
           <label className="text-4xl capitalize " htmlFor="title">
@@ -193,6 +197,8 @@ const MyEditor = () => {
       <div className="w-full min-h-[75svh] lg:w-1/2 bg-neutral-900 text-gray-300 rounded-lg shadow-md p-4">
         <h2 className="text-xl font-semibold mb-2">Preview</h2>
         <div className="ql-snow">
+          <img src={imgPreview} alt="header image to be used" />
+          <span className="text-6xl">title</span>
           <div
             // must add ql-editor class to parent for the styles to properly load
             className="preview ql-editor bg-[#111213] p-4 rounded-lg"
