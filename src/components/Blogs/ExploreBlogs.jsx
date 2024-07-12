@@ -7,9 +7,11 @@ import {
   MultipleBlogsList,
 } from "./MultipleBlogs";
 import { useParams } from "react-router-dom";
+import useGlobalContext from "../../context/global/useGlobalContext";
 
 const ExploreBlogs = () => {
   const { blogs, fetchAllBlogs } = useBlogContext();
+  const { scrollToTop } = useGlobalContext();
   const [display, setDisplay] = useState("full");
 
   const handleDisplayChange = (e) => {
@@ -19,6 +21,7 @@ const ExploreBlogs = () => {
   // fetch blogs on render
   useEffect(() => {
     fetchAllBlogs();
+    scrollToTop();
   }, []);
   console.log(blogs);
   return (
@@ -43,11 +46,13 @@ const ExploreBlogs = () => {
           </select>
         </div>
         {display === "full" ? (
-               <ul
-               className={`${
-                 blogs.length < 3 ? "flex justify-around items-center lg:w-[60vw] gap-20" : "grid grid-cols-1  lg:grid-cols-3"
-               } gap-12 w-full lg:w-[80vw] mx-auto pl-20`}
-             >
+          <ul
+            className={`${
+              blogs.length < 3
+                ? "flex justify-around items-center lg:w-[60vw] gap-20"
+                : "grid grid-cols-1  lg:grid-cols-3"
+            } gap-12 w-full lg:w-[80vw] mx-auto pl-20`}
+          >
             {blogs?.map((blog, idx) => (
               <li key={blog.title + idx}>
                 <MultipleBlogsFull
