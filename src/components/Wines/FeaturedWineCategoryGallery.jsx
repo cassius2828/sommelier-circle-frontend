@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import WineCategoryCard from "./WineCategoryCard";
 
 const FeaturedWineCategoryGallery = () => {
@@ -25,6 +26,13 @@ const FeaturedWineCategoryGallery = () => {
           img={`https://www.foodandwine.com/thmb/9oNf0Ece0Jv1PeFalXXO1A0PDzo=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Liquor-vs-Liqueur-vs-Spirit-FT-BLOG1122-88b33026a97d4554b0bf811c0ee0455b.jpg`}
           alt={``}
         />
+      </div>
+      <div className="w-full text-center">
+        <Link to={`/wines`}>
+          <button className="px-6 py-4 border rounded-md relative text-3xl text-gray-100 border-gray-100 capitalize hover:bg-gray-100 hover:text-gray-800 transition-all duration-200 ease-in-out -translate-y-1">
+            see all selections
+          </button>
+        </Link>
       </div>
     </>
   );

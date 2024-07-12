@@ -7,7 +7,7 @@ const WineCategoryCard = ({ img, title }) => {
         </div>
         <h3 className="text-gray-100 text-3xl my-12">{title}</h3>
         <button className="px-6 py-4 border rounded-md relative text-3xl text-gray-100 border-gray-100 capitalize hover:bg-gray-100 hover:text-gray-800 transition-all duration-200 ease-in-out -translate-y-1">
-          see all
+          view bottles
         </button>
       </div>
     );
