@@ -15,3 +15,20 @@ Fixed Navbar Spacing
 ____________________________
 The height of the header / navbar is 13rem, so for the mt for all components affected by its 
 fixed position, give them a mt-52 
+
+
+///////////////////////////
+Things to Do
+///////////////////////////
+
+- create a logo
+- upload wine and critic data 
+- create a main user who will upload the blogs 
+- create blogs for each wine style
+- create spirits
+- configure the search
+- google autocomplete 
+- google places 
+- create events and rooms 
+- create frontend first, then hit points, then configure together 
+

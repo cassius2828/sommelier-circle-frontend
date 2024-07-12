@@ -878,6 +878,14 @@ video {
   margin-top: 24rem;
 }
 
+.mt-60{
+  margin-top: 15rem;
+}
+
+.mt-80{
+  margin-top: 20rem;
+}
+
 .block{
   display: block;
 }
@@ -1016,6 +1024,14 @@ video {
 
 .w-screen{
   width: 100vw;
+}
+
+.w-32{
+  width: 8rem;
+}
+
+.w-48{
+  width: 12rem;
 }
 
 .min-w-full{
@@ -1175,6 +1191,10 @@ video {
 
 .gap-8{
   gap: 2rem;
+}
+
+.gap-5{
+  gap: 1.25rem;
 }
 
 .space-x-4 > :not([hidden]) ~ :not([hidden]){
