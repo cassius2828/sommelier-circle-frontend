@@ -1,3 +1,4 @@
+import LandingBlogs from "../Blogs/LandingBlogs";
 import Hero from "../Hero/Hero";
 import FeaturedWineCardList from "../Wines/FeaturedWineCardList";
 import FeaturedWineCategoryGallery from "../Wines/FeaturedWineCategoryGallery";
@@ -9,6 +10,7 @@ const Landing = () => {
       <Hero />
       <FeaturedWineCategoryGallery />
       <FeaturedWineCardList />
+      <LandingBlogs/>
     </div>
   );
 };

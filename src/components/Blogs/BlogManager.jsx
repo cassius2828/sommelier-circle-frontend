@@ -126,8 +126,8 @@ const MyEditor = () => {
   ];
 
   return (
-    <div className="flex flex-col lg:flex-row gap-4 p-4 w-[90vw] ml-auto">
-      <div className="w-full min-h-[75svh] flex flex-col justify-between lg:w-1/2 bg-gray-200 text-gray-800 rounded-lg shadow-md p-4">
+    <div className="flex flex-col lg:flex-row gap-4 p-4 w-[90vw] ml-auto mt-24">
+      <div className="w-full min-h-[75svh] flex flex-col justify-between lg:w-1/2 bg-neutral-900 text-gray-300 rounded-lg shadow-md p-4">
         <div className=" ">
           <label className="text-4xl capitalize " htmlFor="title">
             blog title
@@ -137,7 +137,7 @@ const MyEditor = () => {
             onChange={(e) => setTitle(e.target.value)}
             name="title"
             id="title"
-            className="w-full  bg-gray-100 text-gray-800 rounded-lg shadow-md p-4 my-8"
+            className="w-full  bg-[#111213] text-gray-300 rounded-lg shadow-md p-4 my-8"
             type="text"
           />
           <label className="text-4xl capitalize " htmlFor="img">
@@ -147,7 +147,7 @@ const MyEditor = () => {
             onChange={handleFileChange}
             name="img"
             id="img"
-            className="w-full  bg-gray-100 text-gray-800 rounded-lg shadow-md p-4 my-8"
+            className="w-full  bg-[#111213] text-gray-300 rounded-lg shadow-md p-4 my-8"
             type="file"
           />
           <label className="text-4xl capitalize">Blog content</label>
@@ -190,12 +190,12 @@ const MyEditor = () => {
           </button>
         )}
       </div>
-      <div className="w-full min-h-[75svh] lg:w-1/2 bg-gray-200 text-gray-800 rounded-lg shadow-md p-4">
+      <div className="w-full min-h-[75svh] lg:w-1/2 bg-neutral-900 text-gray-300 rounded-lg shadow-md p-4">
         <h2 className="text-xl font-semibold mb-2">Preview</h2>
         <div className="ql-snow">
           <div
             // must add ql-editor class to parent for the styles to properly load
-            className="preview ql-editor bg-gray-100 p-4 rounded-lg"
+            className="preview ql-editor bg-[#111213] p-4 rounded-lg"
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(editorState, {
                 ADD_ATTR: ["style", "class"],

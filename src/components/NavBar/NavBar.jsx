@@ -2,7 +2,7 @@
 import { Link, useLocation } from "react-router-dom";
 import useAuthContext from "../../context/blog/auth/useAuthContext";
 import { useGSAP } from "@gsap/react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { pinNavToTop } from "../../gsap/gsapFunctions";
 import Hamburger from "../Hamburger";
 
@@ -22,6 +22,7 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
   const location = useLocation();
 
   const isRoot = location.pathname === "/";
+
   useGSAP(
     () => {
       if (container.current) {
@@ -30,7 +31,7 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
     },
     { scope: container }
   );
-  console.log(location);
+
   if (!isRoot) return;
   return (
     <>
@@ -48,7 +49,12 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
                 isOpen ? "flex" : "hidden"
               } flex-col space-x-4 items-center justify-around h-1/2 text-2xl staggered-list`}
             >
-              <li onClick={() => setIsOpen(false)}>
+              <li
+                onClick={() => {
+                  setIsOpen(false);
+                  window.location.reload();
+                }}
+              >
                 <Link
                   to="/"
                   className="hover:text-theme-sand transition-colors duration-200"
@@ -152,16 +158,25 @@ export const NavBarTop = ({ handleLogout }) => {
       {user ? (
         <nav
           id="desktop-nav"
-          className={` text-gray-100 p-4  transition-all duration-200 ease-in-out absolute -bottom-10 w-full`}
+          className={` text-gray-100 p-4  transition-all duration-200 ease-in-out absolute -bottom-8 w-full`}
         >
           <ul
             className={`flex
             f space-x-4 items-center justify-evenly  text-2xl staggered-list`}
           >
-            <li>
+                  <li
+                onClick={() => {
+                 
+                  window.location.reload();
+                }}
+              >
               <Link
                 to="/"
-                className="hover:text-theme-sand transition-colors duration-200"
+                className="
+              
+                pb-1
+            
+              "
               >
                 Home
               </Link>
@@ -169,7 +184,11 @@ export const NavBarTop = ({ handleLogout }) => {
             <li>
               <Link
                 to={`/${user._id}`}
-                className="hover:text-theme-sand transition-colors duration-200"
+                className="
+              
+                pb-1
+            
+              "
               >
                 Profile
               </Link>
@@ -177,7 +196,11 @@ export const NavBarTop = ({ handleLogout }) => {
             <li>
               <Link
                 to={`/blogs/new`}
-                className="hover:text-theme-sand transition-colors duration-200"
+                className="
+              
+                pb-1
+            
+              "
               >
                 Create a Blog
               </Link>
@@ -185,7 +208,11 @@ export const NavBarTop = ({ handleLogout }) => {
             <li>
               <Link
                 to={`/blogs/user-blogs/${user._id}`}
-                className="hover:text-theme-sand transition-colors duration-200"
+                className="
+              
+                pb-1
+            
+              "
               >
                 My Blogs
               </Link>
@@ -193,7 +220,11 @@ export const NavBarTop = ({ handleLogout }) => {
             <li>
               <Link
                 to={`/blogs/explore`}
-                className="hover:text-theme-sand transition-colors duration-200"
+                className="
+              
+                pb-1
+            
+              "
               >
                 Explore Blogs
               </Link>
@@ -202,7 +233,11 @@ export const NavBarTop = ({ handleLogout }) => {
               <Link
                 onClick={() => handleLogout()}
                 to=""
-                className="hover:text-theme-sand transition-colors duration-200"
+                className="
+              
+                pb-1
+            
+              "
               >
                 Sign Out
               </Link>
@@ -220,7 +255,11 @@ export const NavBarTop = ({ handleLogout }) => {
             <li>
               <Link
                 to="/auth/signin"
-                className="hover:text-theme-sand transition-colors duration-200"
+                className="
+              
+                pb-1
+            
+              "
               >
                 Sign in
               </Link>
@@ -228,7 +267,11 @@ export const NavBarTop = ({ handleLogout }) => {
             <li>
               <Link
                 to="/auth/signup"
-                className="hover:text-theme-sand transition-colors duration-200"
+                className="
+              
+                pb-1
+            
+              "
               >
                 Sign Up
               </Link>
