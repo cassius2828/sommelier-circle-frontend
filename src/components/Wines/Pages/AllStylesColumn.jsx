@@ -14,7 +14,7 @@ export const AllStylesColumn = () => {
               return (
                 <Link
                   className="w-full"
-                  to={`type.path`}
+                  to={`${type.path}`}
                   key={type.name + type.path}
                 >
                   <li className="hover:bg-neutral-700 hover:text-theme-sand text-gray-100 text-xl p-4 border border-neutral-500 ">

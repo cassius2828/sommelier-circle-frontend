@@ -6,6 +6,8 @@ const StylesColumn = ({ style }) => {
   const { wineCategories } = useGlobalContext();
   const location = useLocation();
   const path = location.pathname;
+
+  const wineStyle = path.split("/")[3].split("-");
   // split the url to grad the identifier of the style | ex: 'red'
   const wineType = path.split("/")[2];
 
@@ -14,7 +16,14 @@ const StylesColumn = ({ style }) => {
     //  our data is "style wine" so we split and get the style, to lowercase to compare correcrtly
     return category.title.split(" ")[0].toLowerCase() === wineType;
   });
-
+  //   finds active style by performing operations on url section and data to make them both
+  // joined lowercase strings
+  const findActiveWineStyle = (wineStyleFromUrl, listStr) => {
+    return (
+      wineStyleFromUrl.join("").toLowerCase() ===
+      listStr.split(" ").join("").toLowerCase()
+    );
+  };
   return (
     <div className="w-1/2 mt-96">
       <h3 className="border border-neutral-500 text-gray-100 text-4xl p-5">
@@ -32,7 +41,14 @@ const StylesColumn = ({ style }) => {
         </Link>
         {selectedCategory[0].types.map((type) => (
           <Link className="w-full" to={type.path} key={type.name + type.path}>
-            <li className="hover:bg-neutral-700 hover:text-theme-sand text-gray-100 text-xl p-4 border border-neutral-500">
+            {findActiveWineStyle(wineStyle, type.name) ? "" : ""}
+            <li
+              className={`hover:bg-neutral-700 ${
+                findActiveWineStyle(wineStyle, type.name)
+                  ? "bg-theme-sand-dark"
+                  : ""
+              } hover:text-theme-sand text-gray-100 text-xl p-4 border border-neutral-500`}
+            >
               <span>
                 {selectedCategory[0].title} - {type.name}
               </span>

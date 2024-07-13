@@ -14,7 +14,7 @@ const Blog = ({ title, img, content, createdAt, id, name, profileImg }) => {
   const handleToggleModal = () => {
     setIsOpen((prev) => !prev);
   };
-  console.log(createdAt, "relative time ");
+
   return (
     <>
       <EditOrDeleteModal

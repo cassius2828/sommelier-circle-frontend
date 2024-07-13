@@ -3,8 +3,13 @@
 ///////////////////////////
 
 import { gsap } from "gsap";
+
+
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+if (import.meta.env.VITE_GSAP_NO_WARN) {
+  gsap.config({ nullTargetWarn: false });
+}
 gsap.registerPlugin(ScrollTrigger);
 
 export function pinNavToTop(element) {
