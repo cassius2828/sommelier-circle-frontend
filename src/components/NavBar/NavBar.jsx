@@ -5,6 +5,7 @@ import { useGSAP } from "@gsap/react";
 import { useEffect, useRef, useState } from "react";
 import { pinNavToTop } from "../../gsap/gsapFunctions";
 import Hamburger from "../Hamburger";
+import { NavListItem } from "./NavListItem";
 
 const NavBar = () => {
   const { user, handleLogout } = useAuthContext();
@@ -47,7 +48,7 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
             <ul
               className={`${
                 isOpen ? "flex" : "hidden"
-              } flex-col space-x-4 items-center justify-around h-1/2 text-2xl staggered-list`}
+              } flex-col space-x-4 items-center justify-around h-3/4 text-2xl staggered-list`}
             >
               <li
                 onClick={() => {
@@ -64,44 +65,60 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
               </li>
               <li onClick={() => setIsOpen(false)}>
                 <Link
-                  to={`/${user._id}`}
+                  to="/rooms"
+                  className="hover:text-theme-sand transition-colors duration-200"
+                >
+                  Rooms
+                </Link>
+              </li>
+              <li onClick={() => setIsOpen(false)}>
+                <Link
+                  to="/events"
+                  className="hover:text-theme-sand transition-colors duration-200"
+                >
+                  Events
+                </Link>
+              </li>
+              <li onClick={() => setIsOpen(false)}>
+                <Link
+                  to="/wines"
+                  className="hover:text-theme-sand transition-colors duration-200"
+                >
+                  Wines
+                </Link>
+              </li>
+              <li onClick={() => setIsOpen(false)}>
+                <Link
+                  to="/blogs"
+                  className="hover:text-theme-sand transition-colors duration-200"
+                >
+                  Blogs
+                </Link>
+              </li>
+              <li onClick={() => setIsOpen(false)}>
+                <Link
+                  to="/critics"
+                  className="hover:text-theme-sand transition-colors duration-200"
+                >
+                  Critics
+                </Link>
+              </li>
+              <li onClick={() => setIsOpen(false)}>
+                <Link
+                  to="/profile"
                   className="hover:text-theme-sand transition-colors duration-200"
                 >
                   Profile
                 </Link>
               </li>
-              <li onClick={() => setIsOpen(false)}>
-                <Link
-                  to={`/blogs/new`}
-                  className="hover:text-theme-sand transition-colors duration-200"
-                >
-                  Create a Blog
-                </Link>
-              </li>
-              <li onClick={() => setIsOpen(false)}>
-                <Link
-                  to={`/blogs/user-blogs/${user._id}`}
-                  className="hover:text-theme-sand transition-colors duration-200"
-                >
-                  My Blogs
-                </Link>
-              </li>
-              <li onClick={() => setIsOpen(false)}>
-                <Link
-                  to={`/blogs/explore`}
-                  className="hover:text-theme-sand transition-colors duration-200"
-                >
-                  Explore Blogs
-                </Link>
-              </li>
-              <li onClick={() => setIsOpen(false)}>
-                <Link
-                  onClick={() => handleLogout()}
-                  to=""
-                  className="hover:text-theme-sand transition-colors duration-200"
-                >
-                  Sign Out
-                </Link>
+              <li
+                className="hover:text-theme-sand transition-colors duration-200"
+                onClick={() => {
+                  setIsOpen(false);
+                  handleLogout();
+                }}
+              >
+                Sign Out
               </li>
             </ul>
           </nav>
@@ -118,7 +135,7 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
             <ul
               className={`${
                 isOpen ? "flex" : "hidden"
-              } flex-col space-x-4 items-center justify-around h-1/2 text-2xl staggered-list`}
+              } flex-col space-x-4 items-center justify-around mt-20 gap-12 text-2xl staggered-list`}
             >
               <li onClick={() => setIsOpen(false)}>
                 <Link
@@ -144,9 +161,7 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
   );
 };
 
-export const NavBarMobile = () => {
-  return <div>NavBarMobile</div>;
-};
+
 
 export const NavBarTop = ({ handleLogout }) => {
   const { user } = useAuthContext();
@@ -162,14 +177,13 @@ export const NavBarTop = ({ handleLogout }) => {
         >
           <ul
             className={`flex
-            f space-x-4 items-center justify-evenly  text-2xl staggered-list`}
+             space-x-2 items-center justify-evenly  text-xl w-screen  staggered-list`}
           >
-                  <li
-                onClick={() => {
-                 
-                  window.location.reload();
-                }}
-              >
+            <li
+              onClick={() => {
+                window.location.reload();
+              }}
+            >
               <Link
                 to="/"
                 className="
@@ -181,7 +195,58 @@ export const NavBarTop = ({ handleLogout }) => {
                 Home
               </Link>
             </li>
-            <li>
+            <NavListItem
+              listItemText={`Rooms`}
+              dropDownItems={[
+                {
+                  text: "explore rooms",
+                  path: "/rooms/explore",
+                },
+                {
+                  text: "favorite rooms",
+                  path: "/favorites/rooms",
+                },
+                {
+                  text: "search rooms",
+                  path: "/rooms",
+                },
+              ]}
+            />
+            <NavListItem
+              listItemText={`Events`}
+              dropDownItems={[
+                {
+                  text: "explore events",
+                  path: "/events/explore",
+                },
+                {
+                  text: "favorite events",
+                  path: "/favorites/events",
+                },
+                {
+                  text: "search events",
+                  path: "/events",
+                },
+              ]}
+            />
+            <NavListItem
+              listItemText={`Wines`}
+              dropDownItems={[
+                {
+                  text: "wine categories",
+                  path: "/wines/explore",
+                },
+                {
+                  text: "favorite wines",
+                  path: "/favorites/wines",
+                },
+                {
+                  text: "search wines",
+                  path: "/wines",
+                },
+              ]}
+            />
+            {/* <li>
               <Link
                 to={`/${user._id}`}
                 className="
@@ -192,8 +257,8 @@ export const NavBarTop = ({ handleLogout }) => {
               >
                 Profile
               </Link>
-            </li>
-            <li>
+            </li> */}
+            {/* <li>
               <Link
                 to={`/blogs/new`}
                 className="
@@ -204,8 +269,8 @@ export const NavBarTop = ({ handleLogout }) => {
               >
                 Create a Blog
               </Link>
-            </li>
-            <li>
+            </li> */}
+            {/* <li>
               <Link
                 to={`/blogs/user-blogs/${user._id}`}
                 className="
@@ -216,8 +281,8 @@ export const NavBarTop = ({ handleLogout }) => {
               >
                 My Blogs
               </Link>
-            </li>
-            <li>
+            </li> */}
+            {/* <li>
               <Link
                 to={`/blogs/explore`}
                 className="
@@ -228,20 +293,63 @@ export const NavBarTop = ({ handleLogout }) => {
               >
                 Explore Blogs
               </Link>
-            </li>
-            <li>
-              <Link
-                onClick={() => handleLogout()}
-                to=""
-                className="
-              
-                pb-1
-            
-              "
-              >
-                Sign Out
-              </Link>
-            </li>
+            </li> */}
+            <NavListItem
+              listItemText={`Blogs`}
+              dropDownItems={[
+                {
+                  text: "community blogs",
+                  path: "/blogs/explore",
+                },
+                {
+                  text: "create a blog",
+                  path: "/blogs/new",
+                },
+                {
+                  text: "my blogs",
+                  path: `/blogs/${user._id}`,
+                },
+                {
+                  text: "favorite blogs",
+                  path: "/favorites/blogs",
+                },
+                {
+                  text: "search blogs",
+                  path: "/blogs",
+                },
+              ]}
+            />
+            <NavListItem
+              listItemText={`Critics`}
+              dropDownItems={[
+                {
+                  text: "explore critics",
+                  path: "/critics/explore",
+                },
+
+                {
+                  text: "favorite critics",
+                  path: "/favorites/critics",
+                },
+              ]}
+            />
+            <NavListItem
+              listItemText={`Profile`}
+              dropDownItems={[
+                {
+                  text: "view profile",
+                  path: `/profiles/${user._id}`,
+                },
+                {
+                  text: "search users",
+                  path: "/blogs/new",
+                },
+                {
+                  text: "sign out",
+                  path: `/blogs/${user._id}`,
+                },
+              ]}
+            />
           </ul>
         </nav>
       ) : (

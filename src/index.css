@@ -13,7 +13,7 @@
 
 html {
   font-size: 62.5%;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 body {
@@ -37,9 +37,9 @@ a {
 }
 
 /* typographty  */
-h1 ,h2{
-  font-family: 'Dancing Script', cursive;
-
+h1,
+h2 {
+  font-family: "Dancing Script", cursive;
 }
 /* landing styles */
 #Hero .overlay {
@@ -58,20 +58,7 @@ h1 ,h2{
   max-width: 20rem !important;
   width: 20rem !important;
 }
-.staggered-list li::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 0.25rem; /* h-1 */
-  background-color: #c69963; /* bg-red-200 */
-  transition: width 0.2s;
-}
 
-.staggered-list li:hover::before {
-  width: 100%; /* hover:before:w-full */
-}
 .staggered-list li {
   opacity: 0;
   transform: translateX(-50px);
@@ -89,7 +76,16 @@ h1 ,h2{
     transform: translateX(0);
   }
 }
-
+@keyframes fadeInFromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 /* Staggered effect */
 .staggered-list li:nth-child(1) {
   animation-delay: 0.2s;
@@ -113,6 +109,21 @@ h1 ,h2{
 .staggered-list li:nth-child(6) {
   animation-delay: 0.7s;
 }
+.staggered-list li:nth-child(7) {
+  animation-delay: 0.8s;
+}
+.staggered-list li:nth-child(8) {
+  animation-delay: 0.9s;
+}
+
+/* dropdown li */
+.dropdown-li {
+  padding:   1rem !important;
+  margin:  0 !important;
+  animation: fadeInFromTop 0.5s forwards ease-out !important;
+  text-align: center;
+}
+
 
 /* view blog pages */
 .view-blog-img {
@@ -146,7 +157,6 @@ h1 ,h2{
 .preview li,
 .saved-content li {
   color: #f3f4f6;
-  
 }
 
 .preview p,
@@ -176,10 +186,10 @@ h1 ,h2{
 
 .ql-editor {
   padding: 10px; /* Add some padding */
-  font-family: Georgia, 'Times New Roman', Times, serif
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 .ql-editor h2 {
-  font-family: Georgia, 'Times New Roman', Times, serif
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 .ql-editor a {
@@ -197,15 +207,15 @@ h1 ,h2{
 /* blog styles */
 
 .ql-editor h1 {
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 4.5rem !important;
 }
 .ql-editor h2 {
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 3.5rem !important;
 }
 .ql-editor h3 {
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 3rem !important;
 }
 .ql-editor h4 {
