@@ -1,13 +1,35 @@
 // src/routes/wineRoutes.js
 import { lazy } from "react";
 
-const Wines = lazy(() => import("../components/Wines"));
+const CategoryGallery  = lazy(() => import("../components/Wines/CategoryGallery"));
 const TypesOfWine = lazy(() => import("../components/Wines/Pages/TypesOfWine"));
 const ShowWine = lazy(() => import("../components/Wines/ShowWine"));
 
 const wineRoutes = [
   // base path
-  { path: "wines", element: <Wines /> },
+  { path: "wines/styles", element: <CategoryGallery category="wine-styles" /> },
+  { path: "wines/regions", element: <CategoryGallery category="wine-regions" /> },
+  { path: "wines/grapes", element: <CategoryGallery category="grapes" /> },
+
+// regions
+  { path: "wines/regions/napa-valley", element: <TypesOfWine allStyles blogId={`6692415bd74ed7e5212b8e19`} /> },
+  { path: "wines/regions/willamette-valley", element: <TypesOfWine allStyles blogId={`66924193d74ed7e5212b8e1f`} /> },
+  { path: "wines/regions/loire-valley", element: <TypesOfWine allStyles blogId={`66924870d74ed7e5212b8e73`} /> },
+  { path: "wines/regions/bordeaux", element: <TypesOfWine allStyles blogId={`66924906d74ed7e5212b8e79`} /> },
+  { path: "wines/regions/champagne", element: <TypesOfWine allStyles blogId={`669249e8d74ed7e5212b8e89`} /> },
+  { path: "wines/regions/tuscany", element: <TypesOfWine allStyles blogId={`6692e903d74ed7e5212b8ead`} /> },
+  { path: "wines/regions/barossa-valley", element: <TypesOfWine allStyles blogId={`6692e968d74ed7e5212b8eb3`} /> },
+  { path: "wines/regions/mosel", element: <TypesOfWine allStyles blogId={`6692e9d7d74ed7e5212b8eb9`} /> },
+  { path: "wines/regions/rioja", element: <TypesOfWine allStyles blogId={`6692ea28d74ed7e5212b8ebf`} /> },
+  { path: "wines/regions/marlborough", element: <TypesOfWine allStyles blogId={`6692eb69d74ed7e5212b8ecb`} /> },
+  { path: "wines/regions/piedmont", element: <TypesOfWine allStyles blogId={`6692ebc1d74ed7e5212b8ed1`} /> },
+  { path: "wines/regions/rhone-valley", element: <TypesOfWine allStyles blogId={`6692ec1ad74ed7e5212b8ed7`} /> },
+  { path: "wines/regions/stellenbosch", element: <TypesOfWine allStyles blogId={`6692ec5ed74ed7e5212b8edd`} /> },
+  { path: "wines/regions/sonoma-county", element: <TypesOfWine allStyles blogId={`6692ecabd74ed7e5212b8ee3`} /> },
+
+
+
+
   // wine types
   { path: "wines/wine-types", element: <TypesOfWine allStyles blogId={`6691aea098a19fabd8baa1d4`} /> },
 //  red wines

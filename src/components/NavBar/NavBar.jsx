@@ -227,8 +227,16 @@ export const NavBarTop = ({ handleLogout }) => {
               listItemText={`Wines`}
               dropDownItems={[
                 {
-                  text: "wine categories",
-                  path: "/wines",
+                  text: "wine styles",
+                  path: "/wines/styles",
+                },
+                {
+                  text: "wine regions",
+                  path: "/wines/regions",
+                },
+                {
+                  text: "grapes",
+                  path: "/wines/grapes",
                 },
                 {
                   text: "favorite wines",

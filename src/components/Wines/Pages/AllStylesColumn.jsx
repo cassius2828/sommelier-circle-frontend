@@ -1,32 +1,59 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useGlobalContext from "../../../context/global/useGlobalContext";
 
 export const AllStylesColumn = () => {
-    const { wineCategories } = useGlobalContext();
-    return (
-      <div className=" w-1/2 mt-96 ">
-        <h3 className="border border-neutral-500 text-gray-100 text-4xl p-5">
-          Styles
-        </h3>
-        <ul className="flex flex-col items-start justify-start">
-          {wineCategories.map((category) => {
-            return category.types.map((type) => {
-              return (
-                <Link
-                  className="w-full"
-                  to={`${type.path}`}
-                  key={type.name + type.path}
-                >
-                  <li className="hover:bg-neutral-700 hover:text-theme-sand text-gray-100 text-xl p-4 border border-neutral-500 ">
-                    <span>
-                      {category.title} - {type.name}
-                    </span>
-                  </li>{" "}
-                </Link>
-              );
-            });
-          })}
-        </ul>
-      </div>
-    );
+  const { wineCategories, wineRegions, grapeCategories } = useGlobalContext();
+  const location = useLocation();
+  const urlIdenitfier = location.pathname.split("/")[2];
+  console.log(urlIdenitfier);
+  let array;
+  switch (urlIdenitfier) {
+    case "regions":
+      array = wineRegions;
+      break;
+    case "grapes":
+      array = grapeCategories;
+      break;
+    default:
+      array = wineCategories;
+      break;
+  }
+  const findCurrentCategory = (urlStr, dataStr) => {
+    return urlStr === dataStr.split("/")[3].split("-").join("");
   };
+  const urlEnd = location.pathname.split("/")[3].split("-").join("");
+
+  console.log(urlEnd);
+  return (
+    <div className=" w-1/2 mt-96 ">
+      <h3 className="border border-neutral-500 text-gray-100 text-4xl p-5">
+        Styles
+      </h3>
+      <ul className="flex flex-col items-start justify-start">
+        {array.map((category) => {
+          return category.types.map((type) => {
+            return (
+              <Link
+                className="w-full"
+                to={`${type.path}`}
+                key={type.name + type.path}
+              >
+                <li
+                  className={`hover:bg-neutral-700 ${
+                    findCurrentCategory(urlEnd, type.path)
+                      ? "bg-theme-sand-dark"
+                      : ""
+                  } hover:text-theme-sand  text-gray-100 text-xl p-4 border border-neutral-500 `}
+                >
+                  <span>
+                    {category.title} - {type.name}
+                  </span>
+                </li>{" "}
+              </Link>
+            );
+          });
+        })}
+      </ul>
+    </div>
+  );
+};
