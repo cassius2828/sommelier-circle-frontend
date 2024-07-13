@@ -1647,6 +1647,10 @@ video {
   text-transform: uppercase;
 }
 
+.lowercase{
+  text-transform: lowercase;
+}
+
 .capitalize{
   text-transform: capitalize;
 }
@@ -1746,6 +1750,10 @@ video {
 .shadow-neutral-900{
   --tw-shadow-color: #171717;
   --tw-shadow: var(--tw-shadow-colored);
+}
+
+.filter{
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .transition{
