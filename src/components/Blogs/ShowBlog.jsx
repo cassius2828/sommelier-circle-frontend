@@ -25,7 +25,7 @@ const ShowBlog = ({propsBlogId}) => {
     };
     scrollToTop();
     fetchBlog();
-  }, [blogId]);
+  }, [blogId,propsBlogId]);
 
   if (!blog) return <div>Loading...</div>;
 
