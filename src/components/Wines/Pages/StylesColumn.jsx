@@ -32,11 +32,11 @@ const StylesColumn = ({ style }) => {
       <ul className="flex flex-col items-start justify-start">
         <Link
           className="flex items-center gap-0 border border-neutral-500 w-full text-theme-sand hover:text-theme-sand-dark"
-          to={`/wines`}
+          to={`/wines/styles`}
         >
           <span className="text-3xl ml-4">&laquo;</span>
           <button className="text-xl p-4 text-theme-sand hover:text-theme-sand-dark transition-colors duration-200 ease-in-out">
-            Styles Home
+            All Styles
           </button>
         </Link>
         {selectedCategory[0].types.map((type) => (

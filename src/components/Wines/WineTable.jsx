@@ -65,7 +65,7 @@ const WineTable = () => {
         {/* body */}
         <tbody>
           {wines?.map((wine, idx) => (
-            <tr key={wine.title + idx} className="hover:bg-gray-100">
+            <tr key={wine.name + idx} className="hover:bg-gray-100">
               {/* wine info */}
               <td className="py-2 px-4 border-b">
                 <img
@@ -75,7 +75,6 @@ const WineTable = () => {
                 />
               </td>
               <td className="py-2 px-4 border-b">{wine.name}</td>
-
               {/* region */}
               <td className="py-2 px-4 border-b text-center">{wine.region}</td>
               {/* critic score */}

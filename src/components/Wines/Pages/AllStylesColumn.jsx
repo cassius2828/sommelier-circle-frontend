@@ -5,7 +5,7 @@ export const AllStylesColumn = () => {
   const { wineCategories, wineRegions, grapeCategories } = useGlobalContext();
   const location = useLocation();
   const urlIdenitfier = location.pathname.split("/")[2];
-  console.log(urlIdenitfier);
+
   let array;
   switch (urlIdenitfier) {
     case "regions":
@@ -21,9 +21,12 @@ export const AllStylesColumn = () => {
   const findCurrentCategory = (urlStr, dataStr) => {
     return urlStr === dataStr.split("/")[3].split("-").join("");
   };
-  const urlEnd = location.pathname.split("/")[3].split("-").join("");
+  // this avoids the error incase the url does not match grapes or regions | .split() is not a func
+  let urlEnd;
+  if (urlIdenitfier === "regions" || urlIdenitfier === "grapes") {
+    urlEnd = location.pathname?.split("/")[3].split("-").join("");
+  }
 
-  console.log(urlEnd);
   return (
     <div className=" w-1/2 mt-96 ">
       <h3 className="border border-neutral-500 text-gray-100 text-4xl p-5">
