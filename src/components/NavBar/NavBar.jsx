@@ -24,14 +24,10 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
 
   const isRoot = location.pathname === "/";
 
-  useGSAP(
-    () => {
-      if (container.current) {
-        pinNavToTop("#desktop-nav-landing");
-      }
-    },
-    { scope: container }
-  );
+  // this solves issue of not being able to ensure nav is pinned when a user navigates but does not rerender the app
+  useGSAP(() => {
+    pinNavToTop("#desktop-nav-landing");
+  }, [location.pathname]);
 
   if (!isRoot) return;
   return (

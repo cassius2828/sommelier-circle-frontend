@@ -22,10 +22,10 @@ const Blog = ({ title, img, content, createdAt, id, name, profileImg }) => {
         setIsOpen={setIsOpen}
         subject={"blog"}
       />
-   <div className="flex items-center gap-4  w-8/12 relative z-50  mx-auto text-gray-100 mt-20">
-          <img className="rounded-full view-blog-img " src={profileImg} alt="" />
-          <span className="text-2xl">{name}</span>{" "}
-        </div>
+      <div className="flex items-center gap-4  w-8/12 relative z-50  mx-auto text-gray-100 mt-20">
+        <img className="rounded-full view-blog-img " src={profileImg} alt="" />
+        <span className="text-2xl">{name}</span>{" "}
+      </div>
       <div className="blog-container relative p-5  ql-snow ql-editor w-full max-w-[90rem]  mx-auto mb-24">
         {user._id.toString() === id && (
           <div
@@ -35,14 +35,15 @@ const Blog = ({ title, img, content, createdAt, id, name, profileImg }) => {
             ...
           </div>
         )}
-     
+
         <div className="flex gap-4 relative">
           <h2 className=" text-5xl text-center text-gray-100">{title}</h2>
           <span className="text-xl absolute right-0 -top-12 text-gray-100">
             {new Date(createdAt).toLocaleDateString()}
           </span>
         </div>
-        <img className="w-full mx- my-8" src={img} alt="" />
+        {img && <img className="w-full mx- my-8" src={img} alt="" />}
+
         <div
           className="preview test bg-gray-100 p-4  ql-editor  "
           dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}

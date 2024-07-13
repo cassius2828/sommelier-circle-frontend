@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 
 const MyBlogs = () => {
   const { myBlogs, setMyBlogs, fetchCurrentUserBlogs } = useBlogContext();
-  const [display, setDisplay] = useState("full");
+  const [display, setDisplay] = useState("list");
   const { userId } = useParams();
   console.log(userId);
   const handleDisplayChange = (e) => {
