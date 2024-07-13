@@ -161,8 +161,6 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
   );
 };
 
-
-
 export const NavBarTop = ({ handleLogout }) => {
   const { user } = useAuthContext();
   const location = useLocation();
@@ -234,7 +232,7 @@ export const NavBarTop = ({ handleLogout }) => {
               dropDownItems={[
                 {
                   text: "wine categories",
-                  path: "/wines/explore",
+                  path: "/wines",
                 },
                 {
                   text: "favorite wines",
@@ -307,7 +305,7 @@ export const NavBarTop = ({ handleLogout }) => {
                 },
                 {
                   text: "my blogs",
-                  path: `/blogs/${user._id}`,
+                  path: `/blogs/user-blogs/${user._id}`,
                 },
                 {
                   text: "favorite blogs",
@@ -358,7 +356,7 @@ export const NavBarTop = ({ handleLogout }) => {
           className={`text-gray-100 p-4 transition-all duration-200 ease-in-out `}
         >
           <ul
-            className={`flex space-x-4 items-center justify-around h-1/2 text-2xl staggered-list`}
+            className={`flex space-x-4 items-center justify-around h-1/2 text-2xl absolute top-1/2 right-12 -translate-y-1/2 staggered-list`}
           >
             <li>
               <Link

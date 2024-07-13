@@ -73,7 +73,7 @@ const WineStyles = () => {
               vegan-friendly and kosher wine, and food and wine pairing.
             </p>
           </div>
-          <Link to={`/wines/types-of-wine`}>
+          <Link to={`/wines/wine-types`}>
             <button className="px-6 py-4 border rounded-md relative text-3xl text-gray-100 border-gray-100 capitalize hover:bg-gray-100 hover:text-gray-800 transition-all duration-200 ease-in-out -translate-y-1">
               learn more
             </button>

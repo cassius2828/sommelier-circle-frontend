@@ -21,9 +21,8 @@ fixed position, give them a mt-52
 Things to Do
 ///////////////////////////
 
-- create a logo
+
 - upload wine and critic data 
-- create a main user who will upload the blogs 
 - create blogs for each wine style
 - create spirits
 - configure the search

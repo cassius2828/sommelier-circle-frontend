@@ -39,7 +39,7 @@ import Spirits from "./components/Spirits";
 import ShowSpirits from "./components/Spirits/ShowSpirits";
 import useAuthContext from "./context/auth/useAuthContext";
 import Header from "./components/Header";
-
+import TypesOfWine from "./components/Wines/Pages/TypesOfWine";
 
 /////////////////////
 // App Component
@@ -53,7 +53,7 @@ const App = () => {
   if (!user) {
     return (
       <>
-      <Header/>
+        <Header />
         <NavBar />
         <Routes>
           <Route path="/" element={<Landing />} />
@@ -69,24 +69,19 @@ const App = () => {
   /////////////////////
   return (
     <>
-      <Header/>
+      <Header />
       <NavBar />
       <Routes>
         {/* Landing Page */}
         <Route path="/" element={<Landing />} />
-
         {/* Dashboard */}
         <Route path="/dashboard/:userId" element={<Dashboard />} />
-
         {/* Signup */}
         <Route path="auth/signup" element={<SignupForm />} />
-
         {/* Signin */}
         <Route path="auth/signin" element={<SigninForm />} />
-
         {/* User Profile */}
         <Route path="/profile/:userId" element={<ProfilePage />} />
-
         {/* Blogs */}
         <Route path="/blogs/explore" element={<ExploreBlogs />} />
         <Route path="/blogs/following" element={<BlogsFollowing />} />
@@ -94,23 +89,19 @@ const App = () => {
         <Route path={`/blogs/user-blogs/:userId`} element={<MyBlogs />} />
         <Route path="/blogs/:blogId" element={<ShowBlog />} />
         <Route path="/blogs/:blogId/edit" element={<BlogManager />} />
-
         {/* Wines */}
         <Route path="/wines" element={<Wines />} />
+        <Route path="/wines/wine-types" element={<TypesOfWine />} />{" "}
         <Route path="/wines/:wineId" element={<ShowWine />} />
-
         {/* Critics */}
         <Route path="/critics" element={<Critics />} />
         <Route path="/critics/:criticId" element={<ShowCritic />} />
-
         {/* Rooms */}
         <Route path="/rooms" element={<Rooms />} />
         <Route path="/rooms/:roomId" element={<ShowRoom />} />
-
         {/* Events */}
         <Route path="/events" element={<Events />} />
         <Route path="/events/:eventId" element={<ShowEvent />} />
-
         {/* Spirits */}
         <Route path="/spirits" element={<Spirits />} />
         <Route path="/spirits/:spiritId" element={<ShowSpirits />} />
