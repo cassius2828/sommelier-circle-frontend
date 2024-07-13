@@ -224,9 +224,11 @@ h2 {
 .ql-editor span,
 .ql-editor p,
 .ql-editor li {
+  font-size: 1.7rem !important;
+}
+.ql-editor strong {
   font-size: 2rem !important;
 }
-
 .ql-editor p,
 .ql-editor li {
   line-height: 4.5rem;

@@ -28,7 +28,7 @@ const ShowBlog = ({propsBlogId}) => {
   }, [blogId]);
 
   if (!blog) return <div>Loading...</div>;
-  console.log(blog);
+
   return (
     <div className="blog-container p-5 mt-80  ql-snow ql-editor w-full mx-auto">
       <Blog
