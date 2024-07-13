@@ -738,6 +738,22 @@ video {
   z-index: 50;
 }
 
+.z-30{
+  z-index: 30;
+}
+
+.z-40{
+  z-index: 40;
+}
+
+.z-\[\]{
+  z-index: ;
+}
+
+.z-\[51\]{
+  z-index: 51;
+}
+
 .float-left{
   float: left;
 }

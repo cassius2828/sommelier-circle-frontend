@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <header
       className={`w-full h-52 bg-theme-darkest flex flex-col justify-center items-center ${
-        isRoot ? "relative" : "fixed top-0 left-0 z-10 shadow-neutral-900 shadow-md"
+        isRoot ? "relative" : "fixed top-0 left-0 z-[51] shadow-neutral-900 shadow-md"
       } `}
     >
       <div className="flex items-center gap-5 ">
