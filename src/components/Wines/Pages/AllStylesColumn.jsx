@@ -5,7 +5,11 @@ export const AllStylesColumn = () => {
   const { wineCategories, wineRegions, grapeCategories } = useGlobalContext();
   const location = useLocation();
   const urlIdenitfier = location.pathname.split("/")[2];
+  // more readable way to use conditional logic for routing and ui based on url
+  const isWineTypesUrl =
+    urlIdenitfier !== "grapes" || urlIdenitfier !== "regions";
 
+  // switch statement for data to be displayed based on url
   let array;
   switch (urlIdenitfier) {
     case "regions":
@@ -18,6 +22,7 @@ export const AllStylesColumn = () => {
       array = wineCategories;
       break;
   }
+  // finds the category from the url | ex: red
   const findCurrentCategory = (urlStr, dataStr) => {
     return urlStr === dataStr.split("/")[3].split("-").join("");
   };
@@ -32,6 +37,15 @@ export const AllStylesColumn = () => {
       <h3 className="border border-neutral-500 text-gray-100 text-4xl p-5">
         Styles
       </h3>
+      <Link
+        className="flex items-center gap-0 border border-neutral-500 w-full text-theme-sand hover:text-theme-sand-dark"
+        to={`/wines/${isWineTypesUrl ? "styles" : urlIdenitfier}`}
+      >
+        <span className="text-3xl ml-4">&laquo;</span>
+        <button className="capitalize text-xl p-4 text-theme-sand hover:text-theme-sand-dark transition-colors duration-200 ease-in-out">
+          Back to {isWineTypesUrl ? "Wine Styles" : urlIdenitfier} view
+        </button>
+      </Link>
       <ul className="flex flex-col items-start justify-start">
         {array.map((category) => {
           return category.types.map((type) => {
