@@ -48,7 +48,7 @@ const wines = [
 ];
 const WineTable = () => {
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto mb-24">
       <table className="min-w-full bg-white border border-gray-200">
         {/* head */}
         <thead>
@@ -58,8 +58,8 @@ const WineTable = () => {
             <th className="py-2 px-4 border-b">Region</th>
             <th className="py-2 px-4 border-b">Critics' Score</th>{" "}
             <th className="py-2 px-4 border-b">Avg. Price / 750ml</th>
-            <th className="py-2 px-4 border-b">View Blog</th>
-            <th className="py-2 px-4 border-b">Share Blog</th>
+            <th className="py-2 px-4 border-b">Wine Details</th>
+            <th className="py-2 px-4 border-b">Search Wine</th>
           </tr>
         </thead>
         {/* body */}
@@ -91,7 +91,7 @@ const WineTable = () => {
               <td className="py-2 px-4 border-b text-center">
                 <Link to={`/wines/${wine._id}`}>
                   <button className="border px-3 py-1 text-xl rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-800 hover:text-white">
-                    view
+                    details
                   </button>
                 </Link>
               </td>

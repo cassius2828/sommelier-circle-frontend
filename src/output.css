@@ -738,18 +738,6 @@ video {
   z-index: 50;
 }
 
-.z-30{
-  z-index: 30;
-}
-
-.z-40{
-  z-index: 40;
-}
-
-.z-\[\]{
-  z-index: ;
-}
-
 .z-\[51\]{
   z-index: 51;
 }
@@ -842,6 +830,10 @@ video {
   margin-left: 5rem;
 }
 
+.ml-4{
+  margin-left: 1rem;
+}
+
 .ml-8{
   margin-left: 2rem;
 }
@@ -910,14 +902,6 @@ video {
   margin-top: 24rem;
 }
 
-.ml-3{
-  margin-left: 0.75rem;
-}
-
-.ml-4{
-  margin-left: 1rem;
-}
-
 .block{
   display: block;
 }
@@ -952,10 +936,6 @@ video {
 
 .h-12{
   height: 3rem;
-}
-
-.h-16{
-  height: 4rem;
 }
 
 .h-3\/4{
@@ -1026,10 +1006,6 @@ video {
   width: 3rem;
 }
 
-.w-16{
-  width: 4rem;
-}
-
 .w-24{
   width: 6rem;
 }
@@ -1068,10 +1044,6 @@ video {
 
 .w-screen{
   width: 100vw;
-}
-
-.w-20{
-  width: 5rem;
 }
 
 .min-w-full{
@@ -1217,6 +1189,10 @@ video {
   justify-content: space-evenly;
 }
 
+.gap-0{
+  gap: 0px;
+}
+
 .gap-12{
   gap: 3rem;
 }
@@ -1243,10 +1219,6 @@ video {
 
 .gap-8{
   gap: 2rem;
-}
-
-.gap-0{
-  gap: 0px;
 }
 
 .space-x-2 > :not([hidden]) ~ :not([hidden]){
@@ -1816,10 +1788,6 @@ video {
   transition-duration: 500ms;
 }
 
-.duration-150{
-  transition-duration: 150ms;
-}
-
 .ease-in-out{
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -2032,6 +2000,7 @@ h2 {
   padding: 10px;
   /* Add some padding */
   font-family: Georgia, "Times New Roman", Times, serif;
+  height: auto !important;
 }
 
 .ql-editor h2 {
@@ -2166,28 +2135,19 @@ h2 {
   color: rgb(153 27 27 / var(--tw-text-opacity));
 }
 
-.hover\:text-rose-400:hover{
-  --tw-text-opacity: 1;
-  color: rgb(251 113 133 / var(--tw-text-opacity));
-}
-
 .hover\:text-theme-sand:hover{
   --tw-text-opacity: 1;
   color: rgb(232 209 174 / var(--tw-text-opacity));
 }
 
-.hover\:text-white:hover{
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.hover\:text-\[\]:hover{
-  color: ;
-}
-
 .hover\:text-theme-sand-dark:hover{
   --tw-text-opacity: 1;
   color: rgb(198 153 99 / var(--tw-text-opacity));
+}
+
+.hover\:text-white:hover{
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .hover\:brightness-50:hover{

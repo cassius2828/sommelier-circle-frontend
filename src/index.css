@@ -187,6 +187,7 @@ h2 {
 .ql-editor {
   padding: 10px; /* Add some padding */
   font-family: Georgia, "Times New Roman", Times, serif;
+  height: auto !important;
 }
 .ql-editor h2 {
   font-family: Georgia, "Times New Roman", Times, serif;

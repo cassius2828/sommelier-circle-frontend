@@ -40,6 +40,8 @@ const ShowBlog = ({propsBlogId}) => {
         name={blog.owner.username}
         profileImg={blog.owner.profileImg}
       />
+      <div className="fixed top-0 left-0 h-full w-full -z-10 bg-neutral-950"></div>
+
     </div>
   );
 };
