@@ -786,6 +786,10 @@ video {
   margin: 0px;
 }
 
+.m-8{
+  margin: 2rem;
+}
+
 .mx-12{
   margin-left: 3rem;
   margin-right: 3rem;
@@ -948,6 +952,10 @@ video {
 
 .mb-40{
   margin-bottom: 10rem;
+}
+
+.ml-10{
+  margin-left: 2.5rem;
 }
 
 .block{

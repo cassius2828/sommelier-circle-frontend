@@ -12,10 +12,13 @@ const WineSearch = ({ title = "sample title" }) => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
+let winePageBtnsLength = Math.ceil(( wines.length / itemsPerPage) + 2);
 
   const handleNextPage = () => {
-    if (currentPage < 9) setCurrentPage((prevPage) => prevPage + 1);
+    if (currentPage < winePageBtnsLength - 2) setCurrentPage((prevPage) => prevPage + 1);
     console.log(currentPage);
+    console.log(winePageBtnsLength - 3)
+    console.log(wines)
   };
 
   const handlePreviousPage = () => {
@@ -26,7 +29,7 @@ const WineSearch = ({ title = "sample title" }) => {
   let endIndex = currentPage * itemsPerPage;
 
   const handleWinePageNavigation = (idx) => {
-    if (idx === 10) {
+    if (idx === winePageBtnsLength -1) {
       handleNextPage();
     } else if (idx === 0) {
       handlePreviousPage();
@@ -46,15 +49,15 @@ const WineSearch = ({ title = "sample title" }) => {
     <div className="mt-80 mb-40">
       <div className="w-1/2 mx-auto">
         <SearchBar />
-        <h1 className="text-4xl font-bold mb-8 text-center text-gray-100">
-          {title}
+        <h1 className="text-5xl font-bold mb-10 text-center text-gray-100">
+          {wines.length} wines found
         </h1>
       </div>
       <WineSearchGallery displayedWines={displayedWines} />
       <div>
         <div className="my-12 w-3/4 ml-auto p-4 rounded-md flex justify-center">
-          <div className="w-1/2 mx-auto flex justify-center">
-            {Array.from({ length: 11 }).map((btn, idx) => {
+          <div className="w-1/2 mx-auto flex justify-center items-center">
+            {Array.from({ length: winePageBtnsLength }).map((btn, idx) => {
               return (
                 <button
                   key={idx}
@@ -69,15 +72,19 @@ const WineSearch = ({ title = "sample title" }) => {
                   <div>
                     {idx === 0 ? (
                       <span>&#x276E;</span>
-                    ) : idx === 10 ? (
+                    ) : idx === winePageBtnsLength -1 ? (
                       <span>&#x276F;</span>
                     ) : (
                       <span>{idx}</span>
                     )}
                   </div>
                 </button>
+                
               );
             })}
+            <span className="text-gray-100 ml-10 text-2xl">
+            {wines.length} wines found
+            </span>
           </div>
         </div>
       </div>
