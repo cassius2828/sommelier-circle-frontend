@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 // src/components/WineStyles.jsx
 
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import useGlobalContext from "../../context/global/useGlobalContext";
 import { Link } from "react-router-dom";
 import SearchBar from "../CommonComponents/SearchBar";

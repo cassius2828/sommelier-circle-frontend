@@ -1,16 +1,28 @@
 /* eslint-disable react/prop-types */
-import { createContext, useState } from "react";
-import { getWines } from "../../services/wineService";
+import { createContext, useEffect, useState } from "react";
+import { getWines, postFilterWineResults } from "../../services/wineService";
 
 export const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
   const [wines, setWines] = useState([]);
+  const [displayedWines, setDisplayedWines] = useState([]);
+
 //   fetch wine data 
-  const fetchWines = async () => {
-    const data = await getWines();
-    setWines(data);
-  };
+useEffect(() => {
+  setDisplayedWines(wines.slice(0, 20));
+}, [wines]);
+
+const fetchWines = async () => {
+  const data = await getWines();
+  setWines(data);
+};
+
+const fetchFilteredWineData = async (formData) => {
+const data = await postFilterWineResults(formData);
+setWines(data)
+}
+
 //   scroll to top
   const scrollToTop = () => {
     window.scrollTo({
@@ -362,9 +374,14 @@ export const GlobalProvider = ({ children }) => {
     },
   ];
 
+  
+useEffect(() => {
+  fetchWines();
+
+}, []);
   return (
     <GlobalContext.Provider
-      value={{ scrollToTop, wineCategories, grapeCategories, wineRegions, wines, setWines,fetchWines }}
+      value={{ scrollToTop, wineCategories, grapeCategories, wineRegions, wines, setWines,fetchWines, displayedWines, setDisplayedWines,fetchFilteredWineData }}
     >
       {children}
     </GlobalContext.Provider>

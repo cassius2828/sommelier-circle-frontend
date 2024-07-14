@@ -4,10 +4,12 @@ import SearchBar from "../../CommonComponents/SearchBar";
 import FeaturedWineCard from "../FeaturedWineCard";
 import { getWines } from "../../../services/wineService";
 import useGlobalContext from "../../../context/global/useGlobalContext";
+import { FilterComponent } from "./FilterComponent";
 
 const WineSearch = ({ title = "sample title" }) => {
-  const { wines, fetchWines } = useGlobalContext();
-  const [displayedWines, setDisplayedWines] = useState([]);
+  const { wines, fetchWines, displayedWines, setDisplayedWines } =
+    useGlobalContext();
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
 
@@ -50,8 +52,8 @@ const WineSearch = ({ title = "sample title" }) => {
       </div>
       <WineSearchGallery displayedWines={displayedWines} />
       <div>
-        <div className="my-12 w-3/4 ml-auto p-4 rounded-md flex bg-red-200 justify-center">
-          <div className="w-1/2 mx-auto bg-blue-400 flex justify-center">
+        <div className="my-12 w-3/4 ml-auto p-4 rounded-md flex justify-center">
+          <div className="w-1/2 mx-auto flex justify-center">
             {Array.from({ length: 11 }).map((btn, idx) => {
               return (
                 <button
@@ -84,9 +86,6 @@ const WineSearch = ({ title = "sample title" }) => {
 };
 export default WineSearch;
 
-export const WineSearchCard = () => {
-  return <div>WineSearchGalleryCard</div>;
-};
 
 export const WineSearchGallery = ({ displayedWines }) => {
   return (
@@ -95,87 +94,19 @@ export const WineSearchGallery = ({ displayedWines }) => {
       <FilterComponent />
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  w-3/4 mx-auto gap-12">
         {displayedWines.map((wine) => {
-          return <FeaturedWineCard name={wine.name} img={wine.img} id={wine._id} tags={wine.tags} avgPrice={wine.avgPrice} linkToBuy={wine.linkToBuy} key={wine._id} />;
+          return (
+            <FeaturedWineCard
+              name={wine.name}
+              img={wine.img}
+              id={wine._id}
+              tags={wine.tags}
+              avgPrice={wine.avgPrice}
+              linkToBuy={wine.linkToBuy}
+              key={wine._id}
+            />
+          );
         })}
       </ul>
-    </div>
-  );
-};
-
-/*
-  title,
-  img = "https://winenliquor.com/wp-content/uploads/Dark-Horse-Cabernet-Sauvignon-750ml-Wine-N-Liquor.jpg",
-  id,
-  tags,
-  avgPrice,
-  linkToBuy,
-
-*/
-
-export const FilterComponent = () => {
-  return (
-    <div className="w-1/5 mx-auto mb-auto bg-neutral-800 text-gray-100 rounded-md p-4 h-full flex flex-col justify-start items-center">
-      <h4 className="text-3xl mb-4">Filter</h4>
-
-      {/* Filter by Category */}
-      <div className="mb-10 w-full">
-        <h5 className="text-2xl mb-2">Grape</h5>
-        <select className="w-full p-3 text-xl bg-neutral-600 rounded-md">
-          <option value="category1">Category 1</option>
-          <option value="category2">Category 2</option>
-          <option value="category3">Category 3</option>
-        </select>
-      </div>
-      {/* region */}
-      <div className="mb-10 w-full">
-        <h5 className="text-2xl mb-2">Region</h5>
-        <select className="w-full p-3 text-xl bg-neutral-600 rounded-md">
-          <option value="category1">Category 1</option>
-          <option value="category2">Category 2</option>
-          <option value="category3">Category 3</option>
-        </select>
-      </div>
-      {/* style */}
-      <div className="mb-10 w-full">
-        <h5 className="text-2xl mb-2">Style</h5>
-        <select className="w-full p-3 text-xl bg-neutral-600 rounded-md">
-          <option value="category1">Category 1</option>
-          <option value="category2">Category 2</option>
-          <option value="category3">Category 3</option>
-        </select>
-      </div>
-      {/* winery */}
-      <div className="mb-10 w-full">
-        <h5 className="text-2xl mb-2">Winery</h5>
-        <select className="w-full p-3 text-xl bg-neutral-600 rounded-md">
-          <option value="category1">Category 1</option>
-          <option value="category2">Category 2</option>
-          <option value="category3">Category 3</option>
-        </select>
-      </div>
-      {/* Filter by Price */}
-      <div className="mb-10 w-full">
-        <h5 className="text-2xl mb-2">Price</h5>
-        <select className="w-full p-3 text-xl bg-neutral-600 rounded-md">
-          <option value="">Filter by Price</option>
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select>
-      </div>
-
-      {/* Filter by Rating */}
-      <div className="mb-10 w-full">
-        <h5 className="text-2xl mb-2">Rating</h5>
-        <select className="w-full p-3 text-xl bg-neutral-600 rounded-md">
-          <option value="">Select Rating</option>
-          <option value="100">100</option>
-          <option value="95+">95+</option>
-          <option value="90-94">90 - 94</option>
-          <option value="85-89">85-89</option>
-          <option value="85>">under 85 </option>
-        </select>
-      </div>
     </div>
   );
 };
