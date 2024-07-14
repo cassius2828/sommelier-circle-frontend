@@ -228,6 +228,7 @@ h2 {
   font-size: 1.7rem !important;
 }
 .ql-editor strong {
+  color: #f3f4f6; /* Set the text color for the toolbar icons */
   font-size: 2rem !important;
 }
 .ql-editor p,

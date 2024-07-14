@@ -28,7 +28,7 @@ const FeaturedWineCategoryGallery = () => {
         />
       </div>
       <div className="w-full text-center">
-        <Link to={`/wines`}>
+        <Link to={`/wines/search`}>
           <button className="px-6 py-4 border rounded-md relative text-3xl text-gray-100 border-gray-100 capitalize hover:bg-gray-100 hover:text-gray-800 transition-all duration-200 ease-in-out -translate-y-1">
             see all selections
           </button>

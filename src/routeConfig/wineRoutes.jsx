@@ -1,5 +1,6 @@
 // src/routes/wineRoutes.js
 import { lazy } from "react";
+import WineSearch from "../components/Wines/Search/WineSearchGallery";
 
 const CategoryGallery  = lazy(() => import("../components/Wines/CategoryGallery"));
 const TypesOfWine = lazy(() => import("../components/Wines/Pages/TypesOfWine"));
@@ -10,7 +11,7 @@ const wineRoutes = [
   { path: "wines/styles", element: <CategoryGallery category="wine-styles" /> },
   { path: "wines/regions", element: <CategoryGallery category="wine-regions" /> },
   { path: "wines/grapes", element: <CategoryGallery category="grapes" /> },
-
+  { path: "wines/search", element: <WineSearch /> },
 // regions
   { path: "wines/regions/napa-valley", element: <TypesOfWine allStyles blogId={`6692415bd74ed7e5212b8e19`} /> },
   { path: "wines/regions/willamette-valley", element: <TypesOfWine allStyles blogId={`66924193d74ed7e5212b8e1f`} /> },
@@ -26,8 +27,19 @@ const wineRoutes = [
   { path: "wines/regions/rhone-valley", element: <TypesOfWine allStyles blogId={`6692ec1ad74ed7e5212b8ed7`} /> },
   { path: "wines/regions/stellenbosch", element: <TypesOfWine allStyles blogId={`6692ec5ed74ed7e5212b8edd`} /> },
   { path: "wines/regions/sonoma-county", element: <TypesOfWine allStyles blogId={`6692ecabd74ed7e5212b8ee3`} /> },
+  { path: "wines/regions/regions-info", element: <TypesOfWine allStyles blogId={`6692f3bbd74ed7e5212b8f83`} /> },
 
-
+// grapes
+{ path: "wines/grapes/cabernet-sauvignon", element: <TypesOfWine allStyles blogId={`6692f7a7d74ed7e5212b8fb3`} /> },
+{ path: "wines/grapes/chardonnay", element: <TypesOfWine allStyles blogId={`6692f88ed74ed7e5212b8fb9`} /> },
+{ path: "wines/grapes/merlot", element: <TypesOfWine allStyles blogId={`6692f90dd74ed7e5212b8fbf`} /> },
+{ path: "wines/grapes/sauvignon-blanc", element: <TypesOfWine allStyles blogId={`6692f9bed74ed7e5212b8fc5`} /> },
+{ path: "wines/grapes/pinot-noir", element: <TypesOfWine allStyles blogId={`6692fa59d74ed7e5212b8fcb`} /> },
+{ path: "wines/grapes/syrah", element: <TypesOfWine allStyles blogId={`6692fb18d74ed7e5212b8fd1`} /> },
+{ path: "wines/grapes/zinfandel", element: <TypesOfWine allStyles blogId={`6692fb60d74ed7e5212b8fd7`} /> },
+{ path: "wines/grapes/malbec", element: <TypesOfWine allStyles blogId={`6692fbc3d74ed7e5212b8fdd`} /> },
+{ path: "wines/grapes/riesling", element: <TypesOfWine allStyles blogId={`6692fc44d74ed7e5212b8fe3`} /> },
+{ path: "wines/grapes/grapes-info", element: <TypesOfWine allStyles blogId={`669300b3d74ed7e5212b9011`} /> },
 
 
   // wine types
@@ -57,6 +69,7 @@ const wineRoutes = [
   { path: "wines/sparkling/sweet-and-spritzy", element: <TypesOfWine blogId={`669218731ad26a1dbfe1b1a3`} /> },
   // show wine
   { path: "wines/:wineId", element: <ShowWine /> },
+
 ];
 
 export default wineRoutes;

@@ -244,7 +244,7 @@ export const NavBarTop = ({ handleLogout }) => {
                 },
                 {
                   text: "search wines",
-                  path: "/wines",
+                  path: "/wines/search",
                 },
               ]}
             />

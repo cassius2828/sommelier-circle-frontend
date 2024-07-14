@@ -6,8 +6,9 @@ export const AllStylesColumn = () => {
   const location = useLocation();
   const urlIdenitfier = location.pathname.split("/")[2];
   // more readable way to use conditional logic for routing and ui based on url
+
   const isWineTypesUrl =
-    urlIdenitfier !== "grapes" || urlIdenitfier !== "regions";
+    urlIdenitfier !== "grapes" && urlIdenitfier !== "regions";
 
   // switch statement for data to be displayed based on url
   let array;
