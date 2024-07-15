@@ -30,7 +30,7 @@ const SearchBar = ({ value, handleChange }) => {
       {/* clear search btn */}
       <button
         onClick={() => setFormData({ ...formData, query: "" })}
-        className=" border-neutral-200 border text-2xl ml-12 text-neutral-200 hover:bg-neutral-500 transition-colors duration-200 ease-in-out px-4 py-2 mb-8 rounded-md "
+        className=" border-neutral-200 border text-2xl ml-12 text-neutral-200 hover:bg-neutral-500 hover:border-neutral-500 transition-colors duration-200 ease-in-out px-4 py-2 mb-8 rounded-md "
       >
         clear search
       </button>

@@ -5,16 +5,32 @@ import ShowBlog from "../../Blogs/ShowBlog";
 import { AllStylesColumn } from "./AllStylesColumn";
 import StylesColumn from "./StylesColumn";
 import WineTable from "../WineTable";
+import { useEffect } from "react";
+import { getWinesByCategory } from "../../../services/wineService";
 
 const TypesOfWine = ({ blogId, allStyles }) => {
+  const urlIdenitfier = location.pathname.split("/")[2];
+  const { setWinesByCategory } = useGlobalContext();
+  useEffect(() => {
+    const fetchWinesByCategory = async () => {
+      try {
+        const data = await getWinesByCategory(urlIdenitfier);
+        setWinesByCategory(data);
+      } catch (err) {
+        console.error(err);
+        console.log(`Error fetching wines by the category | TypesOfWine.jsx`);
+      }
+    };
+    fetchWinesByCategory();
+  }, []);
+
   return (
     <>
       <div className="flex flex-col lg:flex-row w-3/4 mx-auto justify-between gap-4">
-       <div>
-        <ShowBlog propsBlogId={blogId} />
-        <WineTable/>
-
-       </div>
+        <div>
+          <ShowBlog propsBlogId={blogId} />
+          <WineTable />
+        </div>
         {allStyles ? <AllStylesColumn /> : <StylesColumn />}
       </div>{" "}
       <div className="fixed top-0 left-0 h-full w-full -z-10 bg-neutral-950"></div>

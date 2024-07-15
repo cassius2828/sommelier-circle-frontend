@@ -18,6 +18,7 @@ const initialFormData = {
 };
 export const GlobalProvider = ({ children }) => {
   const [wines, setWines] = useState([]);
+  const [winesByCategory, setWinesByCategory] = useState([]);
   const [displayedWines, setDisplayedWines] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -29,7 +30,7 @@ export const GlobalProvider = ({ children }) => {
   const handleUpdateForm = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    console.log(formData.query)
+    console.log(formData.query);
   };
 
   useEffect(() => {
@@ -451,6 +452,8 @@ export const GlobalProvider = ({ children }) => {
         wineRegions,
         wines,
         setWines,
+        winesByCategory,
+        setWinesByCategory,
         fetchWines,
         displayedWines,
         setDisplayedWines,

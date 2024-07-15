@@ -52,3 +52,54 @@ export const postFilterWineResults = async (formData) => {
     throw err;
   }
 };
+
+///////////////////////////
+// GET | Get wines by category
+///////////////////////////
+export const getWinesByCategory = async (clientUrlParams) => {
+  // regions
+  if (clientUrlParams.includes("regions")) {
+    try {
+      const response = await axios.get(
+        `${WINE_BASE_URL}/regions/${clientUrlParams}`
+      );
+      return response.data;
+    } catch (err) {
+      console.error(err);
+      console.log(
+        `Could not communicate with db to retrieve wines by the specified region`
+      );
+      throw err;
+    }
+  }
+  // grapes
+  else if (clientUrlParams.includes("grapes")) {
+    try {
+      const response = await axios.get(
+        `${WINE_BASE_URL}/grapes/${clientUrlParams}`
+      );
+      return response.data;
+    } catch (err) {
+      console.error(err);
+      console.log(
+        `Could not communicate with db to retrieve wines by the specified grape`
+      );
+      throw err;
+    }
+  }
+  // styles
+  else
+    try {
+      const response = await axios.get(
+        `${WINE_BASE_URL}/styles/${clientUrlParams}`
+      );
+   
+      return response.data;
+    } catch (err) {
+      console.error(err);
+      console.log(
+        `Could not communicate with db to retrieve wines by the specified style`
+      );
+      throw err;
+    }
+};
