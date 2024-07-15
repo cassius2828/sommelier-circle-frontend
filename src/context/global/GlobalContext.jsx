@@ -7,29 +7,37 @@ export const GlobalContext = createContext();
 export const GlobalProvider = ({ children }) => {
   const [wines, setWines] = useState([]);
   const [displayedWines, setDisplayedWines] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-//   fetch wine data 
-useEffect(() => {
-  setDisplayedWines(wines.slice(0, 20));
-}, [wines]);
+  //   fetch wine data
+  useEffect(() => {
+    setDisplayedWines(wines.slice(0, 20));
+  }, [wines]);
 
-const fetchWines = async () => {
-  const data = await getWines();
-  setWines(data);
-};
+  const fetchWines = async () => {
+    setIsLoading(true);
+    try {
+      const data = await getWines();
+      setWines(data);
+    } catch (err) {
+      console.log(`Error fetching wines: ${err}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-const fetchFilteredWineData = async (formData) => {
-const data = await postFilterWineResults(formData);
-setWines(data)
-}
+  const fetchFilteredWineData = async (formData) => {
+    const data = await postFilterWineResults(formData);
+    setWines(data);
+  };
 
-//   scroll to top
+  //   scroll to top
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
     });
   };
-//   hard coded data sets for categories 
+  //   hard coded data sets for categories
   const wineCategories = [
     {
       title: "Red Wine",
@@ -374,14 +382,23 @@ setWines(data)
     },
   ];
 
-  
-useEffect(() => {
-  fetchWines();
-
-}, []);
+  useEffect(() => {
+    fetchWines();
+  }, []);
   return (
     <GlobalContext.Provider
-      value={{ scrollToTop, wineCategories, grapeCategories, wineRegions, wines, setWines,fetchWines, displayedWines, setDisplayedWines,fetchFilteredWineData }}
+      value={{
+        scrollToTop,
+        wineCategories,
+        grapeCategories,
+        wineRegions,
+        wines,
+        setWines,
+        fetchWines,
+        displayedWines,
+        setDisplayedWines,
+        fetchFilteredWineData, isLoading
+      }}
     >
       {children}
     </GlobalContext.Provider>

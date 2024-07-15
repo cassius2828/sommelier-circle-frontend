@@ -10,7 +10,8 @@ import { FilterComponent } from "./FilterComponent";
 // WineSearch Component
 //////////////////////////////
 const WineSearch = ({ title = "sample title" }) => {
-  const { wines, fetchWines, displayedWines, setDisplayedWines } = useGlobalContext();
+  const { wines, fetchWines, displayedWines, setDisplayedWines, isLoading } =
+    useGlobalContext();
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
@@ -20,7 +21,8 @@ const WineSearch = ({ title = "sample title" }) => {
   // Handle Next Page
   ///////////////////////////////
   const handleNextPage = () => {
-    if (currentPage < winePageBtnsLength - 2) setCurrentPage((prevPage) => prevPage + 1);
+    if (currentPage < winePageBtnsLength - 2)
+      setCurrentPage((prevPage) => prevPage + 1);
   };
 
   ///////////////////////////////
@@ -61,7 +63,12 @@ const WineSearch = ({ title = "sample title" }) => {
     setDisplayedWines(wines.slice(startIndex, endIndex));
   }, [currentPage]);
 
-
+  if (isLoading)
+    return (
+      <div className="w-screen h-screen flex justify-center items-center">
+        <span className="loader"></span>
+      </div>
+    );
   return (
     <div className="mt-80 mb-40">
       <div className="w-1/2 mx-auto">

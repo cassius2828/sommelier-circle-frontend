@@ -24,7 +24,7 @@ const FeaturedWineCard = ({
 
       {/* Tags */}
       <div className="col-start-3 row-start-1 row-span-3 flex flex-col justify-start  gap-4">
-        {tags.map((tag, idx) => (
+        {tags?.map((tag, idx) => (
           <button
             key={tag + idx}
             className="px-4 py-2 border border-gray-800 rounded-lg transition-colors duration-300 hover:bg-gray-800 hover:text-white"

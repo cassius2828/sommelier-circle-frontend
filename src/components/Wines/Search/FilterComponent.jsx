@@ -163,10 +163,8 @@ export const FilterComponent = () => {
         >
           <option value="">Select Rating</option>
           <option value="100">100</option>
-          <option value="95+">95+</option>
+          <option value="95+">95 - 99</option>
           <option value="90-94">90 - 94</option>
-          <option value="85-89">85-89</option>
-          <option value="85>">under 85 </option>
         </select>
       </div>
       <button
