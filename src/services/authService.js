@@ -1,13 +1,12 @@
 import axios from "axios";
-
-const BACKEND_URL = "http://localhost:3000";
+const BASE_URL = import.meta.env.VITE_BASE_URL
 
 /////////////////////
 // User Signup Function
 /////////////////////
 export async function signup(formData) {
   try {
-    const response = await axios.post(`${BACKEND_URL}/auth/signup`, formData);
+    const response = await axios.post(`${BASE_URL}/auth/signup`, formData);
 
     const data = response.data;
     if (data.err) {
@@ -35,7 +34,7 @@ export async function signup(formData) {
 export async function signin(userCredentials) {
   try {
     const response = await axios.post(
-      `${BACKEND_URL}/auth/login`,
+      `${BASE_URL}/auth/login`,
       userCredentials,
       {
         headers: {
@@ -74,7 +73,7 @@ export function getUser() {
 
 export const refreshToken = async () => {
   try {
-    const response = await axios.post(`${BACKEND_URL}/refresh-token`, {}, {
+    const response = await axios.post(`${BASE_URL}/refresh-token`, {}, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },

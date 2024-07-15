@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const WINE_BASE_URL = `http://localhost:3000/wines`;
+const WINE_BASE_URL = import.meta.env.VITE_BASE_URL + "/wines";
+
 
 ///////////////////////////
 // Get | get all wines

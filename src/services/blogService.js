@@ -1,6 +1,7 @@
 import axios from "axios";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-const BLOG_BASE_URL = "http://localhost:3000/blogs";
+const BLOG_BASE_URL = BASE_URL + "/blogs";
 
 ///////////////////////////
 // ? POST | Create a new blog
@@ -52,27 +53,29 @@ export const updateBlogWithImg = async (formData, blogId) => {
 // * PUT | Create a new blog
 ///////////////////////////
 export const updateBlogNoImg = async (formData, blogId) => {
-    const options = {
-      headers: {
-        "Content-Type":'application/json',
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    };
-    console.log(formData);
-    try {
-      const response = await axios.put(
-        `${BLOG_BASE_URL}/${blogId}`,
-        formData,
-        options
-      );
-  
-      return response.data;
-    } catch (err) {
-      console.error(err);
-      console.log("Could not communicate with db to update blog without an image");
-      throw err;
-    }
+  const options = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
   };
+  console.log(formData);
+  try {
+    const response = await axios.put(
+      `${BLOG_BASE_URL}/${blogId}`,
+      formData,
+      options
+    );
+
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    console.log(
+      "Could not communicate with db to update blog without an image"
+    );
+    throw err;
+  }
+};
 ///////////////////////////
 // ! DELETE | Delete a blog by ID
 ///////////////////////////
@@ -104,5 +107,3 @@ export const getBlog = async (blogId) => {
     throw err;
   }
 };
-
-

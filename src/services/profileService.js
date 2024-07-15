@@ -1,7 +1,6 @@
 import axios from "axios";
 import { refreshToken } from "./authService";
-
-const BASE_URL = "http://localhost:3000/profiles";
+const BASE_URL = import.meta.env.VITE_BASE_URL + "/profiles";
 
 /////////////////////
 // Get Profile Service Function
