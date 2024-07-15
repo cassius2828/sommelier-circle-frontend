@@ -5,6 +5,7 @@ import StarList from "../CommonComponents/StarList";
 
 const FeaturedWineCard = ({
   name,
+  year,
   img = "https://winenliquor.com/wp-content/uploads/Dark-Horse-Cabernet-Sauvignon-750ml-Wine-N-Liquor.jpg",
   id,
   tags,
@@ -17,7 +18,7 @@ const FeaturedWineCard = ({
       <div className="col-span-2 col-start-1 row-start-1 row-span-3 flex flex-col justify-center items-center">
         <img className=" h-40" src={img} alt={name} />
         {/* Name */}
-        <h4 className=" text-gray-800 text-3xl my-12 text-center">{name}</h4>
+        <h4 className=" text-gray-800 text-3xl my-12 text-center">{name} {year}</h4>
       </div>
 
       {/* Tags */}

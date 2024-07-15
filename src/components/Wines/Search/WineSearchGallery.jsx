@@ -6,19 +6,26 @@ import { getWines } from "../../../services/wineService";
 import useGlobalContext from "../../../context/global/useGlobalContext";
 import { FilterComponent } from "./FilterComponent";
 
+///////////////////////////////
+// WineSearch Component
+//////////////////////////////
 const WineSearch = ({ title = "sample title" }) => {
-  const { wines, fetchWines, displayedWines, setDisplayedWines } =
-    useGlobalContext();
+  const { wines, fetchWines, displayedWines, setDisplayedWines } = useGlobalContext();
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
   let winePageBtnsLength = Math.ceil(wines.length / itemsPerPage + 2);
 
+  ///////////////////////////////
+  // Handle Next Page
+  ///////////////////////////////
   const handleNextPage = () => {
-    if (currentPage < winePageBtnsLength - 2)
-      setCurrentPage((prevPage) => prevPage + 1);
+    if (currentPage < winePageBtnsLength - 2) setCurrentPage((prevPage) => prevPage + 1);
   };
 
+  ///////////////////////////////
+  // Handle Previous Page
+  ///////////////////////////////
   const handlePreviousPage = () => {
     if (currentPage > 1) setCurrentPage((prevPage) => prevPage - 1);
   };
@@ -26,6 +33,9 @@ const WineSearch = ({ title = "sample title" }) => {
   let startIndex = (currentPage - 1) * itemsPerPage;
   let endIndex = currentPage * itemsPerPage;
 
+  ///////////////////////////////
+  // Handle Wine Page Navigation
+  ///////////////////////////////
   const handleWinePageNavigation = (idx) => {
     if (idx === winePageBtnsLength - 1) {
       handleNextPage();
@@ -35,13 +45,22 @@ const WineSearch = ({ title = "sample title" }) => {
       setCurrentPage(idx);
     }
   };
+
+  ///////////////////////////////
+  // useEffect for Fetching Wines
+  ////////////////////////////////
   useEffect(() => {
     fetchWines();
     setDisplayedWines(wines.slice(startIndex, endIndex));
   }, []);
+
+  ///////////////////////////////
+  // useEffect for Updating Displayed Wines
+  ////////////////////////////////
   useEffect(() => {
     setDisplayedWines(wines.slice(startIndex, endIndex));
   }, [currentPage]);
+
 
   return (
     <div className="mt-80 mb-40">
@@ -90,18 +109,24 @@ const WineSearch = ({ title = "sample title" }) => {
     </div>
   );
 };
+
 export default WineSearch;
 
+///////////////////////////////
+// WineSearchGallery Component
+//////////////////////////////
 export const WineSearchGallery = ({ displayedWines }) => {
   return (
-    <div className="flex flex-col lg:flex-row items-center justify-start gap-4 ">
-      {/* plan on using a modal on mobile for filtering */}
+    <div className="flex flex-col lg:flex-row items-center justify-start gap-4">
+      {/* Filter Component */}
       <FilterComponent />
-      <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  w-3/4 mx-auto gap-12">
+      {/* Wine Cards */}
+      <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-3/4 mx-auto gap-12">
         {displayedWines.map((wine) => {
           return (
             <FeaturedWineCard
               name={wine.name}
+              year={wine.year}
               img={wine.img}
               id={wine._id}
               tags={wine.tags}
