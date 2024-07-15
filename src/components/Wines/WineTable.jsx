@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import useGlobalContext from "../../context/global/useGlobalContext";
 
 const WineTable = () => {
-  const {winesByCategory} = useGlobalContext();
-  console.log(winesByCategory?.length)
+  const { winesByCategory } = useGlobalContext();
+
   return (
     <div className="overflow-x-auto mb-24">
       <table className="min-w-full bg-white border border-gray-200">
@@ -12,6 +12,7 @@ const WineTable = () => {
           <tr>
             <th className="py-2 px-4 border-b">Product</th>
             <th className="py-2 px-4 border-b">Grape</th>
+            <th className="py-2 px-4 border-b">Year</th>
             <th className="py-2 px-4 border-b">Region</th>
             <th className="py-2 px-4 border-b">Critics' Score</th>{" "}
             <th className="py-2 px-4 border-b">Avg. Price / 750ml</th>
@@ -32,6 +33,8 @@ const WineTable = () => {
                 />
               </td>
               <td className="py-2 px-4 border-b">{wine.name}</td>
+              {/* year */}
+              <td className="py-2 px-4 border-b text-center">{wine.year}</td>
               {/* region */}
               <td className="py-2 px-4 border-b text-center">{wine.region}</td>
               {/* critic score */}
@@ -52,17 +55,14 @@ const WineTable = () => {
                 </Link>
               </td>
               <td className="py-2 px-4 border-b text-center">
-                <button
-                  onClick={() =>
-                    alert(
-                      "this will open your preferred search engine and query the bottle name"
-                    )
-                  }
-                  type="button"
-                  className="border px-3 py-1 text-xl rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-800 hover:text-white"
-                >
-                  search
-                </button>
+                <Link to={wine.linkToPurchase}>
+                  <button
+                    type="button"
+                    className="border px-3 py-1 text-xl rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-800 hover:text-white"
+                  >
+                    search
+                  </button>
+                </Link>
               </td>
             </tr>
           ))}
