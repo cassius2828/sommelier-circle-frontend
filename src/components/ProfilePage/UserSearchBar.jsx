@@ -1,14 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getSearchUsers } from "../../services/profileService";
 
 const UserSearchBar = () => {
   const [query, setQuery] = useState("");
+  const [users, setUsers] = useState([]);
   const handleChange = (e) => {
     const { value } = e.target;
     setQuery(value);
     console.log(query);
   };
+
+  useEffect(() => {
+    const fetchUsersFromSearch = async () => {
+      try {
+        const data = await getSearchUsers(query);
+        setUsers(data);
+      } catch (err) {
+        console.error(err);
+        console.log(`Error searching and displaying users | UserSearchBar.jsx`);
+      }
+    };
+    fetchUsersFromSearch();
+  }, [query]);
   return (
-    <div className="col-start-2 col-span-1 row-start-1 flex flex-col items-center justify-start gap-4 w-full bg-neutral-900 rounded-md">
+    <div className="col-start-2 col-span-1 row-start-1 flex flex-col items-center justify-start gap-4 mx-12 w-full max-w-[50rem] bg-neutral-900 rounded-md">
       <h2 className="text-5xl p-3 text-gray-100 bg-neutral-900 border-b">
         Search Users
       </h2>
@@ -45,20 +60,18 @@ const UserSearchBar = () => {
       </div>
       {/* conditional results bar */}
       <div className="w-full">
-        <ul className="flex flex-col items-center justify-start w-full">
-          <li className="p-4 hover:bg-neutral-600 bg-neutral-800  w-full text-gray-100 text-2xl">
-            sample name
-          </li>
-          <li className="p-4 hover:bg-neutral-600 bg-neutral-800  w-full text-gray-100 text-2xl">
-            test data
-          </li>
-          <li className="p-4 hover:bg-neutral-600 bg-neutral-800  w-full text-gray-100 text-2xl">
-            john doe
-          </li>
-          <li className="p-4 hover:bg-neutral-600 bg-neutral-800  w-full text-gray-100 text-2xl">
-            jane snow
-          </li>
-        </ul>
+        {query.length !== 0 && (
+          <ul className="flex flex-col items-center justify-start w-full">
+            {users.map((user, idx) => (
+              <li
+                key={user.username + idx}
+                className="p-4 hover:bg-neutral-600 bg-neutral-800  w-full text-gray-100 text-2xl"
+              >
+                {user.username}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );

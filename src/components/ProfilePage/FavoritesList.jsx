@@ -1,6 +1,6 @@
 const FavoritesList = () => {
   return (
-    <div className="col-start-1 col-span-1 row-start-1 w-3/4 ml-auto mr-12 rounded-md">
+    <div className="col-start-1 col-span-1 row-start-1 w-3/4 mx-12 max-w-[50rem] rounded-md">
       <h2 className="text-5xl p-3 text-gray-100 bg-neutral-900 border-b">
         Favorites
       </h2>

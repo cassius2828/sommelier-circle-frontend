@@ -84,9 +84,9 @@ const UserInfo = ({ isSignedInUsersProfile, userProfile }) => {
   if (isLoading) return <Loader />;
 
   return (
-    <div className="grid grid-cols-2 grid-rows-2 border-l">
+    <div className="grid grid-cols-2 grid-rows-2 mb-24 pb-12 bg-neutral-800">
       {/* user img and name */}
-      <div className="col-start-1 col-span-2 row-span-1 row-start-1 mx-auto my-12">
+      <div className="col-start-1 col-span-2 row-span-2 row-start-1 mx-auto my-12">
         <img
           className="w-32 h-32 object-cover rounded-full"
           src={userFromParams?.profileImg}
@@ -97,8 +97,8 @@ const UserInfo = ({ isSignedInUsersProfile, userProfile }) => {
         </h3>
       </div>
       {/* user info */}
-      <div className="col-span-1 col-start-1 row-span-1 row-start-2 ml-auto mr-5 text-gray-100">
-        <h4 className="text-3xl">my info</h4>
+      <div className="col-span-1 col-start-1 row-span-1 row-start-2 ml-auto mr-24 text-gray-100">
+        <h4 className="text-3xl capitalize">user info</h4>
         <ul>
           {isSignedInUsersProfile && (
             <li className="text-xl my-4">email: {userFromParams?.email}</li>

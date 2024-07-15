@@ -778,6 +778,10 @@ video {
   grid-row: span 3 / span 3;
 }
 
+.row-span-2{
+  grid-row: span 2 / span 2;
+}
+
 .row-start-1{
   grid-row-start: 1;
 }
@@ -977,6 +981,14 @@ video {
 
 .mt-96{
   margin-top: 24rem;
+}
+
+.mb-48{
+  margin-bottom: 12rem;
+}
+
+.mr-24{
+  margin-right: 6rem;
 }
 
 .block{
@@ -1189,6 +1201,10 @@ video {
 
 .max-w-md{
   max-width: 28rem;
+}
+
+.max-w-\[50rem\]{
+  max-width: 50rem;
 }
 
 .-translate-x-1\/2{

@@ -28,7 +28,10 @@ const BASE_URL = "http://localhost:3000/profiles";
 // }
 
 export const postFollowUser = async (userId, targetedUserId) => {
-  if(!userId || !targetedUserId) return console.error(`Missing one of the id fields: userId: ${userId}, targetedUserId: ${targetedUserId}`);
+  if (!userId || !targetedUserId)
+    return console.error(
+      `Missing one of the id fields: userId: ${userId}, targetedUserId: ${targetedUserId}`
+    );
 
   try {
     const options = {
@@ -49,7 +52,10 @@ export const postFollowUser = async (userId, targetedUserId) => {
 };
 
 export const postUnfollowUser = async (userId, targetedUserId) => {
-  if(!userId || !targetedUserId) return console.error(`Missing one of the id fields: userId: ${userId}, targetedUserId: ${targetedUserId}`);
+  if (!userId || !targetedUserId)
+    return console.error(
+      `Missing one of the id fields: userId: ${userId}, targetedUserId: ${targetedUserId}`
+    );
   const options = {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -69,14 +75,14 @@ export const postUnfollowUser = async (userId, targetedUserId) => {
 };
 
 export const getUserDoc = async (id) => {
-
   const options = {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },}
+    },
+  };
   try {
     // const token = await refreshToken();
-    const response = await axios.get(`${BASE_URL}/${id}`,{},options);
+    const response = await axios.get(`${BASE_URL}/${id}`, {}, options);
     return response.data;
   } catch (err) {
     console.error("Error getting targeted user info:", err);
@@ -84,8 +90,18 @@ export const getUserDoc = async (id) => {
   }
 };
 
+export const getSearchUsers = async (query) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/search/${query}`);
+    return response.data;
+  } catch (err) {
+    console.error("Error searching and retrieving users:", err);
+    throw err;
+  }
+};
+
 export const checkIfFollowing = async (currentUser, targetedUserId) => {
-  if(!currentUser)return
+  if (!currentUser) return;
   for (const user of currentUser.following) {
     if (user.toString() === targetedUserId) return true;
   }
