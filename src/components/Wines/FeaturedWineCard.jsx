@@ -10,6 +10,7 @@ const FeaturedWineCard = ({
   id,
   tags,
   avgPrice,
+  criticScore,
   linkToBuy,
 }) => {
   return (
@@ -35,7 +36,7 @@ const FeaturedWineCard = ({
 
       {/* Buttons */}
       <div className="col-span-3  row-start-4 flex flex-col gap-4">
-        <StarList />{" "}
+        <StarList criticScore={criticScore} />{" "}
         <div className="flex gap-4">
           <button className="border px-3 py-1 text-2xl rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-800 hover:text-white">
             avg price: ${avgPrice}

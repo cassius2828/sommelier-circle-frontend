@@ -133,6 +133,7 @@ export const WineSearchGallery = ({ displayedWines }) => {
               avgPrice={wine.avgPrice}
               linkToBuy={wine.linkToBuy}
               key={wine._id}
+              criticScore={wine.criticScore}
             />
           );
         })}

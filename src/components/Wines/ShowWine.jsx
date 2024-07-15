@@ -24,7 +24,7 @@ const ShowWine = () => {
 
   return (
     <>
-      <div className="relative p-4 mb-32 mt-96 mx-auto border-4 overflow-hidden border-theme-sand-dark rounded-md border-3 bg-white max-w-[60rem]">
+      <div className="relative p-4 mb-32 mt-96 mx-auto border-4 overflow-hidden border-theme-sand-dark rounded-md border-3 bg-gray-50 max-w-[60rem]">
         <span
           onClick={() => navigate(-1)}
           className="absolute text-3xl cursor-pointer top-4 right-4"
@@ -69,7 +69,11 @@ const ShowWine = () => {
               <span className="font-bold">Critic Score: </span>
               <span>{wine.criticScore}</span>
             </div>
-            <StarList />
+            <div className="relative">
+               <StarList criticScore={wine.criticScore}  />  
+           
+            </div>
+         
           </div>
           <div>
             <p className="text-xl mt-5">
@@ -90,7 +94,7 @@ const ShowWine = () => {
           {wine?.tags?.map((tag) => (
             <button
               key={tag + wine._id}
-              className=" rounded-lg border border-slate-800 text-slate-800 hover:bg-slate-800 hover:text-white transition-all duration-200 ease-in-out px-4 py-2"
+              className="cursor-default rounded-lg border border-slate-800 text-slate-800 hover:bg-slate-800 hover:text-white transition-all duration-200 ease-in-out px-4 py-2"
             >
               {tag}
             </button>
