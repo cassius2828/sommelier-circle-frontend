@@ -5,6 +5,7 @@ import FeaturedWineCard from "../FeaturedWineCard";
 import { getWines } from "../../../services/wineService";
 import useGlobalContext from "../../../context/global/useGlobalContext";
 import { FilterComponent } from "./FilterComponent";
+import Loader from "../../CommonComponents/Loader";
 
 ///////////////////////////////
 // WineSearch Component
@@ -63,12 +64,8 @@ const WineSearch = ({ title = "sample title" }) => {
     setDisplayedWines(wines.slice(startIndex, endIndex));
   }, [currentPage]);
 
-  if (isLoading)
-    return (
-      <div className="w-screen h-screen flex justify-center items-center">
-        <span className="loader"></span>
-      </div>
-    );
+  if (isLoading) return <Loader />;
+
   return (
     <div className="mt-80 mb-40">
       <div className="w-1/2 mx-auto">

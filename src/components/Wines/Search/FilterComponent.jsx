@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useGlobalContext from "../../../context/global/useGlobalContext";
+
 const regionOptions = [
   "Bordeaux",
   "Burgundy",
@@ -73,11 +74,14 @@ const initialFormData = {
 };
 export const FilterComponent = () => {
   const [formData, setFormData] = useState(initialFormData);
+  //   fetch function
   const { fetchFilteredWineData } = useGlobalContext();
+  //   handle updates
   const handleUpdateForm = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+  //   fetch data
   useEffect(() => {
     fetchFilteredWineData(formData);
   }, [formData]);

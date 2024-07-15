@@ -8,10 +8,11 @@ import {
 } from "./MultipleBlogs";
 import { useParams } from "react-router-dom";
 import useGlobalContext from "../../context/global/useGlobalContext";
+import Loader from "../CommonComponents/Loader";
 
 const ExploreBlogs = () => {
   const { blogs, fetchAllBlogs } = useBlogContext();
-  const { scrollToTop } = useGlobalContext();
+  const { scrollToTop, isLoading } = useGlobalContext();
   const [display, setDisplay] = useState("full");
 
   const handleDisplayChange = (e) => {
@@ -23,6 +24,10 @@ const ExploreBlogs = () => {
     fetchAllBlogs();
     scrollToTop();
   }, []);
+
+  if (isLoading) return <Loader />;
+
+
   console.log(blogs);
   return (
     <>

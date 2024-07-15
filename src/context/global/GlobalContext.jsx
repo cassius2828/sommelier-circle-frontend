@@ -2,6 +2,10 @@
 import { createContext, useEffect, useState } from "react";
 import { getWines, postFilterWineResults } from "../../services/wineService";
 
+///////////////////////////////
+// Context Creation
+//////////////////////////////
+
 export const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
@@ -9,10 +13,17 @@ export const GlobalProvider = ({ children }) => {
   const [displayedWines, setDisplayedWines] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  //   fetch wine data
+  ///////////////////////////////
+  // Effect for Displaying Wines
+  ///////////////////////////////
+
   useEffect(() => {
     setDisplayedWines(wines.slice(0, 20));
   }, [wines]);
+
+  ///////////////////////////////
+  // Fetch Wines Data
+  ///////////////////////////////
 
   const fetchWines = async () => {
     setIsLoading(true);
@@ -26,18 +37,36 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
+  ///////////////////////////////
+  // Fetch Filtered Wine Data
+  ///////////////////////////////
+
   const fetchFilteredWineData = async (formData) => {
-    const data = await postFilterWineResults(formData);
-    setWines(data);
+    // setIsLoading(true);
+    try {
+      const data = await postFilterWineResults(formData);
+      setWines(data);
+    } catch (err) {
+      console.log(`Error filtering and fetching wines: ${err}`);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  //   scroll to top
+  ///////////////////////////////
+  // Scroll to Top
+  ///////////////////////////////
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
     });
   };
-  //   hard coded data sets for categories
+
+  ///////////////////////////////
+  // Hard Coded Data Sets for Categories
+  ///////////////////////////////
+  // wines styles
   const wineCategories = [
     {
       title: "Red Wine",
@@ -191,6 +220,7 @@ export const GlobalProvider = ({ children }) => {
       ],
     },
   ];
+  // grapes
   const grapeCategories = [
     {
       title: "Featured Grapes",
@@ -262,6 +292,7 @@ export const GlobalProvider = ({ children }) => {
     },
   ];
 
+  // regions
   const wineRegions = [
     {
       name: "Top Regions",
@@ -382,6 +413,9 @@ export const GlobalProvider = ({ children }) => {
     },
   ];
 
+  ///////////////////////////
+  // Fetch all wines on load
+  ///////////////////////////
   useEffect(() => {
     fetchWines();
   }, []);
@@ -397,7 +431,8 @@ export const GlobalProvider = ({ children }) => {
         fetchWines,
         displayedWines,
         setDisplayedWines,
-        fetchFilteredWineData, isLoading
+        fetchFilteredWineData,
+        isLoading,setIsLoading
       }}
     >
       {children}

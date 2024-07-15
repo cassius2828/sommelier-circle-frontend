@@ -4,9 +4,12 @@ import StarList from "../CommonComponents/StarList";
 import { UilStar, UilShare, UilShoppingCart } from "@iconscout/react-unicons";
 import { useEffect, useState } from "react";
 import { getSelectedWine } from "../../services/wineService";
+import useGlobalContext from "../../context/global/useGlobalContext";
+import Loader from "../CommonComponents/Loader";
 
 const ShowWine = () => {
   const [showFullDetails, setShowFullDetails] = useState(false);
+  const { isLoading, setIsLoading } = useGlobalContext();
   const { wineId } = useParams();
   const [wine, setWine] = useState({});
   const navigate = useNavigate();
@@ -15,12 +18,23 @@ const ShowWine = () => {
   };
 
   const fetchWine = async () => {
-    const data = await getSelectedWine(wineId);
-    setWine(data);
+    setIsLoading(true);
+    try {
+      const data = await getSelectedWine(wineId);
+      setWine(data);
+    } catch (err) {
+      console.error(err);
+      console.log(`Error fetching wine data`);
+    } finally {
+      setIsLoading(false);
+    }
   };
   useEffect(() => {
     fetchWine();
   }, []);
+
+  if (isLoading) return <Loader />;
+
 
   return (
     <>
@@ -70,10 +84,8 @@ const ShowWine = () => {
               <span>{wine.criticScore}</span>
             </div>
             <div className="relative">
-               <StarList criticScore={wine.criticScore}  />  
-           
+              <StarList criticScore={wine.criticScore} />
             </div>
-         
           </div>
           <div>
             <p className="text-xl mt-5">

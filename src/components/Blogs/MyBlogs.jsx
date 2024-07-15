@@ -7,9 +7,12 @@ import {
   MultipleBlogsList,
 } from "./MultipleBlogs";
 import { useParams } from "react-router-dom";
+import useGlobalContext from "../../context/global/useGlobalContext";
+import Loader from "../CommonComponents/Loader";
 
 const MyBlogs = () => {
   const { myBlogs, setMyBlogs, fetchCurrentUserBlogs } = useBlogContext();
+  const {isLoading} = useGlobalContext()
   const [display, setDisplay] = useState("list");
   const { userId } = useParams();
   console.log(userId);
@@ -19,6 +22,7 @@ const MyBlogs = () => {
   useEffect(() => {
     fetchCurrentUserBlogs();
   }, [userId]);
+  if (isLoading) return <Loader />;
 
   return (
     <>

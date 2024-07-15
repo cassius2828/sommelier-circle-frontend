@@ -10,9 +10,11 @@ import {
 } from "../../services/blogService";
 import DOMPurify from "dompurify";
 import useAuthContext from "../../context/auth/useAuthContext";
+import useGlobalContext from "../../context/global/useGlobalContext";
 
 const MyEditor = () => {
   const { user } = useAuthContext();
+  const {isLoading,setIsLoading} = useGlobalContext()
   const [title, setTitle] = useState("");
   const [img, setImg] = useState("");
   const [imgPreview, setImgPreview] = useState("");
