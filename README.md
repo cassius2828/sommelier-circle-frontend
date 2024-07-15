@@ -1,4 +1,5 @@
 # Sommelier Circle (Wine App)
+![Website Preview](/src/assets/sc-sc.png))
 
 ## Overview
 
