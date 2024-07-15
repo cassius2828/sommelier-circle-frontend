@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getSearchUsers } from "../../services/profileService";
+import { Link } from "react-router-dom";
 
 const UserSearchBar = () => {
   const [query, setQuery] = useState("");
@@ -63,12 +64,11 @@ const UserSearchBar = () => {
         {query.length !== 0 && (
           <ul className="flex flex-col items-center justify-start w-full">
             {users.map((user, idx) => (
-              <li
-                key={user.username + idx}
-                className="p-4 hover:bg-neutral-600 bg-neutral-800  w-full text-gray-100 text-2xl"
-              >
-                {user.username}
-              </li>
+              <Link className="w-full" key={user.username + idx} to={`/profiles/${user._id}`}>
+                <li className="p-4 hover:bg-neutral-600 bg-neutral-800  w-full text-gray-100 text-2xl">
+                  {user.username}
+                </li>
+              </Link>
             ))}
           </ul>
         )}
