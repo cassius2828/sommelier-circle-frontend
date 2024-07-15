@@ -27,7 +27,7 @@ const FeaturedWineCard = ({
         {tags?.map((tag, idx) => (
           <button
             key={tag + idx}
-            className="px-4 py-2 border border-gray-800 rounded-lg transition-colors duration-300 hover:bg-gray-800 hover:text-white"
+            className="px-4 py-2 border border-gray-800 rounded-lg transition-colors duration-300 hover:bg-gray-800 hover:text-white cursor-default"
           >
             {tag}
           </button>
@@ -38,7 +38,7 @@ const FeaturedWineCard = ({
       <div className="col-span-3  row-start-4 flex flex-col gap-4">
         <StarList criticScore={criticScore} />{" "}
         <div className="flex gap-4">
-          <button className="border px-3 py-1 text-2xl rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-800 hover:text-white">
+          <button className="border px-3 py-1 text-2xl rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-800 hover:text-white cursor-default">
             avg price: ${avgPrice}
           </button>
           <Link to={`${linkToBuy}`}>
