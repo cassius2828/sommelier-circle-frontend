@@ -21,7 +21,6 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
   const [isOpen, setIsOpen] = useState(false);
   const container = useRef(null);
   const location = useLocation();
-
   const isRoot = location.pathname === "/";
 
   // this solves issue of not being able to ensure nav is pinned when a user navigates but does not rerender the app
@@ -49,7 +48,7 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
               <li
                 onClick={() => {
                   setIsOpen(false);
-                  window.location.reload();
+                  // window.location.reload();
                 }}
               >
                 <Link
@@ -77,7 +76,7 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
               </li>
               <li onClick={() => setIsOpen(false)}>
                 <Link
-                  to="/wines"
+                  to="/wines/search"
                   className="hover:text-theme-sand transition-colors duration-200"
                 >
                   Wines
@@ -85,7 +84,7 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
               </li>
               <li onClick={() => setIsOpen(false)}>
                 <Link
-                  to="/blogs"
+                  to="/blogs/explore"
                   className="hover:text-theme-sand transition-colors duration-200"
                 >
                   Blogs
@@ -101,7 +100,7 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
               </li>
               <li onClick={() => setIsOpen(false)}>
                 <Link
-                  to="/profile"
+                  to={`/profiles/${user._id}`}
                   className="hover:text-theme-sand transition-colors duration-200"
                 >
                   Profile
@@ -315,10 +314,10 @@ export const NavBarTop = ({ handleLogout }) => {
                   text: "favorite blogs",
                   path: "/favorites/blogs",
                 },
-                {
-                  text: "search blogs",
-                  path: "/blogs",
-                },
+                // {
+                //   text: "search blogs",
+                //   path: "/blogs",
+                // },
               ]}
             />
             <NavListItem
@@ -343,12 +342,9 @@ export const NavBarTop = ({ handleLogout }) => {
                   path: `/profiles/${user._id}`,
                 },
                 {
-                  text: "search users",
-                  path: "/blogs/new",
-                },
-                {
                   text: "sign out",
-                  path: `/blogs/${user._id}`,
+                  path: `/`,
+                  onClick: handleLogout
                 },
               ]}
             />

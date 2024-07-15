@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const ShowCritic = () => {
   return (
-    <div className="p-4 bg-neutral-900 flex max-w-[60rem] mt-32 mx-auto relative">
+    <div className="p-4 bg-neutral-900 flex max-w-[60rem] mt-80 mx-auto relative">
       <div className="w-1/2 ml-8">
         <img
           src="https://www.vin-x.com/thumbnails/0/4181/268/james-suckling.jpg"
