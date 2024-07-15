@@ -35,7 +35,7 @@ export const BlogProvider = ({ children }) => {
         },
       };
       const response = await axios.get(
-        `http://localhost:3000/blogs/user-blogs/${user._id}`,
+        `${import.meta.env.VITE_BASE_URL}/blogs/user-blogs/${user._id}`,
         options
       );
       setMyBlogs(response.data);
@@ -53,7 +53,9 @@ export const BlogProvider = ({ children }) => {
   const fetchAllBlogs = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get("http://localhost:3000/blogs");
+      const response = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/blogs`
+      );
       setBlogs(response.data);
     } catch (err) {
       console.error(err);
