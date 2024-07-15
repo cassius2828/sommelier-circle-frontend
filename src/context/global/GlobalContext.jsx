@@ -7,12 +7,33 @@ import { getWines, postFilterWineResults } from "../../services/wineService";
 //////////////////////////////
 
 export const GlobalContext = createContext();
-
+const initialFormData = {
+  grape: "",
+  region: "",
+  style: "",
+  winery: "",
+  price: "",
+  rating: "",
+  query:''
+};
 export const GlobalProvider = ({ children }) => {
   const [wines, setWines] = useState([]);
   const [displayedWines, setDisplayedWines] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  ///////////////////////////
+  // Form Data For Filtering Search
+  ///////////////////////////
+  const [formData, setFormData] = useState(initialFormData);
+
+  const handleUpdateForm = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  useEffect(() => {
+    fetchFilteredWineData(formData);
+  }, [formData]);
   ///////////////////////////////
   // Effect for Displaying Wines
   ///////////////////////////////
@@ -432,7 +453,11 @@ export const GlobalProvider = ({ children }) => {
         displayedWines,
         setDisplayedWines,
         fetchFilteredWineData,
-        isLoading,setIsLoading
+        isLoading,
+        setIsLoading,
+        formData,
+        setFormData,
+        handleUpdateForm,initialFormData
       }}
     >
       {children}

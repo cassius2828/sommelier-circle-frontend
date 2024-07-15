@@ -1,7 +1,10 @@
-const SearchBar = () => {
+/* eslint-disable react/prop-types */
+const SearchBar = ({ value, handleChange }) => {
   return (
     <div className="relative mb-8 w-1/2 mx-auto">
       <input
+        value={value}
+        onChange={handleChange}
         type="text"
         placeholder="Search"
         className="w-full p-4 text-gray-800 rounded-md"

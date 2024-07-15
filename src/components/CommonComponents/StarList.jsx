@@ -3,7 +3,7 @@ import { UilStar } from "@iconscout/react-unicons";
 
 const StarList = ({ absolute, criticScore = 90, bgColor = "gray-50" }) => {
   const widthToCover = (100 - criticScore).toString();
-  console.log(widthToCover);
+ 
   return (
     <div
       className={`relative stars-container w-48 flex text-gray-800 ${

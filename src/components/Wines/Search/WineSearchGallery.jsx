@@ -13,7 +13,7 @@ import Loader from "../../CommonComponents/Loader";
 const WineSearch = ({ title = "sample title" }) => {
   const { wines, fetchWines, displayedWines, setDisplayedWines, isLoading } =
     useGlobalContext();
-
+  const [searchState, setSearchState] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
   let winePageBtnsLength = Math.ceil(wines.length / itemsPerPage + 2);
@@ -49,6 +49,14 @@ const WineSearch = ({ title = "sample title" }) => {
     }
   };
 
+  ///////////////////////////
+  // handle wine search input update
+  ///////////////////////////
+  const handleSearchUpdate = (e) => {
+    const { value } = e.target;
+    setSearchState(value);
+   
+  };
   ///////////////////////////////
   // useEffect for Fetching Wines
   ////////////////////////////////
@@ -64,12 +72,12 @@ const WineSearch = ({ title = "sample title" }) => {
     setDisplayedWines(wines.slice(startIndex, endIndex));
   }, [currentPage]);
 
-  if (isLoading) return <Loader />;
+  // if (isLoading) return <Loader />;
 
   return (
     <div className="mt-80 mb-40">
       <div className="w-1/2 mx-auto">
-        <SearchBar />
+        <SearchBar value={searchState} handleChange={handleSearchUpdate} />
         <h1 className="text-5xl font-bold mb-10 text-center text-gray-100">
           {wines.length} wines found
         </h1>

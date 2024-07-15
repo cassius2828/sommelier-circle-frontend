@@ -64,27 +64,14 @@ const grapeOptions = [
   "Syrah",
   "Viognier",
 ];
-const initialFormData = {
-  grape: "",
-  region: "",
-  style: "",
-  winery: "",
-  price: "",
-  rating: "",
-};
+
 export const FilterComponent = () => {
-  const [formData, setFormData] = useState(initialFormData);
-  //   fetch function
-  const { fetchFilteredWineData } = useGlobalContext();
-  //   handle updates
-  const handleUpdateForm = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-  //   fetch data
-  useEffect(() => {
-    fetchFilteredWineData(formData);
-  }, [formData]);
+
+  const {formData,setFormData, handleUpdateForm,initialFormData} = useGlobalContext()
+
+
+
+  
   return (
     <div className="w-1/5 mx-auto mb-auto bg-neutral-800 text-gray-100 rounded-md p-4 h-full flex flex-col justify-start items-center">
       <h4 className="text-3xl mb-4">Filter</h4>
