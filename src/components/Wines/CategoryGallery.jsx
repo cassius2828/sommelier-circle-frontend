@@ -100,8 +100,8 @@ const CategoryGallery = ({ category }) => {
 
   return (
     <div className="bg-neutral-950 text-gray-100 min-h-screen p-8 mt-52">
-      <div className="max-w-[120rem] mx-auto">
-        <SearchBar />
+      <div className="max-w-[120rem] mx-auto mt-24">
+        {/* <SearchBar /> */}
         {/* Header */}
         <h1 className="text-4xl font-bold mb-8 text-center">{title}</h1>
         {/* Categories */}
