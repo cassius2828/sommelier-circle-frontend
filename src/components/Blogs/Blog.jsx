@@ -3,6 +3,7 @@ import SocialIcons from "../Icons/Social-Icons";
 import { useState } from "react";
 import EditOrDeleteModal from "../Modals/EditOrDelete";
 import useAuthContext from "../../context/auth/useAuthContext";
+import { Link } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
 const Blog = ({ title, img, content, createdAt, id, name, profileImg }) => {
@@ -23,15 +24,17 @@ const Blog = ({ title, img, content, createdAt, id, name, profileImg }) => {
         subject={"blog"}
       />
       <div className="flex items-center gap-4  w-8/12 relative z-50  mx-auto text-gray-100 mt-20">
-     {/* hides admin photo and name for blogs that are a part of the encyclopedia */}
+        {/* hides admin photo and name for blogs that are a part of the encyclopedia */}
         {user._id.toString() !== "669190f598a19fabd8baa1a4" && (
           <>
-            <img
-              className="rounded-full view-blog-img "
-              src={profileImg}
-              alt=""
-            />
-            <span className="text-2xl">{name}</span>{" "}
+            <Link className="flex items-center gap-4" to={`/profiles/${id}`}>
+              <img
+                className="rounded-full view-blog-img "
+                src={profileImg}
+                alt=""
+              />
+              <span className="text-2xl">{name}</span>{" "}
+            </Link>
           </>
         )}
       </div>

@@ -1,26 +1,21 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getProfileService } from "../../services/profileService";
+import {  getUserDoc } from "../../services/profileService";
+import SearchBar from "../CommonComponents/SearchBar";
+import FavoritesList from "./FavoritesList";
+import UserInfo from "./UserInfo";
+import UserSearchBar from "./UserSearchBar";
+import useAuthContext from "../../context/auth/useAuthContext";
 
 export default function ProfilePage() {
-  const { userId } = useParams();
   const [photo, setPhoto] = useState("");
+  const { user } = useAuthContext();
+  const { userId } = useParams();
 
-  useEffect(() => {
-    console.log(userId);
-    console.log("useEffect is running");
+  console.log(user._id, " <-- user");
+  console.log(userId, " <-- user ID");
+  const isSignedInUsersProfile = user._id === userId;
 
-    async function getProfile() {
-      try {
-        const userProfile = await getProfileService(userId);
-        console.log(userProfile);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-
-    getProfile();
-  }, [userId]);
 
   function handleFileInput(e) {
     console.log(e.target.files);
@@ -28,30 +23,14 @@ export default function ProfilePage() {
   }
 
   return (
-    <main className="bg-theme-dn min-h-screen flex flex-col items-center justify-center">
-      <div className="bg-theme-sand p-8 rounded-lg shadow-md w-full max-w-md">
-        <h1 className="text-3xl text-gray-100 mb-4 text-center">Profile Page!</h1>
-        
-        <form className="space-y-6">
-          <div>
-            <label htmlFor="upload-photo" className="block text-gray-100 mb-2">Upload Photo:</label>
-            <input
-              type="file"
-              id="upload-photo"
-              onChange={handleFileInput}
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-theme-sand"
-            />
-          </div>
-          <div className="flex justify-center items-center">
-            <button
-              type="submit"
-              className="bg-theme-dn text-theme-sand px-4 py-2 rounded-md focus:outline-none hover:bg-gray-800 transition-colors duration-200"
-            >
-              Upload
-            </button>
-          </div>
-        </form>
-      </div>
-    </main>
+    <div className="grid grid-rows-2 grid-cols-3 mt-80 w-full ">
+      {/* favorites */}
+      <FavoritesList />
+      {/* search */}
+      {isSignedInUsersProfile && <UserSearchBar />}
+      {/* user info */}
+      <UserInfo isSignedInUsersProfile={isSignedInUsersProfile} />
+      {/* featured blog */}
+    </div>
   );
 }

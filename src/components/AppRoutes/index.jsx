@@ -2,6 +2,7 @@
 import { Routes, Route } from "react-router-dom";
 import routes from "../../routeConfig/indexRoutes.jsx";
 import { Suspense } from "react";
+import NotFound404 from "../CommonComponents/NotFound404.jsx";
 
 const AppRoutes = () => {
   return (
@@ -10,6 +11,7 @@ const AppRoutes = () => {
         {routes.map((route, idx) => (
           <Route key={idx} path={route.path} element={route.element} />
         ))}
+        <Route path="*" element={<NotFound404 />} />
       </Routes>
     </Suspense>
   );

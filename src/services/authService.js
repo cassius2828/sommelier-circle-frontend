@@ -70,3 +70,19 @@ export function getUser() {
   const user = JSON.parse(atob(token.split(".")[1]));
   return user.user;
 }
+
+
+export const refreshToken = async () => {
+  try {
+    const response = await axios.post(`${BACKEND_URL}/refresh-token`, {}, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    const { token } = response.data;
+    localStorage.setItem('token', token);
+    return token;
+  } catch (err) {
+    console.error('Error refreshing token:', err);
+  }
+};

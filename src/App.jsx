@@ -1,5 +1,5 @@
 // src/App.jsx
-import useAuthContext  from "./context/auth/useAuthContext";
+import useAuthContext from "./context/auth/useAuthContext";
 import NavBar from "./components/NavBar/NavBar";
 import Header from "./components/Header";
 import AppRoutes from "./components/AppRoutes";
@@ -31,7 +31,7 @@ const App = () => {
       <Header />
       <NavBar />
       <AppRoutes />
-      <ScrollToTop/>
+      <ScrollToTop />
     </>
   );
 };

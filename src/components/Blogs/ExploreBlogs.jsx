@@ -31,8 +31,8 @@ const ExploreBlogs = () => {
   console.log(blogs);
   return (
     <>
-      <h1 className="text-gray-100 text-6xl text-center my-24">
-        Explore Blogs
+      <h1 className="text-gray-100 text-6xl text-center mt-80 mb-24">
+        Community Blogs
       </h1>
       <div className="flex flex-col items-center gap-12 my-12">
         <div className="flex gap-4 items-center">
@@ -66,6 +66,7 @@ const ExploreBlogs = () => {
                   img={blog.img}
                   content={blog.content}
                   name={blog.owner.username}
+                  id={blog.owner._id}
                   profileImg={blog.owner.profileImg}
                   createdAt={blog.createdAt}
                 />

@@ -22,14 +22,16 @@ Things to Do
 ///////////////////////////
 
 
-- upload wine and critic data 
-- create blogs for each region and grape
-- create spirits
-- configure the search
+
 - google autocomplete 
 - google places 
 - create events and rooms 
 - create frontend first, then hit points, then configure together 
 - mobile responsiveness
-- hide admin blogs from explore
+
+- add ability to follow users
+- clean up desktop styles 
+- create more blogs to display 
+- display featured blogs on landing
+- display critic info 
 

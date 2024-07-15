@@ -6,6 +6,7 @@ import { getWines } from "../../../services/wineService";
 import useGlobalContext from "../../../context/global/useGlobalContext";
 import { FilterComponent } from "./FilterComponent";
 import Loader from "../../CommonComponents/Loader";
+import WineCard from "../WineCard";
 
 ///////////////////////////////
 // WineSearch Component
@@ -70,7 +71,7 @@ const WineSearch = ({ title = "sample title" }) => {
     setDisplayedWines(wines.slice(startIndex, endIndex));
   }, [currentPage]);
 
-  // if (isLoading) return <Loader />;
+  if (isLoading) return <Loader />;
 
   return (
     <div className="mt-80 mb-40">
@@ -134,7 +135,7 @@ export const WineSearchGallery = ({ displayedWines }) => {
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-3/4 mx-auto gap-12">
         {displayedWines.map((wine) => {
           return (
-            <FeaturedWineCard
+            <WineCard
               name={wine.name}
               year={wine.year}
               img={wine.img}
