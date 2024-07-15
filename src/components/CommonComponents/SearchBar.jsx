@@ -3,6 +3,7 @@ const SearchBar = ({ value, handleChange }) => {
   return (
     <div className="relative mb-8 w-1/2 mx-auto">
       <input
+      name="query"
         value={value}
         onChange={handleChange}
         type="text"

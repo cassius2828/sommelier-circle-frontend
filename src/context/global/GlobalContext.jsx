@@ -14,7 +14,7 @@ const initialFormData = {
   winery: "",
   price: "",
   rating: "",
-  query:''
+  query: "",
 };
 export const GlobalProvider = ({ children }) => {
   const [wines, setWines] = useState([]);
@@ -29,11 +29,13 @@ export const GlobalProvider = ({ children }) => {
   const handleUpdateForm = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    console.log(formData.query)
   };
 
   useEffect(() => {
     fetchFilteredWineData(formData);
   }, [formData]);
+
   ///////////////////////////////
   // Effect for Displaying Wines
   ///////////////////////////////
@@ -457,7 +459,8 @@ export const GlobalProvider = ({ children }) => {
         setIsLoading,
         formData,
         setFormData,
-        handleUpdateForm,initialFormData
+        handleUpdateForm,
+        initialFormData,
       }}
     >
       {children}
