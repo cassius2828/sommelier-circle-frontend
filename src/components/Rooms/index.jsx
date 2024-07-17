@@ -1,5 +1,6 @@
 import { useState } from "react";
 import StarList, { Star } from "../CommonComponents/StarList";
+import { Link } from "react-router-dom";
 
 const Rooms = () => {
   return (
@@ -97,13 +98,15 @@ export const RoomCard = () => {
             95687 city, CA
           </h3>{" "}
         </div>
-        <div className="mt-6 gap-4 flex justify-center">
+        <div className="mt-6 gap-4 flex justify-center ">
           <button className="p-2 border-2 border-[#FFD700] rounded-lg">
             <Star />
           </button>
-          <button className="border px-3 py-1 text-2xl rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-800 hover:text-white">
-            details
-          </button>
+          <Link to={`/rooms/:roomId`}>
+            <button className="border h-full px-3 py-1 text-2xl rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-800 hover:text-white">
+              details
+            </button>
+          </Link>
         </div>
       </div>
     </div>
