@@ -1,10 +1,12 @@
 import axios from "axios";
-
+const GOOGLE_PLACES_BASE_URL = import.meta.env.VITE_BASE_URL + "/google";
 export const getUserLocation = () => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position) => {
       const lat = position.coords.latitude;
       const lng = position.coords.longitude;
+      localStorage.setItem("lat", lat);
+      localStorage.setItem("lng", lng);
       console.log(`Latitude: ${lat}, Longitude: ${lng}`);
       // Use lat and lng to find nearby places
     });
@@ -13,13 +15,37 @@ export const getUserLocation = () => {
   }
 };
 
-export const getNearbyWinePlaces = async (lat, lng) => {
+export const getNearbyWinePlaces = async () => {
+  // first attempt to get from local storage
+  let lat = localStorage.getItem("lat");
+  let lng = localStorage.getItem("lng");
+  // get user location
   try {
-    const response = await axios.get(
-      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=5000&type=restaurant|bar|winery&keyword=wine&key=${
-        import.meta.env.VITE_GOOGLE_PLACES_API_KEY
-      }`
+    if (!lat || !lng) {
+      console.log(`User has not granted permission to their location yet`);
+      getUserLocation();
+    }
+  } catch (err) {
+    console.error(err);
+    console.log(
+      `Unable to get user's location, cannot recommend dynamic locations`
     );
+  }
+
+  try {
+    // second attempt attempt to get from local storage
+    lat = localStorage.getItem("lat");
+    lng = localStorage.getItem("lng");
+    const response = await axios.get(`${GOOGLE_PLACES_BASE_URL}/nearbysearch`, {
+      params: {
+        lat,
+        lng,
+        radius: 5000,
+        type: "restaurant|bar|winery",
+        keyword: "wine",
+        key: import.meta.env.VITE_GOOGLE_PLACES_API_KEY,
+      },
+    });
 
     console.log(response.data);
     return response.data;

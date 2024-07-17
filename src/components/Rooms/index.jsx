@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StarList, { Star } from "../CommonComponents/StarList";
 import { Link } from "react-router-dom";
+import { getNearbyWinePlaces, getUserLocation } from "../../services/googlePlacesService";
 
 const Rooms = () => {
+  useEffect(() => {
+    getNearbyWinePlaces()
+  },[])
   return (
     <div className="flex flex-col w-full  min-h-screen mt-80 items-center">
       <RoomSearchbar />
