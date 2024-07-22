@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import StarList, { Star } from "../CommonComponents/StarList";
 import { Link } from "react-router-dom";
 import { getNearbyWinePlaces, getUserLocation } from "../../services/googlePlacesService";
+import usePlacesContext from "../../context/places/usePlacesContext";
 
 const Rooms = () => {
+  const {fetchRooms} = usePlacesContext()
   useEffect(() => {
-    getNearbyWinePlaces()
+    fetchRooms()
   },[])
   return (
     <div className="flex flex-col w-full  min-h-screen mt-80 items-center">
@@ -59,21 +61,18 @@ export const RoomSearchbar = () => {
 };
 
 export const RoomsGrid = () => {
+  const {rooms} = usePlacesContext()
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-4 gap-y-8 gap-x-4">
+      {rooms.map((room,idx) => <RoomCard img={room.photos[0].photo_reference} placeId={room.place_id} rating={room.rating} name={room.name} address={room.vicinity} key={idx}/>)}
+      
       <RoomCard />
-      <RoomCard />
-      <RoomCard />
-      <RoomCard />
-      <RoomCard />
-      <RoomCard />
-      <RoomCard />
-      <RoomCard />
+
     </div>
   );
 };
 
-export const RoomCard = () => {
+export const RoomCard = ({rating, name, address, placeId, isOpen, img}) => {
   return (
     <div className="grid grid-cols-2 p-4  overflow-hidden ">
       {/* row 1 */}
@@ -96,10 +95,9 @@ export const RoomCard = () => {
       {/* //* col 2 */}
       <div className="flex flex-col items-center justify-between text-gray-100">
         <div className="text-center">
-          <h2 className="text-4xl mb-3">Title</h2>
+          <h2 className="text-4xl mb-3">{name}</h2>
           <h3 className="text-2xl">
-            Address 123, main st <br />
-            95687 city, CA
+        {address}
           </h3>{" "}
         </div>
         <div className="mt-6 gap-4 flex justify-center ">
@@ -116,3 +114,73 @@ export const RoomCard = () => {
     </div>
   );
 };
+
+
+/*
+PLACES API OBJECT
+Main Img: 
+Title: 
+Details: 
+Address: 
+Rating: 
+Price: 
+Website: 
+Hours of Operation: 
+Place ID: 
+
+       {
+            "business_status": "OPERATIONAL",
+            "geometry": {
+                "location": {
+                    "lat": 38.386936,
+                    "lng": -121.933056
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": 38.38841077989272,
+                        "lng": -121.9316805701072
+                    },
+                    "southwest": {
+                        "lat": 38.38571112010727,
+                        "lng": -121.9343802298927
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/bar-71.png",
+            "icon_background_color": "#FF9E67",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/bar_pinlet",
+            "name": "Hide-A-Way Lounge & Grill",
+            "opening_hours": {
+                "open_now": true
+            },
+            "photos": [
+                {
+                    "height": 1536,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/107061166225374119247\">Wez So_N_So</a>"
+                    ],
+                    "photo_reference": "AUc7tXViEv5OfN09WTJ4yUbwx5h3pikBlEX9ly-cP79zDzL9syRQV0oJEPYUhRG8dF7TZXOaS_myepa7TKcdYV6SfrA6a1e79ye_6MgQlP_Xw1YUQsdKN-MTLDyPrGwZWYSQHIoGPDS8T3ud77u9K2vRCw0A7KqhieSd-E_X5jS7cpvH-cj-",
+                    "width": 2048
+                }
+            ],
+            "place_id": "ChIJg9zeYjojhYARcjTx7WobLTQ",
+            "plus_code": {
+                "compound_code": "93P8+QQ Vacaville, California",
+                "global_code": "84CW93P8+QQ"
+            },
+            "price_level": 2,
+            "rating": 4.2,
+            "reference": "ChIJg9zeYjojhYARcjTx7WobLTQ",
+            "scope": "GOOGLE",
+            "types": [
+                "bar",
+                "restaurant",
+                "food",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 427,
+            "vicinity": "1080 Orange Dr, Vacaville"
+        },
+
+*/

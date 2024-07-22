@@ -10,6 +10,7 @@ import "react-quill/dist/quill.snow.css";
 import { AuthProvider } from "./context/auth/AuthContext.jsx";
 import { BlogProvider } from "./context/blog/BlogContext.jsx";
 import { GlobalProvider } from "./context/global/GlobalContext.jsx";
+import { PlacesProvider } from "./context/places/PlacesContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -19,12 +20,17 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <AuthProvider>
         {/* blog provider */}
         <BlogProvider>
-          {/* router */}
-          <BrowserRouter>
-            {/* app */}
-            <App />
+          {/* PlacesProvider */}
+          <PlacesProvider>
+            {/* router */}
+            <BrowserRouter>
+              {/* app */}
+              <App />
+              {/*  */}
+            </BrowserRouter>
             {/*  */}
-          </BrowserRouter>
+          </PlacesProvider>
+
           {/*  */}
         </BlogProvider>
         {/*  */}
@@ -34,4 +40,3 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     {/*  */}
   </React.StrictMode>
 );
-
