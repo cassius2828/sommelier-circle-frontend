@@ -1,14 +1,17 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import StarList, { Star } from "../CommonComponents/StarList";
 import { Link } from "react-router-dom";
-import { getNearbyWinePlaces, getUserLocation } from "../../services/googlePlacesService";
+import {
+  getNearbyWinePlaces,
+  getPhotosOfRoom,
+  getUserLocation,
+} from "../../services/googlePlacesService";
 import usePlacesContext from "../../context/places/usePlacesContext";
+import useGlobalContext from "../../context/global/useGlobalContext";
+import Loader from "../CommonComponents/Loader";
 
 const Rooms = () => {
-  const {fetchRooms} = usePlacesContext()
-  useEffect(() => {
-    fetchRooms()
-  },[])
   return (
     <div className="flex flex-col w-full  min-h-screen mt-80 items-center">
       <RoomSearchbar />
@@ -61,46 +64,63 @@ export const RoomSearchbar = () => {
 };
 
 export const RoomsGrid = () => {
-  const {rooms} = usePlacesContext()
+  const { rooms } = usePlacesContext();
+  const { isLoading } = useGlobalContext();
+  if (isLoading) return <Loader />;
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-4 gap-y-8 gap-x-4">
-      {rooms.map((room,idx) => <RoomCard img={room.photos[0].photo_reference} placeId={room.place_id} rating={room.rating} name={room.name} address={room.vicinity} key={idx}/>)}
-      
-      <RoomCard />
-
+      {rooms.map((room, idx) => (
+        <RoomCard
+          img={room.photos[0].photo_reference}
+          photo={room.photo}
+          rating={room.rating}
+          name={room.name}
+          address={room.vicinity}
+          key={idx}
+          isOpen={room.opening_hours.open_now}
+        />
+      ))}
     </div>
   );
 };
 
-export const RoomCard = ({rating, name, address, placeId, isOpen, img}) => {
+export const RoomCard = ({ rating, name, address, isOpen, photo }) => {
+  const calculatedRating = rating * 20;
   return (
     <div className="grid grid-cols-2 p-4  overflow-hidden ">
       {/* row 1 */}
       <img
-        className="col-span-2 row-start-1 rounded-lg mb-5"
-        src="https://www.travelandleisure.com/thmb/daFAjn1P8k4Z33HO_yVh8LQPEVk=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/lead-lalou-bar-NYWINE1019-055f40b36a1a467f832651cb7feaad97.jpg"
+        className="col-span-2 row-start-1 rounded-lg mb-5 h-96 w-full object-cover"
+        src={photo}
         alt=""
       />
       {/* row 2 */}
       {/* //* col 1 */}
-      <div className="flex flex-col items-center justify-center p-4">
-        <StarList bgColor="[#111213]" criticScore={90} />
-        <p className="text-xl text-gray-100">
+      <div className="flex flex-col items-center justify-between p-4">
+        <div className="text-center">
+         <span className="text-3xl text-gray-100"> rating: {rating} </span>
+              <StarList bgColor="[#111213]" criticScore={calculatedRating} />
+        </div>
+    
+        {/* <p className="text-xl text-gray-100">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus
           reiciendis laudantium culpa, exercitationem, sed corporis vel sequi
           iste magnam error recusandae ab eaque mollitia dolor odio qui tempore
           repudiandae quae?
-        </p>
+        </p> */}
+        {isOpen ? (
+          <span className="text-3xl text-green-500 ">Now Open</span>
+        ) : (
+          <span className="text-3xl text-red-500 ">Closed</span>
+        )}
       </div>
       {/* //* col 2 */}
       <div className="flex flex-col items-center justify-between text-gray-100">
         <div className="text-center">
           <h2 className="text-4xl mb-3">{name}</h2>
-          <h3 className="text-2xl">
-        {address}
-          </h3>{" "}
+          <h3 className="text-2xl">{address}</h3>{" "}
         </div>
-        <div className="mt-6 gap-4 flex justify-center ">
+        <div className="mt-6 gap-12 flex justify-center ">
           <button className="p-2 border-2 border-[#FFD700] rounded-lg">
             <Star />
           </button>
@@ -114,7 +134,6 @@ export const RoomCard = ({rating, name, address, placeId, isOpen, img}) => {
     </div>
   );
 };
-
 
 /*
 PLACES API OBJECT
