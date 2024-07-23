@@ -24,10 +24,10 @@ const StarList = ({ absolute, criticScore = 90, bgColor = "gray-50" }) => {
 };
 export default StarList;
 
-export const Star = () => {
+export const Star = ({width=10}) => {
   return (
     <svg
-      className="w-10"
+      className={`w-${width}`}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       id="star"

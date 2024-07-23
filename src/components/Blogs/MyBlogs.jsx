@@ -26,6 +26,9 @@ const MyBlogs = () => {
 
   return (
     <>
+    {/* overlay bg */}
+      <div className="fixed top-0 left-0 h-full w-full -z-10 bg-neutral-950"></div>
+
       <h1 className="text-gray-100 text-6xl text-center my-24">My Blogs</h1>
       <div className="flex flex-col items-center gap-12 my-12">
         <div className="flex gap-4 items-center">

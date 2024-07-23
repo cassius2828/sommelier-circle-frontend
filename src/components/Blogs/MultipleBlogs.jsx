@@ -49,7 +49,7 @@ export const MultipleBlogsFull = ({
           {title.length > 60 ? `${title.slice(0, 60)}...` : title}
         </h2>
         <div
-          className=" text-gray-100 text-2xl mt-12 p-4 leading-[3rem]"
+          className=" text-gray-100 text-xl mt-12 p-4 leading-[3rem]"
           dangerouslySetInnerHTML={{
             __html: `${DOMPurify.sanitize(content).slice(0, 150)} ...`,
           }}
@@ -117,7 +117,7 @@ export const MultipleBlogsList = ({
         <div className="flex items-center justify-start gap-4 w-1/2 ">
           {img && <img className="w-full mx- my-8" src={img} alt="" />}
 
-          <h3 className=" text-4xl text-center text-gray-100 cursor-pointer">
+          <h3 className=" text-4xl text-center text-gray-100 text-xl cursor-pointer">
             {title.length > 55 ? `${title.slice(0, 55)} ...` : title}
           </h3>
         </div>{" "}
@@ -126,28 +126,30 @@ export const MultipleBlogsList = ({
   );
 };
 
+
+
 export const BlogTable = ({ blogs }) => {
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full bg-white border border-gray-200">
+    <div className="overflow-x-auto bg-[#111213]">
+      <table className="min-w-full bg-[#111213] border border-gray-700">
         {/* head */}
         <thead>
           <tr>
-            <th className="py-2 px-4 border-b">Profile Image</th>
-            <th className="py-2 px-4 border-b">Author</th>
-            <th className="py-2 px-4 border-b">Blog Header</th>
-            <th className="py-2 px-4 border-b">Blog Title</th>
-            <th className="py-2 px-4 border-b">Date Created</th>
-            <th className="py-2 px-4 border-b">View Blog</th>
-            <th className="py-2 px-4 border-b">Share Blog</th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">Profile Image</th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">Author</th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">Blog Header</th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">Blog Title</th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">Date Created</th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">View Blog</th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">Share Blog</th>
           </tr>
         </thead>
         {/* body */}
         <tbody>
           {blogs?.map((blog, idx) => (
-            <tr key={blog.title + idx} className="hover:bg-gray-100">
+            <tr key={blog.title + idx} className="hover:bg-gray-800">
               {/* author info */}
-              <td className="py-2 px-4 border-b">
+              <td className="py-2 px-4 border-b border-gray-700">
                 <Link to={`/profiles/${blog.owner._id}`}>
                   <img
                     src={blog.owner.profileImg}
@@ -156,32 +158,32 @@ export const BlogTable = ({ blogs }) => {
                   />
                 </Link>
               </td>
-              <td className="py-2 px-4 border-b">
+              <td className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
                 <Link to={`/profiles/${blog.owner._id}`}>
                   {blog.owner.username}
                 </Link>
               </td>
               {/* header */}
-              <td className="py-2 px-4 border-b">
+              <td className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
                 {blog.img && (
                   <img className="w-24 mx- my-8" src={blog.img} alt="" />
                 )}
               </td>
               {/* title */}
-              <td className="py-2 px-4 border-b text-center">{blog.title}</td>
+              <td className="py-2 px-4 border-b border-gray-700 text-center text-gray-100 text-xl">{blog.title}</td>
               {/* date */}
-              <td className="py-2 px-4 border-b text-center">
+              <td className="py-2 px-4 border-b border-gray-700 text-center text-gray-100 text-xl">
                 {new Date(blog.createdAt).toLocaleDateString()}
               </td>
               {/* action btns */}
-              <td className="py-2 px-4 border-b text-center">
+              <td className="py-2 px-4 border-b border-gray-700 text-center">
                 <Link to={`/blogs/${blog._id}`}>
-                  <button className="border px-3 py-1 text-xl rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-800 hover:text-white">
+                  <button className="border px-3 py-1 text-xl rounded-md text-gray-100  border-gray-800 transition-colors duration-300 hover:bg-gray-900 hover:text-white">
                     view
                   </button>
                 </Link>
               </td>
-              <td className="py-2 px-4 border-b text-center">
+              <td className="py-2 px-4 border-b border-gray-700 text-center">
                 <button
                   onClick={() =>
                     alert(
@@ -189,7 +191,7 @@ export const BlogTable = ({ blogs }) => {
                     )
                   }
                   type="button"
-                  className="border px-3 py-1 text-xl rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-800 hover:text-white"
+                  className="border px-3 py-1 text-xl text-gray-100 rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-900 hover:text-white"
                 >
                   share blog
                 </button>
@@ -201,3 +203,4 @@ export const BlogTable = ({ blogs }) => {
     </div>
   );
 };
+

@@ -31,6 +31,9 @@ const ExploreBlogs = () => {
   console.log(blogs);
   return (
     <>
+    {/* overlay bg */}
+      <div className="fixed top-0 left-0 h-full w-full -z-10 bg-neutral-950"></div>
+
       <h1 className="text-gray-100 text-6xl text-center mt-80 mb-24">
         Community Blogs
       </h1>

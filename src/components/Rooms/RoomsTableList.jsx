@@ -5,50 +5,50 @@ import { Star } from "../CommonComponents/StarList";
 const RoomsTableList = () => {
   const { rooms } = usePlacesContext();
   return (
-    <div className="overflow-x-auto mb-24">
-      <table className="min-w-full bg-white border border-gray-200">
+    <div className="overflow-x-auto mb-24 bg-[#111213]">
+      <table className="min-w-full bg-[#111213] border border-gray-700">
         {/* head */}
         <thead>
           <tr>
-            <th className="py-2 px-4 border-b">Name</th>
-            <th className="py-2 px-4 border-b">Address</th>
-            <th className="py-2 px-4 border-b">Rating</th>
-            <th className="py-2 px-4 border-b">Open Status</th>
-            <th className="py-2 px-4 border-b">Add to Favorites</th>
-            <th className="py-2 px-4 border-b">Details</th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">Name</th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">Address</th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">Rating</th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">Open Status</th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">Add to Favorites</th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">Details</th>
           </tr>
         </thead>
         {/* body */}
         <tbody>
           {rooms?.map((room, idx) => (
-            <tr key={room.place_id + idx} className="hover:bg-gray-100">
+            <tr key={room.place_id + idx} className="hover:bg-gray-800">
               {/* room name */}
-              <td className="py-2 px-4 border-b flex items-center gap-4">
+              <td className="py-2 px-4 border-b border-gray-700 flex items-center gap-4 text-gray-100 text-xl">
                 <img className="w-20 h-20 object-cover" src={room.photo} alt="" />
                 {room.name}
-                </td>{" "}
+              </td>
               {/* address */}
-              <td className="py-2 px-4 border-b">{room.vicinity}</td>
+              <td className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">{room.vicinity}</td>
               {/* rating */}
-              <td className="py-2 px-4 border-b text-center">{room.rating}</td>
+              <td className="py-2 px-4 border-b border-gray-700 text-center text-gray-100 text-xl">{room.rating}</td>
               {/* open status */}
-              <td className="py-2 px-4 border-b text-center">
+              <td className="py-2 px-4 border-b border-gray-700 text-center text-gray-100 text-xl">
                 {room.opening_hours.open_now ? (
                   <span className="text-green-500">Open</span>
                 ) : (
-                  <spoan className="text-red-500">Closed</spoan>
+                  <span className="text-red-500">Closed</span>
                 )}
               </td>
               {/* favorites */}
-              <td className="py-2 px-4 border-b text-center">
+              <td className="py-2 px-4 border-b border-gray-700 text-center">
                 <button className="p-2 border-2 border-[#FFD700] rounded-lg">
-                  <Star />
+                  <Star width={6} />
                 </button>
               </td>
               {/* details */}
-              <td className="py-2 px-4 border-b text-center">
+              <td className="py-2 px-4 border-b border-gray-700 text-center">
                 <Link to={`/rooms/${room.place_id}`}>
-                  <button className="border px-3 py-1 text-xl rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-800 hover:text-white">
+                  <button className="border px-3 py-1 text-xl rounded-md text-gray-100 text-xl border-gray-800 transition-colors duration-300 hover:bg-gray-900 hover:text-white">
                     details
                   </button>
                 </Link>

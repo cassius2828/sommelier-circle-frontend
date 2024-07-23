@@ -40,6 +40,8 @@ const Rooms = () => {
         </div>
       </div>
       {display === "full" ? <RoomsGrid /> : <RoomsTableList />}
+      <div className="fixed top-0 left-0 h-full w-full -z-10 bg-neutral-950"></div>
+
     </div>
   );
 };
