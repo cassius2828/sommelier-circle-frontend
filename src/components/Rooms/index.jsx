@@ -10,13 +10,36 @@ import {
 import usePlacesContext from "../../context/places/usePlacesContext";
 import useGlobalContext from "../../context/global/useGlobalContext";
 import Loader from "../CommonComponents/Loader";
+import RoomsTableList from "./RoomsTableList";
 
 const Rooms = () => {
+  const [display, setDisplay] = useState("full");
+  const handleDisplayChange = (e) => {
+    setDisplay(e.target.value);
+  };
   return (
     <div className="flex flex-col w-full  min-h-screen mt-80 items-center">
       <RoomSearchbar />
+      <div className="flex items-start gap-12 ">
+
       <h1 className="text-gray-100 text-5xl mb-12">Recommendations</h1>
-      <RoomsGrid />
+      <div className="flex gap-4 items-center">
+          <label className="text-gray-100" htmlFor="blog-display">
+            Display blogs
+          </label>
+          <select
+            className="text-gray-800 px-4 py-2 rounded-sm"
+            name="blog-display"
+            id="blog-display"
+            value={display}
+            onChange={handleDisplayChange}
+          >
+            <option value="full">Full</option>
+            <option value="list">List</option>
+          </select>
+        </div>
+      </div>
+      {display === "full" ? <RoomsGrid /> : <RoomsTableList />}
     </div>
   );
 };
@@ -98,10 +121,10 @@ export const RoomCard = ({ rating, name, address, isOpen, photo }) => {
       {/* //* col 1 */}
       <div className="flex flex-col items-center justify-between p-4">
         <div className="text-center">
-         <span className="text-3xl text-gray-100"> rating: {rating} </span>
-              <StarList bgColor="[#111213]" criticScore={calculatedRating} />
+          <span className="text-3xl text-gray-100"> rating: {rating} </span>
+          <StarList bgColor="[#111213]" criticScore={calculatedRating} />
         </div>
-    
+
         {/* <p className="text-xl text-gray-100">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus
           reiciendis laudantium culpa, exercitationem, sed corporis vel sequi
