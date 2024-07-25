@@ -27,7 +27,7 @@ const AutoCompleteInput = () => {
       } finally {
         setIsLoading(false);
       }
-    }, 500),
+    }, 650),
     [query]
   );
 
