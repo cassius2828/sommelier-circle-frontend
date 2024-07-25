@@ -1,29 +1,40 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import StarList, { Star } from "../CommonComponents/StarList";
 import { Link } from "react-router-dom";
 import {
   getNearbyWinePlaces,
   getPhotosOfRoom,
   getUserLocation,
+  getWinePlacesAutocomplete,
 } from "../../services/googlePlacesService";
 import usePlacesContext from "../../context/places/usePlacesContext";
 import useGlobalContext from "../../context/global/useGlobalContext";
 import Loader from "../CommonComponents/Loader";
 import RoomsTableList from "./RoomsTableList";
+import AutoCompleteRoomSearch from "./AutoCompleteRoomSearch";
+import AutoCompleteInput from "../CommonComponents/AutoCompleteInput";
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import { debounce } from "lodash";
 
 const Rooms = () => {
   const [display, setDisplay] = useState("full");
+ 
   const handleDisplayChange = (e) => {
     setDisplay(e.target.value);
   };
+  // useEffect(() => {
+
+  //   fetchQuerySearchLocationResults();
+  // }, [query]);
   return (
     <div className="flex flex-col w-full  min-h-screen mt-80 items-center">
-      <RoomSearchbar />
+      {/* <RoomSearchbar query={query} setQuery={setQuery} /> */}
+      <AutoCompleteInput/>
+      {/* <GooglePlacesAutocomplete/> */}
       <div className="flex items-start gap-12 ">
-
-      <h1 className="text-gray-100 text-5xl mb-12">Recommendations</h1>
-      <div className="flex gap-4 items-center">
+        <h1 className="text-gray-100 text-5xl mb-12">Recommendations</h1>
+        <div className="flex gap-4 items-center">
           <label className="text-gray-100" htmlFor="blog-display">
             Display blogs
           </label>
@@ -41,7 +52,6 @@ const Rooms = () => {
       </div>
       {display === "full" ? <RoomsGrid /> : <RoomsTableList />}
       <div className="fixed top-0 left-0 h-full w-full -z-10 bg-neutral-950"></div>
-
     </div>
   );
 };
@@ -149,7 +159,7 @@ export const RoomCard = ({ rating, name, address, isOpen, photo }) => {
           <button className="p-2 border-2 border-[#FFD700] rounded-lg">
             <Star />
           </button>
-          <Link to={`/rooms/:roomId`}>
+          <Link to={`/rooms/room-details/:roomId`}>
             <button className="border h-full px-3 py-1 text-2xl rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-800 hover:text-white">
               details
             </button>

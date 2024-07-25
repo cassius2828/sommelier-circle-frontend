@@ -84,7 +84,7 @@ const UserInfo = ({ isSignedInUsersProfile, userProfile }) => {
   if (isLoading) return <Loader />;
 
   return (
-    <div className="grid grid-cols-2 grid-rows-2 mb-24 pb-12 bg-neutral-800">
+    <div className="grid grid-cols-2 grid-rows-2 mb-24 pb-12 border-b w-3/4 mx-auto">
       {/* user img and name */}
       <div className="col-start-1 col-span-2 row-span-2 row-start-1 mx-auto my-12">
         <img

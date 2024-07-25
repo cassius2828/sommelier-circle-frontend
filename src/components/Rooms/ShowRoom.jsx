@@ -1,7 +1,9 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import StarList, { Star } from "../CommonComponents/StarList";
+import { useEffect, useState } from "react";
 
 const ShowRoom = () => {
+
   return (
     <div className="w-full mt-80">
       <ShowRoomCard />
@@ -12,7 +14,13 @@ const ShowRoom = () => {
 export default ShowRoom;
 
 export const ShowRoomCard = () => {
+const [roomDetails,setRoomDetails] = useState({})
   const navigate = useNavigate();
+  const roomId = useParams()
+  useEffect(() => {
+console.log(roomId)
+  },[roomId])
+
   return (
     <div className="grid grid-cols-3 grid-rows-3 bg-[#111213] shadow-lg w-full lg:w-1/2 mx-auto max-h-[50rem] text-gray-100 rounded-md p-4 relative">
       <span

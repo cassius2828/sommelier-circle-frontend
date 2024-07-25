@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { createContext, useEffect, useState } from "react";
 import { getWines, postFilterWineResults } from "../../services/wineService";
+import { getUserLocation } from "../../services/googlePlacesService";
 
 ///////////////////////////////
 // Context Creation
@@ -22,6 +23,18 @@ export const GlobalProvider = ({ children }) => {
   const [displayedWines, setDisplayedWines] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+
+
+
+  ///////////////////////////
+  // Fetch User Location and Country Code
+  ///////////////////////////
+useEffect(() => {
+const fetchUserLocationAndCountryCode = async () => {
+  await getUserLocation()
+}
+fetchUserLocationAndCountryCode()
+},[])
   ///////////////////////////
   // Form Data For Filtering Search
   ///////////////////////////
@@ -33,6 +46,13 @@ export const GlobalProvider = ({ children }) => {
     console.log(formData.query);
   };
 
+
+
+
+
+///////////////////////////
+// Fetch Filtered Wine Data | Whenever formData changes
+///////////////////////////
   useEffect(() => {
     fetchFilteredWineData(formData);
   }, [formData]);

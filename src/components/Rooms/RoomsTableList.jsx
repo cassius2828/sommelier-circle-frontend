@@ -10,12 +10,24 @@ const RoomsTableList = () => {
         {/* head */}
         <thead>
           <tr>
-            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">Name</th>
-            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">Address</th>
-            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">Rating</th>
-            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">Open Status</th>
-            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">Add to Favorites</th>
-            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">Details</th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
+              Name
+            </th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
+              Address
+            </th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
+              Rating
+            </th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
+              Open Status
+            </th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
+              Add to Favorites
+            </th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
+              Details
+            </th>
           </tr>
         </thead>
         {/* body */}
@@ -24,13 +36,21 @@ const RoomsTableList = () => {
             <tr key={room.place_id + idx} className="hover:bg-gray-800">
               {/* room name */}
               <td className="py-2 px-4 border-b border-gray-700 flex items-center gap-4 text-gray-100 text-xl">
-                <img className="w-20 h-20 object-cover" src={room.photo} alt="" />
+                <img
+                  className="w-20 h-20 object-cover"
+                  src={room.photo}
+                  alt=""
+                />
                 {room.name}
               </td>
               {/* address */}
-              <td className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">{room.vicinity}</td>
+              <td className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
+                {room.vicinity}
+              </td>
               {/* rating */}
-              <td className="py-2 px-4 border-b border-gray-700 text-center text-gray-100 text-xl">{room.rating}</td>
+              <td className="py-2 px-4 border-b border-gray-700 text-center text-gray-100 text-xl">
+                {room.rating}
+              </td>
               {/* open status */}
               <td className="py-2 px-4 border-b border-gray-700 text-center text-gray-100 text-xl">
                 {room.opening_hours.open_now ? (
@@ -47,8 +67,8 @@ const RoomsTableList = () => {
               </td>
               {/* details */}
               <td className="py-2 px-4 border-b border-gray-700 text-center">
-                <Link to={`/rooms/${room.place_id}`}>
-                  <button className="border px-3 py-1 text-xl rounded-md text-gray-100 text-xl border-gray-800 transition-colors duration-300 hover:bg-gray-900 hover:text-white">
+                <Link to={`/rooms/room-details/${room.place_id}`}>
+                  <button className="border px-3 py-1  rounded-md text-gray-100 text-xl border-gray-800 transition-colors duration-300 hover:bg-gray-900 hover:text-white">
                     details
                   </button>
                 </Link>
