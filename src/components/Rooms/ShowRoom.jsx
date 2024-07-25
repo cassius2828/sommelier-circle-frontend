@@ -1,9 +1,11 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import StarList, { Star } from "../CommonComponents/StarList";
 import { useEffect, useState } from "react";
+import { getPlaceDetails } from "../../services/googlePlacesService";
+import useGlobalContext from "../../context/global/useGlobalContext";
+import Loader from "../CommonComponents/Loader";
 
 const ShowRoom = () => {
-
   return (
     <div className="w-full mt-80">
       <ShowRoomCard />
@@ -14,13 +16,32 @@ const ShowRoom = () => {
 export default ShowRoom;
 
 export const ShowRoomCard = () => {
-const [roomDetails,setRoomDetails] = useState({})
+  const [placeDetails, setPlaceDetails] = useState({});
   const navigate = useNavigate();
-  const roomId = useParams()
-  useEffect(() => {
-console.log(roomId)
-  },[roomId])
+  const { roomId } = useParams();
+  const { isLoading, setIsLoading } = useGlobalContext();
 
+  const rating = placeDetails.rating * 20
+  const fetchPlaceDetails = async () => {
+    try {
+      setIsLoading(true);
+      const data = await getPlaceDetails(roomId);
+      setPlaceDetails(data);
+    } catch (err) {
+      console.error(err);
+      console.log(
+        `Error communicating with backend to retrieve place details from google place api`
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  useEffect(() => {
+    console.log(roomId);
+    // fetchPlaceDetails()
+  }, [roomId]);
+  console.log(placeDetails);
+  if (isLoading) return <Loader />;
   return (
     <div className="grid grid-cols-3 grid-rows-3 bg-[#111213] shadow-lg w-full lg:w-1/2 mx-auto max-h-[50rem] text-gray-100 rounded-md p-4 relative">
       <span
@@ -37,11 +58,11 @@ console.log(roomId)
           alt=""
         />
         <div className="flex-col flex gap-4">
-          <h1 className=" text-6xl">Title</h1>
+          <h1 className=" text-6xl">{placeDetails.name}</h1>
           <h2 className=" text-4xl">
-            Address 123 main st <br /> 95687 city, CA
+            {placeDetails.formatted_address}
           </h2>
-          <StarList bgColor="[#]" criticScore={90} />
+          <StarList bgColor="[#]" criticScore={rating} />
           {/* buttons | fav, directions, website */}
           <div className="flex items-center  justify-center gap-4 mr-auto mt-12 ">
             <button className="p-2 h-16 border-2 border-[#FFD700] rounded-lg">
@@ -50,9 +71,11 @@ console.log(roomId)
             <button className="border h-16 px-3 py-1 text-2xl rounded-md border-gray-100 transition-colors duration-300 hover:bg-gray-800 hover:text-white">
               directions
             </button>{" "}
-            <button className="border h-16 px-3 py-1 text-2xl rounded-md border-gray-100 transition-colors duration-300 hover:bg-gray-800 hover:text-white">
-              website
-            </button>
+            <Link to={placeDetails.website}>
+              <button className="border h-16 px-3 py-1 text-2xl rounded-md border-gray-100 transition-colors duration-300 hover:bg-gray-800 hover:text-white">
+                website
+              </button>
+            </Link>
             <button className="border h-16 px-3 py-1 text-2xl rounded-md border-gray-100 transition-colors duration-300 hover:bg-gray-800 hover:text-white">
               reserve
             </button>
@@ -61,13 +84,8 @@ console.log(roomId)
       </div>
       {/* details */}
       <p className="col-span-2 col-start-2 row-start-1 text-2xl mt-12 p-4">
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nemo veniam
-        accusantium placeat, Lorem ipsum dolor sit, amet consectetur adipisicing
-        elit. Nemo veniam accusantium placeat, voluptatum asperiores a mollitia
-        maiores aliquid temporibus ducimus aut atque repellat qui rem iste? Quia
-        corrupti fugiat asperiores voluptatum asperiores a mollitia maiores
-        aliquid temporibus ducimus aut atque repellat qui rem iste? Quia
-        corrupti fugiat asperiores!
+      {placeDetails.editorial_summary.overview}
+
       </p>
 
       {/* hours of operation */}
@@ -104,7 +122,7 @@ console.log(roomId)
           <ul className="flex flex-col items-start justify-start gap-4">
             <a href="tel:5555555555">
               <li className="p-4 text-xl w-full hover:bg-neutral-800 transition-colors duration-200 ease-in-out">
-                Phone: (555) 555-5555
+                Phone: {placeDetails.formatted_phone_number}
               </li>
             </a>
             <a href="mailto:example@gmail.com">
@@ -118,3 +136,4 @@ console.log(roomId)
     </div>
   );
 };
+

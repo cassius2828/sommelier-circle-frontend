@@ -147,3 +147,28 @@ export const getWinePlacesAutocomplete = async (query, country) => {
     );
   }
 };
+
+///////////////////////////
+// GET | Place details
+///////////////////////////
+export const getPlaceDetails = async (placeId) => {
+  try {
+    const params = {
+      placeId,
+    };
+    const options = {
+      params,
+    };
+    const response = await axios.get(
+      `${GOOGLE_PLACES_BASE_URL}/place-details`,
+      options
+    );
+    
+    return response.data.result;
+  } catch (err) {
+    console.error(err);
+    console.log(
+      `Unable to use autocomplete for nearby wine locations with google places api`
+    );
+  }
+};
