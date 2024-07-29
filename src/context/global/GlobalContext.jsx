@@ -23,6 +23,21 @@ export const GlobalProvider = ({ children }) => {
   const [displayedWines, setDisplayedWines] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const windowWidth = window.innerWidth
+  let deviceWidth = "";
+
+  switch (deviceWidth) {
+    case windowWidth < 768:
+      deviceWidth = "mobile";
+      break;
+    case windowWidth > 1400:
+      deviceWidth = "desktop";
+      break;
+
+    default:
+      deviceWidth = "tablet";
+      break;
+  }
 
 
 
@@ -483,7 +498,7 @@ fetchUserLocationAndCountryCode()
         formData,
         setFormData,
         handleUpdateForm,
-        initialFormData,
+        initialFormData,deviceWidth
       }}
     >
       {children}

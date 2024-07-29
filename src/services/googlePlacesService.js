@@ -43,7 +43,7 @@ export const getUserLocation = () => {
 // GET | Nearby Wine Places
 ///////////////////////////
 export const getNearbyWinePlaces = async () => {
-  // first attempt to get from local storage
+  // // first attempt to get from local storage
   // let lat = sessionStorage.getItem("lat");
   // let lng = sessionStorage.getItem("lng");
   // // get user location
@@ -85,21 +85,24 @@ export const getNearbyWinePlaces = async () => {
 ///////////////////////////
 // GET | Photos of Room Results
 // ///////////////////////////
-export const getPhotosOfRoom = async (photo_reference) => {
-  // try {
-  //   const response = await axios.get(`${GOOGLE_PLACES_BASE_URL}/room-photos`, {
-  //     params: {
-  //       photo_reference,
-  //       key: import.meta.env.VITE_GOOGLE_PLACES_API_KEY,
-  //     },
-  //   });
-  //   return response.data;
-  // } catch (err) {
-  //   console.error(err);
-  //   console.log(
-  //     `Unable to retrieve photos for wine locations from google places api`
-  //   );
-  // }
+export const getPhotosOfRoom = async (photo_reference, deviceWidth) => {
+ 
+  try {
+    const response = await axios.get(`${GOOGLE_PLACES_BASE_URL}/room-photos`, {
+      params: {
+        photo_reference,
+        key: import.meta.env.VITE_GOOGLE_PLACES_API_KEY,
+        deviceWidth
+      },
+    });
+
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    console.log(
+      `Unable to retrieve photos for wine locations from google places api`
+    );
+  }
 };
 
 ///////////////////////////

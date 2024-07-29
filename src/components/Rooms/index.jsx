@@ -12,10 +12,10 @@ import usePlacesContext from "../../context/places/usePlacesContext";
 import useGlobalContext from "../../context/global/useGlobalContext";
 import Loader from "../CommonComponents/Loader";
 import RoomsTableList from "./RoomsTableList";
-import AutoCompleteRoomSearch from "./AutoCompleteRoomSearch";
+
 import AutoCompleteInput from "../CommonComponents/AutoCompleteInput";
-import GooglePlacesAutocomplete from "react-google-places-autocomplete";
-import { debounce } from "lodash";
+
+
 
 const Rooms = () => {
   const [display, setDisplay] = useState("full");
@@ -23,20 +23,17 @@ const Rooms = () => {
   const handleDisplayChange = (e) => {
     setDisplay(e.target.value);
   };
-  // useEffect(() => {
 
-  //   fetchQuerySearchLocationResults();
-  // }, [query]);
   return (
     <div className="flex flex-col w-full  min-h-screen mt-80 items-center">
-      {/* <RoomSearchbar query={query} setQuery={setQuery} /> */}
+   
       <AutoCompleteInput/>
-      {/* <GooglePlacesAutocomplete/> */}
+   
       <div className="flex items-start gap-12 ">
         <h1 className="text-gray-100 text-5xl mb-12">Recommendations</h1>
         <div className="flex gap-4 items-center">
           <label className="text-gray-100" htmlFor="blog-display">
-            Display blogs
+            Display Locations
           </label>
           <select
             className="text-gray-800 px-4 py-2 rounded-sm"
@@ -137,12 +134,6 @@ export const RoomCard = ({ rating, name, address, isOpen, photo }) => {
           <StarList bgColor="[#111213]" criticScore={calculatedRating} />
         </div>
 
-        {/* <p className="text-xl text-gray-100">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus
-          reiciendis laudantium culpa, exercitationem, sed corporis vel sequi
-          iste magnam error recusandae ab eaque mollitia dolor odio qui tempore
-          repudiandae quae?
-        </p> */}
         {isOpen ? (
           <span className="text-3xl text-green-500 ">Now Open</span>
         ) : (

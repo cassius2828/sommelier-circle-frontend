@@ -60,10 +60,10 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
               </li>
               <li onClick={() => setIsOpen(false)}>
                 <Link
-                  to="/rooms"
+                  to="/rooms/explore"
                   className="hover:text-theme-sand transition-colors duration-200"
                 >
-                  Rooms
+                  Locations
                 </Link>
               </li>
               <li onClick={() => setIsOpen(false)}>
@@ -189,19 +189,15 @@ export const NavBarTop = ({ handleLogout }) => {
               </Link>
             </li>
             <NavListItem
-              listItemText={`Rooms`}
+              listItemText={`Locations`}
               dropDownItems={[
                 {
-                  text: "explore rooms",
+                  text: "explore locations",
                   path: "/rooms/explore",
                 },
                 {
-                  text: "favorite rooms",
+                  text: "favorite locations",
                   path: "/favorites/rooms",
-                },
-                {
-                  text: "search rooms",
-                  path: "/rooms",
                 },
               ]}
             />

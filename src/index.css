@@ -18,7 +18,9 @@ html {
 
 body {
   box-sizing: inherit;
-  background-color: #111213;
+ 
+  /* background-color: #111213; */
+  background-color: #0a0a0a;
   /* background-color: #03030c; */
 }
 
