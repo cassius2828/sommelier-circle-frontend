@@ -9,7 +9,7 @@ import "react-quill/dist/quill.snow.css";
 
 import { AuthProvider } from "./context/auth/AuthContext.jsx";
 import { BlogProvider } from "./context/blog/BlogContext.jsx";
-import { GlobalProvider } from "./context/global/GlobalContext.jsx";
+import { GlobalProvider } from "./context/global/GlobalProvider.jsx";
 import { PlacesProvider } from "./context/places/PlacesContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(

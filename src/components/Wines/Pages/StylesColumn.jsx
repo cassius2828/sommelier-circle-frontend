@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { Link, useLocation } from "react-router-dom";
 import useGlobalContext from "../../../context/global/useGlobalContext";
@@ -27,7 +28,7 @@ const StylesColumn = ({ style }) => {
   return (
     <div className="w-1/2 mt-96">
       <h3 className="border border-neutral-500 text-gray-100 text-4xl p-5">
-        Other {selectedCategory[0].title} Styles
+        Other {selectedCategory[0]?.title} Styles
       </h3>
       <ul className="flex flex-col items-start justify-start">
         <Link
@@ -39,7 +40,7 @@ const StylesColumn = ({ style }) => {
             All Styles
           </button>
         </Link>
-        {selectedCategory[0].types.map((type) => (
+        {selectedCategory[0]?.types.map((type) => (
           <Link className="w-full" to={type.path} key={type.name + type.path}>
             {findActiveWineStyle(wineStyle, type.name) ? "" : ""}
             <li

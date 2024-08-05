@@ -22,16 +22,16 @@ Things to Do
 ///////////////////////////
 
 
-
-- google autocomplete 
-- google places 
 - create events and rooms 
 - create frontend first, then hit points, then configure together 
 - mobile responsiveness
 
-- add ability to follow users
+
 - clean up desktop styles 
 - create more blogs to display 
 - display featured blogs on landing
 - display critic info 
 
+///////////////////////////
+Rose Wine needs its logic rehandled for wine pages 7/28/24
+///////////////////////////
