@@ -56,11 +56,9 @@ const initialFormData = {
       console.log(formData.query);
     };
   
-  console.log('test 3')
-  
-  useEffect(() => {
 
-  },[])
+  
+
   
   ///////////////////////////
   // Fetch Filtered Wine Data | Whenever formData changes

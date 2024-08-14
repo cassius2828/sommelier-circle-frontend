@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 // SigninForm
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signin } from "../../services/authService";
 import useAuthContext from "../../context/auth/useAuthContext";
@@ -32,7 +32,7 @@ const SigninForm = () => {
       setUser(user);
       navigate("/");
     } catch (err) {
-      updateMessage(err.message);
+      updateMessage(err.response.data.error);
     }
   };
 
