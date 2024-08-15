@@ -206,15 +206,15 @@ export const NavBarTop = ({ handleLogout }) => {
               dropDownItems={[
                 {
                   text: "explore events",
-                  path: "/events/explore",
+                  path: "/events",
+                },
+                {
+                  text: "post an event",
+                  path: "/events/create",
                 },
                 {
                   text: "favorite events",
                   path: "/favorites/events",
-                },
-                {
-                  text: "search events",
-                  path: "/events",
                 },
               ]}
             />
@@ -340,7 +340,7 @@ export const NavBarTop = ({ handleLogout }) => {
                 {
                   text: "sign out",
                   path: `/`,
-                  onClick: handleLogout
+                  onClick: handleLogout,
                 },
               ]}
             />

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { EventGrid } from "./EventGrid";
 import SearchBar from "../CommonComponents/SearchBar";
 import useGlobalContext from "../../context/global/useGlobalContext";
+import { useLocation } from "react-router-dom";
 const events = [
   {
     photos: [{ photo_reference: "photo_1_reference" }],
@@ -102,6 +103,8 @@ const Events = () => {
       return newFormData;
     });
   };
+
+
 
   return (
     <div className="flex flex-col w-full  min-h-screen mt-80 items-center">
