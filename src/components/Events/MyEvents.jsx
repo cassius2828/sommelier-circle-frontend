@@ -3,8 +3,8 @@ import { EventGrid } from "./EventGrid";
 import SearchBar from "../CommonComponents/SearchBar";
 import useGlobalContext from "../../context/global/useGlobalContext";
 import { useLocation } from "react-router-dom";
+import { getUserEvents } from "../../services/eventService";
 import useAuthContext from "../../context/auth/useAuthContext";
-import { getExploreEvents } from "../../services/eventService";
 const events = [
   {
     photos: [{ photo_reference: "photo_1_reference" }],
@@ -76,11 +76,12 @@ const initialFormData = {
   query: "",
   category: "",
 };
-const Events = () => {
+const MyEvents = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [showFilters, setShowFilters] = useState(false);
-  const [displayEvents, setDisplayEvents] = useState(events);
-const {user} = useAuthContext()
+  const [displayEvents, setDisplayEvents] = useState([]);
+  const { user } = useAuthContext();
+
   const handleSearchEventsByTitle = (e) => {
     const { name, value } = e.target;
     // allows us to type "and" instead of & for our searches
@@ -107,21 +108,22 @@ const {user} = useAuthContext()
   };
 
   useEffect(() => {
-    const fetchExploreEvents = async () => {
+    const fetchUserEvents = async () => {
       try {
-        const data = await getExploreEvents(user._id);
+        const data = await getUserEvents(user._id);
+        // console.log(data)
         setDisplayEvents(data);
       } catch (err) {
         console.error(err);
         console.log(`Unable to get user events from service function`);
       }
     };
-    fetchExploreEvents();
+    fetchUserEvents();
   }, []);
 
   return (
     <div className="flex flex-col w-full  min-h-screen mt-80 items-center">
-      <h1 className="text-8xl text-gray-100 mb-12">Events</h1>
+      <h1 className="text-8xl text-gray-100 mb-12">My Events</h1>
       <div className="w-1/2 mx-auto">
         <div className="flex justify-center items-center">
           <div className="relative mb-8 w-1/2  items-center">
@@ -194,4 +196,4 @@ const {user} = useAuthContext()
     </div>
   );
 };
-export default Events;
+export default MyEvents;

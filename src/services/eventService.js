@@ -13,7 +13,7 @@ export const postCreateEvent = async (formData, userId) => {
   const completeFormData = { ...formData, owner: userId };
   const options = {
     headers: {
-      'Content-Type': 'multipart/form-data', 
+      "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   };
@@ -32,4 +32,50 @@ export const postCreateEvent = async (formData, userId) => {
   }
 };
 
+///////////////////////////
+// GET | Explore Events
+///////////////////////////
+export const getExploreEvents = async (userId) => {
+  try {
+    const response = await axios.get(EVENT_BASE_URL + `?userId=${userId}`);
+    console.log(response.data);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    console.log(
+      `Unable to communicate with MongoDb to get all non user events`
+    );
+  }
+};
 
+///////////////////////////
+// GET | User Events
+///////////////////////////
+
+export const getUserEvents = async (userId) => {
+  const url = EVENT_BASE_URL + `/user-events/?userId=${userId}`;
+  try {
+    const response = await axios.get(url);
+    console.log(response.data);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    console.log(`Unable to communicate with MongoDb to get all user events`);
+  }
+};
+
+///////////////////////////
+// GET | Event Details
+///////////////////////////
+
+export const getEventDetails = async (eventId) => {
+  const url = EVENT_BASE_URL + `/${eventId}`;
+  try {
+    const response = await axios.get(url);
+    console.log(response.data);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    console.log(`Unable to communicate with MongoDb to get all user events`);
+  }
+};

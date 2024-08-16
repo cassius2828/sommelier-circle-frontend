@@ -189,8 +189,8 @@ export const EventForm = () => {
   ///////////////////////////
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
-console.log(type)
-console.log(photo)
+    console.log(type);
+    console.log(photo);
     setFormData({
       ...formData,
       [name]:
@@ -205,17 +205,14 @@ console.log(photo)
     e.preventDefault();
     try {
       if (user._id) {
-        const data = await postCreateEvent(formData, user._id);
-        console.log(data);
-        if (data) {
-          navigate("/events/my-events");
-        } else {
-          setMessage("Unable to create new event posting");
-        }
+        await postCreateEvent(formData, user._id);
+        setFormData(initialFormData);
+        navigate("/events/my-events");
       }
     } catch (err) {
       console.error(err);
       console.log(`Unable to complete service to create new event post`);
+      setMessage("Unable to create new event posting");
     }
   };
 
@@ -239,7 +236,6 @@ console.log(photo)
                     Photo
                   </label>
                   <input
-              
                     type="file"
                     name="photo"
                     id="photo"
