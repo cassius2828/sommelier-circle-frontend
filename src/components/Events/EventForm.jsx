@@ -20,8 +20,10 @@
 // ticketed event (Bool)
 // google maps address link (i will set this up with info given from location details)
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { postCreateEvent } from "../../services/eventService";
+import useAuthContext from "../../context/auth/useAuthContext";
 
 const states = [
   { code: "AL", name: "Alabama" },
@@ -83,9 +85,10 @@ const states = [
 ];
 const initialFormData = {
   // Basic Info
-  photo: null,
+  photo: "",
   eventName: "",
   eventDescription: "",
+  owner: null,
 
   // Location
   streetAddress: "",
@@ -94,19 +97,21 @@ const initialFormData = {
 
   // Event Time
   date: "",
-  startTimeHour: "",
-  startTimeMinute: "",
+  startTimeHour: "1",
+  startTimeMinute: "00",
   startTimeTod: "AM",
-  endTimeHour: "",
-  endTimeMinute: "",
+  endTimeHour: "1",
+  endTimeMinute: "00",
   endTimeTod: "AM",
 
   // Contact
-  contactEmail: "", // Prefill this from user profile if available
-  contactPhone: "", // Prefill this from user profile if available
+  email: "", // Prefill this from user profile if available
+  phone: "", // Prefill this from user profile if available
 
   // Extra
   ticketedEvent: false,
+  ticketsAvailable: 0,
+  ticketPrice: 0,
 };
 const timeOptions = Array.from({ length: 12 }, (_, i) => i + 1);
 const minuteOptions = Array.from({ length: 4 }, (_, i) => i * 15);
@@ -115,6 +120,8 @@ const todOptions = ["AM", "PM"];
 export const EventForm = () => {
   const [formStep, setFormStep] = useState(1);
   const [formData, setFormData] = useState(initialFormData);
+  const [message, setMessage] = useState("");
+  const { user } = useAuthContext();
   const {
     photo,
     eventName,
@@ -129,10 +136,30 @@ export const EventForm = () => {
     endTimeHour,
     endTimeMinute,
     endTimeTod,
-    contactEmail,
-    contactPhone,
+    email,
+    phone,
     ticketedEvent,
+    ticketPrice,
+    ticketsAvailable,
   } = formData;
+  const dataToSendToServer = new FormData();
+
+  dataToSendToServer.append("photo", photo);
+  dataToSendToServer.append("eventName", eventName);
+  dataToSendToServer.append("eventDescription", eventDescription);
+  dataToSendToServer.append("streetAddress", streetAddress);
+  dataToSendToServer.append("city", city);
+  dataToSendToServer.append("state", state);
+  dataToSendToServer.append("date", date);
+  dataToSendToServer.append("startTimeHour", startTimeHour);
+  dataToSendToServer.append("startTimeMinute", startTimeMinute);
+  dataToSendToServer.append("startTimeTod", startTimeTod);
+  dataToSendToServer.append("endTimeHour", endTimeHour);
+  dataToSendToServer.append("endTimeMinute", endTimeMinute);
+  dataToSendToServer.append("endTimeTod", endTimeTod);
+  dataToSendToServer.append("email", email);
+  dataToSendToServer.append("phone", phone);
+  dataToSendToServer.append("ticketedEvent", ticketedEvent);
 
   const navigate = useNavigate();
 
@@ -161,20 +188,40 @@ export const EventForm = () => {
   // Handle Change
   ///////////////////////////
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type, checked, files } = e.target;
+console.log(type)
+console.log(photo)
     setFormData({
       ...formData,
-      [name]: type === "checkbox" ? checked : value,
+      [name]:
+        type === "file" ? files[0] : type === "checkbox" ? checked : value,
     });
   };
 
   ///////////////////////////
   //   Create New Event Post
   ///////////////////////////
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    try {
+      if (user._id) {
+        const data = await postCreateEvent(formData, user._id);
+        console.log(data);
+        if (data) {
+          navigate("/events/my-events");
+        } else {
+          setMessage("Unable to create new event posting");
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      console.log(`Unable to complete service to create new event post`);
+    }
   };
+
+  useEffect(() => {
+    console.log(message);
+  }, [message]);
   return (
     <>
       <h2 className="text-gray-100 text-4xl mb-12">{formStep}/2</h2>
@@ -192,7 +239,7 @@ export const EventForm = () => {
                     Photo
                   </label>
                   <input
-                    value={photo}
+              
                     type="file"
                     name="photo"
                     id="photo"
@@ -430,37 +477,31 @@ export const EventForm = () => {
                   Contact
                 </h3>
                 <div className="mb-4">
-                  <label
-                    htmlFor="contactEmail"
-                    className="block text-gray-100 mb-2"
-                  >
+                  <label htmlFor="email" className="block text-gray-100 mb-2">
                     Email
                   </label>
                   <input
                     required
                     type="email"
-                    name="contactEmail"
-                    id="contactEmail"
+                    name="email"
+                    id="email"
                     placeholder="youremail@example.com"
-                    value={contactEmail}
+                    value={email}
                     onChange={handleChange}
                     className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
                   />
                 </div>
                 <div className="mb-4">
-                  <label
-                    htmlFor="contactPhone"
-                    className="block text-gray-100 mb-2"
-                  >
+                  <label htmlFor="phone" className="block text-gray-100 mb-2">
                     Phone
                   </label>
                   <input
                     required
                     type="tel"
-                    name="contactPhone"
-                    id="contactPhone"
+                    name="phone"
+                    id="phone"
                     placeholder="(555) 555-5555"
-                    value={contactPhone}
+                    value={phone}
                     onChange={handleChange}
                     className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
                   />
@@ -489,6 +530,36 @@ export const EventForm = () => {
                   className="p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
                 />
               </div>
+              {ticketedEvent && (
+                <div className="flex items-center gap-12">
+                  <div className="flex flex-col items-center justify-start">
+                    <label className="block text-gray-100 mb-2" htmlFor="">
+                      Ticket Price
+                    </label>
+                    <input
+                      value={ticketPrice}
+                      onChange={handleChange}
+                      className="p-2 w-20 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
+                      type="number"
+                      name="ticketPrice"
+                      id="ticketPrice"
+                    />
+                  </div>
+                  <div className="flex flex-col items-center justify-start">
+                    <label className="block text-gray-100 mb-2" htmlFor="">
+                      Tickets Available
+                    </label>
+                    <input
+                      value={ticketsAvailable}
+                      onChange={handleChange}
+                      className="p-2 border w-20 border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
+                      type="number"
+                      name="ticketsAvailable"
+                      id="ticketsAvailable"
+                    />
+                  </div>
+                </div>
+              )}
             </div>
             <div className="flex items-center gap-8">
               <button
@@ -498,6 +569,7 @@ export const EventForm = () => {
                 Back
               </button>
               <button
+                onClick={handleSubmit}
                 type="submit"
                 className="bg-stone-500 px-4 py-2 rounded-md text-gray-100 focus:outline-none hover:bg-stone-600 transition-colors duration-200 cursor-pointer"
               >

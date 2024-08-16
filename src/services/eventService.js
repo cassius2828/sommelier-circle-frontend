@@ -6,16 +6,21 @@ const EVENT_BASE_URL = BASE_URL + "/events";
 ///////////////////////////
 // ? POST | Create Event Posting
 ///////////////////////////
-export const postCreateEvent = async (formData) => {
+export const postCreateEvent = async (formData, userId) => {
   const url = EVENT_BASE_URL + "/create";
+
+  // add owner key value in formData | had issues appending owner to formData in create file
+  const completeFormData = { ...formData, owner: userId };
   const options = {
     headers: {
+      'Content-Type': 'multipart/form-data', 
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   };
 
   try {
-    const response = await axios.post(url, formData, options);
+    const response = await axios.post(url, completeFormData, options);
+    // console.log(response, " <-- response");
     if (response.ok) {
       return response.data;
     }
@@ -26,3 +31,5 @@ export const postCreateEvent = async (formData) => {
     );
   }
 };
+
+
