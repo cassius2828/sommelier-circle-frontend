@@ -3,20 +3,85 @@ import { EventGrid } from "./EventGrid";
 import SearchBar from "../CommonComponents/SearchBar";
 import useGlobalContext from "../../context/global/useGlobalContext";
 import { useLocation } from "react-router-dom";
+import { getUserEvents } from "../../services/eventService";
 import useAuthContext from "../../context/auth/useAuthContext";
-import { getExploreEvents } from "../../services/eventService";
+const events = [
+  {
+    photos: [{ photo_reference: "photo_1_reference" }],
+    photo: "https://via.placeholder.com/150",
+    rating: 4.7,
+    name: "Sunset Wine Tasting",
+    vicinity: "Napa Valley Vineyards, CA",
+    opening_hours: { open_now: true },
+  },
+  {
+    photos: [{ photo_reference: "photo_2_reference" }],
+    photo: "https://via.placeholder.com/150",
+    rating: 4.5,
+    name: "Wine & Cheese Soirée",
+    vicinity: "Downtown Loft, San Francisco, CA",
+    opening_hours: { open_now: false },
+  },
+  {
+    photos: [{ photo_reference: "photo_3_reference" }],
+    photo: "https://via.placeholder.com/150",
+    rating: 4.9,
+    name: "Red Wine Lovers Meetup",
+    vicinity: "Brooklyn Winery, New York, NY",
+    opening_hours: { open_now: true },
+  },
+  {
+    photos: [{ photo_reference: "photo_4_reference" }],
+    photo: "https://via.placeholder.com/150",
+    rating: 4.6,
+    name: "Chardonnay & Chat",
+    vicinity: "Wine Bar, Chicago, IL",
+    opening_hours: { open_now: true },
+  },
+  {
+    photos: [{ photo_reference: "photo_5_reference" }],
+    photo: "https://via.placeholder.com/150",
+    rating: 4.8,
+    name: "Summer Vineyard Picnic",
+    vicinity: "Sonoma County, CA",
+    opening_hours: { open_now: false },
+  },
+  {
+    photos: [{ photo_reference: "photo_6_reference" }],
+    photo: "https://via.placeholder.com/150",
+    rating: 4.3,
+    name: "Rooftop Wine & Dine",
+    vicinity: "Skyline Terrace, Los Angeles, CA",
+    opening_hours: { open_now: true },
+  },
+  {
+    photos: [{ photo_reference: "photo_7_reference" }],
+    photo: "https://via.placeholder.com/150",
+    rating: 4.7,
+    name: "Wine & Jazz Night",
+    vicinity: "The Jazz Lounge, New Orleans, LA",
+    opening_hours: { open_now: true },
+  },
+  {
+    photos: [{ photo_reference: "photo_8_reference" }],
+    photo: "https://via.placeholder.com/150",
+    rating: 4.4,
+    name: "Vintage Wine Tasting",
+    vicinity: "Old Town, Alexandria, VA",
+    opening_hours: { open_now: false },
+  },
+];
 
 const initialFormData = {
   query: "",
   category: "",
 };
-const Events = () => {
+const MyEvents = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [showFilters, setShowFilters] = useState(false);
-  const [events, setEvents] = useState([]);
-  const [displayEvents, setDisplayEvents] = useState(events);
-
+  const [displayEvents, setDisplayEvents] = useState([]);
   const { user } = useAuthContext();
+
   const handleSearchEventsByTitle = (e) => {
     const { name, value } = e.target;
     // allows us to type "and" instead of & for our searches
@@ -27,8 +92,8 @@ const Events = () => {
       const newFormData = { ...prevState, [name]: value };
 
       if (normalizedValue.length > 2) {
-        const updatedEvents = displayEvents.filter((event) => {
-          const normalizedEventName = event.eventName
+        const updatedEvents = events.filter((event) => {
+          const normalizedEventName = event.name
             .toLowerCase()
             .replace(/&/g, "and");
           return normalizedEventName.includes(normalizedValue);
@@ -43,22 +108,22 @@ const Events = () => {
   };
 
   useEffect(() => {
-    const fetchExploreEvents = async () => {
+    const fetchUserEvents = async () => {
       try {
-        const data = await getExploreEvents(user._id);
-        setEvents(data);
-        setDisplayEvents(data)
+        const data = await getUserEvents(user._id);
+        // console.log(data)
+        setDisplayEvents(data);
       } catch (err) {
         console.error(err);
         console.log(`Unable to get user events from service function`);
       }
     };
-    fetchExploreEvents();
+    fetchUserEvents();
   }, []);
 
   return (
     <div className="flex flex-col w-full  min-h-screen mt-80 items-center">
-      <h1 className="text-8xl text-gray-100 mb-12">Events</h1>
+      <h1 className="text-8xl text-gray-100 mb-12">My Events</h1>
       <div className="w-1/2 mx-auto">
         <div className="flex justify-center items-center">
           <div className="relative mb-8 w-1/2  items-center">
@@ -131,4 +196,4 @@ const Events = () => {
     </div>
   );
 };
-export default Events;
+export default MyEvents;
