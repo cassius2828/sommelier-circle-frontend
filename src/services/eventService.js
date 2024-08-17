@@ -79,3 +79,28 @@ export const getEventDetails = async (eventId) => {
     console.log(`Unable to communicate with MongoDb to get all user events`);
   }
 };
+
+///////////////////////////
+// * PUT | Edit Event
+///////////////////////////
+
+export const putEditEvent = async (formData, eventId, userId) => {
+  const url = EVENT_BASE_URL + `/${eventId}`;
+  const completeFormData = { ...formData, owner: userId };
+  const options = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  };
+
+  try {
+    const response = await axios.put(url, completeFormData, options);
+
+    console.log(response.data);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    console.log(`Unable to communicate with MongoDb to edit user event`);
+  }
+};

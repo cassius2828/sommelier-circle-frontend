@@ -21,8 +21,12 @@
 // google maps address link (i will set this up with info given from location details)
 
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { postCreateEvent } from "../../services/eventService";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  getEventDetails,
+  postCreateEvent,
+  putEditEvent,
+} from "../../services/eventService";
 import useAuthContext from "../../context/auth/useAuthContext";
 
 const states = [
@@ -121,6 +125,7 @@ export const EventForm = () => {
   const [formStep, setFormStep] = useState(1);
   const [formData, setFormData] = useState(initialFormData);
   const [message, setMessage] = useState("");
+  const { eventId } = useParams();
   const { user } = useAuthContext();
   const {
     photo,
@@ -141,6 +146,7 @@ export const EventForm = () => {
     ticketedEvent,
     ticketPrice,
     ticketsAvailable,
+    owner,
   } = formData;
   const dataToSendToServer = new FormData();
 
@@ -199,25 +205,58 @@ export const EventForm = () => {
   };
 
   ///////////////////////////
-  //   Create New Event Post
+  //   Create or Edit Event Post
   ///////////////////////////
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      if (user._id) {
-        await postCreateEvent(formData, user._id);
-        setFormData(initialFormData);
-        navigate("/events/my-events");
+      // if the event already exists and the current user is the owner | edit the event
+      if (owner?.toString() === user._id?.toString()) {
+        // Edit Event Post
+        if (user._id) {
+          await putEditEvent(formData, eventId, user._id);
+          setFormData(initialFormData);
+          navigate("/events/my-events");
+        }
+      } else {
+        // Create New Event Post
+        if (user._id) {
+          await postCreateEvent(formData, user._id);
+          setFormData(initialFormData);
+          navigate("/events/my-events");
+        }
       }
     } catch (err) {
       console.error(err);
-      console.log(`Unable to complete service to create new event post`);
-      setMessage("Unable to create new event posting");
+      const message =
+        owner?.toString() === user._id?.toString()
+          ? "Unable to edit event posting"
+          : "Unable to create new event posting";
+      console.log(`Unable to complete service to ${message.toLowerCase()}`);
+      setMessage(message);
     }
   };
 
   useEffect(() => {
-    console.log(message);
+    const fetchEventDetails = async () => {
+      console.log(owner, " <-- owner");
+
+      try {
+        const data = await getEventDetails(eventId);
+        // loads previous data if the owner is the current user and formats the date so the input can use the value
+        if (data.owner?.toString() === user._id?.toString()) {
+          setFormData({
+            ...data,
+            date: new Date(data.date).toISOString().split("T")[0],
+          });
+        }
+      } catch (err) {
+        console.error(err);
+        console.log(`Could not fetch event details from service function`);
+      }
+    };
+    fetchEventDetails();
   }, [message]);
   return (
     <>
@@ -339,12 +378,20 @@ export const EventForm = () => {
                 </div>
               </div>
             </div>{" "}
-            <button
-              onClick={(e) => handleNavigateForm(e, "next")}
-              className="bg-stone-500 px-4 py-2 rounded-md text-gray-100 focus:outline-none hover:bg-stone-600 transition-colors duration-200 cursor-pointer"
-            >
-              Next
-            </button>
+            <div className="flex items-center gap-12">
+              <button
+                onClick={() => navigate('/events/my-events')}
+                className="bg-stone-500 px-4 py-2 rounded-md text-gray-100 focus:outline-none hover:bg-stone-600 transition-colors duration-200 cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={(e) => handleNavigateForm(e, "next")}
+                className="bg-stone-500 px-4 py-2 rounded-md text-gray-100 focus:outline-none hover:bg-stone-600 transition-colors duration-200 cursor-pointer"
+              >
+                Next
+              </button>
+            </div>
           </>
         ) : (
           <>
@@ -569,7 +616,9 @@ export const EventForm = () => {
                 type="submit"
                 className="bg-stone-500 px-4 py-2 rounded-md text-gray-100 focus:outline-none hover:bg-stone-600 transition-colors duration-200 cursor-pointer"
               >
-                Create Event
+                {owner?.toString() === user._id?.toString()
+                  ? "Update Event"
+                  : "Create Event"}
               </button>
             </div>
           </>

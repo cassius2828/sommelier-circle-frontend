@@ -207,6 +207,9 @@ export const NavBarTop = ({ handleLogout }) => {
                 {
                   text: "explore events",
                   path: "/events",
+                },  {
+                  text: "my events",
+                  path: "/events/my-events",
                 },
                 {
                   text: "post an event",
