@@ -5,72 +5,6 @@ import useGlobalContext from "../../context/global/useGlobalContext";
 import { useLocation } from "react-router-dom";
 import useAuthContext from "../../context/auth/useAuthContext";
 import { getExploreEvents } from "../../services/eventService";
-const events = [
-  {
-    photos: [{ photo_reference: "photo_1_reference" }],
-    photo: "https://via.placeholder.com/150",
-    rating: 4.7,
-    name: "Sunset Wine Tasting",
-    vicinity: "Napa Valley Vineyards, CA",
-    opening_hours: { open_now: true },
-  },
-  {
-    photos: [{ photo_reference: "photo_2_reference" }],
-    photo: "https://via.placeholder.com/150",
-    rating: 4.5,
-    name: "Wine & Cheese Soirée",
-    vicinity: "Downtown Loft, San Francisco, CA",
-    opening_hours: { open_now: false },
-  },
-  {
-    photos: [{ photo_reference: "photo_3_reference" }],
-    photo: "https://via.placeholder.com/150",
-    rating: 4.9,
-    name: "Red Wine Lovers Meetup",
-    vicinity: "Brooklyn Winery, New York, NY",
-    opening_hours: { open_now: true },
-  },
-  {
-    photos: [{ photo_reference: "photo_4_reference" }],
-    photo: "https://via.placeholder.com/150",
-    rating: 4.6,
-    name: "Chardonnay & Chat",
-    vicinity: "Wine Bar, Chicago, IL",
-    opening_hours: { open_now: true },
-  },
-  {
-    photos: [{ photo_reference: "photo_5_reference" }],
-    photo: "https://via.placeholder.com/150",
-    rating: 4.8,
-    name: "Summer Vineyard Picnic",
-    vicinity: "Sonoma County, CA",
-    opening_hours: { open_now: false },
-  },
-  {
-    photos: [{ photo_reference: "photo_6_reference" }],
-    photo: "https://via.placeholder.com/150",
-    rating: 4.3,
-    name: "Rooftop Wine & Dine",
-    vicinity: "Skyline Terrace, Los Angeles, CA",
-    opening_hours: { open_now: true },
-  },
-  {
-    photos: [{ photo_reference: "photo_7_reference" }],
-    photo: "https://via.placeholder.com/150",
-    rating: 4.7,
-    name: "Wine & Jazz Night",
-    vicinity: "The Jazz Lounge, New Orleans, LA",
-    opening_hours: { open_now: true },
-  },
-  {
-    photos: [{ photo_reference: "photo_8_reference" }],
-    photo: "https://via.placeholder.com/150",
-    rating: 4.4,
-    name: "Vintage Wine Tasting",
-    vicinity: "Old Town, Alexandria, VA",
-    opening_hours: { open_now: false },
-  },
-];
 
 const initialFormData = {
   query: "",
@@ -79,8 +13,10 @@ const initialFormData = {
 const Events = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [showFilters, setShowFilters] = useState(false);
+  const [events, setEvents] = useState([]);
   const [displayEvents, setDisplayEvents] = useState(events);
-const {user} = useAuthContext()
+
+  const { user } = useAuthContext();
   const handleSearchEventsByTitle = (e) => {
     const { name, value } = e.target;
     // allows us to type "and" instead of & for our searches
@@ -91,8 +27,8 @@ const {user} = useAuthContext()
       const newFormData = { ...prevState, [name]: value };
 
       if (normalizedValue.length > 2) {
-        const updatedEvents = events.filter((event) => {
-          const normalizedEventName = event.name
+        const updatedEvents = displayEvents.filter((event) => {
+          const normalizedEventName = event.eventName
             .toLowerCase()
             .replace(/&/g, "and");
           return normalizedEventName.includes(normalizedValue);
@@ -110,7 +46,8 @@ const {user} = useAuthContext()
     const fetchExploreEvents = async () => {
       try {
         const data = await getExploreEvents(user._id);
-        setDisplayEvents(data);
+        setEvents(data);
+        setDisplayEvents(data)
       } catch (err) {
         console.error(err);
         console.log(`Unable to get user events from service function`);
