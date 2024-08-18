@@ -5,6 +5,7 @@ import useGlobalContext from "../../context/global/useGlobalContext";
 import { useLocation } from "react-router-dom";
 import useAuthContext from "../../context/auth/useAuthContext";
 import { getExploreEvents } from "../../services/eventService";
+import ExploreFilter from "./ExploreFilter";
 
 const initialFormData = {
   query: "",
@@ -47,7 +48,7 @@ const Events = () => {
       try {
         const data = await getExploreEvents(user._id);
         setEvents(data);
-        setDisplayEvents(data)
+        setDisplayEvents(data);
       } catch (err) {
         console.error(err);
         console.log(`Unable to get user events from service function`);
@@ -99,28 +100,7 @@ const Events = () => {
             >
               filter by
             </button>
-            {showFilters && (
-              <ul className="w-full absolute top-full bg-blue-500 flex flex-col items-center justify-start rounded-md">
-                <li
-                  onClick={() => setShowFilters(false)}
-                  className="bg-red-400 p-3 text-xl w-full cursor-pointer hover:bg-red-600"
-                >
-                  city
-                </li>{" "}
-                <li
-                  onClick={() => setShowFilters(false)}
-                  className="bg-red-400 p-3 text-xl w-full cursor-pointer hover:bg-red-600"
-                >
-                  date
-                </li>{" "}
-                <li
-                  onClick={() => setShowFilters(false)}
-                  className="bg-red-400 p-3 text-xl w-full cursor-pointer hover:bg-red-600"
-                >
-                  time of day
-                </li>
-              </ul>
-            )}
+            {showFilters && <ExploreFilter events={events} setShowFilters={setShowFilters} />}
           </div>
         </div>
         <h1 className="text-5xl font-bold mb-10 text-center text-gray-100">
