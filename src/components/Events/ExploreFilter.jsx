@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import useAuthContext from "../../context/auth/useAuthContext";
+import { getExploreEventByCity } from "../../services/eventService";
 
 // this component gets access to ALL events, not just displayed events
 const ExploreFilter = ({ setShowFilters, events }) => {
@@ -30,11 +32,14 @@ export default ExploreFilter;
 export const CityFilterList = ({ text, events, filter }) => {
   const [showDropdown, setShowDropDown] = useState(false);
   const [query, setQuery] = useState("");
+  const [selectedCity, setSelectedCity] = useState(null);
+  const { user } = useAuthContext();
+
   ///////////////////////////
   //   Filter States
   ///////////////////////////
-  const [displayFilterValues, setDisplayFilterValues] = useState([]);
-  const [filterValues, setFilterValues] = useState([]);
+  const [displayCities, setDisplayCities] = useState([]);
+  const [cities, setCities] = useState([]);
 
   ///////////////////////////
   // Handle Filter Search
@@ -43,55 +48,70 @@ export const CityFilterList = ({ text, events, filter }) => {
     const { value } = e.target;
     setQuery(value);
     if (value.length > 2) {
-      const filteredBySearch = displayFilterValues.filter((filterValue) =>
-        String(filterValue).toLowerCase().includes(value.toLowerCase())
+      const filteredBySearch = displayCities.filter((city) =>
+        String(city).toLowerCase().includes(value.toLowerCase())
       );
-      setDisplayFilterValues(filteredBySearch);
+      setDisplayCities(filteredBySearch);
     }
     if (value.length === 0) {
-      setDisplayFilterValues(filterValues);
+      setDisplayCities(cities);
     }
   };
 
   ///////////////////////////
-  //   Initialize Filter Values
+  //   Handle City Selection
   ///////////////////////////
-  const handleInitializeFilterValues = () => {
-    const uniqueFilterValues = new Set();
+  const handleSelectCityFilter = async (city) => {
+    try {
+      const data = await getExploreEventByCity(city, user._id);
+    //   TODO make a context for events
+    //   setDisplayCities(data);
+    } catch (err) {
+      console.error(err);
+      console.log(
+        `Unable to use service file to filter explore events by ${city}`
+      );
+    }
+  };
+
+  ///////////////////////////
+  //   Initialize City Values
+  ///////////////////////////
+  const handleInitializeCities = () => {
+    const uniqueCities = new Set();
 
     events.forEach((event) => {
-      uniqueFilterValues.add(event[filter]);
+      uniqueCities.add(event[filter]);
     });
-    const sortedFilterValues = Array.from(uniqueFilterValues).sort((a, b) =>
+    const sortedCities = Array.from(uniqueCities).sort((a, b) =>
       a.toLowerCase().localeCompare(b.toLowerCase())
     );
 
-    setFilterValues(sortedFilterValues);
-    setDisplayFilterValues(sortedFilterValues);
+    setCities(sortedCities);
+    setDisplayCities(sortedCities);
   };
 
   useEffect(() => {
-    handleInitializeFilterValues();
+    handleInitializeCities();
   }, []);
+
   return (
     <>
       <li
         onClick={() => setShowDropDown((prev) => !prev)}
         className="bg-neutral-900 text-gray-100 p-3 text-xl w-full cursor-pointer hover:bg-neutral-800"
       >
-        {filter === "city" ? `Cities -- ${filterValues.length}` : text}
+        {`Cities -- ${cities.length}`}
       </li>
       {showDropdown && (
-        <ul className="  w-full max-h-48 overflow-y-scroll">
-          {filterValues.length > 3 && (
-            <div className="relative mb-2 w-full  items-center">
+        <ul className="w-full max-h-48 overflow-y-scroll">
+          {cities.length > 3 && (
+            <div className="relative mb-2 w-full items-center">
               {/* search bar */}
               <input
                 name="query"
                 value={query}
-                onChange={(e) => {
-                  handleSearchFilterCategory(e);
-                }}
+                onChange={(e) => handleSearchFilterCategory(e)}
                 type="text"
                 placeholder={`Search for ${filter}`}
                 className="w-full p-4 text-gray-800 rounded-md"
@@ -108,16 +128,15 @@ export const CityFilterList = ({ text, events, filter }) => {
               </button>
             </div>
           )}
-          {displayFilterValues?.map((filterValue, idx) => {
-            return (
-              <li
-                key={filterValue + idx}
-                className="bg-neutral-700 text-gray-100 p-3 pl-8 text-xl w-full cursor-pointer  hover:bg-neutral-600"
-              >
-                {filterValue}
-              </li>
-            );
-          })}
+          {displayCities?.map((city, idx) => (
+            <li
+              onClick={() => handleSelectCityFilter(city)}
+              key={city + idx}
+              className="bg-neutral-700 text-gray-100 p-3 pl-8 text-xl w-full cursor-pointer hover:bg-neutral-600"
+            >
+              {city}
+            </li>
+          ))}
         </ul>
       )}
     </>

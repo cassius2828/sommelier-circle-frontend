@@ -104,3 +104,21 @@ export const putEditEvent = async (formData, eventId, userId) => {
     console.log(`Unable to communicate with MongoDb to edit user event`);
   }
 };
+
+///////////////////////////
+// GET | Filter Event By City
+///////////////////////////
+
+export const getExploreEventByCity = async (city, userId) => {
+  const url = EVENT_BASE_URL + `/filter-events/city/?userId=${userId}&city=${city}`;
+
+  try {
+    const response = await axios.get(url);
+
+    console.log(response.data);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    console.log(`Unable to communicate with MongoDb to filter explore events`);
+  }
+};
