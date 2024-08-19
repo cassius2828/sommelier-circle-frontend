@@ -35,16 +35,37 @@ export const postCreateEvent = async (formData, userId) => {
 ///////////////////////////
 // GET | Explore Events
 ///////////////////////////
-export const getExploreEvents = async (userId) => {
+export const getExploreEvents = async (userId, query) => {
   try {
-    const response = await axios.get(EVENT_BASE_URL + `?userId=${userId}`);
-    console.log(response.data);
-    return response.data;
+    if (query) {
+      const response = await axios.get(
+        EVENT_BASE_URL + `?userId=${userId}&searchQuery=${query}`
+      );
+      console.log(response.data);
+      if (response.data.message) {
+        return response.data.message;
+      }
+      return response.data;
+    } else {
+      const response = await axios.get(EVENT_BASE_URL + `?userId=${userId}`);
+      console.log(response.data);
+      if (response.data.message) {
+        return response.data.message;
+      }
+      return response.data;
+    }
   } catch (err) {
-    console.error(err);
-    console.log(
-      `Unable to communicate with MongoDb to get all non user events`
-    );
+    if (err.response && err.response.data && err.response.data.message) {
+      // Handle the error response from the server
+      console.log("Error response:", err.response);
+      return { error: true, message: err.response.data.message };
+    } else {
+      console.error(err);
+      return {
+        error: true,
+        message: "An unexpected error occurred. Please try again later.",
+      };
+    }
   }
 };
 
@@ -52,12 +73,28 @@ export const getExploreEvents = async (userId) => {
 // GET | User Events
 ///////////////////////////
 
-export const getUserEvents = async (userId) => {
-  const url = EVENT_BASE_URL + `/user-events/?userId=${userId}`;
+export const getUserEvents = async (userId, searchQuery) => {
+
   try {
-    const response = await axios.get(url);
-    console.log(response.data);
-    return response.data;
+    if (searchQuery) {
+      const url =
+        EVENT_BASE_URL +
+        `/user-events/?userId=${userId}&searchQuery=${searchQuery}`;
+      const response = await axios.get(url);
+      console.log(response.data);
+      if (response.data.message) {
+        return response.data.message;
+      }
+      return response.data;
+    } else {
+      const url = EVENT_BASE_URL + `/user-events/?userId=${userId}`;
+      const response = await axios.get(url);
+      console.log(response.data);
+      if (response.data.message) {
+        return response.data.message;
+      }
+      return response.data;
+    }
   } catch (err) {
     console.error(err);
     console.log(`Unable to communicate with MongoDb to get all user events`);
@@ -110,7 +147,8 @@ export const putEditEvent = async (formData, eventId, userId) => {
 ///////////////////////////
 
 export const getExploreEventByCity = async (city, userId) => {
-  const url = EVENT_BASE_URL + `/filter-events/city/?userId=${userId}&city=${city}`;
+  const url =
+    EVENT_BASE_URL + `/filter-events/city/?userId=${userId}&city=${city}`;
 
   try {
     const response = await axios.get(url);
@@ -122,3 +160,13 @@ export const getExploreEventByCity = async (city, userId) => {
     console.log(`Unable to communicate with MongoDb to filter explore events`);
   }
 };
+
+// export const getEventByNameSearch = async (query) => {
+//   try {
+//     const response = await axios.get(EVENT_BASE_URL + `?searchQuery=${query}`)
+//   } catch (err) {
+//     console.error(err);
+//     console.log(`Unable to communicate with MongoDb to filter explore events by name search`);
+//   }
+
+// }

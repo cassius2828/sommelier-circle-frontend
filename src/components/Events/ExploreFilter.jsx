@@ -58,21 +58,7 @@ export const CityFilterList = ({ text, events, filter }) => {
     }
   };
 
-  ///////////////////////////
-  //   Handle City Selection
-  ///////////////////////////
-  const handleSelectCityFilter = async (city) => {
-    try {
-      const data = await getExploreEventByCity(city, user._id);
-    //   TODO make a context for events
-    //   setDisplayCities(data);
-    } catch (err) {
-      console.error(err);
-      console.log(
-        `Unable to use service file to filter explore events by ${city}`
-      );
-    }
-  };
+
 
   ///////////////////////////
   //   Initialize City Values

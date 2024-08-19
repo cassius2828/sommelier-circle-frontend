@@ -6,70 +6,60 @@ import { useLocation } from "react-router-dom";
 import useAuthContext from "../../context/auth/useAuthContext";
 import { getExploreEvents } from "../../services/eventService";
 import ExploreFilter from "./ExploreFilter";
+import useEventsContext from "../../context/events/useEventsContext";
 
 const initialFormData = {
   query: "",
   category: "",
 };
+
 const Events = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [showFilters, setShowFilters] = useState(false);
-  const [events, setEvents] = useState([]);
-  const [displayEvents, setDisplayEvents] = useState(events);
 
+  const { fetchExploreEvents, exploreEvents, setDisplayEvents, dispatch } =
+    useEventsContext();
   const { user } = useAuthContext();
-  const handleSearchEventsByTitle = (e) => {
+  const { debounce } = useGlobalContext();
+  // Separate handler for the input change
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    // allows us to type "and" instead of & for our searches
-    const normalizedValue = value.toLowerCase().replace(/&/g, "and");
-
-    // keeps state fresh by using callback to handle the filtering
-    setFormData((prevState) => {
-      const newFormData = { ...prevState, [name]: value };
-
-      if (normalizedValue.length > 2) {
-        const updatedEvents = displayEvents.filter((event) => {
-          const normalizedEventName = event.eventName
-            .toLowerCase()
-            .replace(/&/g, "and");
-          return normalizedEventName.includes(normalizedValue);
-        });
-        setDisplayEvents(updatedEvents);
-      } else if (normalizedValue.length < 1) {
-        setDisplayEvents(events);
-      }
-      // sets our formdata state to most recent version
-      return newFormData;
-    });
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
+ // Debounced function to fetch events
+ const handleSearchEventsByTitle = debounce(async () => {
+  const normalizedValue = formData.query.toLowerCase().replace(/&/g, "and");
+  if (formData.query.length > 2) {
+    await fetchExploreEvents(user._id, normalizedValue);
+  } else if (formData.query.length === 0) {
+    await fetchExploreEvents(user._id);
+  }
+}, 300);
+
+  // Effect to call the debounced search when the query changes
   useEffect(() => {
-    const fetchExploreEvents = async () => {
-      try {
-        const data = await getExploreEvents(user._id);
-        setEvents(data);
-        setDisplayEvents(data);
-      } catch (err) {
-        console.error(err);
-        console.log(`Unable to get user events from service function`);
-      }
-    };
-    fetchExploreEvents();
+    handleSearchEventsByTitle();
+  }, [formData.query]);
+
+  useEffect(() => {
+    fetchExploreEvents(user._id);
   }, []);
 
   return (
-    <div className="flex flex-col w-full  min-h-screen mt-80 items-center">
+    <div className="flex flex-col w-full min-h-screen mt-80 items-center">
       <h1 className="text-8xl text-gray-100 mb-12">Events</h1>
       <div className="w-1/2 mx-auto">
         <div className="flex justify-center items-center">
-          <div className="relative mb-8 w-1/2  items-center">
+          <div className="relative mb-8 w-1/2 items-center">
             {/* search bar */}
             <input
               name="query"
               value={formData.query}
-              onChange={(e) => {
-                handleSearchEventsByTitle(e);
-              }}
+           onChange={handleInputChange}
               type="text"
               placeholder="Search"
               className="w-full p-4 text-gray-800 rounded-md"
@@ -89,26 +79,53 @@ const Events = () => {
           {/* clear search btn */}
           <button
             onClick={() => setFormData({ ...formData, query: "" })}
-            className=" border-neutral-200 border text-2xl ml-12 text-neutral-200 hover:bg-neutral-500 hover:border-neutral-500 transition-colors duration-200 ease-in-out px-4 py-2 mb-8 rounded-md "
+            className="border-neutral-200 border text-2xl ml-12 text-neutral-200 hover:bg-neutral-500 hover:border-neutral-500 transition-colors duration-200 ease-in-out px-4 py-2 mb-8 rounded-md "
           >
             clear search
           </button>
           <div className="relative">
             <button
               onClick={() => setShowFilters((prev) => !prev)}
-              className=" border-neutral-200 border text-2xl ml-12 text-neutral-200 hover:bg-neutral-500 hover:border-neutral-500 transition-colors duration-200 ease-in-out px-4 py-2 mb-8 rounded-md "
+              className="border-neutral-200 border text-2xl ml-12 text-neutral-200 hover:bg-neutral-500 hover:border-neutral-500 transition-colors duration-200 ease-in-out px-4 py-2 mb-8 rounded-md "
             >
               filter by
             </button>
-            {showFilters && <ExploreFilter events={events} setShowFilters={setShowFilters} />}
+            {showFilters && (
+              <ExploreFilter
+                events={exploreEvents}
+                setShowFilters={setShowFilters}
+              />
+            )}
           </div>
         </div>
         <h1 className="text-5xl font-bold mb-10 text-center text-gray-100">
-          {displayEvents.length} events found
+          {exploreEvents?.length} events found
         </h1>
       </div>
-      <EventGrid events={displayEvents} />
+      <EventGrid events={exploreEvents} />
     </div>
   );
 };
+
 export default Events;
+
+// keeps state fresh by using callback to handle the filtering
+// setFormData((prevState) => {
+//   const newFormData = { ...prevState, [name]: value };
+
+//   if (normalizedValue.length > 2) {
+//     const updatedEvents = displayEvents.filter((event) => {
+//       const normalizedEventName = event.eventName
+//         .toLowerCase()
+//         .replace(/&/g, "and");
+//       return normalizedEventName.includes(normalizedValue);
+//     });
+//     console.log(updatedEvents, ' <-- updated Events')
+//     setDisplayEvents(updatedEvents);
+//     console.log(displayEvents, ' <- display events')
+//   } else if (normalizedValue.length < 1) {
+//     setDisplayEvents(exploreEvents);
+//   }
+//   // sets our formdata state to most recent version
+//   return newFormData;
+// });
