@@ -473,6 +473,17 @@ const initialFormData = {
     useEffect(() => {
       fetchWines();
     }, []);
+
+///////////////////////////
+// Debouncing Function to Avoid Race Conditions in queries
+///////////////////////////
+    const debounce = (func, delay) => {
+      let timer;
+      return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => func(...args), delay);
+      };
+    };
     return (
       <GlobalContext.Provider
         value={{
@@ -493,7 +504,7 @@ const initialFormData = {
           formData,
           setFormData,
           handleUpdateForm,
-          initialFormData,deviceWidth
+          initialFormData,deviceWidth,debounce
         }}
       >
         {children}

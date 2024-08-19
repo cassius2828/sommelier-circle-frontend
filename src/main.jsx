@@ -11,6 +11,7 @@ import { AuthProvider } from "./context/auth/AuthContext.jsx";
 import { BlogProvider } from "./context/blog/BlogContext.jsx";
 import { GlobalProvider } from "./context/global/GlobalProvider.jsx";
 import { PlacesProvider } from "./context/places/PlacesContext.jsx";
+import { EventsProvider } from "./context/events/EventsContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -20,17 +21,20 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <AuthProvider>
         {/* blog provider */}
         <BlogProvider>
-          {/* PlacesProvider */}
-          <PlacesProvider>
-            {/* router */}
-            <BrowserRouter>
-              {/* app */}
-              <App />
+          {/* EventsProvider */}
+          <EventsProvider>
+            {/* PlacesProvider */}
+            <PlacesProvider>
+              {/* router */}
+              <BrowserRouter>
+                {/* app */}
+                <App />
+                {/*  */}
+              </BrowserRouter>
               {/*  */}
-            </BrowserRouter>
+            </PlacesProvider>
             {/*  */}
-          </PlacesProvider>
-
+          </EventsProvider>
           {/*  */}
         </BlogProvider>
         {/*  */}

@@ -11,6 +11,7 @@ const EventGalleryCard = ({
   streetAddress,
   city,
   state,
+  date,
   startTimeHour,
   startTimeMinute,
   startTimeTod,
@@ -48,7 +49,8 @@ const EventGalleryCard = ({
       <div className="flex flex-col items-center justify-between text-gray-100">
         <div className="text-center">
           <h2 className="text-4xl mb-3">{eventName}</h2>
-          <h3 className="text-2xl">{address}</h3>
+          <h3 className="text-2xl">                    {new Date(date).toDateString() || "Aug 8th, 2024"}
+          </h3>
         </div>
         <div className="mt-6 gap-12 flex justify-center ">
           <button className="p-2 border-2 border-[#FFD700] rounded-lg">
