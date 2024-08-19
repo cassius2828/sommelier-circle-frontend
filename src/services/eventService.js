@@ -95,9 +95,18 @@ export const getUserEvents = async (userId, searchQuery) => {
       }
       return response.data;
     }
-  } catch (err) {
-    console.error(err);
-    console.log(`Unable to communicate with MongoDb to get all user events`);
+  } catch (err)  {
+    if (err.response && err.response.data && err.response.data.message) {
+      // Handle the error response from the server
+      console.log("Error response:", err.response);
+      return { error: true, message: err.response.data.message };
+    } else {
+      console.error(err);
+      return {
+        error: true,
+        message: "An unexpected error occurred. Please try again later.",
+      };
+    }
   }
 };
 

@@ -324,7 +324,7 @@ export const NavBarTop = ({ handleLogout }) => {
               dropDownItems={[
                 {
                   text: "explore critics",
-                  path: "/critics/explore",
+                  path: "/critics",
                 },
 
                 {
