@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAllCritics } from "../../services/criticService";
+import { CriticCard } from "./CriticCard";
+import useGlobalContext from "../../context/global/useGlobalContext";
 
 const CriticsGallery = () => {
   const [critics, setCritics] = useState([]);
   const [message, setMessage] = useState("");
-
+  const [page, setPage] = useState(1);
+  const { totalCritics } = useGlobalContext();
+  // fetch all critics
   const fetchAllCritics = async () => {
     try {
-      const data = await getAllCritics();
+      const data = await getAllCritics(page);
       if (data.message) {
         setMessage(data.message);
       }
@@ -18,14 +22,32 @@ const CriticsGallery = () => {
       console.log(`Unable to use service function to fetch all critics`);
     }
   };
+  const handleLoadMoreCritics = () => {
+    setPage((prev) => prev + 1);
+
+    fetchNextPageOfCritics(page + 1);
+  };
+  const fetchNextPageOfCritics = async (page) => {
+    try {
+      const data = await getAllCritics(page);
+      if (data.message) {
+        setMessage(data.message);
+      }
+      setCritics((prev) => [...prev, ...data]);
+    } catch (err) {
+      console.error(err);
+      console.log(`Unable to use service function to fetch all critics`);
+    }
+  };
 
   useEffect(() => {
-    fetchAllCritics();
+    fetchAllCritics(page);
   }, []);
   return (
     <>
       <h2 className="text-gray-100 text-6xl text-center mt-80 mb-16">
-        Featured Critics
+        Showing <span className="text-theme-sand-dark">{critics.length}</span>{" "}
+        of <span className="text-theme-sand-dark">{totalCritics}</span> Critics
       </h2>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-24">
         {critics.map((critic) => (
@@ -35,40 +57,23 @@ const CriticsGallery = () => {
             name={critic.name}
             awards={critic.awards}
             experience={critic.experience}
+            img={critic.img}
           />
         ))}
       </div>
+      {
+critics.length < totalCritics &&
+
       <div className="w-full flex justify-center mt-12 mb-20">
-        <button className="px-4 py-2 text-center text-3xl w-80 border border-gray-100 text-gray-100 rounded-lg transition-colors duration-300 hover:bg-gray-800 hover:text-white">
+        <button
+          onClick={handleLoadMoreCritics}
+          className="px-4 py-2 text-center text-3xl w-80 border border-gray-100 text-gray-100 rounded-lg transition-colors duration-300 hover:bg-gray-800 hover:text-white capitalize"
+        >
           view more critics
         </button>
       </div>
+      }
     </>
   );
 };
 export default CriticsGallery;
-
-export const CriticCard = ({ name, img, id }) => {
-  return (
-    <div className=" p-8 flex flex-col justify-center items-center relative">
-      <div className="flex flex-col items-center">
-        <img
-          src={
-            img
-              ? img
-              : `https://www.vin-x.com/thumbnails/0/4181/268/james-suckling.jpg`
-          }
-          alt={name + ", wine critic"}
-        />
-        <span className="text-3xl text-center text-gray-100 my-12 capitalize">
-          {name}
-        </span>
-      </div>
-      <Link to={`/critics/${id}`}>
-        <button className=" px-4 py-2 border border-gray-100 text-gray-100 text-2xl rounded-lg transition-colors duration-300 hover:bg-gray-800 hover:text-white">
-          critic details
-        </button>
-      </Link>
-    </div>
-  );
-};
