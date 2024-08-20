@@ -1,5 +1,5 @@
 import LandingBlogs from "../Blogs/LandingBlogs";
-import CriticsGallery from "../Critics";
+import FeaturedCriticsGallery from "../Critics/FeaturedCritics";
 import Footer from "../Footer";
 import Hero from "../Hero/Hero";
 import FeaturedWineCardList from "../Wines/FeaturedWineCardList";
@@ -13,7 +13,7 @@ const Landing = () => {
       <FeaturedWineCategoryGallery />
       <FeaturedWineCardList />
       <LandingBlogs />
-      <CriticsGallery />
+     <FeaturedCriticsGallery/>
       <Footer/>
     </div>
   );

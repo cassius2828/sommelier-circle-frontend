@@ -1,21 +1,13 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getCriticDetails } from "../../services/criticService";
+import LoaderSpin from "../CommonComponents/LoaderSpin";
 
 const ShowCritic = () => {
   const { criticId } = useParams();
   const [criticDetails, setCriticDetails] = useState({});
-
-  const {
-    img,
-    name,
-    awards,
-    experience,
-    bio = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio
-          sint magni eaque harum similique illo soluta nesciunt, itaque eius
-          dolorum rerum alias iure asperiores consectetur omnis! Adipisci nisi
-          dicta ea.`,
-  } = criticDetails;
+  const navigate = useNavigate();
+  const { img, name, awards, experience, bio } = criticDetails;
   const fetchCriticDetails = async () => {
     try {
       const data = await getCriticDetails(criticId);
@@ -36,14 +28,19 @@ const ShowCritic = () => {
   return (
     <div className="p-4 bg-neutral-900 flex max-w-[90rem] mt-80 mx-auto relative">
       <div className="w-full ml-8">
-        <img className="h-full object-cover"
-          src={
-            img
-              ? img
-              : `https://www.vin-x.com/thumbnails/0/4181/268/james-suckling.jpg`
-          }
-          alt=""
-        />
+        {img ? (
+          <img
+            className="h-full object-cover"
+            src={
+              img
+                ? img
+                : `https://st4.depositphotos.com/14953852/24787/v/380/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg`
+            }
+            alt={name}
+          />
+        ) : (
+          <LoaderSpin />
+        )}
       </div>
       <div className="flex flex-col p-4 text-gray-200">
         <div className="w-3/4">
@@ -67,11 +64,12 @@ const ShowCritic = () => {
 
         <p className="p-8 text-2xl">{bio}</p>
       </div>{" "}
-      <Link to={`/critics`}>
-        <button className="absolute  -bottom-20 left-1/2 -translate-x-1/2 text-3xl w-1/3 mx-auto mt-12 bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200">
-          back to critics
-        </button>
-      </Link>
+      <button
+        onClick={() => navigate(-1)}
+        className="absolute  -bottom-20 left-1/2 -translate-x-1/2 text-3xl w-1/3 mx-auto mt-12 bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
+      >
+        back to critics
+      </button>
     </div>
   );
 };
