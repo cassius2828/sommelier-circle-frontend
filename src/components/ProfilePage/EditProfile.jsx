@@ -42,7 +42,7 @@ export default function EditProfile() {
     setFormData({ ...formData, [name]: value });
     console.log(value);
   };
-  const { profileImg, username, email, socialMedia } = formData;
+  const { profileImg, username, email, socialMedia, displayedName } = formData;
 
   useEffect(() => {
     async function getProfile() {
@@ -142,6 +142,23 @@ export default function EditProfile() {
                 id="username"
                 name="username"
                 value={username}
+                onChange={handleChange}
+                className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
+              />
+            </div>
+            {/* displayedName */}
+            <div className="mb-4">
+              <label
+                htmlFor="displayedName"
+                className="block text-gray-100 mb-2"
+              >
+                Displayed Name:
+              </label>
+              <input
+                type="text"
+                id="displayedName"
+                name="displayedName"
+                value={displayedName}
                 onChange={handleChange}
                 className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
               />

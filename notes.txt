@@ -17,9 +17,10 @@ fixed position, give them a mt-52
 Things to Do
 ///////////////////////////
 - add ability to edit profile info
+** done except for updating image and deleting current s3 image
 - set up favorites (ensure model relationships are adequate and create the CRUD for favorites of all given categories )
 - ensure mobile responsiveness
-- finish google places set up 
+
 - MAYBE: create a context for critics or add critic info into the global context 
 
 Extra:

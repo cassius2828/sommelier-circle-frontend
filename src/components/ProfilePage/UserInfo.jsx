@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import useAuthContext from "../../context/auth/useAuthContext";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getUser } from "../../services/authService";
 import {
   checkIfFollowing,
@@ -18,8 +18,9 @@ const UserInfo = ({ isSignedInUsersProfile, userProfile }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const { isLoading, setIsLoading, scrollToTop } = useGlobalContext();
   const [isFollowing, setIsFollowing] = useState(false);
-  const { user, setUser } = useAuthContext();
+  const { user, setUser, handleLogout } = useAuthContext();
   const { userId } = useParams();
+  const navigate = useNavigate("/");
 
   useEffect(() => {
     const fetchUserFromParams = async () => {
@@ -177,7 +178,13 @@ const UserInfo = ({ isSignedInUsersProfile, userProfile }) => {
                 edit profile
               </button>
             </Link>
-            <button className="text-2xl bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200 w-40">
+            <button
+              onClick={() => {
+                handleLogout();
+                navigate("/");
+              }}
+              className="text-2xl bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200 w-40"
+            >
               Sign Out
             </button>
           </div>
