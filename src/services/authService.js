@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = import.meta.env.VITE_BASE_URL
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 /////////////////////
 // User Signup Function
@@ -70,18 +70,47 @@ export function getUser() {
   return user.user;
 }
 
-
+/////////////////////
+// Refresh Token
+/////////////////////
 export const refreshToken = async () => {
   try {
-    const response = await axios.post(`${BASE_URL}/refresh-token`, {}, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    });
+    const response = await axios.post(
+      `${BASE_URL}/refresh-token`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
     const { token } = response.data;
-    localStorage.setItem('token', token);
+    localStorage.setItem("token", token);
     return token;
   } catch (err) {
-    console.error('Error refreshing token:', err);
+    console.error("Error refreshing token:", err);
+  }
+};
+
+///////////////////////////
+// GET | Token From Google OAuth Login
+///////////////////////////
+
+export const getTokenFromGoogleOAuth = async () => {
+
+  try {
+    const response = await axios.get(`${BASE_URL}/auth/token`, {
+      withCredentials: true,
+    });
+    const { token } = response.data;
+    console.log(token, ' <-- token, proof the function ran')
+    if (token) {
+      localStorage.setItem("token", token);
+      const user = JSON.parse(atob(token.split(".")[1]));
+  return user.user;
+     
+    } else return { message: "User was not authenitcated with google OAuth" };
+  } catch (err) {
+    console.error(`Error obtaining token err: ${err}`);
   }
 };

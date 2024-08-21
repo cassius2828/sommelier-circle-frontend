@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import useAuthContext from "../../context/auth/useAuthContext";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getUser } from "../../services/authService";
 import {
   checkIfFollowing,
@@ -58,13 +58,13 @@ const UserInfo = ({ isSignedInUsersProfile, userProfile }) => {
     };
 
     fetchIfFollowing();
-  }, [currentUser, userFromParams,]);
+  }, [currentUser, userFromParams]);
 
   // handle follow
   const handleFollow = async () => {
     try {
       await postFollowUser(user._id, userFromParams._id);
-      setIsFollowing(true)
+      setIsFollowing(true);
     } catch (err) {
       console.error(err);
       console.log(`Unable to follow user | UserInfo.jsx`);
@@ -74,8 +74,7 @@ const UserInfo = ({ isSignedInUsersProfile, userProfile }) => {
   const handleUnfollow = async () => {
     try {
       await postUnfollowUser(user._id, userFromParams._id);
-      setIsFollowing(false)
-
+      setIsFollowing(false);
     } catch (err) {
       console.error(err);
       console.log(`Unable to unfollow user | UserInfo.jsx`);
@@ -121,9 +120,11 @@ const UserInfo = ({ isSignedInUsersProfile, userProfile }) => {
 
       <div className="col-span-1 col-start-2 row-span-1 row-start-2 mx-auto">
         {isSignedInUsersProfile ? (
-          <button className="text-2xl bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200">
-            edit profile
-          </button>
+          <Link to={`/profiles/${userId}/edit`}>
+            <button className="text-2xl bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200">
+              edit profile
+            </button>
+          </Link>
         ) : isFollowing ? (
           <button
             onClick={handleUnfollow}

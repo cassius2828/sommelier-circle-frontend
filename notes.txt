@@ -2,10 +2,6 @@
 Current Issues
 ///////////////////////////
 
-- user specific data is being cached in browser. When a new user signs in, there is a brief second where the old user info is there before the Current
-user data is loaded
-Possible Solutions: Reset all state upon signout, refetch state on sign in / navigation from user 
-
 
 ///////////////////////////
 Tips
@@ -20,18 +16,14 @@ fixed position, give them a mt-52
 ///////////////////////////
 Things to Do
 ///////////////////////////
+- add ability to edit profile info
+- set up favorites (ensure model relationships are adequate and create the CRUD for favorites of all given categories )
+- ensure mobile responsiveness
+- finish google places set up 
+- MAYBE: create a context for critics or add critic info into the global context 
 
-
-- create events and rooms 
-- create frontend first, then hit points, then configure together 
-- mobile responsiveness
-
-
-- clean up desktop styles 
-- create more blogs to display 
-- display featured blogs on landing
-- display critic info 
-
-///////////////////////////
-Rose Wine needs its logic rehandled for wine pages 7/28/24
-///////////////////////////
+Extra:
+- refactor contexts to use reducer functions 
+- refactor with TS 
+- implement testing 
+- privacy policy and terms of service pages / acknowledgements

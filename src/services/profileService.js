@@ -5,20 +5,20 @@ const BASE_URL = import.meta.env.VITE_BASE_URL + "/profiles";
 /////////////////////
 // Get Profile Service Function
 /////////////////////
-// export async function getProfileService(id) {
-//   try {
-//     const options = {
-//       headers: {
-//         Authorization: `Bearer ${localStorage.getItem("token")}`,
-//       },
-//     };
-//     const response = await axios.get(`${BASE_URL}/${id}`, options);
-//     return response.data;
-//   } catch (error) {
-//     console.error("Error fetching profile:", error);
-//     throw error;
-//   }
-// }
+export async function getProfileService(id) {
+  try {
+    const options = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    };
+    const response = await axios.get(`${BASE_URL}/${id}`, options);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching profile:", error);
+    throw error;
+  }
+}
 
 // POST
 // headers: {

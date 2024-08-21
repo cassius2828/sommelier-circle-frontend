@@ -1,3 +1,4 @@
+
 import LandingBlogs from "../Blogs/LandingBlogs";
 import FeaturedCriticsGallery from "../Critics/FeaturedCritics";
 import Footer from "../Footer";
@@ -13,8 +14,8 @@ const Landing = () => {
       <FeaturedWineCategoryGallery />
       <FeaturedWineCardList />
       <LandingBlogs />
-     <FeaturedCriticsGallery/>
-      <Footer/>
+      <FeaturedCriticsGallery />
+      <Footer />
     </div>
   );
 };

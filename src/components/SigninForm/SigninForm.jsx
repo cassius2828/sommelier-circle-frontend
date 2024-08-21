@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signin } from "../../services/authService";
+import { getTokenFromGoogleOAuth, signin } from "../../services/authService";
 import useAuthContext from "../../context/auth/useAuthContext";
 
 const SigninForm = () => {
@@ -34,6 +34,14 @@ const SigninForm = () => {
     } catch (err) {
       updateMessage(err.response.data.error);
     }
+  };
+  const fetchUserFromGoogleOAuth = async () => {
+    const data = await getTokenFromGoogleOAuth();
+    setUser(data);
+  };
+  const handleGoogleLogin = () => {    fetchUserFromGoogleOAuth();
+    window.location.href = "http://localhost:3000/auth/google";
+
   };
 
   return (
@@ -88,6 +96,13 @@ const SigninForm = () => {
           </div>
         </form>
       </div>
+
+      <button
+        onClick={handleGoogleLogin}
+        className="border-gray-100 bg-theme-darkest rounded-md text-3xl text-gray-100 border mt-20 px-4 py-2"
+      >
+        Sign in With Google
+      </button>
     </main>
   );
 };
