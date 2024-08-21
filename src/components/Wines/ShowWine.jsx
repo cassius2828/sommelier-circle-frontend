@@ -6,16 +6,32 @@ import { useEffect, useState } from "react";
 import { getSelectedWine } from "../../services/wineService";
 import useGlobalContext from "../../context/global/useGlobalContext";
 import Loader from "../CommonComponents/Loader";
+import { addItemToFavorites } from "../../services/favoritesService";
+import useAuthContext from "../../context/auth/useAuthContext";
 
 const ShowWine = () => {
   const [showFullDetails, setShowFullDetails] = useState(false);
   const { isLoading, setIsLoading } = useGlobalContext();
+  const [message,setMessage] = useState('')
+  const {user} = useAuthContext()
   const { wineId } = useParams();
   const [wine, setWine] = useState({});
   const navigate = useNavigate();
   const handleDisplayFullDetails = () => {
     setShowFullDetails((prev) => !prev);
   };
+
+  const handleAddToFavorites = async () => {
+    try {
+      const data = await addItemToFavorites(user._id, wineId, 'wines');
+      setMessage(data)
+      alert(data)
+      
+    } catch (err) {
+      console.error(err);
+      console.log(`Unable to add item to favorites`)
+    }
+  }
 
   const fetchWine = async () => {
     setIsLoading(true);
@@ -121,7 +137,7 @@ const ShowWine = () => {
             </button>
           </Link>
           {/* favorite */}
-          <button className="p-2 border-2 border-[#FFD700] rounded-lg">
+          <button onClick={handleAddToFavorites} className="p-2 border-2 border-[#FFD700] rounded-lg">
             <UilStar size="24" color="#FFD700" />
           </button>
           {/* share */}
