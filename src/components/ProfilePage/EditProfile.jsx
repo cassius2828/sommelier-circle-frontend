@@ -1,37 +1,55 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getProfileService } from "../../services/profileService";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  getProfileService,
+  putEditProfileInfo,
+} from "../../services/profileService";
 // import { getProfileService } from "../../services/profileService";
+import { Icon } from "../Icons/Social-Icons";
 
 const initialFormData = {
-  photo: null,
+  profileImg: "",
   username: "",
+  displayedName: "",
   email: "",
-  socialMedia: [
-    { twitter: "" },
-    { isntagram: "" },
-    { facebook: "" },
-    { linkedIn: "" },
-  ],
+  socialMedia: {
+    twitter: {
+      username: "",
+      link: "",
+    },
+    instagram: {
+      username: "",
+      link: "",
+    },
+    facebook: {
+      username: "",
+      link: "",
+    },
+    linkedIn: {
+      username: "",
+      link: "",
+    },
+  },
 };
 
 export default function EditProfile() {
   const { userId } = useParams();
   // const [photo, setPhoto] = useState("");
   const [formData, setFormData] = useState(initialFormData);
+  const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
     console.log(value);
   };
-  const { photo, username, email, twitter, instagram, facebook, linkedin } =
-    formData;
+  const { profileImg, username, email, socialMedia } = formData;
 
   useEffect(() => {
     async function getProfile() {
       try {
         const userProfile = await getProfileService(userId);
         setFormData(userProfile);
-        console.log(userProfile)
+        console.log(userProfile);
       } catch (err) {
         console.log(err);
       }
@@ -42,8 +60,42 @@ export default function EditProfile() {
 
   function handleFileInput(e) {
     console.log(e.target.files);
-    setFormData({ ...formData, photo: e.target.files[0] });
+    setFormData({ ...formData, profileImg: e.target.files[0] });
   }
+
+  const handleSubmit = async () => {
+    try {
+      const data = await putEditProfileInfo(userId, formData);
+      if (data?.message) {
+        alert(data.message);
+      } else {
+        navigate(-1);
+      }
+    } catch (err) {
+      console.error(err);
+      console.log(
+        `Unable to use service file to communicate with backend to update user profile. Error: ${err}`
+      );
+    }
+  };
+
+  const handleSocialMediaChange = (e) => {
+    const { name, value } = e.target;
+
+    // Determine the social media platform and field (username or link)
+    const [platform, field] = name.split(/(?=[A-Z])/);
+
+    setFormData((prevState) => ({
+      ...prevState,
+      socialMedia: {
+        ...prevState.socialMedia,
+        [platform]: {
+          ...prevState.socialMedia[platform],
+          [field.toLowerCase()]: value,
+        },
+      },
+    }));
+  };
 
   return (
     <main className="bg-theme-dn min-h-screen flex flex-col items-center justify-center">
@@ -55,12 +107,22 @@ export default function EditProfile() {
           {/* col 1 */}
           <div className="w-full md:w-1/2">
             {/* photo */}
-            <div className="mb-4">
+            <div>
+              <label className=" text-gray-100 mb-2 flex items-center gap-4">
+                Current Profile Image:
+              </label>
+              <img
+                className="w-40"
+                src={profileImg}
+                alt={username + " avatar"}
+              />
+            </div>
+            <div className="my-4">
               <label
                 htmlFor="upload-photo"
                 className="block text-gray-100 mb-2"
               >
-                Upload Photo:
+                Upload New Photo:
               </label>
               <input
                 type="file"
@@ -99,69 +161,159 @@ export default function EditProfile() {
               />
             </div>
           </div>
-          {/* col 2 */}
-          <div className="w-full md:w-1/2">
-            {/* twitter */}
+          {/* //* col 2 */}
+          <div className="w-full md:w-1/3">
+            {/* Twitter */}
             <div className="mb-4">
-              <label htmlFor="twitter" className="block text-gray-100 mb-2">
-                Twitter:
+              <label
+                htmlFor="twitterUsername"
+                className=" text-gray-100 mb-2 flex items-center gap-4"
+              >
+                <Icon type="twitter" size="sm" color="#0077B5" />
+                Twitter Username:
               </label>
               <input
                 type="text"
-                id="twitter"
-                name="twitter"
-                value={twitter}
-                onChange={handleChange}
+                id="twitterUsername"
+                name="twitterUsername"
+                value={socialMedia.twitter?.username}
+                onChange={handleSocialMediaChange}
+                className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
+              />
+              <label
+                htmlFor="twitterLink"
+                className=" text-gray-100 mb-2 flex items-center gap-4 my-5"
+              >
+                <Icon type="twitter" size="sm" color="#0077B5" />
+                Twitter Link:
+              </label>
+              <input
+                type="text"
+                id="twitterLink"
+                name="twitterLink"
+                value={socialMedia.twitter?.link}
+                onChange={handleSocialMediaChange}
                 className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
               />
             </div>
-            {/* instagram */}
+
+            {/* Instagram */}
             <div className="mb-4">
-              <label htmlFor="instagram" className="block text-gray-100 mb-2">
-                Instagram:
+              <label
+                htmlFor="instagramUsername"
+                className=" text-gray-100 mb-2 flex items-center gap-4"
+              >
+                <Icon type="instagram" size="sm" color="#E1306C" />
+                Instagram Username:
               </label>
               <input
                 type="text"
-                id="instagram"
-                name="instagram"
-                value={instagram}
-                onChange={handleChange}
+                id="instagramUsername"
+                name="instagramUsername"
+                value={socialMedia.instagram?.username}
+                onChange={handleSocialMediaChange}
+                className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
+              />
+              <label
+                htmlFor="instagramLink"
+                className=" text-gray-100 mb-2 flex items-center gap-4 my-5"
+              >
+                <Icon type="instagram" size="sm" color="#E1306C" />
+                Instagram Link:
+              </label>
+              <input
+                type="text"
+                id="instagramLink"
+                name="instagramLink"
+                value={socialMedia.instagram?.link}
+                onChange={handleSocialMediaChange}
                 className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
               />
             </div>
-            {/* facebook */}
+          </div>
+          {/* col 3 */}
+          <div className="w-full md:w-1/3">
+            {/* Facebook */}
             <div className="mb-4">
-              <label htmlFor="facebook" className="block text-gray-100 mb-2">
-                Facebook:
+              <label
+                htmlFor="facebookUsername"
+                className=" text-gray-100 mb-2 flex items-center gap-4"
+              >
+                <Icon type="facebook" size="sm" color="#3b5998" />
+                Facebook Username:
               </label>
               <input
                 type="text"
-                id="facebook"
-                name="facebook"
-                value={facebook}
-                onChange={handleChange}
+                id="facebookUsername"
+                name="facebookUsername"
+                value={socialMedia.facebook?.username}
+                onChange={handleSocialMediaChange}
+                className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
+              />
+              <label
+                htmlFor="facebookLink"
+                className=" text-gray-100 mb-2 flex items-center gap-4 my-5"
+              >
+                <Icon type="facebook" size="sm" color="#3b5998" />
+                Facebook Link:
+              </label>
+              <input
+                type="text"
+                id="facebookLink"
+                name="facebookLink"
+                value={socialMedia.facebook?.link}
+                onChange={handleSocialMediaChange}
                 className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
               />
             </div>
-            {/* linked in */}
+
+            {/* LinkedIn */}
             <div className="mb-4">
-              <label htmlFor="linkedin" className="block text-gray-100 mb-2">
-                LinkedIn:
+              <label
+                htmlFor="linkedinUsername"
+                className=" text-gray-100 mb-2 flex items-center gap-4 my-5"
+              >
+                <Icon type="linkedin" size="sm" color="#0077B5" />
+                LinkedIn Username:
               </label>
               <input
                 type="text"
-                id="linkedin"
-                name="linkedin"
-                value={linkedin}
-                onChange={handleChange}
+                id="linkedinUsername"
+                name="linkedinUsername"
+                value={socialMedia.linkedin?.username}
+                onChange={handleSocialMediaChange}
+                className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
+              />
+              <label
+                htmlFor="linkedinLink"
+                className=" text-gray-100 mb-2 flex items-center gap-4 my-5"
+              >
+                <Icon type="linkedin" size="sm" color="#0077B5" />
+                LinkedIn Username:
+              </label>
+              <input
+                type="text"
+                id="linkedinLink"
+                name="linkedinLink"
+                value={socialMedia.linkedin?.link}
+                onChange={handleSocialMediaChange}
                 className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
               />
             </div>
           </div>
         </form>{" "}
         {/* confirm changes */}
-        <div className="flex justify-center items-center">
-          <button className="bg-stone-500 px-4 py-2 rounded-md text-gray-100 focus:outline-none hover:bg-stone-600 transition-colors duration-200 cursor-pointer">
+        <div className="flex justify-center items-center gap-12">
+          <button
+            onClick={() => navigate(-1)}
+            className="bg-stone-500 px-4 py-2 rounded-md text-gray-100 focus:outline-none hover:bg-stone-600 transition-colors duration-200 cursor-pointer"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={handleSubmit}
+            className="bg-stone-500 px-4 py-2 rounded-md text-gray-100 focus:outline-none hover:bg-stone-600 transition-colors duration-200 cursor-pointer"
+          >
             Confirm Changes
           </button>
         </div>

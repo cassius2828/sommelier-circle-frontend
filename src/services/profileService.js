@@ -26,6 +26,9 @@ export async function getProfileService(id) {
 // 	'Content-type': 'application/json'
 // }
 
+/////////////////////
+// ? POST | Follow User
+/////////////////////
 export const postFollowUser = async (userId, targetedUserId) => {
   if (!userId || !targetedUserId)
     return console.error(
@@ -50,6 +53,9 @@ export const postFollowUser = async (userId, targetedUserId) => {
   }
 };
 
+/////////////////////
+// ? POST | Unfollow User
+/////////////////////
 export const postUnfollowUser = async (userId, targetedUserId) => {
   if (!userId || !targetedUserId)
     return console.error(
@@ -73,6 +79,9 @@ export const postUnfollowUser = async (userId, targetedUserId) => {
   }
 };
 
+///////////////////////////
+// GET | User Doc
+///////////////////////////
 export const getUserDoc = async (id) => {
   const options = {
     headers: {
@@ -89,6 +98,9 @@ export const getUserDoc = async (id) => {
   }
 };
 
+///////////////////////////
+// GET | Search Users
+///////////////////////////
 export const getSearchUsers = async (query) => {
   try {
     const response = await axios.get(`${BASE_URL}/search/${query}`);
@@ -99,10 +111,44 @@ export const getSearchUsers = async (query) => {
   }
 };
 
+///////////////////////////
+// Check if Following
+///////////////////////////
 export const checkIfFollowing = async (currentUser, targetedUserId) => {
   if (!currentUser) return;
   for (const user of currentUser.following) {
     if (user.toString() === targetedUserId) return true;
   }
   return false;
+};
+
+///////////////////////////
+// * PUT | Update Profile Info
+///////////////////////////
+
+export const putEditProfileInfo = async (userId, formData) => {
+  const options = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  };
+console.log(formData, ' <-- formData')
+  try {
+    const response = await axios.put(
+      `${BASE_URL}/${userId}`,
+      formData,
+      options
+    );
+
+    if (response.data.message) {
+      return response.data.message;
+    }
+    // console.log(response.data, ' <-- res.data')
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    console.log(
+      `Unable to communicate with MongoDB to update user doc with ID ${userId}. Error: ${err}`
+    );
+  }
 };
