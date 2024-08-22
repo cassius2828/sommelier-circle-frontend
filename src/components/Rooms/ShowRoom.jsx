@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useActionData, useNavigate, useParams } from "react-router-dom";
 import StarList, { Star } from "../CommonComponents/StarList";
 import { useEffect, useState } from "react";
 import {
@@ -9,7 +9,8 @@ import {
 import useGlobalContext from "../../context/global/useGlobalContext";
 import Loader from "../CommonComponents/Loader";
 import ShowRoomImageCarousel from "./ShowRoomImgCarousel";
-
+import useAuthContext from "../../context/auth/useAuthContext";
+import AddedToFavoritesModal from "../Modals/AddedToFavoritesModal";
 
 ///////////////////////////
 // * Show Room | Main Component
@@ -18,7 +19,6 @@ const ShowRoom = () => {
   return (
     <div className="w-full mt-80">
       <ShowRoomCard />
-     
     </div>
   );
 };
@@ -33,17 +33,25 @@ export const ShowRoomCard = () => {
   const [isImgHovered, setIsImgHovered] = useState(false);
   const [showCarousel, setShowCarousel] = useState(false);
   const [photos, setPhotos] = useState([]);
-// hooks
+  // hooks
   const navigate = useNavigate();
   const { roomId } = useParams();
   // context
-  const { isLoading, setIsLoading, deviceWidth } = useGlobalContext();
+  const {
+    isLoading,
+    setIsLoading,
+    deviceWidth,
+    favoritesMessage,
+    setFavoritesMessage,
+    handleAddToFavorites,
+  } = useGlobalContext();
+  const { user } = useAuthContext();
   // regex for phone number tel:5555555555
   const regex = /\d+/g;
   const nonformattedTelNumber = placeDetails.formatted_phone_number
     ?.match(regex)
     .join("");
-    // converts rating to scale of 100
+  // converts rating to scale of 100
   const rating = placeDetails?.rating * 20;
 
   ///////////////////////////
@@ -54,8 +62,10 @@ export const ShowRoomCard = () => {
       setIsLoading(true);
       const data = await getPlaceDetails(roomId);
 
-//  asynchronously fetch photos
-      const photoReferences = data.photos.map((photo) => photo.photo_reference);
+      //  asynchronously fetch photos
+      const photoReferences = data?.photos.map(
+        (photo) => photo.photo_reference
+      );
       const photoPromises = photoReferences.map((photo_ref) =>
         fetchRoomPhotos(photo_ref)
       );
@@ -72,9 +82,9 @@ export const ShowRoomCard = () => {
       setIsLoading(false);
     }
   };
-///////////////////////////
-// Fetch Room Photos function
-///////////////////////////
+  ///////////////////////////
+  // Fetch Room Photos function
+  ///////////////////////////
   const fetchRoomPhotos = async (photo_reference) => {
     try {
       const data = await getPhotosOfRoom(photo_reference, deviceWidth);
@@ -91,7 +101,6 @@ export const ShowRoomCard = () => {
 
   // Call this function every time a new place_id is in the params
   useEffect(() => {
-
     fetchPlaceDetails();
   }, [roomId]);
 
@@ -151,9 +160,25 @@ export const ShowRoomCard = () => {
               <StarList bgColor="[#]" criticScore={rating} />
               {/* buttons | fav, directions, website */}
               <div className="flex items-center  justify-center gap-4 mr-auto mt-12 ">
-                <button className="p-2 h-16 border-2 border-[#FFD700] rounded-lg">
+                <button
+                  onClick={() =>
+                    handleAddToFavorites(
+                      user._id,
+                      placeDetails.place_id,
+                      "rooms"
+                    )
+                  }
+                  className="p-2 h-16 border-2 border-[#FFD700] rounded-lg"
+                >
                   <Star />
                 </button>
+
+                {favoritesMessage && (
+                  <AddedToFavoritesModal
+                    message={favoritesMessage}
+                    setMessage={setFavoritesMessage}
+                  />
+                )}
                 <Link to={placeDetails.website}>
                   <button className="border h-16 px-3 py-1 text-2xl rounded-md border-gray-100 transition-colors duration-300 hover:bg-gray-800 hover:text-white">
                     website
@@ -207,4 +232,3 @@ export const ShowRoomCard = () => {
     </div>
   );
 };
-

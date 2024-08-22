@@ -7,6 +7,7 @@ import ShowRoomImageCarousel from "../Rooms/ShowRoomImgCarousel";
 import { getEventDetails } from "../../services/eventService";
 import TicketModal from "./Tickets/TicketModal";
 import useAuthContext from "../../context/auth/useAuthContext";
+import AddedToFavoritesModal from "../Modals/AddedToFavoritesModal";
 
 const EventDetailContainer = () => {
   return (
@@ -25,6 +26,8 @@ export const EventDetail = () => {
   const [photos, setPhotos] = useState([]);
   const [showTicketModal, setShowTicketModal] = useState(false);
   const { user } = useAuthContext();
+  const { setFavoritesMessage, favoritesMessage, handleAddToFavorites } =
+    useGlobalContext();
   // Destructure event details
   const {
     photo,
@@ -132,9 +135,22 @@ export const EventDetail = () => {
                     "123 Main St, Vacaville CA, 95687"}
                 </h2>
                 <div className="flex items-center justify-center gap-4 mr-auto mt-12">
-                  <button className="p-2 h-16 border-2 border-[#FFD700] rounded-lg">
+                  <button
+                    onClick={() =>
+                      handleAddToFavorites(user._id, eventId, "events")
+                    }
+                    className="p-2 h-16 border-2 border-[#FFD700] rounded-lg"
+                  >
                     <Star />
                   </button>
+                  {/* favorite */}
+
+                  {favoritesMessage && (
+                    <AddedToFavoritesModal
+                      message={favoritesMessage}
+                      setMessage={setFavoritesMessage}
+                    />
+                  )}
                   <button
                     onClick={() => {
                       if (ticketedEvent) {

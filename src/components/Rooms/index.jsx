@@ -110,13 +110,14 @@ export const RoomsGrid = () => {
           address={room.vicinity}
           key={idx}
           isOpen={room.opening_hours.open_now}
+          placeId={room.place_id}
         />
       ))}
     </div>
   );
 };
 
-export const RoomCard = ({ rating, name, address, isOpen, photo }) => {
+export const RoomCard = ({ rating, name, address, isOpen, photo,placeId }) => {
   const calculatedRating = rating * 20;
   return (
     <div className="grid grid-cols-2 p-4  overflow-hidden ">
@@ -150,7 +151,7 @@ export const RoomCard = ({ rating, name, address, isOpen, photo }) => {
           <button className="p-2 border-2 border-[#FFD700] rounded-lg">
             <Star />
           </button>
-          <Link to={`/rooms/room-details/:roomId`}>
+          <Link to={`/rooms/room-details/${placeId}`}>
             <button className="border h-full px-3 py-1 text-2xl rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-800 hover:text-white">
               details
             </button>

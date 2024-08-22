@@ -43,43 +43,43 @@ export const getUserLocation = () => {
 // GET | Nearby Wine Places
 ///////////////////////////
 export const getNearbyWinePlaces = async () => {
-  // // first attempt to get from local storage
-  // let lat = sessionStorage.getItem("lat");
-  // let lng = sessionStorage.getItem("lng");
-  // // get user location
-  // try {
-  //   if (!lat || !lng) {
-  //     console.log(`User has not granted permission to their location yet`);
-  //     getUserLocation();
-  //   }
-  // } catch (err) {
-  //   console.error(err);
-  //   console.log(
-  //     `Unable to get user's location, cannot recommend dynamic locations`
-  //   );
-  // }
-  // try {
-  //   // second attempt attempt to get from local storage
-  //   lat = sessionStorage.getItem("lat");
-  //   lng = sessionStorage.getItem("lng");
-  //   const response = await axios.get(`${GOOGLE_PLACES_BASE_URL}/nearbysearch`, {
-  //     params: {
-  //       lat,
-  //       lng,
-  //       radius: 5000,
-  //       type: "restaurant|bar|winery",
-  //       keyword: "wine",
-  //       key: import.meta.env.VITE_GOOGLE_PLACES_API_KEY,
-  //     },
-  //   });
-  //   console.log(response.data);
-  //   return response.data.results;
-  // } catch (err) {
-  //   console.error(err);
-  //   console.log(
-  //     `Unable to retrieve nearby wine locations from google places api`
-  //   );
-  // }
+  // first attempt to get from local storage
+  let lat = sessionStorage.getItem("lat");
+  let lng = sessionStorage.getItem("lng");
+  // get user location
+  try {
+    if (!lat || !lng) {
+      console.log(`User has not granted permission to their location yet`);
+      getUserLocation();
+    }
+  } catch (err) {
+    console.error(err);
+    console.log(
+      `Unable to get user's location, cannot recommend dynamic locations`
+    );
+  }
+  try {
+    // second attempt attempt to get from local storage
+    lat = sessionStorage.getItem("lat");
+    lng = sessionStorage.getItem("lng");
+    const response = await axios.get(`${GOOGLE_PLACES_BASE_URL}/nearbysearch`, {
+      params: {
+        lat,
+        lng,
+        radius: 5000,
+        type: "restaurant|bar|winery",
+        keyword: "wine",
+        key: import.meta.env.VITE_GOOGLE_PLACES_API_KEY,
+      },
+    });
+    console.log(response.data);
+    return response.data.results;
+  } catch (err) {
+    console.error(err);
+    console.log(
+      `Unable to retrieve nearby wine locations from google places api`
+    );
+  }
 };
 
 ///////////////////////////

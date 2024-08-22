@@ -35,7 +35,7 @@ export const EventGrid = ({ events }) => {
           ticketedEvent={event.ticketedEvent}
           ticketPrice={event.ticketPrice}
           ticketsAvailable={event.ticketsAvailable}
-          id={event._id}
+          eventId={event._id}
         />
       ))}
     </div>
