@@ -10,20 +10,27 @@ export const addItemToFavorites = async (userId, itemId, itemType) => {
     userId,
     itemId,
   };
-
+console.log(userId, ' <-- userId')
+console.log(itemId, ' <-- itemId')
+console.log(itemType, ' <-- itemType')
   try {
     const response = await axios.post(FAVS_BASE_URL + `/${itemType}`, data);
-    if (response.data.err) {
-      return response.data.err;
-    }
+
     return response.data.message;
   } catch (err) {
+    if (err.response && err.response.status === 400) {
+      console.log(
+        err.response.data.error,
+        " <-- error from the response data object"
+      );
+      return err.response.data.error; // Return the error message from the server
+    }
     console.error(err);
     console.log(
       `Unable to communicate with backend to add ${itemType.slice(
         0,
         -1
-      )}  to favorites list`
+      )} to favorites list`
     );
   }
 };
@@ -43,11 +50,16 @@ export const deleteRemoveItemFromFavorites = async (
 
   try {
     const response = await axios.delete(FAVS_BASE_URL + `/${itemType}`, data);
-    if (response.data.error) {
-      return response.data.error;
-    }
+
     return response.data.message;
   } catch (err) {
+    if (err.response && err.response.status === 400) {
+      console.log(
+        err.response.data.error,
+        " <-- error from the response data object"
+      );
+      return err.response.data.error; // Return the error message from the server
+    }
     console.error(err);
     console.log(
       `Unable to communicate with backend to add ${itemType.slice(

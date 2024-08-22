@@ -4,6 +4,7 @@ import { getUserLocation } from "../../services/googlePlacesService";
 import { getWines, postFilterWineResults } from "../../services/wineService";
 import { GlobalContext } from "./GlobalContext";
 import { getCriticsCount } from "../../services/criticService";
+import { addItemToFavorites } from "../../services/favoritesService";
 const initialFormData = {
   grape: "",
   region: "",
@@ -19,6 +20,7 @@ export const GlobalProvider = ({ children }) => {
   const [displayedWines, setDisplayedWines] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [totalCritics, setTotalCritics] = useState(0);
+  const [favoritesMessage, setFavoritesMessage] = useState("");
 
   const windowWidth = window.innerWidth;
   let deviceWidth = "";
@@ -478,7 +480,18 @@ export const GlobalProvider = ({ children }) => {
     },
   ];
 
-
+  ///////////////////////////
+  // Handle Add To Favorites
+  ///////////////////////////
+  const handleAddToFavorites = async (userId, itemId, itemType) => {
+    try {
+      const data = await addItemToFavorites(userId, itemId, itemType);
+      setFavoritesMessage(data);
+    } catch (err) {
+      console.error(err);
+      console.log(`Unable to add item to favorites`);
+    }
+  };
 
   ///////////////////////////
   // Fetch all wines on load
@@ -500,27 +513,30 @@ export const GlobalProvider = ({ children }) => {
   return (
     <GlobalContext.Provider
       value={{
+        debounce,
+        fetchFilteredWineData,
+        fetchWines,
+        handleAddToFavorites,
+        handleUpdateForm,
         scrollToTop,
-        wineCategories,
+        setDisplayedWines,
+        setFavoritesMessage,
+        setFormData,
+        setIsLoading,
+        setWines,
+        setWinesByCategory,
+        deviceWidth,
+        displayedWines,
+        favoritesMessage,
+        formData,
         grapeCategories,
+        initialFormData,
+        isLoading,
+        totalCritics,
+        wineCategories,
         wineRegions,
         wines,
-        setWines,
         winesByCategory,
-        setWinesByCategory,
-        fetchWines,
-        displayedWines,
-        setDisplayedWines,
-        fetchFilteredWineData,
-        isLoading,
-        setIsLoading,
-        formData,
-        setFormData,
-        handleUpdateForm,
-        initialFormData,
-        deviceWidth,
-        debounce,
-        totalCritics,
       }}
     >
       {children}
