@@ -3,31 +3,31 @@ import { Link, useActionData, useNavigate, useParams } from "react-router-dom";
 import StarList, { Star } from "../CommonComponents/StarList";
 import { useEffect, useState } from "react";
 import {
-  getPhotosOfRoom,
+  getPhotosOfLocation,
   getPlaceDetails,
 } from "../../services/googlePlacesService";
 import useGlobalContext from "../../context/global/useGlobalContext";
 import Loader from "../CommonComponents/Loader";
-import ShowRoomImageCarousel from "./ShowRoomImgCarousel";
+import ShowLocationImageCarousel from "./ShowLocationImgCarousel";
 import useAuthContext from "../../context/auth/useAuthContext";
 import AddedToFavoritesModal from "../Modals/AddedToFavoritesModal";
 
 ///////////////////////////
-// * Show Room | Main Component
+// * Show Location | Main Component
 ///////////////////////////
-const ShowRoom = () => {
+const ShowLocation = () => {
   return (
     <div className="w-full mt-80">
-      <ShowRoomCard />
+      <ShowLocationCard />
     </div>
   );
 };
-export default ShowRoom;
+export default ShowLocation;
 
 ///////////////////////////
-// * Show Room Card
+// * Show Location Card
 ///////////////////////////
-export const ShowRoomCard = () => {
+export const ShowLocationCard = () => {
   // local state
   const [placeDetails, setPlaceDetails] = useState({});
   const [isImgHovered, setIsImgHovered] = useState(false);
@@ -35,7 +35,7 @@ export const ShowRoomCard = () => {
   const [photos, setPhotos] = useState([]);
   // hooks
   const navigate = useNavigate();
-  const { roomId } = useParams();
+  const { locationId } = useParams();
   // context
   const {
     isLoading,
@@ -60,14 +60,14 @@ export const ShowRoomCard = () => {
   const fetchPlaceDetails = async () => {
     try {
       setIsLoading(true);
-      const data = await getPlaceDetails(roomId);
+      const data = await getPlaceDetails(locationId);
 
       //  asynchronously fetch photos
       const photoReferences = data?.photos.map(
         (photo) => photo.photo_reference
       );
       const photoPromises = photoReferences.map((photo_ref) =>
-        fetchRoomPhotos(photo_ref)
+        fetchLocationPhotos(photo_ref)
       );
       const photoResults = await Promise.all(photoPromises);
       // set state data
@@ -83,11 +83,11 @@ export const ShowRoomCard = () => {
     }
   };
   ///////////////////////////
-  // Fetch Room Photos function
+  // Fetch Location Photos function
   ///////////////////////////
-  const fetchRoomPhotos = async (photo_reference) => {
+  const fetchLocationPhotos = async (photo_reference) => {
     try {
-      const data = await getPhotosOfRoom(photo_reference, deviceWidth);
+      const data = await getPhotosOfLocation(photo_reference, deviceWidth);
       if (!photos.includes(data)) {
         return data;
       }
@@ -102,13 +102,13 @@ export const ShowRoomCard = () => {
   // Call this function every time a new place_id is in the params
   useEffect(() => {
     fetchPlaceDetails();
-  }, [roomId]);
+  }, [locationId]);
 
   if (isLoading) return <Loader />;
   return (
     <div className="grid grid-cols-3 grid-rows-3 bg-[#111213] shadow-lg w-full lg:w-1/2 mx-auto max-h-[60rem] text-gray-100 rounded-md p-4 relative">
       {showCarousel ? (
-        <ShowRoomImageCarousel
+        <ShowLocationImageCarousel
           setShowCarousel={setShowCarousel}
           setIsImgHovered={setIsImgHovered}
           photos={photos}
@@ -165,7 +165,7 @@ export const ShowRoomCard = () => {
                     handleAddToFavorites(
                       user._id,
                       placeDetails.place_id,
-                      "rooms"
+                      "locations"
                     )
                   }
                   className="p-2 h-16 border-2 border-[#FFD700] rounded-lg"

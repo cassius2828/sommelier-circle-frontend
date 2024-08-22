@@ -3,7 +3,7 @@ import Loader from "../CommonComponents/Loader";
 import { Star } from "../CommonComponents/StarList";
 import { useEffect, useState } from "react";
 import useGlobalContext from "../../context/global/useGlobalContext";
-import ShowRoomImageCarousel from "../Rooms/ShowRoomImgCarousel";
+import ShowRoomImageCarousel from "../Locations/ShowLocationImgCarousel";
 import { getEventDetails } from "../../services/eventService";
 import TicketModal from "./Tickets/TicketModal";
 import useAuthContext from "../../context/auth/useAuthContext";

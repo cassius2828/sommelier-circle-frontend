@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const ShowRoomImageCarousel = ({
+const ShowLocationImageCarousel = ({
   setShowCarousel,
   setIsImgHovered,
   photos,
@@ -92,4 +92,4 @@ const ShowRoomImageCarousel = ({
   );
 };
 
-export default ShowRoomImageCarousel;
+export default ShowLocationImageCarousel;

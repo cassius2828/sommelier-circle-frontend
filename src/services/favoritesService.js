@@ -10,9 +10,9 @@ export const addItemToFavorites = async (userId, itemId, itemType) => {
     userId,
     itemId,
   };
-console.log(userId, ' <-- userId')
-console.log(itemId, ' <-- itemId')
-console.log(itemType, ' <-- itemType')
+  console.log(userId, " <-- userId");
+  console.log(itemId, " <-- itemId");
+  console.log(itemType, " <-- itemType");
   try {
     const response = await axios.post(FAVS_BASE_URL + `/${itemType}`, data);
 
@@ -69,6 +69,7 @@ export const deleteRemoveItemFromFavorites = async (
     );
   }
 };
+
 ///////////////////////////
 // GET | Favorite Items
 ///////////////////////////
@@ -85,6 +86,85 @@ export const getFavoriteItems = async (userId, itemType) => {
     console.error(err);
     console.log(
       `Unable to communicate with backend to get all favorites of ${itemType}`
+    );
+  }
+};
+
+///////////////////////////
+// ? POST | Add Item to Favorites List | LOCATIONS
+///////////////////////////
+export const addLocationsItemToFavorites = async (userId, placeId) => {
+  const data = {
+    userId,
+    placeId,
+  };
+  console.log(userId, " <-- userId");
+  console.log(placeId, " <-- placeId");
+
+  try {
+    const response = await axios.post(FAVS_BASE_URL + `/locations`, data);
+
+    return response.data.message;
+  } catch (err) {
+    if (err.response && err.response.status === 400) {
+      console.log(
+        err.response.data.error,
+        " <-- error from the response data object"
+      );
+      return err.response.data.error; // Return the error message from the server
+    }
+    console.error(err);
+    console.log(
+      `Unable to communicate with backend to add location favorites list`
+    );
+  }
+};
+
+///////////////////////////
+// ! DELETE | Remove Item From Favorites | LOCATIONS
+///////////////////////////
+export const deleteLocationsRemoveItemFromFavorites = async (
+  userId,
+  placeId,
+) => {
+  const data = {
+    userId,
+    placeId,
+  };
+
+  try {
+    const response = await axios.delete(FAVS_BASE_URL + `/locations`, data);
+
+    return response.data.message;
+  } catch (err) {
+    if (err.response && err.response.status === 400) {
+      console.log(
+        err.response.data.error,
+        " <-- error from the response data object"
+      );
+      return err.response.data.error; // Return the error message from the server
+    }
+    console.error(err);
+    console.log(
+      `Unable to communicate with backend to add location to favorites list`
+    );
+  }
+};
+
+///////////////////////////
+// GET | Favorite Items | LOCATIONS
+///////////////////////////
+export const getLocationsFavoriteItems = async (userId) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/locations?userId=${userId}`);
+    if (response.data.message) {
+      return response.data.message;
+    }
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    console.log(
+      `Unable to communicate with backend to get all favorites of location`
     );
   }
 };

@@ -4,31 +4,30 @@ import StarList, { Star } from "../CommonComponents/StarList";
 import { Link } from "react-router-dom";
 import {
   getNearbyWinePlaces,
-  getPhotosOfRoom,
+  getPhotosOfLocation,
   getUserLocation,
   getWinePlacesAutocomplete,
 } from "../../services/googlePlacesService";
 import usePlacesContext from "../../context/places/usePlacesContext";
 import useGlobalContext from "../../context/global/useGlobalContext";
 import Loader from "../CommonComponents/Loader";
-import RoomsTableList from "./RoomsTableList";
+import LocationsTableList from "./LocationsTableList";
 
 import AutoCompleteInput from "../CommonComponents/AutoCompleteInput";
+import useAuthContext from "../../context/auth/useAuthContext";
+import AddedToFavoritesModal from "../Modals/AddedToFavoritesModal";
 
-
-
-const Rooms = () => {
+const Locations = () => {
   const [display, setDisplay] = useState("full");
- 
+
   const handleDisplayChange = (e) => {
     setDisplay(e.target.value);
   };
 
   return (
     <div className="flex flex-col w-full  min-h-screen mt-80 items-center">
-   
-      <AutoCompleteInput/>
-   
+      <AutoCompleteInput />
+
       <div className="flex items-start gap-12 ">
         <h1 className="text-gray-100 text-5xl mb-12">Recommendations</h1>
         <div className="flex gap-4 items-center">
@@ -47,14 +46,14 @@ const Rooms = () => {
           </select>
         </div>
       </div>
-      {display === "full" ? <RoomsGrid /> : <RoomsTableList />}
+      {display === "full" ? <LocationsGrid /> : <LocationsTableList />}
       <div className="fixed top-0 left-0 h-full w-full -z-10 bg-neutral-950"></div>
     </div>
   );
 };
-export default Rooms;
+export default Locations;
 
-export const RoomSearchbar = () => {
+export const LocationSearchbar = () => {
   const [formData, setFormData] = useState({});
   const handleSearchQuery = (e) => {
     const { value } = e.target;
@@ -95,30 +94,42 @@ export const RoomSearchbar = () => {
   );
 };
 
-export const RoomsGrid = () => {
-  const { rooms } = usePlacesContext();
+export const LocationsGrid = () => {
+  const { locations } = usePlacesContext();
   const { isLoading } = useGlobalContext();
+  const { user } = useAuthContext();
   if (isLoading) return <Loader />;
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-4 gap-y-8 gap-x-4">
-      {rooms.map((room, idx) => (
-        <RoomCard
-          img={room.photos[0].photo_reference}
-          photo={room.photo}
-          rating={room.rating}
-          name={room.name}
-          address={room.vicinity}
+      {locations.map((location, idx) => (
+        <LocationCard
+          img={location.photos[0].photo_reference}
+          photo={location.photo}
+          rating={location.rating}
+          name={location.name}
+          address={location.vicinity}
           key={idx}
-          isOpen={room.opening_hours.open_now}
-          placeId={room.place_id}
+          isOpen={location.opening_hours.open_now}
+          placeId={location.place_id}
+          currentUser={user}
         />
       ))}
     </div>
   );
 };
 
-export const RoomCard = ({ rating, name, address, isOpen, photo,placeId }) => {
+export const LocationCard = ({
+  rating,
+  name,
+  address,
+  isOpen,
+  photo,
+  placeId,
+  currentUser,
+}) => {
   const calculatedRating = rating * 20;
+  const { handleAddToFavorites, favoritesMessage, setFavoritesMessage } =
+    useGlobalContext();
   return (
     <div className="grid grid-cols-2 p-4  overflow-hidden ">
       {/* row 1 */}
@@ -148,10 +159,21 @@ export const RoomCard = ({ rating, name, address, isOpen, photo,placeId }) => {
           <h3 className="text-2xl">{address}</h3>{" "}
         </div>
         <div className="mt-6 gap-12 flex justify-center ">
-          <button className="p-2 border-2 border-[#FFD700] rounded-lg">
+          <button
+            onClick={() =>
+              handleAddToFavorites(currentUser._id, placeId, "locations")
+            }
+            className="p-2 border-2 border-[#FFD700] rounded-lg"
+          >
             <Star />
           </button>
-          <Link to={`/rooms/room-details/${placeId}`}>
+          {favoritesMessage && (
+            <AddedToFavoritesModal
+              message={favoritesMessage}
+              setMessage={setFavoritesMessage}
+            />
+          )}
+          <Link to={`/locations/location-details/${placeId}`}>
             <button className="border h-full px-3 py-1 text-2xl rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-800 hover:text-white">
               details
             </button>

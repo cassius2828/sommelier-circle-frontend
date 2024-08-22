@@ -4,7 +4,10 @@ import { getUserLocation } from "../../services/googlePlacesService";
 import { getWines, postFilterWineResults } from "../../services/wineService";
 import { GlobalContext } from "./GlobalContext";
 import { getCriticsCount } from "../../services/criticService";
-import { addItemToFavorites } from "../../services/favoritesService";
+import {
+  addItemToFavorites,
+  addLocationsItemToFavorites,
+} from "../../services/favoritesService";
 const initialFormData = {
   grape: "",
   region: "",
@@ -485,8 +488,17 @@ export const GlobalProvider = ({ children }) => {
   ///////////////////////////
   const handleAddToFavorites = async (userId, itemId, itemType) => {
     try {
-      const data = await addItemToFavorites(userId, itemId, itemType);
-      setFavoritesMessage(data);
+      if (itemType === "locations") {
+        const data = await addLocationsItemToFavorites(
+          userId,
+          itemId,
+         
+        );
+        setFavoritesMessage(data);
+      } else {
+        const data = await addItemToFavorites(userId, itemId, itemType);
+        setFavoritesMessage(data);
+      }
     } catch (err) {
       console.error(err);
       console.log(`Unable to add item to favorites`);

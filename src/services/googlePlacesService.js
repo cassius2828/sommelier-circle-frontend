@@ -83,12 +83,12 @@ export const getNearbyWinePlaces = async () => {
 };
 
 ///////////////////////////
-// GET | Photos of Room Results
+// GET | Photos of Location Results
 // ///////////////////////////
-export const getPhotosOfRoom = async (photo_reference, deviceWidth) => {
+export const getPhotosOfLocation = async (photo_reference, deviceWidth) => {
  
   try {
-    const response = await axios.get(`${GOOGLE_PLACES_BASE_URL}/room-photos`, {
+    const response = await axios.get(`${GOOGLE_PLACES_BASE_URL}/location-photos`, {
       params: {
         photo_reference,
         key: import.meta.env.VITE_GOOGLE_PLACES_API_KEY,
