@@ -25,21 +25,7 @@ export const GlobalProvider = ({ children }) => {
   const [totalCritics, setTotalCritics] = useState(0);
   const [favoritesMessage, setFavoritesMessage] = useState("");
 
-  const windowWidth = window.innerWidth;
-  let deviceWidth = "";
 
-  switch (deviceWidth) {
-    case windowWidth < 768:
-      deviceWidth = "mobile";
-      break;
-    case windowWidth > 1400:
-      deviceWidth = "desktop";
-      break;
-
-    default:
-      deviceWidth = "tablet";
-      break;
-  }
 
   useEffect(() => {
     const fetchCriticsCount = async () => {
@@ -537,7 +523,7 @@ export const GlobalProvider = ({ children }) => {
         setIsLoading,
         setWines,
         setWinesByCategory,
-        deviceWidth,
+      
         displayedWines,
         favoritesMessage,
         formData,

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Link, useActionData, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import StarList, { Star } from "../CommonComponents/StarList";
 import { useEffect, useState } from "react";
 import {
@@ -11,6 +11,8 @@ import Loader from "../CommonComponents/Loader";
 import ShowLocationImageCarousel from "./ShowLocationImgCarousel";
 import useAuthContext from "../../context/auth/useAuthContext";
 import AddedToFavoritesModal from "../Modals/AddedToFavoritesModal";
+import LoaderSpin from "../CommonComponents/LoaderSpin";
+import usePlacesContext from "../../context/places/usePlacesContext";
 
 ///////////////////////////
 // * Show Location | Main Component
@@ -32,19 +34,15 @@ export const ShowLocationCard = () => {
   const [placeDetails, setPlaceDetails] = useState({});
   const [isImgHovered, setIsImgHovered] = useState(false);
   const [showCarousel, setShowCarousel] = useState(false);
-  const [photos, setPhotos] = useState([]);
+  // const [photos, setPhotos] = useState([]);
   // hooks
   const navigate = useNavigate();
   const { locationId } = useParams();
+  const { fetchPlaceDetails, isLoading, locationDetails } = usePlacesContext();
+  const { fetchedPhotos } = locationDetails;
   // context
-  const {
-    isLoading,
-    setIsLoading,
-    deviceWidth,
-    favoritesMessage,
-    setFavoritesMessage,
-    handleAddToFavorites,
-  } = useGlobalContext();
+  const { favoritesMessage, setFavoritesMessage, handleAddToFavorites } =
+    useGlobalContext();
   const { user } = useAuthContext();
   // regex for phone number tel:5555555555
   const regex = /\d+/g;
@@ -54,55 +52,12 @@ export const ShowLocationCard = () => {
   // converts rating to scale of 100
   const rating = placeDetails?.rating * 20;
 
-  ///////////////////////////
-  // Fetch Place Details and Photos
-  ///////////////////////////
-  const fetchPlaceDetails = async () => {
-    try {
-      setIsLoading(true);
-      const data = await getPlaceDetails(locationId);
-
-      //  asynchronously fetch photos
-      const photoReferences = data?.photos.map(
-        (photo) => photo.photo_reference
-      );
-      const photoPromises = photoReferences.map((photo_ref) =>
-        fetchLocationPhotos(photo_ref)
-      );
-      const photoResults = await Promise.all(photoPromises);
-      // set state data
-      setPhotos(photoResults);
-      setPlaceDetails(data);
-    } catch (err) {
-      console.error(err);
-      console.log(
-        `Error communicating with backend to retrieve place details from google place api`
-      );
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  ///////////////////////////
-  // Fetch Location Photos function
-  ///////////////////////////
-  const fetchLocationPhotos = async (photo_reference) => {
-    try {
-      const data = await getPhotosOfLocation(photo_reference, deviceWidth);
-      if (!photos.includes(data)) {
-        return data;
-      }
-    } catch (err) {
-      console.error(err);
-      console.log(
-        `Error communicating with backend to retrieve place photos from google place api`
-      );
-    }
-  };
-
+  // return
   // Call this function every time a new place_id is in the params
   useEffect(() => {
-    fetchPlaceDetails();
-  }, [locationId]);
+    fetchPlaceDetails(locationId);
+    console.log(fetchedPhotos, " <-- fetched photos");
+  }, []);
 
   if (isLoading) return <Loader />;
   return (
@@ -111,7 +66,7 @@ export const ShowLocationCard = () => {
         <ShowLocationImageCarousel
           setShowCarousel={setShowCarousel}
           setIsImgHovered={setIsImgHovered}
-          photos={photos}
+          photos={fetchedPhotos}
         />
       ) : (
         <>
@@ -129,15 +84,23 @@ export const ShowLocationCard = () => {
               onMouseLeave={() => setIsImgHovered(false)}
               className="h-1/2 relative"
             >
-              <img
-                className="h-full object-cover"
-                src={photos[0] ? photos[0] : ""}
-                alt={
-                  placeDetails
-                    ? placeDetails?.editorial_summary?.overview
-                    : "place details has not loaded properly"
-                }
-              />
+              {fetchedPhotos[0] ? (
+                <img
+                  className="h-full object-cover"
+                  src={
+                    fetchedPhotos[0]
+                      ? fetchedPhotos[0]
+                      : "https://st4.depositphotos.com/14953852/24787/v/380/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg"
+                  }
+                  alt={
+                    locationDetails
+                      ? locationDetails?.editorial_summary?.overview
+                      : "place details has not loaded properly"
+                  }
+                />
+              ) : (
+                <LoaderSpin />
+              )}
 
               <div
                 className={`bg-[#000000CC] ${
@@ -155,8 +118,8 @@ export const ShowLocationCard = () => {
             </div>
 
             <div className="flex-col flex gap-8">
-              <h1 className=" text-6xl mt-4">{placeDetails.name}</h1>
-              <h2 className=" text-4xl">{placeDetails.formatted_address}</h2>
+              <h1 className=" text-6xl mt-4">{locationDetails.name}</h1>
+              <h2 className=" text-4xl">{locationDetails.formatted_address}</h2>
               <StarList bgColor="[#]" criticScore={rating} />
               {/* buttons | fav, directions, website */}
               <div className="flex items-center  justify-center gap-4 mr-auto mt-12 ">
@@ -164,7 +127,7 @@ export const ShowLocationCard = () => {
                   onClick={() =>
                     handleAddToFavorites(
                       user._id,
-                      placeDetails.place_id,
+                      locationDetails.place_id,
                       "locations"
                     )
                   }
@@ -179,27 +142,29 @@ export const ShowLocationCard = () => {
                     setMessage={setFavoritesMessage}
                   />
                 )}
-                <Link to={placeDetails.website}>
+                <Link to={locationDetails.website}>
                   <button className="border h-16 px-3 py-1 text-2xl rounded-md border-gray-100 transition-colors duration-300 hover:bg-gray-800 hover:text-white">
                     website
                   </button>
                 </Link>
                 <button className="border h-16 px-3 py-1 text-2xl rounded-md border-gray-100 transition-colors duration-300 hover:bg-gray-800 hover:text-white cursor-default">
-                  {placeDetails.reservable ? "reserveable" : "non-reservable"}
+                  {locationDetails.reservable
+                    ? "reserveable"
+                    : "non-reservable"}
                 </button>
               </div>
             </div>
           </div>
           {/* details */}
           <p className="col-span-2 col-start-2 row-start-1 text-2xl mt-12 p-4">
-            {placeDetails?.editorial_summary?.overview}
+            {locationDetails?.editorial_summary?.overview}
           </p>
           {/* hours of operation */}
           <div className="flex items-start justify-end gap-6 mt-12 col-span-2 col-start-2 row-start-2 ">
             <div className="flex flex-col">
               <h3 className=" text-3xl p-3">Hours</h3>
               <ul className="flex flex-col items-start justify-start">
-                {placeDetails.opening_hours?.weekday_text.map((day) => (
+                {locationDetails.opening_hours?.weekday_text.map((day) => (
                   <li
                     key={day}
                     className="p-4 text-xl w-full hover:bg-neutral-800 transition-colors duration-200 ease-in-out"
@@ -215,11 +180,11 @@ export const ShowLocationCard = () => {
               <ul className="flex flex-col items-start justify-start gap-4">
                 <a href={`tel:${nonformattedTelNumber}`}>
                   <li className="p-4 text-xl w-full hover:bg-neutral-800 transition-colors duration-200 ease-in-out">
-                    Phone: {placeDetails.formatted_phone_number}
+                    Phone: {locationDetails.formatted_phone_number}
                   </li>
                 </a>
                 {/* open google maps */}
-                <Link to={placeDetails.url}>
+                <Link to={locationDetails.url}>
                   <li className="p-4 text-xl w-full hover:bg-neutral-800 transition-colors duration-200 ease-in-out">
                     Open Google Maps
                   </li>

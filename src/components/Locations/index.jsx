@@ -1,21 +1,9 @@
-/* eslint-disable react/prop-types */
-import { useCallback, useEffect, useState } from "react";
-import StarList, { Star } from "../CommonComponents/StarList";
-import { Link } from "react-router-dom";
-import {
-  getNearbyWinePlaces,
-  getPhotosOfLocation,
-  getUserLocation,
-  getWinePlacesAutocomplete,
-} from "../../services/googlePlacesService";
-import usePlacesContext from "../../context/places/usePlacesContext";
-import useGlobalContext from "../../context/global/useGlobalContext";
-import Loader from "../CommonComponents/Loader";
 import LocationsTableList from "./LocationsTableList";
 
 import AutoCompleteInput from "../CommonComponents/AutoCompleteInput";
-import useAuthContext from "../../context/auth/useAuthContext";
-import AddedToFavoritesModal from "../Modals/AddedToFavoritesModal";
+
+import { LocationsGrid } from "./LocationGrid";
+import { useState } from "react";
 
 const Locations = () => {
   const [display, setDisplay] = useState("full");
@@ -52,137 +40,6 @@ const Locations = () => {
   );
 };
 export default Locations;
-
-export const LocationSearchbar = () => {
-  const [formData, setFormData] = useState({});
-  const handleSearchQuery = (e) => {
-    const { value } = e.target;
-    setFormData(value);
-  };
-  return (
-    <div className="flex justify-center items-center mb-20  w-1/2">
-      <div className="relative mb-8 w-full  items-center">
-        {/* search bar */}
-        <input
-          name="query"
-          value={formData}
-          onChange={handleSearchQuery}
-          type="text"
-          placeholder="Search"
-          className="w-full p-4 text-gray-800 rounded-md"
-        />
-        {/* search icon */}
-        <button className="absolute right-0 top-0 mt-4 mr-4">
-          <svg
-            className="h-6 w-6 text-gray-800"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path d="M23.707 22.293l-6.387-6.386C18.177 14.187 19 12.176 19 10 19 4.486 14.514 0 9 0S-1 4.486-1 10s4.486 10 10 10c2.176 0 4.187-.823 5.907-2.321l6.386 6.387c.195.195.451.293.707.293s.512-.098.707-.293c.391-.391.391-1.023 0-1.414zM2 10c0-3.859 3.141-7 7-7s7 3.141 7 7-3.141 7-7 7-7-3.141-7-7z" />
-          </svg>
-        </button>
-      </div>
-
-      {/* clear search btn */}
-      <button
-        // onClick={() => setFormData({ ...formData, query: "" })}
-        className=" border-neutral-200 w-48 border text-2xl ml-12 text-neutral-200 hover:bg-neutral-500 hover:border-neutral-500 transition-colors duration-200 ease-in-out px-4 py-2 mb-8 rounded-md "
-      >
-        clear search
-      </button>
-    </div>
-  );
-};
-
-export const LocationsGrid = () => {
-  const { locations } = usePlacesContext();
-  const { isLoading } = useGlobalContext();
-  const { user } = useAuthContext();
-  if (isLoading) return <Loader />;
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-4 gap-y-8 gap-x-4">
-      {locations.map((location, idx) => (
-        <LocationCard
-          img={location.photos[0].photo_reference}
-          photo={location.photo}
-          rating={location.rating}
-          name={location.name}
-          address={location.vicinity}
-          key={idx}
-          isOpen={location.opening_hours.open_now}
-          placeId={location.place_id}
-          currentUser={user}
-        />
-      ))}
-    </div>
-  );
-};
-
-export const LocationCard = ({
-  rating,
-  name,
-  address,
-  isOpen,
-  photo,
-  placeId,
-  currentUser,
-}) => {
-  const calculatedRating = rating * 20;
-  const { handleAddToFavorites, favoritesMessage, setFavoritesMessage } =
-    useGlobalContext();
-  return (
-    <div className="grid grid-cols-2 p-4  overflow-hidden ">
-      {/* row 1 */}
-      <img
-        className="col-span-2 row-start-1 rounded-lg mb-5 h-96 w-full object-cover"
-        src={photo}
-        alt=""
-      />
-      {/* row 2 */}
-      {/* //* col 1 */}
-      <div className="flex flex-col items-center justify-between p-4">
-        <div className="text-center">
-          <span className="text-3xl text-gray-100"> rating: {rating} </span>
-          <StarList bgColor="[#111213]" criticScore={calculatedRating} />
-        </div>
-
-        {isOpen ? (
-          <span className="text-3xl text-green-500 ">Now Open</span>
-        ) : (
-          <span className="text-3xl text-red-500 ">Closed</span>
-        )}
-      </div>
-      {/* //* col 2 */}
-      <div className="flex flex-col items-center justify-between text-gray-100">
-        <div className="text-center">
-          <h2 className="text-4xl mb-3">{name}</h2>
-          <h3 className="text-2xl">{address}</h3>{" "}
-        </div>
-        <div className="mt-6 gap-12 flex justify-center ">
-          <button
-            onClick={() =>
-              handleAddToFavorites(currentUser._id, placeId, "locations")
-            }
-            className="p-2 border-2 border-[#FFD700] rounded-lg"
-          >
-            <Star />
-          </button>
-          {favoritesMessage && (
-            <AddedToFavoritesModal
-              message={favoritesMessage}
-              setMessage={setFavoritesMessage}
-            />
-          )}
-          <Link to={`/locations/location-details/${placeId}`}>
-            <button className="border h-full px-3 py-1 text-2xl rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-800 hover:text-white">
-              details
-            </button>
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 /*
 PLACES API OBJECT
