@@ -31,28 +31,24 @@ export default ShowLocation;
 ///////////////////////////
 export const ShowLocationCard = () => {
   // local state
-  const [placeDetails, setPlaceDetails] = useState({});
   const [isImgHovered, setIsImgHovered] = useState(false);
   const [showCarousel, setShowCarousel] = useState(false);
-  // const [photos, setPhotos] = useState([]);
   // hooks
-  const navigate = useNavigate();
   const { locationId } = useParams();
+  // context
   const { fetchPlaceDetails, isLoading, locationDetails } = usePlacesContext();
   const { fetchedPhotos } = locationDetails;
-  // context
   const { favoritesMessage, setFavoritesMessage, handleAddToFavorites } =
     useGlobalContext();
   const { user } = useAuthContext();
   // regex for phone number tel:5555555555
   const regex = /\d+/g;
-  const nonformattedTelNumber = placeDetails.formatted_phone_number
+  const nonformattedTelNumber = locationDetails.formatted_phone_number
     ?.match(regex)
     .join("");
   // converts rating to scale of 100
-  const rating = placeDetails?.rating * 20;
-
-  // return
+  const rating = locationDetails?.rating * 20;
+  
   // Call this function every time a new place_id is in the params
   useEffect(() => {
     fetchPlaceDetails(locationId);

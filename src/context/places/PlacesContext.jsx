@@ -27,12 +27,11 @@ const reducer = (state, action) => {
       return { ...state, isLoading: false };
     // set locations
     case "setLocations/locations":
-      // console.log(action.payload, ' action  payoload')
       return { ...state, locations: action.payload };
     case "setLocationDetails/locations":
       return { ...state, locationDetails: action.payload };
+
     case "setPlaceDetails/locations":
-      // console.log(action.payload, ' <-- action.payload')
       return {
         ...state,
         locationDetails: {
@@ -108,11 +107,18 @@ export const PlacesProvider = ({ children }) => {
   // Fetch Place Details and Photos
   ///////////////////////////
   const fetchPlaceDetails = async (locationId) => {
+    const cachedDetails = localStorage.getItem(locationId);
+    if (cachedDetails) {
+      return dispatch({
+        type: "setLocationDetails/locations",
+        payload: JSON.parse(cachedDetails),
+      });
+    }
     try {
       dispatch({ type: "startLoading/locations" });
 
       const data = await getPlaceDetails(locationId);
-// console.log(data, ' <-- data for photo refs')
+      // console.log(data, ' <-- data for photo refs')
       //  asynchronously fetch photos
       const photoReferences = data?.photos.map(
         (photo) => photo.photo_reference
@@ -129,6 +135,11 @@ export const PlacesProvider = ({ children }) => {
       // console.log(photoResults, ' <-- photo results')
       // console.log(data, ' <-- data')
       // console.log(reducer, ' <-- data')
+      const storageObject = {
+        fetchedPhotos: photoResults,
+        ...data // Spread the properties of data into the storageObject
+      };
+      localStorage.setItem(locationId, JSON.stringify(storageObject))
       dispatch({
         type: "setPlaceDetails/locations",
         payload: { photos: photoResults, data },
@@ -175,7 +186,9 @@ export const PlacesProvider = ({ children }) => {
   // };
 
   return (
-    <PlacesContext.Provider value={{ locations, locationDetails, isLoading,fetchPlaceDetails }}>
+    <PlacesContext.Provider
+      value={{ locations, locationDetails, isLoading, fetchPlaceDetails }}
+    >
       {children}
     </PlacesContext.Provider>
   );
