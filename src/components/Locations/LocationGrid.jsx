@@ -21,7 +21,7 @@ export const LocationsGrid = () => {
           key={idx}
           isOpen={location.opening_hours.open_now}
           placeId={location.place_id}
-          currentUser={user}
+          currentUser={user&&user}
         />
       ))}
     </div>

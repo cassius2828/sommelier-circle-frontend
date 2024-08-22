@@ -59,6 +59,9 @@ export const ShowLocationCard = () => {
     console.log(fetchedPhotos, " <-- fetched photos");
   }, []);
 
+  // run this function again if part of the location details are loaded the but photo is not, this is
+  // to prevent when the photo never arrives and a constant loading state remains
+
   if (isLoading) return <Loader />;
   return (
     <div className="grid grid-cols-3 grid-rows-3 bg-[#111213] shadow-lg w-full lg:w-1/2 mx-auto max-h-[60rem] text-gray-100 rounded-md p-4 relative">
@@ -71,12 +74,11 @@ export const ShowLocationCard = () => {
       ) : (
         <>
           {" "}
-          <span
-            onClick={() => navigate(-1)}
-            className="absolute top-0 right-4 text-5xl cursor-pointer"
-          >
-            x
-          </span>
+          <Link className="absolute top-0 right-4 " to={`/locations/explore`}>
+            <span className="text-5xl cursor-pointer">
+              x
+            </span>
+          </Link>
           {/* img, title, address, rating */}
           <div className="col-start-1 row-span-3 p-4 flex flex-col justify-between">
             <div
