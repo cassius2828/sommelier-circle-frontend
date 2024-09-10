@@ -16,6 +16,7 @@ export const BlogContext = createContext();
 
 export const BlogProvider = ({ children }) => {
   const [blogs, setBlogs] = useState([]);
+  const [landingBlogs, setLandingBlogs] = useState([]);
   const [myBlogs, setMyBlogs] = useState([]);
   const { setIsLoading } = useGlobalContext();
   const { user } = useAuthContext();
@@ -65,11 +66,31 @@ export const BlogProvider = ({ children }) => {
   };
 
   ///////////////////////////////
+  // Fetch Landing Blogs
+  ///////////////////////////////
+
+  const fetchLandingBlogs = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/blogs/landing`
+      );
+      setLandingBlogs(response.data);
+      console.log(response.data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  ///////////////////////////////ƒ
   // useEffect for Fetching Blogs
   ///////////////////////////////
 
   useEffect(() => {
     // fetchAllBlogs();
+    fetchLandingBlogs();
     fetchCurrentUserBlogs();
   }, []);
 
@@ -85,6 +106,8 @@ export const BlogProvider = ({ children }) => {
         myBlogs,
         fetchAllBlogs,
         fetchCurrentUserBlogs,
+        fetchLandingBlogs,
+        landingBlogs,
       }}
     >
       {children}

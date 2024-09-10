@@ -8,6 +8,7 @@ import FeaturedWineCategoryGallery from "../Wines/FeaturedWineCategoryGallery";
 
 // src/components/Landing.jsx
 const Landing = () => {
+  
   return (
     <div id="landing" className="pl-[10rem]">
       <Hero />
