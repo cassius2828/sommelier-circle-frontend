@@ -7,7 +7,7 @@ import {
   UilLinkedin,
 } from "@iconscout/react-unicons";
 
-const Icon = ({ type, size = "md", color }) => {
+export const Icon = ({ type, size = "md", color }) => {
   const icons = {
     facebook: UilFacebookF,
     twitter: UilTwitter,

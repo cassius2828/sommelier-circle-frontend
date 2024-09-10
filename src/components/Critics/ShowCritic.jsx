@@ -1,11 +1,19 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getCriticDetails } from "../../services/criticService";
+import { UilStar } from "@iconscout/react-unicons";
+
 import LoaderSpin from "../CommonComponents/LoaderSpin";
+import AddedToFavoritesModal from "../Modals/AddedToFavoritesModal";
+import useGlobalContext from "../../context/global/useGlobalContext";
+import useAuthContext from "../../context/auth/useAuthContext";
 
 const ShowCritic = () => {
   const { criticId } = useParams();
   const [criticDetails, setCriticDetails] = useState({});
+  const { favoritesMessage, setFavoritesMessage, handleAddToFavorites } =
+    useGlobalContext();
+    const {user} = useAuthContext()
   const navigate = useNavigate();
   const { img, name, awards, experience, bio } = criticDetails;
   const fetchCriticDetails = async () => {
@@ -66,10 +74,26 @@ const ShowCritic = () => {
       </div>{" "}
       <button
         onClick={() => navigate(-1)}
-        className="absolute  -bottom-20 left-1/2 -translate-x-1/2 text-3xl w-1/3 mx-auto mt-12 bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
+        className="absolute  -bottom-52 left-1/2 -translate-x-1/2 text-3xl w-1/3 mx-auto mt-12 bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
       >
         back to critics
       </button>
+      {/* favorite */}
+      <div className="flex items-center gap-8 mb-12 justify-center absolute  -bottom-36 left-1/2 -translate-x-1/2">
+        <button
+          onClick={() => handleAddToFavorites(user._id, criticId, "critics")}
+          className="p-2 border-2 border-[#FFD700] rounded-lg"
+        >
+          <UilStar size="24" color="#FFD700" />
+        </button>
+        <span className="text-gray-100 text-2xl">Add to Favorites</span>
+      </div>
+      {favoritesMessage && (
+        <AddedToFavoritesModal
+          message={favoritesMessage}
+          setMessage={setFavoritesMessage}
+        />
+      )}
     </div>
   );
 };

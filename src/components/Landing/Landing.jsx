@@ -1,3 +1,4 @@
+
 import LandingBlogs from "../Blogs/LandingBlogs";
 import FeaturedCriticsGallery from "../Critics/FeaturedCritics";
 import Footer from "../Footer";
@@ -7,14 +8,15 @@ import FeaturedWineCategoryGallery from "../Wines/FeaturedWineCategoryGallery";
 
 // src/components/Landing.jsx
 const Landing = () => {
+  
   return (
     <div id="landing" className="pl-[10rem]">
       <Hero />
       <FeaturedWineCategoryGallery />
       <FeaturedWineCardList />
       <LandingBlogs />
-     <FeaturedCriticsGallery/>
-      <Footer/>
+      <FeaturedCriticsGallery />
+      <Footer />
     </div>
   );
 };

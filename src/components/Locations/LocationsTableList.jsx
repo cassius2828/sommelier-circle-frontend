@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import usePlacesContext from "../../context/places/usePlacesContext";
 import { Star } from "../CommonComponents/StarList";
 
-const RoomsTableList = () => {
+const LocationsTableList = () => {
   const { rooms } = usePlacesContext();
   return (
     <div className="overflow-x-auto mb-24 bg-[#111213]">
@@ -32,28 +32,28 @@ const RoomsTableList = () => {
         </thead>
         {/* body */}
         <tbody>
-          {rooms?.map((room, idx) => (
-            <tr key={room.place_id + idx} className="hover:bg-gray-800">
-              {/* room name */}
+          {rooms?.map((location, idx) => (
+            <tr key={location.place_id + idx} className="hover:bg-gray-800">
+              {/* location name */}
               <td className="py-2 px-4 border-b border-gray-700 flex items-center gap-4 text-gray-100 text-xl">
                 <img
                   className="w-20 h-20 object-cover"
-                  src={room.photo}
+                  src={location.photo}
                   alt=""
                 />
-                {room.name}
+                {location.name}
               </td>
               {/* address */}
               <td className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
-                {room.vicinity}
+                {location.vicinity}
               </td>
               {/* rating */}
               <td className="py-2 px-4 border-b border-gray-700 text-center text-gray-100 text-xl">
-                {room.rating}
+                {location.rating}
               </td>
               {/* open status */}
               <td className="py-2 px-4 border-b border-gray-700 text-center text-gray-100 text-xl">
-                {room.opening_hours.open_now ? (
+                {location.opening_hours.open_now ? (
                   <span className="text-green-500">Open</span>
                 ) : (
                   <span className="text-red-500">Closed</span>
@@ -67,7 +67,7 @@ const RoomsTableList = () => {
               </td>
               {/* details */}
               <td className="py-2 px-4 border-b border-gray-700 text-center">
-                <Link to={`/rooms/room-details/${room.place_id}`}>
+                <Link to={`/locations/location-details/${location.place_id}`}>
                   <button className="border px-3 py-1  rounded-md text-gray-100 text-xl border-gray-800 transition-colors duration-300 hover:bg-gray-900 hover:text-white">
                     details
                   </button>
@@ -80,4 +80,4 @@ const RoomsTableList = () => {
     </div>
   );
 };
-export default RoomsTableList;
+export default LocationsTableList;

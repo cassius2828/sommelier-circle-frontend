@@ -4,6 +4,14 @@ import { getUserLocation } from "../../services/googlePlacesService";
 import { getWines, postFilterWineResults } from "../../services/wineService";
 import { GlobalContext } from "./GlobalContext";
 import { getCriticsCount } from "../../services/criticService";
+import {
+  addItemToFavorites,
+  addLocationsItemToFavorites,
+} from "../../services/favoritesService";
+import {
+  getItemIndexedDB,
+  setItemIndexedDB,
+} from "../../utils/indexedDB.config";
 const initialFormData = {
   grape: "",
   region: "",
@@ -19,22 +27,7 @@ export const GlobalProvider = ({ children }) => {
   const [displayedWines, setDisplayedWines] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [totalCritics, setTotalCritics] = useState(0);
-
-  const windowWidth = window.innerWidth;
-  let deviceWidth = "";
-
-  switch (deviceWidth) {
-    case windowWidth < 768:
-      deviceWidth = "mobile";
-      break;
-    case windowWidth > 1400:
-      deviceWidth = "desktop";
-      break;
-
-    default:
-      deviceWidth = "tablet";
-      break;
-  }
+  const [favoritesMessage, setFavoritesMessage] = useState("");
 
   useEffect(() => {
     const fetchCriticsCount = async () => {
@@ -56,7 +49,7 @@ export const GlobalProvider = ({ children }) => {
   ///////////////////////////
   useEffect(() => {
     const fetchUserLocationAndCountryCode = async () => {
-      await getUserLocation();
+      getUserLocation();
     };
     fetchUserLocationAndCountryCode();
   }, []);
@@ -92,9 +85,16 @@ export const GlobalProvider = ({ children }) => {
 
   const fetchWines = async () => {
     setIsLoading(true);
+    const cachedWines = await getItemIndexedDB("wines", "all");
+    if (cachedWines) {
+      setWines(cachedWines);
+      setIsLoading(false);
+      return;
+    }
     try {
       const data = await getWines();
       setWines(data);
+      await setItemIndexedDB("wines", data, "all");
     } catch (err) {
       console.log(`Error fetching wines: ${err}`);
     } finally {
@@ -479,6 +479,24 @@ export const GlobalProvider = ({ children }) => {
   ];
 
   ///////////////////////////
+  // Handle Add To Favorites
+  ///////////////////////////
+  const handleAddToFavorites = async (userId, itemId, itemType) => {
+    try {
+      if (itemType === "locations") {
+        const data = await addLocationsItemToFavorites(userId, itemId);
+        setFavoritesMessage(data);
+      } else {
+        const data = await addItemToFavorites(userId, itemId, itemType);
+        setFavoritesMessage(data);
+      }
+    } catch (err) {
+      console.error(err);
+      console.log(`Unable to add item to favorites`);
+    }
+  };
+
+  ///////////////////////////
   // Fetch all wines on load
   ///////////////////////////
   useEffect(() => {
@@ -498,27 +516,30 @@ export const GlobalProvider = ({ children }) => {
   return (
     <GlobalContext.Provider
       value={{
+        debounce,
+        fetchFilteredWineData,
+        fetchWines,
+        handleAddToFavorites,
+        handleUpdateForm,
         scrollToTop,
-        wineCategories,
+        setDisplayedWines,
+        setFavoritesMessage,
+        setFormData,
+        setIsLoading,
+        setWines,
+        setWinesByCategory,
+
+        displayedWines,
+        favoritesMessage,
+        formData,
         grapeCategories,
+        initialFormData,
+        isLoading,
+        totalCritics,
+        wineCategories,
         wineRegions,
         wines,
-        setWines,
         winesByCategory,
-        setWinesByCategory,
-        fetchWines,
-        displayedWines,
-        setDisplayedWines,
-        fetchFilteredWineData,
-        isLoading,
-        setIsLoading,
-        formData,
-        setFormData,
-        handleUpdateForm,
-        initialFormData,
-        deviceWidth,
-        debounce,
-        totalCritics,
       }}
     >
       {children}

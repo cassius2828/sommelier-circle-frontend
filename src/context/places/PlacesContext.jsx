@@ -1,65 +1,194 @@
 /* eslint-disable react/prop-types */
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 
 import {
   getNearbyWinePlaces,
-  getPhotosOfRoom,
+  getPhotosOfLocation,
+  getPlaceDetails,
 } from "../../services/googlePlacesService";
 import useGlobalContext from "../global/useGlobalContext";
+import { getItemIndexedDB, setItemIndexedDB } from "../../utils/indexedDB.config";
 
 export const PlacesContext = createContext();
 
+const initialState = {
+  locations: [],
+  locationDetails: {
+    fetchedPhotos: [],
+  },
+  isLoading: false,
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    // loading
+    case "startLoading/locations":
+      return { ...state, isLoading: true };
+    case "stopLoading/locations":
+      return { ...state, isLoading: false };
+    // set locations
+    case "setLocations/locations":
+      return { ...state, locations: action.payload };
+    case "setLocationDetails/locations":
+      return { ...state, locationDetails: action.payload };
+
+    case "setPlaceDetails/locations":
+      return {
+        ...state,
+        locationDetails: {
+          fetchedPhotos: action.payload.photos,
+          ...action.payload.data,
+        },
+      };
+
+    default:
+      return state;
+  }
+};
+
 export const PlacesProvider = ({ children }) => {
-  const [rooms, setRooms] = useState([]);
-  const [roomDetails, setRoomDetails] = useState({});
+  const [{ locations, locationDetails, isLoading }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
+
   // const [events, setEvents] = useState([]);
   // const [eventDetails, setEventDetails] = useState({});
-  const { isLoading, setIsLoading } = useGlobalContext();
+  // ! Go to where isLoading is used for location specific events and change them to use
+  // ! isLoading from this context
 
-  const fetchRoomsWithCoverPhoto = async () => {
-    setIsLoading(true);
+  const windowWidth = window.innerWidth;
+  let deviceWidth = "";
+
+  switch (deviceWidth) {
+    case windowWidth < 768:
+      deviceWidth = "mobile";
+      break;
+    case windowWidth > 1400:
+      deviceWidth = "desktop";
+      break;
+
+    default:
+      deviceWidth = "tablet";
+      break;
+  }
+  const fetchLocationsWithCoverPhoto = async () => {
+    dispatch({ type: "startLoading/locations" });
     try {
-      const roomList = await getNearbyWinePlaces();
+      const locationList = await getNearbyWinePlaces();
       const updatedPlacesWithPhoto = await Promise.all(
-        roomList.map(async (room) => {
-          if (room.photos[0].photo_reference) {
-            const photo = await getPhotosOfRoom(room.photos[0].photo_reference);
-            return { ...room, photo };
+        locationList.map(async (location) => {
+          if (location.photos[0].photo_reference) {
+            const photo = await getPhotosOfLocation(
+              location.photos[0].photo_reference
+            );
+            return { ...location, photo };
           }
-          return room;
+          return location;
         })
       );
-      console.log(updatedPlacesWithPhoto, ' <-- updatedPlaces')
-      setRooms(updatedPlacesWithPhoto);
-      console.log(rooms);
+      // console.log(updatedPlacesWithPhoto, " <-- updatedPlaces");
+      dispatch({
+        type: "setLocations/locations",
+        payload: updatedPlacesWithPhoto,
+      });
+
+      console.log(locations);
     } catch (err) {
       console.error(err);
       console.log(
-        `Unable to fetch rooms from google places api | Before service file`
+        `Unable to fetch locations from google places api | Before service file`
       );
     } finally {
-      setIsLoading(false)
+      dispatch({ type: "stopLoading/locations" });
+    }
+  };
+
+  ///////////////////////////
+  // Fetch Place Details and Photos
+  ///////////////////////////
+  const fetchPlaceDetails = async (locationId) => {
+    const cachedDetails = await getItemIndexedDB(locationId, "location");
+    if (cachedDetails) {
+      return dispatch({
+        type: "setLocationDetails/locations",
+        payload: cachedDetails,
+      });
+    }
+    try {
+      dispatch({ type: "startLoading/locations" });
+
+      const data = await getPlaceDetails(locationId);
+      // console.log(data, ' <-- data for photo refs')
+      //  asynchronously fetch photos
+      const photoReferences = data?.photos.map(
+        (photo) => photo.photo_reference
+      );
+      const photoPromises = photoReferences.map((photo_ref) =>
+        fetchLocationPhotos(photo_ref)
+      );
+      const photoResults = await Promise.all(photoPromises);
+      // console.log(photoResults, ' <-- photo results after going thorugh fetchLocation Photos')
+      // set state data
+      // setPhotos(photoResults);
+      // dispatch({type:'setPlaceDetailPhotos/locations', payload: photoResults})
+      // setPlaceDetails(data);
+      // console.log(photoResults, ' <-- photo results')
+      // console.log(data, ' <-- data')
+      // console.log(reducer, ' <-- data')
+      const storageObject = {
+        fetchedPhotos: photoResults,
+        ...data, // Spread the properties of data into the storageObject
+      };
+    await setItemIndexedDB(locationId, storageObject,"location");
+      dispatch({
+        type: "setPlaceDetails/locations",
+        payload: { photos: photoResults, data },
+      });
+    } catch (err) {
+      console.error(err);
+      console.log(
+        `Error communicating with backend to retrieve place details from google place api`
+      );
+    } finally {
+      dispatch({ type: "stopLoading/locations" });
+    }
+  };
+  ///////////////////////////
+  // Fetch Location Photos function
+  ///////////////////////////
+  const fetchLocationPhotos = async (photo_reference) => {
+    try {
+      const data = await getPhotosOfLocation(photo_reference, deviceWidth);
+      if (!locationDetails.fetchedPhotos.includes(data)) {
+        return data;
+      }
+    } catch (err) {
+      console.error(err);
+      console.log(
+        `Error communicating with backend to retrieve place photos from google place api`
+      );
     }
   };
 
   useEffect(() => {
-    fetchRoomsWithCoverPhoto();
+    fetchLocationsWithCoverPhoto();
   }, []);
 
-  const fetchRoomDetails = async () => {
-    try {
-      console.log("fetching room details ");
-    } catch (err) {
-      console.error(err);
-      console.log(
-        `Unable to fetch room details from google place details api | Before service file`
-      );
-    }
-  };
+  // const fetchLocationDetails = async () => {
+  //   try {
+  //     console.log("fetching location details ");
+  //   } catch (err) {
+  //     console.error(err);
+  //     console.log(
+  //       `Unable to fetch location details from google place details api | Before service file`
+  //     );
+  //   }
+  // };
 
   return (
     <PlacesContext.Provider
-      value={{  rooms, roomDetails }}
+      value={{ locations, locationDetails, isLoading, fetchPlaceDetails }}
     >
       {children}
     </PlacesContext.Provider>

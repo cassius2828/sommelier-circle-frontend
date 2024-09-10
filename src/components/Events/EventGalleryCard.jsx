@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import Loader from "../CommonComponents/Loader";
 import { Star } from "../CommonComponents/StarList";
 import useGlobalContext from "../../context/global/useGlobalContext";
+import useAuthContext from "../../context/auth/useAuthContext";
+import AddedToFavoritesModal from "../Modals/AddedToFavoritesModal";
 
 const EventGalleryCard = ({
-  id,
+  eventId,
   photo,
   eventName,
   streetAddress,
@@ -22,8 +24,13 @@ const EventGalleryCard = ({
   ticketPrice,
   ticketsAvailable,
 }) => {
-  const { isLoading } = useGlobalContext();
-
+  const {
+    isLoading,
+    favoritesMessage,
+    setFavoritesMessage,
+    handleAddToFavorites,
+  } = useGlobalContext();
+  const { user } = useAuthContext();
   if (isLoading) return <Loader />;
 
   const address = `${streetAddress}, ${city}, ${state}`;
@@ -49,19 +56,35 @@ const EventGalleryCard = ({
       <div className="flex flex-col items-center justify-between text-gray-100">
         <div className="text-center">
           <h2 className="text-4xl mb-3">{eventName}</h2>
-          <h3 className="text-2xl">                    {new Date(date).toDateString() || "Aug 8th, 2024"}
+          <h3 className="text-2xl">
+            {" "}
+            {new Date(date).toDateString() || "Aug 8th, 2024"}
           </h3>
         </div>
         <div className="mt-6 gap-12 flex justify-center ">
-          <button className="p-2 border-2 border-[#FFD700] rounded-lg">
+          <button
+            onClick={() => handleAddToFavorites(user._id, eventId, "events")}
+            className="p-2 border-2 border-[#FFD700] rounded-lg"
+          >
             <Star /> {/* Assuming this is an icon component */}
           </button>
-          <button   className={`border h-16 px-3 py-1 text-2xl rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-800 hover:text-white ${
-                    ticketedEvent ? "cursor-pointer" : "cursor-default"
-                  }`}>
+
+          {/* favorite */}
+
+          {favoritesMessage && (
+            <AddedToFavoritesModal
+              message={favoritesMessage}
+              setMessage={setFavoritesMessage}
+            />
+          )}
+          <button
+            className={`border h-16 px-3 py-1 text-2xl rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-800 hover:text-white ${
+              ticketedEvent ? "cursor-pointer" : "cursor-default"
+            }`}
+          >
             {ticketedEvent ? "Tickets" : "Free"}
           </button>
-          <Link to={`/events/${id}`}>
+          <Link to={`/events/${eventId}`}>
             <button className="border h-full px-3 py-1 text-2xl rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-800 hover:text-white">
               Details
             </button>

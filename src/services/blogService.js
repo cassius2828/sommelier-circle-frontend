@@ -25,7 +25,7 @@ export const createBlog = async (formData) => {
 };
 
 ///////////////////////////
-// * PUT | Create a new blog
+// * PUT | update a blog | img
 ///////////////////////////
 export const updateBlogWithImg = async (formData, blogId) => {
   const options = {
@@ -50,7 +50,7 @@ export const updateBlogWithImg = async (formData, blogId) => {
 };
 
 ///////////////////////////
-// * PUT | Create a new blog
+// * PUT | update a blog | no img
 ///////////////////////////
 export const updateBlogNoImg = async (formData, blogId) => {
   const options = {
@@ -107,3 +107,4 @@ export const getBlog = async (blogId) => {
     throw err;
   }
 };
+

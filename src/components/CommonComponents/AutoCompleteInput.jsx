@@ -22,7 +22,7 @@ const AutoCompleteInput = () => {
       } catch (err) {
         console.error(err);
         console.log(
-          `Error searching and displaying locations | Rooms index.jsx`
+          `Error searching and displaying locations | Locations index.jsx`
         );
       } finally {
         setIsLoading(false);
@@ -70,7 +70,7 @@ const AutoCompleteInput = () => {
             return (
               <Link
                 key={location.place_id}
-                to={`/rooms/room-details/${location.place_id}`}
+                to={`/locations/location-details/${location.place_id}`}
               >
                 <li className="p-2 hover:bg-gray-200 cursor-pointer">
                   {isLoading ? "loading..." : location.description}

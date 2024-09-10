@@ -1,9 +1,10 @@
 import { useLocation } from "react-router-dom";
 import { NavBarTop } from "../NavBar/NavBar";
+import useAuthContext from "../../context/auth/useAuthContext";
 
 const Header = () => {
   const location = useLocation();
-
+const {handleLogout} = useAuthContext()
   const isRoot = location.pathname === "/";
   return (
     <header
@@ -22,7 +23,7 @@ const Header = () => {
         />
       </div>
 
-      <NavBarTop />
+      <NavBarTop handleLogout={handleLogout} />
     </header>
   );
 };

@@ -6,10 +6,21 @@ import { useEffect, useState } from "react";
 import { getSelectedWine } from "../../services/wineService";
 import useGlobalContext from "../../context/global/useGlobalContext";
 import Loader from "../CommonComponents/Loader";
+import { addItemToFavorites } from "../../services/favoritesService";
+import useAuthContext from "../../context/auth/useAuthContext";
+import AddedToFavoritesModal from "../Modals/AddedToFavoritesModal";
 
 const ShowWine = () => {
   const [showFullDetails, setShowFullDetails] = useState(false);
-  const { isLoading, setIsLoading } = useGlobalContext();
+  const {
+    isLoading,
+    setIsLoading,
+    handleAddToFavorites,
+    favoritesMessage,
+    setFavoritesMessage,
+  } = useGlobalContext();
+  const [message, setMessage] = useState("");
+  const { user } = useAuthContext();
   const { wineId } = useParams();
   const [wine, setWine] = useState({});
   const navigate = useNavigate();
@@ -17,6 +28,10 @@ const ShowWine = () => {
     setShowFullDetails((prev) => !prev);
   };
 
+
+  ///////////////////////////
+  // Fetch Wine
+  ///////////////////////////
   const fetchWine = async () => {
     setIsLoading(true);
     try {
@@ -34,7 +49,6 @@ const ShowWine = () => {
   }, []);
 
   if (isLoading) return <Loader />;
-
 
   return (
     <>
@@ -121,7 +135,10 @@ const ShowWine = () => {
             </button>
           </Link>
           {/* favorite */}
-          <button className="p-2 border-2 border-[#FFD700] rounded-lg">
+          <button
+            onClick={() => handleAddToFavorites(user._id, wineId, "wines")}
+            className="p-2 border-2 border-[#FFD700] rounded-lg"
+          >
             <UilStar size="24" color="#FFD700" />
           </button>
           {/* share */}
@@ -129,6 +146,12 @@ const ShowWine = () => {
             <UilShare size="24" color="#808080" />
           </button>
         </div>
+        {favoritesMessage && (
+          <AddedToFavoritesModal
+            message={favoritesMessage}
+            setMessage={setFavoritesMessage}
+          />
+        )}
       </div>
     </>
   );

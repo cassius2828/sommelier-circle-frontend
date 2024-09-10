@@ -42,9 +42,10 @@ const ShowBlog = ({ propsBlogId }) => {
         img={blog?.img}
         content={blog?.content}
         createdAt={blog?.createdAt}
-        id={blog?.owner._id}
+        ownerId={blog?.owner._id}
         name={blog?.owner.username}
         profileImg={blog?.owner.profileImg}
+        blogId={blog?._id}
       />
       <div className="fixed top-0 left-0 h-full w-full -z-10 bg-neutral-950"></div>
     </div>

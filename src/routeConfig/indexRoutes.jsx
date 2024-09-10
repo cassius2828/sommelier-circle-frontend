@@ -5,7 +5,7 @@ import authRoutes from "./authRoutes";
 import blogRoutes from "./blogRoutes";
 import wineRoutes from "./wineRoutes";
 import criticRoutes from "./criticRoutes";
-import roomRoutes from "./roomRoutes";
+import locationRoutes from "./locationRoutes";
 import eventRoutes from "./eventRoutes";
 import profileRoutes from "./profileRoutes";
 
@@ -28,7 +28,7 @@ const routes = [
   ...blogRoutes,
   ...wineRoutes,
   ...criticRoutes,
-  ...roomRoutes,
+  ...locationRoutes,
   ...eventRoutes,
   ...profileRoutes,
 ];
