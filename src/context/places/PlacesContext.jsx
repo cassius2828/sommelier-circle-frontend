@@ -7,6 +7,7 @@ import {
   getPlaceDetails,
 } from "../../services/googlePlacesService";
 import useGlobalContext from "../global/useGlobalContext";
+import { getItemIndexedDB, setItemIndexedDB } from "../../utils/indexedDB.config";
 
 export const PlacesContext = createContext();
 
@@ -107,11 +108,11 @@ export const PlacesProvider = ({ children }) => {
   // Fetch Place Details and Photos
   ///////////////////////////
   const fetchPlaceDetails = async (locationId) => {
-    const cachedDetails = localStorage.getItem(locationId);
+    const cachedDetails = await getItemIndexedDB(locationId, "location");
     if (cachedDetails) {
       return dispatch({
         type: "setLocationDetails/locations",
-        payload: JSON.parse(cachedDetails),
+        payload: cachedDetails,
       });
     }
     try {
@@ -137,9 +138,9 @@ export const PlacesProvider = ({ children }) => {
       // console.log(reducer, ' <-- data')
       const storageObject = {
         fetchedPhotos: photoResults,
-        ...data // Spread the properties of data into the storageObject
+        ...data, // Spread the properties of data into the storageObject
       };
-      localStorage.setItem(locationId, JSON.stringify(storageObject))
+    await setItemIndexedDB(locationId, storageObject,"location");
       dispatch({
         type: "setPlaceDetails/locations",
         payload: { photos: photoResults, data },

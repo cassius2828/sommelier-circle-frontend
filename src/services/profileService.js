@@ -132,7 +132,7 @@ export const putEditProfileInfo = async (userId, formData) => {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   };
-console.log(formData, ' <-- formData')
+  console.log(formData, " <-- formData");
   try {
     const response = await axios.put(
       `${BASE_URL}/${userId}`,

@@ -8,6 +8,10 @@ import {
   addItemToFavorites,
   addLocationsItemToFavorites,
 } from "../../services/favoritesService";
+import {
+  getItemIndexedDB,
+  setItemIndexedDB,
+} from "../../utils/indexedDB.config";
 const initialFormData = {
   grape: "",
   region: "",
@@ -24,8 +28,6 @@ export const GlobalProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [totalCritics, setTotalCritics] = useState(0);
   const [favoritesMessage, setFavoritesMessage] = useState("");
-
-
 
   useEffect(() => {
     const fetchCriticsCount = async () => {
@@ -47,7 +49,7 @@ export const GlobalProvider = ({ children }) => {
   ///////////////////////////
   useEffect(() => {
     const fetchUserLocationAndCountryCode = async () => {
-      await getUserLocation();
+      getUserLocation();
     };
     fetchUserLocationAndCountryCode();
   }, []);
@@ -83,9 +85,16 @@ export const GlobalProvider = ({ children }) => {
 
   const fetchWines = async () => {
     setIsLoading(true);
+    const cachedWines = await getItemIndexedDB("wines", "all");
+    if (cachedWines) {
+      setWines(cachedWines);
+      setIsLoading(false);
+      return;
+    }
     try {
       const data = await getWines();
       setWines(data);
+      await setItemIndexedDB("wines", data, "all");
     } catch (err) {
       console.log(`Error fetching wines: ${err}`);
     } finally {
@@ -475,11 +484,7 @@ export const GlobalProvider = ({ children }) => {
   const handleAddToFavorites = async (userId, itemId, itemType) => {
     try {
       if (itemType === "locations") {
-        const data = await addLocationsItemToFavorites(
-          userId,
-          itemId,
-         
-        );
+        const data = await addLocationsItemToFavorites(userId, itemId);
         setFavoritesMessage(data);
       } else {
         const data = await addItemToFavorites(userId, itemId, itemType);
@@ -523,7 +528,7 @@ export const GlobalProvider = ({ children }) => {
         setIsLoading,
         setWines,
         setWinesByCategory,
-      
+
         displayedWines,
         favoritesMessage,
         formData,

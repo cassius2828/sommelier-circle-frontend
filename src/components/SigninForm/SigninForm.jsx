@@ -79,12 +79,6 @@ const SigninForm = () => {
             />
           </div>
           <div className="flex justify-between items-center">
-            <button
-              type="submit"
-              className="bg-stone-500  px-4 py-2 rounded-md focus:outline-none hover:bg-stone-600 hover:text-gray-100 transition-colors duration-200"
-            >
-              Log In
-            </button>
             <Link to="/">
               <button
                 type="button"
@@ -93,6 +87,12 @@ const SigninForm = () => {
                 Cancel
               </button>
             </Link>
+            <button
+              type="submit"
+              className="bg-stone-500  px-4 py-2 rounded-md focus:outline-none hover:bg-stone-600 hover:text-gray-100 transition-colors duration-200"
+            >
+              Log In
+            </button>
           </div>
         </form>
       </div>

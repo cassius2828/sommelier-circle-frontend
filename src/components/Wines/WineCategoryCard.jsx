@@ -5,7 +5,11 @@ const WineCategoryCard = ({ img, title, path }) => {
   return (
     <div className="h-[40rem] bg-theme-darkest pb-5 rounded-md overflow-hidden flex flex-col items-center justify-around border">
       <div className="overflow-hidden w-full h-[30rem] ">
-        <img className="w-full h-full object-cover " src={img} alt={title} />
+        <img
+          className="w-full h-full object-cover "
+          src={img ? img : "https://via.placeholder.com/150"}
+          alt={title}
+        />
       </div>
       <h3 className="text-gray-100 text-3xl my-12">{title}</h3>
       <Link to={path}>

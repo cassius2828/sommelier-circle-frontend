@@ -14,7 +14,7 @@ const FeaturedWineCategoryGallery = () => {
         />
         <WineCategoryCard
           title={`Grapes`}
-          img={`https://images.ctfassets.net/zpx0hfp3jryq/16cgILMm5YvngS6yWOHvwm/92d8dffe9005cab3eb1715875803f1e4/Merlot.jpg?fm=jpg&fl=progressive`}
+          img={`https://www.monrovia.com/media/catalog/product/cache/e04ab064d507a8311b0c9a903817e129/r/e/rest_4_1_4171.jpeg`}
           alt={``}
           path="/wines/grapes"
         />
