@@ -3,17 +3,50 @@ import LocationsTableList from "./LocationsTableList";
 import AutoCompleteInput from "../CommonComponents/AutoCompleteInput";
 
 import { LocationsGrid } from "./LocationGrid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getNearbyWinePlaces } from "../../services/googlePlacesService";
+import usePlacesContext from "../../context/places/usePlacesContext";
+import { deleteItemIndexedDB } from "../../utils/indexedDB.config";
+import Alert from "../CommonComponents/Alert";
 
 const Locations = () => {
   const [display, setDisplay] = useState("full");
-
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const { fetchLocationsWithCoverPhoto } = usePlacesContext();
   const handleDisplayChange = (e) => {
     setDisplay(e.target.value);
   };
 
+
+  ///////////////////////////
+  // Handle Refresh Recommendations
+  ///////////////////////////
+  const handleRefreshRecommendations = async () => {
+    try {
+      await deleteItemIndexedDB("locationsWithPhotos", "location");
+      setMessage("refreshed recommendations based on your current location");
+      fetchLocationsWithCoverPhoto();
+      setTimeout(() => {
+        setMessage("");
+      }, 1500);
+    } catch (err) {
+      console.error(err);
+      setError(
+        "Unable to refresh recommendations based on your current location"
+      );
+      setTimeout(() => {
+        setError("");
+      }, 1500);
+    }
+  };
+  // loads locations on first attempt
+  useEffect(() => {
+    fetchLocationsWithCoverPhoto();
+  }, []);
+
   return (
-    <div className="flex flex-col w-full  min-h-screen mt-80 items-center">
+    <div className="flex flex-col w-full  min-h-screen mt-80 items-center relative">
       <AutoCompleteInput />
 
       <div className="flex items-start gap-12 ">
@@ -34,6 +67,14 @@ const Locations = () => {
           </select>
         </div>
       </div>
+      <button
+        onClick={handleRefreshRecommendations}
+        className="text-xl bg-gray-700 text-gray-100 px-3 py-1 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
+      >
+        refresh recommendations
+      </button>
+      {message && <Alert success message={message} />}
+      {error && <Alert message={error} />}
       {display === "full" ? <LocationsGrid /> : <LocationsTableList />}
       <div className="fixed top-0 left-0 h-full w-full -z-10 bg-neutral-950"></div>
     </div>

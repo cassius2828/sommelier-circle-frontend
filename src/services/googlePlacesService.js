@@ -29,6 +29,7 @@ export const getUserLocation = () => {
       sessionStorage.setItem("countryCode", countryCode);
       sessionStorage.setItem("lat", lat);
       sessionStorage.setItem("lng", lng);
+      
       console.log(
         `Latitude: ${lat}, Longitude: ${lng}, Country Code: ${countryCode}`
       );
