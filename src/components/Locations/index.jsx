@@ -13,11 +13,10 @@ const Locations = () => {
   const [display, setDisplay] = useState("full");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const { fetchLocationsWithCoverPhoto } = usePlacesContext();
+  const { fetchLocationsWithCoverPhoto, rooms } = usePlacesContext();
   const handleDisplayChange = (e) => {
     setDisplay(e.target.value);
   };
-
 
   ///////////////////////////
   // Handle Refresh Recommendations
@@ -75,7 +74,11 @@ const Locations = () => {
       </button>
       {message && <Alert success message={message} />}
       {error && <Alert message={error} />}
-      {display === "full" ? <LocationsGrid /> : <LocationsTableList />}
+      {display === "full" ? (
+        <LocationsGrid />
+      ) : (
+        <LocationsTableList rooms={rooms} />
+      )}
       <div className="fixed top-0 left-0 h-full w-full -z-10 bg-neutral-950"></div>
     </div>
   );

@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import usePlacesContext from "../../context/places/usePlacesContext";
 import { Star } from "../CommonComponents/StarList";
 
-const LocationsTableList = () => {
-  const { rooms } = usePlacesContext();
+const LocationsTableList = ({rooms}) => {
+  // const { rooms } = usePlacesContext();
   return (
     <div className="overflow-x-auto mb-24 bg-[#111213]">
       <table className="min-w-full bg-[#111213] border border-gray-700">

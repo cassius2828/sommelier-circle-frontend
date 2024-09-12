@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import useBlogContext from "../../context/blog/useBlogContext";
 const LandingBlogs = () => {
-  const [isHovered, setIsHovered] = useState(false);
   const { landingBlogs } = useBlogContext();
   console.log(landingBlogs, " <-- landing blogs");
   return (

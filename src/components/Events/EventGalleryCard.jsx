@@ -37,7 +37,7 @@ const EventGalleryCard = ({
   const eventTime = `${startTimeHour}:${startTimeMinute}${startTimeTod} to ${endTimeHour}:${endTimeMinute}${endTimeTod}`;
 
   return (
-    <div className="grid grid-cols-2 p-4  overflow-hidden ">
+    <div className="grid grid-cols-2 p-4  ">
       {/* Row 1: Image */}
       <img
         className="col-span-2 row-start-1 rounded-lg mb-5 h-96 w-full object-cover"

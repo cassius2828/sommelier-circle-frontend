@@ -76,11 +76,13 @@ export const deleteRemoveItemFromFavorites = async (
 export const getFavoriteItems = async (userId, itemType) => {
   try {
     const response = await axios.get(
-      `${BASE_URL}/${itemType}?userId=${userId}`
+      `${FAVS_BASE_URL}/${itemType}?userId=${userId}`
     );
     if (response.data.message) {
+      console.log(response.data.messgae, ' <-- message')
       return response.data.message;
     }
+    console.log(response.data, ' <-- response.data')
     return response.data;
   } catch (err) {
     console.error(err);

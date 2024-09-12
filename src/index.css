@@ -240,6 +240,10 @@ h2 {
 }
 
 
+/* modal */
+#modal-text {
+  font-size: 2rem !important;
+}
 /* loader WINE BOTTLE */
 .loader {
   width: 40px;

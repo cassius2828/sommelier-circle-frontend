@@ -1,6 +1,7 @@
 // src/routes/wineRoutes.js
 import { lazy, Suspense } from "react";
 import WineSearch from "../components/Wines/Search/WineSearchGallery";
+import FavoriteWines from "../components/Wines/FavoriteWines";
 
 const CategoryGallery = lazy(() =>
   import("../components/Wines/CategoryGallery")
@@ -63,6 +64,20 @@ const wineRoutes = [
         }
       >
         <WineSearch />
+      </Suspense>
+    ),
+  },
+  {
+    path: `favorites/wines/:userId`,
+    element: (
+      <Suspense
+        fallback={
+          <div className="w-screen h-screen flex justify-center items-center">
+            <span className="loader"></span>
+          </div>
+        }
+      >
+        <FavoriteWines />
       </Suspense>
     ),
   },
