@@ -2,9 +2,12 @@
 /* eslint-disable react/prop-types */
 import { Link, useLocation } from "react-router-dom";
 import useGlobalContext from "../../../context/global/useGlobalContext";
+import useBlogContext from "../../../context/blog/useBlogContext";
+import { useEffect } from "react";
 
 const StylesColumn = ({ style }) => {
   const { wineCategories } = useGlobalContext();
+  const { fetchStyleBlogPaths } = useBlogContext();
   const location = useLocation();
   const path = location.pathname;
 
@@ -25,6 +28,10 @@ const StylesColumn = ({ style }) => {
       listStr.split(" ").join("").toLowerCase()
     );
   };
+
+  useEffect(() => {
+    fetchStyleBlogPaths(selectedCategory[0].types);
+  }, []);
   return (
     <div className="w-1/2 mt-96">
       <h3 className="border border-neutral-500 text-gray-100 text-4xl p-5">

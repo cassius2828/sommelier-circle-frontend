@@ -1,8 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
 import useGlobalContext from "../../../context/global/useGlobalContext";
+import { useEffect } from "react";
+import useBlogContext from "../../../context/blog/useBlogContext";
 
 export const AllStylesColumn = () => {
   const { wineCategories, wineRegions, grapeCategories } = useGlobalContext();
+  const { fetchStyleBlogPaths } = useBlogContext();
   const location = useLocation();
   const urlIdenitfier = location.pathname.split("/")[2];
   // more readable way to use conditional logic for routing and ui based on url
@@ -32,7 +35,10 @@ export const AllStylesColumn = () => {
   if (urlIdenitfier === "regions" || urlIdenitfier === "grapes") {
     urlEnd = location.pathname?.split("/")[3].split("-").join("");
   }
-
+  useEffect(() => {
+    fetchStyleBlogPaths(array[0].types);
+   
+  }, []);
   return (
     <div className=" w-1/2 mt-96 ">
       <h3 className="border border-neutral-500 text-gray-100 text-4xl p-5">
