@@ -16,6 +16,9 @@ export const BlogContext = createContext();
 
 export const BlogProvider = ({ children }) => {
   const [blogs, setBlogs] = useState([]);
+  const [showBlog, setShowBlog] = useState({})
+  const [communityBlogs, setCommunityBlogs] = useState([]);
+  const [styleBlogs, setStyleBlogs] = useState([]);
   const [landingBlogs, setLandingBlogs] = useState([]);
   const [myBlogs, setMyBlogs] = useState([]);
   const { setIsLoading } = useGlobalContext();
@@ -65,6 +68,26 @@ export const BlogProvider = ({ children }) => {
     }
   };
 
+  ///////////////////////////
+  // Fetch Community Blog Ids (for blog nav)
+  ///////////////////////////
+
+  const fetchCommunityBlogIds = async () => {
+    await fetchAllBlogs();
+    const blogIdList = blogs.map((blog) => blog._id);
+  
+    setCommunityBlogs(blogIdList);
+  };
+
+  ///////////////////////////
+  // Fetch Style Blog Ids (for blog nav)
+  ///////////////////////////
+  const fetchStyleBlogPaths = async (array) => {
+    // set style blog list to whatever the current page is rendering on the side menu
+    const blogPathsArray = array.map((blog) => blog.path);
+    setStyleBlogs(blogPathsArray);
+  };
+
   ///////////////////////////////
   // Fetch Landing Blogs
   ///////////////////////////////
@@ -76,7 +99,6 @@ export const BlogProvider = ({ children }) => {
         `${import.meta.env.VITE_BASE_URL}/blogs/landing`
       );
       setLandingBlogs(response.data);
-      console.log(response.data);
     } catch (err) {
       console.error(err);
     } finally {
@@ -108,6 +130,10 @@ export const BlogProvider = ({ children }) => {
         fetchCurrentUserBlogs,
         fetchLandingBlogs,
         landingBlogs,
+        fetchCommunityBlogIds,
+        fetchStyleBlogPaths,
+        communityBlogs,
+        styleBlogs,showBlog,setShowBlog
       }}
     >
       {children}

@@ -9,6 +9,7 @@ import Loader from "../CommonComponents/Loader";
 import { addItemToFavorites } from "../../services/favoritesService";
 import useAuthContext from "../../context/auth/useAuthContext";
 import AddedToFavoritesModal from "../Modals/AddedToFavoritesModal";
+import SocialMediaShareModal from "../Modals/SocialMediaShareModal";
 
 const ShowWine = () => {
   const [showFullDetails, setShowFullDetails] = useState(false);
@@ -20,6 +21,7 @@ const ShowWine = () => {
     setFavoritesMessage,
   } = useGlobalContext();
   const [message, setMessage] = useState("");
+  const [shareModelIsOpen, setShareModalIsOpen] = useState(false);
   const { user } = useAuthContext();
   const { wineId } = useParams();
   const [wine, setWine] = useState({});
@@ -27,7 +29,6 @@ const ShowWine = () => {
   const handleDisplayFullDetails = () => {
     setShowFullDetails((prev) => !prev);
   };
-
 
   ///////////////////////////
   // Fetch Wine
@@ -142,10 +143,18 @@ const ShowWine = () => {
             <UilStar size="24" color="#FFD700" />
           </button>
           {/* share */}
-          <button className="p-2 border-2 border-[#808080] rounded-lg">
+          <button
+            onClick={() => setShareModalIsOpen(true)}
+            className="p-2 border-2 border-[#808080] rounded-lg"
+          >
             <UilShare size="24" color="#808080" />
           </button>
         </div>
+        {shareModelIsOpen && (
+          <SocialMediaShareModal mediaType={`wineId`} wineName={wine.name}
+            handleClose={() => setShareModalIsOpen(false)}
+          />
+        )}{" "}
         {favoritesMessage && (
           <AddedToFavoritesModal
             message={favoritesMessage}

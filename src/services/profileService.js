@@ -152,3 +152,19 @@ export const putEditProfileInfo = async (userId, formData) => {
     );
   }
 };
+
+///////////////////////////
+// GET | Check user social media status
+///////////////////////////
+
+export const getCheckUserSocialMediaStatus = async (userId, platform) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/social-media/${userId}`);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    console.log(
+      `Cannot communciate with backend to check if user has filled out info in profile for ${platform}`
+    );
+  }
+};

@@ -17,14 +17,8 @@ export const MultipleBlogsFull = ({
       <div className="blog-container flex flex-col items-center relative max-h-[50rem]  p-5 ql-snow ql-editor  mx-auto my-12 pointer-events-none">
         {/* author info */}
         <div className="flex items-center gap-4 absolute text-gray-100 -top-0 left-5">
-     
-            <img
-              className="rounded-full view-blog-img"
-              src={profileImg}
-              alt=""
-            />
-            <span className="text-xl">{name}</span>{" "}
-      
+          <img className="rounded-full view-blog-img" src={profileImg} alt="" />
+          <span className="text-xl">{name}</span>{" "}
         </div>
 
         {/* header and date */}
@@ -67,14 +61,13 @@ export const MultipleBlogsFull = ({
           </button>
         </Link>{" "}
         <Link className="flex items-center gap-6" to={`/profiles/${id}`}>
-        <button
+          <button
             type="button"
             className="text-3xl bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
           >
             view profile
           </button>
         </Link>
-     
         <button
           onClick={() =>
             alert(
@@ -126,8 +119,6 @@ export const MultipleBlogsList = ({
   );
 };
 
-
-
 export const BlogTable = ({ blogs }) => {
   return (
     <div className="overflow-x-auto bg-[#111213]">
@@ -135,13 +126,27 @@ export const BlogTable = ({ blogs }) => {
         {/* head */}
         <thead>
           <tr>
-            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">Profile Image</th>
-            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">Author</th>
-            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">Blog Header</th>
-            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">Blog Title</th>
-            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">Date Created</th>
-            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">View Blog</th>
-            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">Share Blog</th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
+              Profile Image
+            </th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
+              Author
+            </th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
+              Blog Header
+            </th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
+              Blog Title
+            </th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
+              Date Created
+            </th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
+              View Blog
+            </th>
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
+              Share Blog
+            </th>
           </tr>
         </thead>
         {/* body */}
@@ -154,7 +159,7 @@ export const BlogTable = ({ blogs }) => {
                   <img
                     src={blog.owner.profileImg}
                     alt={blog.owner.username}
-                    className="w-12 h-12 rounded-full mx-auto"
+                    className="w-20 h-20 object-cover rounded-full mx-auto"
                   />
                 </Link>
               </td>
@@ -170,7 +175,9 @@ export const BlogTable = ({ blogs }) => {
                 )}
               </td>
               {/* title */}
-              <td className="py-2 px-4 border-b border-gray-700 text-center text-gray-100 text-xl">{blog.title}</td>
+              <td className="py-2 px-4 border-b border-gray-700 text-center text-gray-100 text-xl">
+                {blog.title}
+              </td>
               {/* date */}
               <td className="py-2 px-4 border-b border-gray-700 text-center text-gray-100 text-xl">
                 {new Date(blog.createdAt).toLocaleDateString()}
@@ -203,4 +210,3 @@ export const BlogTable = ({ blogs }) => {
     </div>
   );
 };
-

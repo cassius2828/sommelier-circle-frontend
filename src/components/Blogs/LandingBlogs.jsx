@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import useBlogContext from "../../context/blog/useBlogContext";
 const LandingBlogs = () => {
-  const [isHovered, setIsHovered] = useState(false);
   const { landingBlogs } = useBlogContext();
   console.log(landingBlogs, " <-- landing blogs");
   return (
@@ -84,7 +83,7 @@ export const BlogFullSq = ({ size, blog }) => {
     >
       <div className="hover:brightness-50 transition-all duration-200 ease-in-out">
         <img
-          className="rounded-lg max-h-96 overflow-hidden"
+          className="rounded-lg max-h-[50rem] overflow-hidden"
           src={blog?.img}
           alt={blog?.title}
         />

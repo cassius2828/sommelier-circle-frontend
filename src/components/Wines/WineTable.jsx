@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import useGlobalContext from "../../context/global/useGlobalContext";
 
-const WineTable = () => {
-  const { winesByCategory } = useGlobalContext();
+const WineTable = ({wines}) => {
+
 
   return (
     <div className="overflow-x-auto mb-24">
@@ -22,7 +22,7 @@ const WineTable = () => {
         </thead>
         {/* body */}
         <tbody>
-          {winesByCategory?.map((wine, idx) => (
+          {wines?.map((wine, idx) => (
             <tr key={wine.name + idx} className="hover:bg-gray-100">
               {/* wine info */}
               <td className="py-2 px-4 border-b">

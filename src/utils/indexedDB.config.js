@@ -69,3 +69,10 @@ async function deleteOldestItem(db) {
   }
   await transaction.done;
 }
+
+
+export async function addSingleItem(key,value,type){
+  const currentData = await getItemIndexedDB(key,type);
+  return {...currentData, value}
+
+}

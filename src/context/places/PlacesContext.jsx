@@ -7,7 +7,10 @@ import {
   getPlaceDetails,
 } from "../../services/googlePlacesService";
 import useGlobalContext from "../global/useGlobalContext";
-import { getItemIndexedDB, setItemIndexedDB } from "../../utils/indexedDB.config";
+import {
+  getItemIndexedDB,
+  setItemIndexedDB,
+} from "../../utils/indexedDB.config";
 
 export const PlacesContext = createContext();
 
@@ -74,6 +77,20 @@ export const PlacesProvider = ({ children }) => {
   }
   const fetchLocationsWithCoverPhoto = async () => {
     dispatch({ type: "startLoading/locations" });
+    // check for cached suggestions
+    const cachedLocationSuggestions = await getItemIndexedDB(
+      "locationsWithPhotos",
+      "location"
+    );
+    if (cachedLocationSuggestions) {
+      dispatch({
+        type: "setLocations/locations",
+        payload: cachedLocationSuggestions,
+      });
+      dispatch({ type: "stopLoading/locations" });
+      return;
+    }
+// use backend to fetch info from google places
     try {
       const locationList = await getNearbyWinePlaces();
       const updatedPlacesWithPhoto = await Promise.all(
@@ -88,6 +105,11 @@ export const PlacesProvider = ({ children }) => {
         })
       );
       // console.log(updatedPlacesWithPhoto, " <-- updatedPlaces");
+      await setItemIndexedDB(
+        "locationsWithPhotos",
+        updatedPlacesWithPhoto,
+        "location"
+      );
       dispatch({
         type: "setLocations/locations",
         payload: updatedPlacesWithPhoto,
@@ -140,7 +162,7 @@ export const PlacesProvider = ({ children }) => {
         fetchedPhotos: photoResults,
         ...data, // Spread the properties of data into the storageObject
       };
-    await setItemIndexedDB(locationId, storageObject,"location");
+      await setItemIndexedDB(locationId, storageObject, "location");
       dispatch({
         type: "setPlaceDetails/locations",
         payload: { photos: photoResults, data },
@@ -171,10 +193,6 @@ export const PlacesProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    fetchLocationsWithCoverPhoto();
-  }, []);
-
   // const fetchLocationDetails = async () => {
   //   try {
   //     console.log("fetching location details ");
@@ -186,9 +204,17 @@ export const PlacesProvider = ({ children }) => {
   //   }
   // };
 
+
+
   return (
     <PlacesContext.Provider
-      value={{ locations, locationDetails, isLoading, fetchPlaceDetails }}
+      value={{
+        locations,
+        locationDetails,
+        isLoading,
+        fetchPlaceDetails,
+        fetchLocationsWithCoverPhoto,fetchLocationPhotos
+      }}
     >
       {children}
     </PlacesContext.Provider>

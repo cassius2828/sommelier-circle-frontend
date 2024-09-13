@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
-import { NavBarTop } from "../NavBar/NavBar";
+
 import useAuthContext from "../../context/auth/useAuthContext";
+import { NavBarTop } from "../NavBar/NavBarTop";
 
 const Header = () => {
   const location = useLocation();
