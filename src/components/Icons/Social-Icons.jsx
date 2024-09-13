@@ -6,8 +6,22 @@ import {
   UilInstagram,
   UilLinkedin,
 } from "@iconscout/react-unicons";
+import { getCheckUserSocialMediaStatus } from "../../services/profileService";
+import useAuthContext from "../../context/auth/useAuthContext";
 
 export const Icon = ({ type, size = "md", color }) => {
+  const { user } = useAuthContext();
+  const handleClick = async () => {
+    // find a way to check if the signed in user has a username and link for their social media
+    // backend funciton, it will return a message, message will be our conditional on how to proceed
+    const data = await getCheckUserSocialMediaStatus(user._id, type);
+    if (data.message) {
+      // * success = open link with url to social media platform
+      
+    } else if (data.error) {
+      // ! failure = show modal that will prompt user to upload their social media info in profile
+    }
+  };
   const icons = {
     facebook: UilFacebookF,
     twitter: UilTwitter,
@@ -43,7 +57,6 @@ const SocialIcons = () => {
       <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
         <Icon type="twitter" size="md" color="#1DA1F2" />
       </a>
-
 
       <a
         href="https://www.instagram.com"

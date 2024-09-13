@@ -83,7 +83,7 @@ export const BlogFullSq = ({ size, blog }) => {
     >
       <div className="hover:brightness-50 transition-all duration-200 ease-in-out">
         <img
-          className="rounded-lg max-h-96 overflow-hidden"
+          className="rounded-lg max-h-[50rem] overflow-hidden"
           src={blog?.img}
           alt={blog?.title}
         />
