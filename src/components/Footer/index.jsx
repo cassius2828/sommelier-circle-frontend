@@ -7,6 +7,7 @@ import {
   //   UilTwitch,
 } from "@iconscout/react-unicons";
 import SocialIcons from "../Icons/Social-Icons";
+import { Link } from "react-router-dom";
 
 const sections = [
   {
@@ -54,12 +55,15 @@ const Footer = () => {
         ))}
         <div className="flex flex-col items-center w-full ">
           <img className="w-48" src="/images/logo.svg" alt="logo" />
-          <SocialIcons />
         </div>
       </div>
 
-      <div className="flex flex-col max-w-[1240px] px-2 py-4 mx-auto justify-between sm:flex-row text-center text-gray-500">
+      <div className="flex flex-col max-w-[1240px] px-2 py-4 mx-auto items-center gap-8 justify-start sm:flex-row text-center text-gray-500">
         <p className="py-4">Developed by Cassius Reynolds</p>
+        <Link className="text-[#e4dccc] hover:text-[#747464] transition-colors duration-200" to={`https://github.com/cassius2828`}>
+        
+        <UilGithub   size={32}/>
+        </Link>
       </div>
     </div>
   );

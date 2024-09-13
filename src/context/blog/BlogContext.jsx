@@ -65,6 +65,17 @@ export const BlogProvider = ({ children }) => {
     }
   };
 
+  ///////////////////////////
+  // Fetch Blog Ids (for blog nav)
+  ///////////////////////////
+
+  const fetchBlogIds = async () => {
+     await fetchAllBlogs()
+     const blogIdList = blogs.map(blog => blog._id);
+     console.log(blogIdList, ' <-- blog is list')
+     return blogIdList
+  }
+
   ///////////////////////////////
   // Fetch Landing Blogs
   ///////////////////////////////
@@ -107,7 +118,7 @@ export const BlogProvider = ({ children }) => {
         fetchAllBlogs,
         fetchCurrentUserBlogs,
         fetchLandingBlogs,
-        landingBlogs,
+        landingBlogs,fetchBlogIds
       }}
     >
       {children}

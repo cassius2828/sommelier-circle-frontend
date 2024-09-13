@@ -1,13 +1,14 @@
 import DOMPurify from "dompurify";
 import SocialIcons from "../Icons/Social-Icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EditOrDeleteModal from "../Modals/EditOrDelete";
 import useAuthContext from "../../context/auth/useAuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useGlobalContext from "../../context/global/useGlobalContext";
 import { UilStar } from "@iconscout/react-unicons";
 import AddedToFavoritesModal from "../Modals/AddedToFavoritesModal";
 import Alert, { FixedAlert } from "../CommonComponents/Alert";
+import useBlogContext from "../../context/blog/useBlogContext";
 /* eslint-disable react/prop-types */
 const Blog = ({
   title,
@@ -18,14 +19,35 @@ const Blog = ({
   name,
   profileImg,
   blogId,
+  blogIdList,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useAuthContext();
   const [isCopiedMessage, setIsCopiedMessage] = useState("");
   const { handleAddToFavorites, favoritesMessage, setFavoritesMessage } =
     useGlobalContext();
-  const hanldeBlogNav = () => {
-    console.log("nav");
+  const navigate = useNavigate();
+  const totalBlogsLength = blogIdList.length;
+  const currentBlogIdx = blogIdList.indexOf(blogId);
+
+  const hanldeBlogNav = (direction) => {
+    if (direction === "prev") {
+      if (currentBlogIdx > 1) {
+        // go back one blog
+        navigate(`/blogs/${blogIdList[currentBlogIdx - 1]}`);
+      } else {
+        // circle back to opposite end of blogs
+        navigate(`/blogs/${blogIdList[totalBlogsLength - 1]}`);
+      }
+    } else {
+      if (currentBlogIdx < totalBlogsLength - 2) {
+        // go forward one blog
+        navigate(`/blogs/${blogIdList[currentBlogIdx + 1]}`);
+      } else {
+        navigate(`/blogs/${blogIdList[0]}`);
+        // go to beginning of blog list
+      }
+    }
   };
   const handleToggleModal = () => {
     setIsOpen((prev) => !prev);
@@ -42,6 +64,10 @@ const Blog = ({
       console.error("Failed to copy: ", error);
     }
   };
+
+  useEffect(() => {
+    console.log(blogIdList, " final level blogidlist show");
+  }, []);
   return (
     <>
       <EditOrDeleteModal
@@ -95,7 +121,9 @@ const Blog = ({
           <span className="text-2xl text-gray-100 absolute -top-16 left-1/2 -translate-x-1/2 ">
             Share this blog with others!
           </span>
-          <SocialIcons />
+          <div className="mt-24 mb-12">
+            <SocialIcons mediaType="blogs" blogAuthor={name} title={title} />
+          </div>
           {/* copy link */}
           <div
             onClick={handleCopyLink}
@@ -113,14 +141,13 @@ const Blog = ({
             </button>
             <span className="text-gray-100 text-2xl">Add to Favorites</span>
           </div>
-          {isCopiedMessage && <FixedAlert success message={'Copied Link'} />}
-       
+          {isCopiedMessage && <FixedAlert success message={"Copied Link"} />}
         </div>
         {/* blog nav btns */}
         <div className="blog-navigation flex items-center justify-between">
           <div className="prev-blog">
             <button
-              onClick={hanldeBlogNav}
+              onClick={() => hanldeBlogNav("prev")}
               type="button"
               className="text-3xl bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
             >
@@ -130,7 +157,7 @@ const Blog = ({
           <div className="next-blog">
             {" "}
             <button
-              onClick={hanldeBlogNav}
+              onClick={() => hanldeBlogNav("next")}
               type="button"
               className="text-3xl bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
             >
@@ -138,7 +165,7 @@ const Blog = ({
             </button>
           </div>
         </div>
-    
+
         {favoritesMessage && (
           <AddedToFavoritesModal
             message={favoritesMessage}

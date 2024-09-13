@@ -35,6 +35,7 @@ export const ShowLocationCard = () => {
   const [showCarousel, setShowCarousel] = useState(false);
   // hooks
   const { locationId } = useParams();
+  const navigate = useNavigate();
   // context
   const { fetchPlaceDetails, isLoading, locationDetails } = usePlacesContext();
   const { fetchedPhotos } = locationDetails;
@@ -48,7 +49,7 @@ export const ShowLocationCard = () => {
     .join("");
   // converts rating to scale of 100
   const rating = locationDetails?.rating * 20;
-  
+
   // Call this function every time a new place_id is in the params
   useEffect(() => {
     fetchPlaceDetails(locationId);
@@ -70,11 +71,9 @@ export const ShowLocationCard = () => {
       ) : (
         <>
           {" "}
-          <Link className="absolute top-0 right-4 " to={`/locations/explore`}>
-            <span className="text-5xl cursor-pointer">
-              x
-            </span>
-          </Link>
+          <div onClick={() => navigate(-1)} className="absolute top-0 right-4 ">
+            <span className="text-5xl cursor-pointer">x</span>
+          </div>
           {/* img, title, address, rating */}
           <div className="col-start-1 row-span-3 p-4 flex flex-col justify-between">
             <div

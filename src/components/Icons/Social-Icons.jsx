@@ -1,5 +1,3 @@
-import React from "react";
-import { ShareSocial } from "react-share-social";
 import {
   UilFacebookF,
   UilTwitter,
@@ -7,21 +5,10 @@ import {
   UilInstagram,
   UilLinkedin,
 } from "@iconscout/react-unicons";
-import { getCheckUserSocialMediaStatus } from "../../services/profileService";
+
 import useAuthContext from "../../context/auth/useAuthContext";
 
 export const Icon = ({ type, size = "md", color }) => {
-  const { user } = useAuthContext();
-  const handleClick = async () => {
-    // find a way to check if the signed in user has a username and link for their social media
-    // backend funciton, it will return a message, message will be our conditional on how to proceed
-    const data = await getCheckUserSocialMediaStatus(user._id, type);
-    if (data.message) {
-      // * success = open link with url to social media platform
-    } else if (data.error) {
-      // ! failure = show modal that will prompt user to upload their social media info in profile
-    }
-  };
   const icons = {
     facebook: UilFacebookF,
     twitter: UilTwitter,
@@ -62,24 +49,34 @@ const style = {
     fontStyle: "italic",
   },
 };
-const SocialIcons = () => {
+const SocialIcons = ({ blogAuthor, title, width, mediaType, wineName }) => {
+  // const {userId} = useParams()
+  const { user } = useAuthContext();
+
   const url = encodeURI(window.location.href);
-  const blogUser = "Test User";
-  const userIGProfile = 'cashm0neyy__'
-  const text = encodeURIComponent(
-    `Check out this blog from ${blogUser} on Sommelier Circle\n`
-  );
+
+  const userIGProfile = user.socialMedia.instagram.username || "";
+  let text = "";
+  if (mediaType === "blogs") {
+    text = encodeURIComponent(
+      `Check out this blog${
+        blogAuthor === "SC_Admin" ? "" : ` from ${blogAuthor}`
+      } about ${
+        title ? '"' + title + '"' : "a wine experience"
+      } from Sommelier Circle\n`
+    );
+  } else if(mediaType === 'wineId'){
+    text = encodeURIComponent(
+      `Check out the wine "${wineName}" from Sommelier Circle\n`
+    );
+  }
 
   return (
-    // <>
-    //   <ShareSocial
-    //     style={style}
-    //     socialTypes={["facebook", "twitter", "linkedin", "reddit"]}
-    //     url={url}
-
-    //   />
-    // </>
-    <div className="social-icons flex items-center justify-around w-1/2 mx-auto mt-24 mb-12">
+    <div
+      className={`social-icons flex items-center justify-around ${
+        width === "full" ? "w-full" : "w-1/2 mx-auto"
+      } `}
+    >
       {/* Facebook Share URL */}
       <a
         href={`https://www.facebook.com/sharer/sharer.php?u=${url}`}

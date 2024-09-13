@@ -5,12 +5,14 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useGlobalContext from "../../context/global/useGlobalContext";
 import Loader from "../CommonComponents/Loader";
+import useBlogContext from "../../context/blog/useBlogContext";
 
 /* eslint-disable react/prop-types */
 const ShowBlog = ({ propsBlogId }) => {
   const [blog, setBlog] = useState(null);
   const { blogId } = useParams();
   const { isLoading, setIsLoading } = useGlobalContext();
+  const {blogs, fetchAllBlogs} = useBlogContext()
   useEffect(() => {
     const fetchBlog = async () => {
       setIsLoading(true);
@@ -32,6 +34,13 @@ const ShowBlog = ({ propsBlogId }) => {
     scrollToTop();
     fetchBlog();
   }, [blogId, propsBlogId]);
+  const blogIdList = blogs?.map(blogItem => blogItem._id);
+
+
+  useEffect(() => {
+    fetchAllBlogs()
+
+  },[])
 
   if (isLoading) return <Loader />;
 
@@ -46,6 +55,7 @@ const ShowBlog = ({ propsBlogId }) => {
         name={blog?.owner.username}
         profileImg={blog?.owner.profileImg}
         blogId={blog?._id}
+        blogIdList={blogIdList}
       />
       <div className="fixed top-0 left-0 h-full w-full -z-10 bg-neutral-950"></div>
     </div>
