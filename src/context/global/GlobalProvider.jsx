@@ -9,6 +9,7 @@ import {
   addLocationsItemToFavorites,
 } from "../../services/favoritesService";
 import {
+  deleteItemIndexedDB,
   getItemIndexedDB,
   setItemIndexedDB,
 } from "../../utils/indexedDB.config";
@@ -486,9 +487,11 @@ export const GlobalProvider = ({ children }) => {
       if (itemType === "locations") {
         const data = await addLocationsItemToFavorites(userId, itemId);
         setFavoritesMessage(data);
+        return data
       } else {
         const data = await addItemToFavorites(userId, itemId, itemType);
         setFavoritesMessage(data);
+        return data
       }
     } catch (err) {
       console.error(err);
@@ -496,6 +499,25 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
+  ///////////////////////////
+  // Handle Refresh Fav Location Cache | Adding Favorites for Locations
+  ///////////////////////////
+  const handleRefreshFavLocationCache = async (userId, place_id) => {
+    try {
+      const data = await handleAddToFavorites(userId, place_id, "locations");
+      if (
+        data === `Successfully added location to user's favorite locations list`
+      ) {
+        await deleteItemIndexedDB(`fav-locations-${userId}`, "locations");
+      }
+      console.log(data);
+    } catch (err) {
+      console.error(err);
+      console.log(
+        `Unable to handle location favorite and clear cache if a new favorite was added`
+      );
+    }
+  };
   ///////////////////////////
   // Fetch all wines on load
   ///////////////////////////
@@ -520,6 +542,7 @@ export const GlobalProvider = ({ children }) => {
         fetchFilteredWineData,
         fetchWines,
         handleAddToFavorites,
+        handleRefreshFavLocationCache,
         handleUpdateForm,
         scrollToTop,
         setDisplayedWines,
@@ -528,7 +551,6 @@ export const GlobalProvider = ({ children }) => {
         setIsLoading,
         setWines,
         setWinesByCategory,
-
         displayedWines,
         favoritesMessage,
         formData,

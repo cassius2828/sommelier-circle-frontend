@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import { getFavoriteItems } from "../../services/favoritesService";
+import {
+  getFavoriteItems,
+  getLocationsFavoriteItems,
+} from "../../services/favoritesService";
 import useAuthContext from "../../context/auth/useAuthContext";
 import { Link } from "react-router-dom";
 const initialFavorites = {
@@ -26,12 +29,26 @@ const FavoritesList = () => {
       console.log(`Unable to retrieve ${user.username}'s favorite ${name}`);
     }
   };
+
+  const fetchFavoriteLocations = async () => {
+    try {
+      const data = await getLocationsFavoriteItems(user._id);
+      await handleSetLocalFavorites("locations", data);
+      console.log(
+        data,
+        "===================\n <-- favorite locations from server \n ===================="
+      );
+    } catch (err) {
+      console.error(err);
+      console.log(`Unable to retrieve ${user.username}'s favorite locations`);
+    }
+  };
   const fetchAllFavorites = async () => {
     await fetchFavoriteItem("blogs");
     await fetchFavoriteItem("critics");
     await fetchFavoriteItem("events");
-    // await fetchFavoriteItem('locations')
     await fetchFavoriteItem("wines");
+    await fetchFavoriteLocations("locations");
   };
   useEffect(() => {
     fetchAllFavorites();

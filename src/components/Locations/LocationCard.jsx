@@ -14,7 +14,7 @@ export const LocationCard = ({
     currentUser,
   }) => {
     const calculatedRating = rating * 20;
-    const { handleAddToFavorites, favoritesMessage, setFavoritesMessage } =
+    const { handleRefreshFavLocationCache, favoritesMessage, setFavoritesMessage } =
       useGlobalContext();
     return (
       <div className="grid grid-cols-2 p-4  overflow-hidden ">
@@ -56,7 +56,7 @@ export const LocationCard = ({
           <div className="mt-6 gap-12 flex justify-center ">
             <button
               onClick={() =>
-                handleAddToFavorites(currentUser._id, placeId, "locations")
+                handleRefreshFavLocationCache(currentUser._id, placeId, "locations")
               }
               className="p-2 border-2 border-[#FFD700] rounded-lg"
             >

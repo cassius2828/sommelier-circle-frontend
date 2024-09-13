@@ -76,7 +76,7 @@ export const BlogProvider = ({ children }) => {
         `${import.meta.env.VITE_BASE_URL}/blogs/landing`
       );
       setLandingBlogs(response.data);
-      console.log(response.data);
+    
     } catch (err) {
       console.error(err);
     } finally {

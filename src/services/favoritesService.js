@@ -82,7 +82,7 @@ export const getFavoriteItems = async (userId, itemType) => {
       console.log(response.data.messgae, ' <-- message')
       return response.data.message;
     }
-    console.log(response.data, ' <-- response.data')
+
     return response.data;
   } catch (err) {
     console.error(err);
@@ -158,7 +158,8 @@ export const deleteLocationsRemoveItemFromFavorites = async (
 ///////////////////////////
 export const getLocationsFavoriteItems = async (userId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/locations?userId=${userId}`);
+    const response = await axios.get(`${FAVS_BASE_URL}/locations?userId=${userId}`);
+    console.log(response.data, ' <-- service response')
     if (response.data.message) {
       return response.data.message;
     }

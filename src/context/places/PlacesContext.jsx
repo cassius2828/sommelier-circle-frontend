@@ -90,7 +90,7 @@ export const PlacesProvider = ({ children }) => {
       dispatch({ type: "stopLoading/locations" });
       return;
     }
-
+// use backend to fetch info from google places
     try {
       const locationList = await getNearbyWinePlaces();
       const updatedPlacesWithPhoto = await Promise.all(
@@ -204,6 +204,8 @@ export const PlacesProvider = ({ children }) => {
   //   }
   // };
 
+
+
   return (
     <PlacesContext.Provider
       value={{
@@ -211,7 +213,7 @@ export const PlacesProvider = ({ children }) => {
         locationDetails,
         isLoading,
         fetchPlaceDetails,
-        fetchLocationsWithCoverPhoto,
+        fetchLocationsWithCoverPhoto,fetchLocationPhotos
       }}
     >
       {children}

@@ -29,10 +29,10 @@ export const getUserLocation = () => {
       sessionStorage.setItem("countryCode", countryCode);
       sessionStorage.setItem("lat", lat);
       sessionStorage.setItem("lng", lng);
-      
-      console.log(
-        `Latitude: ${lat}, Longitude: ${lng}, Country Code: ${countryCode}`
-      );
+
+      // console.log(
+      //   `Latitude: ${lat}, Longitude: ${lng}, Country Code: ${countryCode}`
+      // );
       // Use lat and lng to find nearby places
     });
   } else {
@@ -73,7 +73,7 @@ export const getNearbyWinePlaces = async () => {
         key: import.meta.env.VITE_GOOGLE_PLACES_API_KEY,
       },
     });
-    console.log(response.data);
+
     return response.data.results;
   } catch (err) {
     console.error(err);
@@ -87,15 +87,17 @@ export const getNearbyWinePlaces = async () => {
 // GET | Photos of Location Results
 // ///////////////////////////
 export const getPhotosOfLocation = async (photo_reference, deviceWidth) => {
- 
   try {
-    const response = await axios.get(`${GOOGLE_PLACES_BASE_URL}/location-photos`, {
-      params: {
-        photo_reference,
-        key: import.meta.env.VITE_GOOGLE_PLACES_API_KEY,
-        deviceWidth
-      },
-    });
+    const response = await axios.get(
+      `${GOOGLE_PLACES_BASE_URL}/location-photos`,
+      {
+        params: {
+          photo_reference,
+          key: import.meta.env.VITE_GOOGLE_PLACES_API_KEY,
+          deviceWidth,
+        },
+      }
+    );
 
     return response.data;
   } catch (err) {
@@ -167,7 +169,7 @@ export const getPlaceDetails = async (placeId) => {
       `${GOOGLE_PLACES_BASE_URL}/place-details`,
       options
     );
-    
+
     return response.data.result;
   } catch (err) {
     console.error(err);
