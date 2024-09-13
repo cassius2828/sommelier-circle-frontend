@@ -7,19 +7,41 @@ import { Link } from "react-router-dom";
 import useGlobalContext from "../../context/global/useGlobalContext";
 import { UilStar } from "@iconscout/react-unicons";
 import AddedToFavoritesModal from "../Modals/AddedToFavoritesModal";
-
+import Alert, { FixedAlert } from "../CommonComponents/Alert";
 /* eslint-disable react/prop-types */
-const Blog = ({ title, img, content, createdAt, ownerId, name, profileImg, blogId }) => {
+const Blog = ({
+  title,
+  img,
+  content,
+  createdAt,
+  ownerId,
+  name,
+  profileImg,
+  blogId,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useAuthContext();
-  const { handleAddToFavorites, favoritesMessage,setFavoritesMessage } = useGlobalContext();
+  const [isCopiedMessage, setIsCopiedMessage] = useState("");
+  const { handleAddToFavorites, favoritesMessage, setFavoritesMessage } =
+    useGlobalContext();
   const hanldeBlogNav = () => {
     console.log("nav");
   };
   const handleToggleModal = () => {
     setIsOpen((prev) => !prev);
   };
-
+  const url = encodeURI(window.location.href);
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(url); // Copy the URL to clipboard
+      setIsCopiedMessage("Copied Link");
+      console.log(url);
+      // Set a timeout to clear the message after 500ms
+      setTimeout(() => setIsCopiedMessage(""), 1000);
+    } catch (error) {
+      console.error("Failed to copy: ", error);
+    }
+  };
   return (
     <>
       <EditOrDeleteModal
@@ -31,7 +53,10 @@ const Blog = ({ title, img, content, createdAt, ownerId, name, profileImg, blogI
         {/* hides admin photo and name for blogs that are a part of the encyclopedia */}
         {user._id.toString() !== "669190f598a19fabd8baa1a4" && (
           <>
-            <Link className="flex items-center gap-4" to={`/profiles/${ownerId}`}>
+            <Link
+              className="flex items-center gap-4"
+              to={`/profiles/${ownerId}`}
+            >
               <img
                 className="rounded-full view-blog-img "
                 src={profileImg}
@@ -71,6 +96,13 @@ const Blog = ({ title, img, content, createdAt, ownerId, name, profileImg, blogI
             Share this blog with others!
           </span>
           <SocialIcons />
+          {/* copy link */}
+          <div
+            onClick={handleCopyLink}
+            className="border border-gray-700 w-48 mb-12 mx-auto text-gray-100 text-xl p-3 text-center rounded-md hover:bg-gray-700  transition-colors duration-200 cursor-pointer"
+          >
+            copy link
+          </div>
           {/* favorite */}
           <div className="flex items-center gap-8 mb-12 justify-center">
             <button
@@ -81,6 +113,8 @@ const Blog = ({ title, img, content, createdAt, ownerId, name, profileImg, blogI
             </button>
             <span className="text-gray-100 text-2xl">Add to Favorites</span>
           </div>
+          {isCopiedMessage && <FixedAlert success message={'Copied Link'} />}
+       
         </div>
         {/* blog nav btns */}
         <div className="blog-navigation flex items-center justify-between">
@@ -104,6 +138,7 @@ const Blog = ({ title, img, content, createdAt, ownerId, name, profileImg, blogI
             </button>
           </div>
         </div>
+    
         {favoritesMessage && (
           <AddedToFavoritesModal
             message={favoritesMessage}

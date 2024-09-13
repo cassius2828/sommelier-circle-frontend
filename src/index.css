@@ -18,7 +18,7 @@ html {
 
 body {
   box-sizing: inherit;
- 
+
   /* background-color: #111213; */
   background-color: #0a0a0a;
   /* background-color: #03030c; */
@@ -120,12 +120,11 @@ h2 {
 
 /* dropdown li */
 .dropdown-li {
-  padding:   1rem !important;
-  margin:  0 !important;
+  padding: 1rem !important;
+  margin: 0 !important;
   animation: fadeInFromTop 0.5s forwards ease-out !important;
   text-align: center;
 }
-
 
 /* view blog pages */
 .view-blog-img {
@@ -239,18 +238,35 @@ h2 {
   line-height: 4.5rem;
 }
 
-
+/* social media npm styles */
+.makeStyles-iconContainer-3 {
+  display: flex;
+  justify-content: space-around;
+}
+.makeStyles-iconContainer-3 button {
+  flex: 0 0 auto !important;
+}
 /* modal */
 #modal-text {
   font-size: 2rem !important;
 }
+
+/* alerts */
+
+#fixed-alert-success {
+  color: #22c55e !important;
+}
+#fixed-alert-error {
+  color: red !important;
+}
+
 /* loader WINE BOTTLE */
 .loader {
   width: 40px;
   height: 98px;
   display: inline-block;
   position: relative;
-  border: 2px solid #FFF;
+  border: 2px solid #fff;
   box-sizing: border-box;
   color: rgba(255, 61, 0, 0.9);
   border-radius: 20px 20px 4px 4px;
@@ -258,13 +274,13 @@ h2 {
   animation: fill 2s linear infinite alternate;
 }
 .loader::after {
-  content: '';
+  content: "";
   box-sizing: border-box;
   position: absolute;
   left: 50%;
   top: 0%;
-  transform: translate(-50% , -95%);
-  border: 2px solid #FFF;
+  transform: translate(-50%, -95%);
+  border: 2px solid #fff;
   border-bottom: none;
   background: #fff;
   width: 15px;
@@ -273,14 +289,23 @@ h2 {
 }
 
 @keyframes fill {
-  0% { box-shadow: 0 0  inset }
-  50% , 100% { box-shadow: 0 -98px inset }
+  0% {
+    box-shadow: 0 0 inset;
+  }
+  50%,
+  100% {
+    box-shadow: 0 -98px inset;
+  }
 }
 
-
 @keyframes fillNeck {
-  0% , 50%{ box-shadow: 0 0  inset }
-  100% { box-shadow: 0 -20px inset }
+  0%,
+  50% {
+    box-shadow: 0 0 inset;
+  }
+  100% {
+    box-shadow: 0 -20px inset;
+  }
 }
 /* loader SPIN */
 .loader-spin {
@@ -288,7 +313,7 @@ h2 {
   height: 48px;
   border-radius: 50%;
   display: inline-block;
-  border-top: 3px solid #FFF;
+  border-top: 3px solid #fff;
   border-right: 3px solid transparent;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
@@ -301,4 +326,4 @@ h2 {
   100% {
     transform: rotate(360deg);
   }
-} 
+}
