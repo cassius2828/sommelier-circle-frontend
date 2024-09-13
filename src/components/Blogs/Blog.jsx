@@ -7,23 +7,10 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import useGlobalContext from "../../context/global/useGlobalContext";
 import { UilStar } from "@iconscout/react-unicons";
 import AddedToFavoritesModal from "../Modals/AddedToFavoritesModal";
-import Alert, { FixedAlert } from "../CommonComponents/Alert";
+import { FixedAlert } from "../CommonComponents/Alert";
 import useBlogContext from "../../context/blog/useBlogContext";
 import { getBlog } from "../../services/blogService";
 import Loader from "../CommonComponents/Loader";
-
-{
-  /* <Blog
-title={showBlog?.title}
-img={showBlog?.img}
-content={showBlog?.content}
-createdAt={showBlog?.createdAt}
-ownerId={showBlog?.owner??._id}
-name={showBlog?.owner?.username}
-profileImg={showBlog?.owner?.profileImg}
-blogId={showBlog??._id}
-/> */
-}
 
 const Blog = ({ propsBlogId }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -194,16 +181,22 @@ const Blog = ({ propsBlogId }) => {
         )}
         {/* blog info */}
         <div className="flex gap-4 relative">
-          <h2 className=" text-5xl text-center text-gray-100">{showBlog.title}</h2>
+          <h2 className=" text-5xl text-center text-gray-100">
+            {showBlog.title}
+          </h2>
           <span className="text-xl absolute right-0 -top-12 text-gray-100">
             {new Date(showBlog.createdAt).toLocaleDateString()}
           </span>
         </div>
-        {showBlog.img && <img className="w-full mx- my-8" src={showBlog.img} alt="" />}
+        {showBlog.img && (
+          <img className="w-full mx- my-8" src={showBlog.img} alt="" />
+        )}
 
         <div
           className="preview test bg-gray-100 p-4  ql-editor  "
-          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(showBlog.content) }}
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(showBlog.content),
+          }}
         ></div>
 
         <div className="share-container relative">
@@ -212,7 +205,11 @@ const Blog = ({ propsBlogId }) => {
             Share this blog with others!
           </span>
           <div className="mt-24 mb-12">
-            <SocialIcons mediaType="blogs" blogAuthor={showBlog.name} title={showBlog.title} />
+            <SocialIcons
+              mediaType="blogs"
+              blogAuthor={showBlog.owner.username}
+              title={showBlog.title}
+            />
           </div>
           {/* copy link */}
           <div
@@ -225,7 +222,7 @@ const Blog = ({ propsBlogId }) => {
           <div className="flex items-center gap-8 mb-12 justify-center">
             <button
               onClick={() =>
-                handleAddToFavorites(user?._id, propsBlogId, "blogs")
+                handleAddToFavorites(user?._id, showBlog._id, "blogs")
               }
               className="p-2 border-2 border-[#FFD700] rounded-lg"
             >

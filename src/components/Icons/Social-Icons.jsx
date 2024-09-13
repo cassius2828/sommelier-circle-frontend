@@ -1,7 +1,6 @@
 import {
   UilFacebookF,
   UilTwitter,
-  //   UilPinterest,
   UilInstagram,
   UilLinkedin,
 } from "@iconscout/react-unicons";
@@ -12,8 +11,6 @@ export const Icon = ({ type, size = "md", color }) => {
   const icons = {
     facebook: UilFacebookF,
     twitter: UilTwitter,
-    // pinterest: UilPinterest,
-    // reddit: UilRedditAlien,
     instagram: UilInstagram,
     linkedin: UilLinkedin,
   };
@@ -30,27 +27,8 @@ export const Icon = ({ type, size = "md", color }) => {
 
   return <SelectedIcon size={sizes[size]} color={color} />;
 };
-const style = {
-  root: {
-    background: "transparent",
-    borderRadius: 3,
-    border: 0,
-    boxShadow: "0 3px 5px 2px #000",
-    color: "white",
-    width: "100%",
-    margin: "8rem auto 3rem auto",
-  },
-  copyContainer: {
-    border: "1px solid #676969",
-    background: "rgb(0,0,0,0.7)",
-  },
-  title: {
-    color: "aquamarine",
-    fontStyle: "italic",
-  },
-};
+
 const SocialIcons = ({ blogAuthor, title, width, mediaType, wineName }) => {
-  // const {userId} = useParams()
   const { user } = useAuthContext();
 
   const url = encodeURI(window.location.href);
@@ -65,7 +43,7 @@ const SocialIcons = ({ blogAuthor, title, width, mediaType, wineName }) => {
         title ? '"' + title + '"' : "a wine experience"
       } from Sommelier Circle\n`
     );
-  } else if(mediaType === 'wineId'){
+  } else if (mediaType === "wineId") {
     text = encodeURIComponent(
       `Check out the wine "${wineName}" from Sommelier Circle\n`
     );
