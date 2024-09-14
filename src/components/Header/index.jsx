@@ -27,7 +27,7 @@ const Header = () => {
         />
       </div>
 
-      <NavBarTop handleLogout={handleLogout} />
+      <NavBarTop />
     </header>
   );
 };

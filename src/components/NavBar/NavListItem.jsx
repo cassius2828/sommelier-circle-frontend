@@ -2,8 +2,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export const NavListItem = ({ dropDownItems, listItemText, onClick }) => {
+export const NavListItem = ({ dropDownItems, listItemText }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const logout = dropDownItems[1].onClick;
+  console.log(logout, "logout items");
   return (
     <div className="relative">
       <li
@@ -19,14 +21,21 @@ export const NavListItem = ({ dropDownItems, listItemText, onClick }) => {
         >
           {dropDownItems.map((item, idx) => {
             return (
-              <Link key={item.text + idx} to={item.path}>
-                <li
-                  onClick={onClick ? () => onClick() : null}
-                  className="dropdown-li hover:bg-neutral-700 text-gray-100 relative z-10 text-lg"
-                >
-                  {item.text}
-                </li>
-              </Link>
+              <>
+                {logout ? (
+                  <Link onClick={logout ? () => logout() : null} to={"/"}>
+                    <li className="dropdown-li hover:bg-neutral-700 text-gray-100 relative z-10 text-lg">
+                      {item.text}
+                    </li>
+                  </Link>
+                ) : (
+                  <Link key={item.text + idx} to={item.path}>
+                    <li className="dropdown-li hover:bg-neutral-700 text-gray-100 relative z-10 text-lg">
+                      {item.text}
+                    </li>
+                  </Link>
+                )}
+              </>
             );
           })}
         </ul>

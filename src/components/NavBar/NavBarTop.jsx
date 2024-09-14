@@ -2,8 +2,10 @@ import { Link, useLocation } from "react-router-dom";
 import useAuthContext from "../../context/auth/useAuthContext";
 import { NavListItem } from "./NavListItem";
 
-export const NavBarTop = ({ handleLogout }) => {
+export const NavBarTop = () => {
   const { user } = useAuthContext();
+  const { handleLogout } = useAuthContext();
+
   const location = useLocation();
   const isRoot = location.pathname === "/";
   if (isRoot) return;
