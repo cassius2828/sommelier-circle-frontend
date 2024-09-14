@@ -155,7 +155,7 @@ export const NavBarTop = ({ handleLogout }) => {
           className={`text-gray-100 p-4 transition-all duration-200 ease-in-out `}
         >
           <ul
-            className={`flex space-x-4 items-center justify-around h-1/2 text-2xl absolute top-1/2 right-12 -translate-y-1/2 staggered-list`}
+            className={`flex space-x-4 items-center justify-around h-1/2 text-2xl absolute md:top-1/2 right-12 -translate-y-1/2 staggered-list`}
           >
             <li>
               <Link

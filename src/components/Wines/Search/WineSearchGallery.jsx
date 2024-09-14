@@ -1,8 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import SearchBar from "../../CommonComponents/SearchBar";
-import FeaturedWineCard from "../FeaturedWineCard";
-import { getWines } from "../../../services/wineService";
 import useGlobalContext from "../../../context/global/useGlobalContext";
 import { FilterComponent } from "./FilterComponent";
 import Loader from "../../CommonComponents/Loader";
@@ -11,16 +9,16 @@ import WineCard from "../WineCard";
 ///////////////////////////////
 // WineSearch Component
 //////////////////////////////
-const WineSearch = ({ title = "sample title" }) => {
+const WineSearch = () => {
   const {
     wines,
     fetchWines,
     displayedWines,
     setDisplayedWines,
     isLoading,
-    searchState,
     handleUpdateForm,
     formData,
+    scrollToTop,
   } = useGlobalContext();
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -64,6 +62,7 @@ const WineSearch = ({ title = "sample title" }) => {
   useEffect(() => {
     fetchWines();
     setDisplayedWines(wines.slice(startIndex, endIndex));
+    scrollToTop();
   }, []);
 
   ///////////////////////////////

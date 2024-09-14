@@ -34,6 +34,7 @@ const DisplayBlogs = ({ display, handleDisplayChange, blogs, title }) => {
             {blogs?.map((blog, idx) => (
               <li key={blog.title + idx}>
                 <MultipleBlogsFull
+                id={blog.owner._id}
                   path={`/blogs/${blog._id}`}
                   title={blog.title}
                   img={blog.img}

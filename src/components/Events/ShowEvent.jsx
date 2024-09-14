@@ -83,7 +83,7 @@ export const EventDetail = () => {
     <>
       {/* <div className="absolute z-10 w-screen h-screen bg-black opacity-50 top-0 left-0"></div> */}
 
-      <div className="grid grid-cols-3 grid-rows-2 bg-[#111213] shadow-lg w-full lg:w-1/2 mx-auto max-h-[60rem] text-gray-100 rounded-md p-4 relative">
+      <div className=" bg-[#111213] shadow-lg w-full lg:w-1/2 mx-auto  text-gray-100 rounded-md p-4 relative pt-12 mt-52 md:mt-80 mb-24">
         {showCarousel ? (
           <ShowRoomImageCarousel
             setShowCarousel={setShowCarousel}
@@ -100,14 +100,14 @@ export const EventDetail = () => {
             </span>
 
             {/* Image, Title, Address */}
-            <div className="col-start-1 row-span-2 p-4 flex flex-col justify-between">
+            <div className=" p-4 flex flex-col md:flex-row justify-between gap-12">
               <div
                 onMouseEnter={() => setIsImgHovered(true)}
                 onMouseLeave={() => setIsImgHovered(false)}
-                className="h-1/2 relative"
+                className="h-1/2 w-full md:w-3/4 relative"
               >
                 <img
-                  className="h-full object-cover"
+                  className="h-full w-full object-cover"
                   src={photo || "https://via.placeholder.com/150"}
                   alt={eventName || "Event image"}
                 />
@@ -134,12 +134,13 @@ export const EventDetail = () => {
                   {`${streetAddress}, ${city}, ${state}` ||
                     "123 Main St, Vacaville CA, 95687"}
                 </h2>
+                {/* action btns */}
                 <div className="flex items-center justify-center gap-4 mr-auto mt-12">
                   <button
                     onClick={() =>
                       handleAddToFavorites(user._id, eventId, "events")
                     }
-                    className="p-2 h-16 border-2 border-[#FFD700] rounded-lg"
+                    className="p-2 h-20 w-20 border-2 border-[#FFD700] rounded-lg flex items-center justify-center"
                   >
                     <Star />
                   </button>
@@ -157,7 +158,7 @@ export const EventDetail = () => {
                         setShowTicketModal(true);
                       }
                     }}
-                    className={`border h-16 px-3 py-1 text-2xl rounded-md border-gray-100 transition-colors duration-300 hover:bg-gray-800 hover:text-white ${
+                    className={`border h-20 px-3 py-1 text-2xl rounded-md border-gray-100 transition-colors duration-300 hover:bg-gray-800 hover:text-white ${
                       ticketedEvent ? "cursor-pointer" : "cursor-default"
                     }`}
                   >
@@ -166,7 +167,7 @@ export const EventDetail = () => {
                   {owner?.toString() === user._id?.toString() && (
                     <Link to={`/events/${eventId}/edit`}>
                       <button
-                        className={`border h-16 px-3 py-1 text-2xl rounded-md border-gray-100 transition-colors duration-300 hover:bg-gray-800 hover:text-white cursor-pointer`}
+                        className={`border h-20 px-3 py-1 text-2xl rounded-md border-gray-100 transition-colors duration-300 hover:bg-gray-800 hover:text-white cursor-pointer`}
                       >
                         Edit Event
                       </button>
@@ -177,13 +178,13 @@ export const EventDetail = () => {
             </div>
 
             {/* Event Description */}
-            <p className="col-span-2 col-start-2 row-start-1 text-2xl mt-12 p-4">
+            <p className=" text-2xl mt-12 p-4">
               {eventDescription ||
                 "Brief overview of the event and what it entails"}
             </p>
 
             {/* Event Time and Contact */}
-            <div className="flex items-start justify-end gap-6 mt-12 col-span-2 col-start-2 row-start-2">
+            <div className="flex items-start  justify-start gap-6 mt-12 col-span-2 col-start-2 row-start-2">
               <div className="flex flex-col mx-20">
                 <div>
                   <h3 className="text-3xl p-3">Date</h3>

@@ -29,106 +29,7 @@ export const GlobalProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [totalCritics, setTotalCritics] = useState(0);
   const [favoritesMessage, setFavoritesMessage] = useState("");
-
-  useEffect(() => {
-    const fetchCriticsCount = async () => {
-      try {
-        const data = await getCriticsCount();
-        setTotalCritics(data);
-      } catch (err) {
-        console.error(err);
-        console.log(
-          `Unable to get critic count from service file. Error: ${err}`
-        );
-      }
-    };
-    fetchCriticsCount();
-  }, []);
-
-  ///////////////////////////
-  // Fetch User Location and Country Code
-  ///////////////////////////
-  useEffect(() => {
-    const fetchUserLocationAndCountryCode = async () => {
-      getUserLocation();
-    };
-    fetchUserLocationAndCountryCode();
-  }, []);
-  ///////////////////////////
-  // Form Data For Filtering Search
-  ///////////////////////////
-  const [formData, setFormData] = useState(initialFormData);
-
-  const handleUpdateForm = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-    console.log(formData.query);
-  };
-
-  ///////////////////////////
-  // Fetch Filtered Wine Data | Whenever formData changes
-  ///////////////////////////
-  useEffect(() => {
-    fetchFilteredWineData(formData);
-  }, [formData]);
-
-  ///////////////////////////////
-  // Effect for Displaying Wines
-  ///////////////////////////////
-
-  useEffect(() => {
-    setDisplayedWines(wines.slice(0, 20));
-  }, [wines]);
-
-  ///////////////////////////////
-  // Fetch Wines Data
-  ///////////////////////////////
-
-  const fetchWines = async () => {
-    setIsLoading(true);
-    const cachedWines = await getItemIndexedDB("wines", "all");
-    if (cachedWines) {
-      setWines(cachedWines);
-      setIsLoading(false);
-      return;
-    }
-    try {
-      const data = await getWines();
-      setWines(data);
-      await setItemIndexedDB("wines", data, "all");
-    } catch (err) {
-      console.log(`Error fetching wines: ${err}`);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  ///////////////////////////////
-  // Fetch Filtered Wine Data
-  ///////////////////////////////
-
-  const fetchFilteredWineData = async (formData) => {
-    // setIsLoading(true);
-    try {
-      const data = await postFilterWineResults(formData);
-      setWines(data);
-    } catch (err) {
-      console.log(`Error filtering and fetching wines: ${err}`);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  ///////////////////////////////
-  // Scroll to Top
-  ///////////////////////////////
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-    });
-  };
-
+  
   ///////////////////////////////
   // Hard Coded Data Sets for Categories
   ///////////////////////////////
@@ -357,7 +258,7 @@ export const GlobalProvider = ({ children }) => {
       ],
     },
   ];
-
+  
   // regions
   const wineRegions = [
     {
@@ -478,6 +379,109 @@ export const GlobalProvider = ({ children }) => {
       ],
     },
   ];
+
+  ///////////////////////////
+  // Fetch Critics Count
+  ///////////////////////////
+  useEffect(() => {
+    const fetchCriticsCount = async () => {
+      try {
+        const data = await getCriticsCount();
+        setTotalCritics(data);
+      } catch (err) {
+        console.error(err);
+        console.log(
+          `Unable to get critic count from service file. Error: ${err}`
+        );
+      }
+    };
+    fetchCriticsCount();
+  }, []);
+
+  ///////////////////////////
+  // Fetch User Location and Country Code
+  ///////////////////////////
+  useEffect(() => {
+    const fetchUserLocationAndCountryCode = async () => {
+      getUserLocation();
+    };
+    fetchUserLocationAndCountryCode();
+  }, []);
+  ///////////////////////////
+  // Form Data For Filtering Search
+  ///////////////////////////
+  const [formData, setFormData] = useState(initialFormData);
+
+  const handleUpdateForm = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    console.log(formData.query);
+  };
+
+  ///////////////////////////
+  // Fetch Filtered Wine Data | Whenever formData changes
+  ///////////////////////////
+  useEffect(() => {
+    fetchFilteredWineData(formData);
+  }, [formData]);
+
+  ///////////////////////////////
+  // Effect for Displaying Wines
+  ///////////////////////////////
+
+  useEffect(() => {
+    setDisplayedWines(wines.slice(0, 20));
+  }, [wines]);
+
+  ///////////////////////////////
+  // Fetch Wines Data
+  ///////////////////////////////
+
+  const fetchWines = async () => {
+    setIsLoading(true);
+    const cachedWines = await getItemIndexedDB("wines", "all");
+    if (cachedWines) {
+      setWines(cachedWines);
+      setIsLoading(false);
+      return;
+    }
+    try {
+      const data = await getWines();
+      setWines(data);
+      await setItemIndexedDB("wines", data, "all");
+    } catch (err) {
+      console.log(`Error fetching wines: ${err}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  ///////////////////////////////
+  // Fetch Filtered Wine Data
+  ///////////////////////////////
+
+  const fetchFilteredWineData = async (formData) => {
+    // setIsLoading(true);
+    try {
+      const data = await postFilterWineResults(formData);
+      setWines(data);
+    } catch (err) {
+      console.log(`Error filtering and fetching wines: ${err}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  ///////////////////////////////
+  // Scroll to Top
+  ///////////////////////////////
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+    });
+  };
+
 
   ///////////////////////////
   // Handle Add To Favorites

@@ -22,6 +22,7 @@ const Blog = ({ propsBlogId }) => {
     setShowBlog,
     fetchCommunityBlogIds,
   } = useBlogContext();
+  const { scrollToTop } = useGlobalContext();
   const [isCopiedMessage, setIsCopiedMessage] = useState("");
   const {
     handleAddToFavorites,
@@ -42,8 +43,11 @@ const Blog = ({ propsBlogId }) => {
   } else {
     blogType = "style";
   }
-  const handleBlogNavigation = (direction) => {
+  const handleBlogNavigation = async (direction) => {
     if (blogType === "community") {
+      if (communityBlogs.length === 0) {
+        await fetchCommunityBlogIds();
+      }
       handleCommunityBlogNav(direction);
     } else {
       handleStyleBlogNav(direction);
@@ -128,20 +132,17 @@ const Blog = ({ propsBlogId }) => {
         setIsLoading(false);
       }
     };
-    const scrollToTop = () => {
-      window.scrollTo({
-        top: 0,
-      });
-    };
-    scrollToTop();
+
     console.log(showBlog);
     fetchBlog();
   }, [blogId, propsBlogId]);
 
   useEffect(() => {
-    fetchCommunityBlogIds();
-    console.log(showBlog);
-  }, []);
+    if (blogId && communityBlogs.length === 0) {
+      fetchCommunityBlogIds();
+    }
+    scrollToTop();
+  }, [blogId]);
 
   if (isLoading) return <Loader />;
 

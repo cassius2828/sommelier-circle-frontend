@@ -111,10 +111,10 @@ export const NavBarDesktop = () => {
       ) : (
         <div ref={container}>
           <nav
-            id="desktop-nav"
-            className={`bg-theme-sand-dark text-gray-100 p-4 absolute z-10 h-screen ${
+            id="desktop-nav-landing"
+            className={`bg-theme-sand-dark text-gray-100 p-4 absolute z-10 top-52 h-screen ${
               isOpen ? "w-80i" : "w-40i"
-            } transition-all duration-200 ease-in-out `}
+            } transition-all duration-200 ease-in-out hidden md:block`}
           >
             <Hamburger isOpen={isOpen} setIsOpen={setIsOpen} />
             <ul

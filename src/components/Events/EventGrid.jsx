@@ -10,7 +10,7 @@ export const EventGrid = ({ events }) => {
   if (isLoading) return <Loader />;
   if (events.length === 0)
     return (
-      <h1 className="text-gray-100 font-mono text-4xl">
+      <h1 className="text-gray-100 font-mono text-2xl md:text-4xl p-5">
         No events were found. Encourage your peers to create an event for the
         community!
       </h1>
