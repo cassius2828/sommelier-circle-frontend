@@ -1,23 +1,33 @@
 import { useState, useEffect } from "react";
-
 import { useParams } from "react-router-dom";
+// context
 import useGlobalContext from "../../context/global/useGlobalContext";
+// service
+import { getFavoriteItems } from "../../services/favoritesService";
+// components
 import Loader from "../CommonComponents/Loader";
 import DisplayBlogs from "./DisplayBlogs";
-import { getFavoriteItems } from "../../services/favoritesService";
 
 const FavoriteBlogs = () => {
   const [blogs, setBlogs] = useState([]);
-  const { userId } = useParams();
-  const { scrollToTop } = useGlobalContext();
   const [isLoading, setIsLoading] = useState(false);
   const [display, setDisplay] = useState("list");
+  // hooks
+  const { userId } = useParams();
+  const { scrollToTop } = useGlobalContext();
+  // vars
   const windowWidth = window.innerWidth;
+
+  ///////////////////////////
+  // Handle Display Change
+  ///////////////////////////
   const handleDisplayChange = (e) => {
     setDisplay(e.target.value);
   };
 
-  // fetch blogs on render
+  ///////////////////////////
+  // Fetch Blogs On Load | Scroll to top | Default display to full on mobile
+  ///////////////////////////
   useEffect(() => {
     const fetchFavoriteBlogs = async () => {
       setIsLoading(true);

@@ -1,48 +1,69 @@
-/* eslint-disable react/prop-types */
+// React and Hooks
 import { useEffect, useState } from "react";
-import ReactQuill from "react-quill";
 import { useNavigate, useParams } from "react-router-dom";
+import ReactQuill from "react-quill";
+// Services
 import {
   createBlog,
   getBlog,
   updateBlogNoImg,
   updateBlogWithImg,
 } from "../../services/blogService";
+// Utilities
 import DOMPurify from "dompurify";
+// Context and Hooks
 import useAuthContext from "../../context/auth/useAuthContext";
 import useGlobalContext from "../../context/global/useGlobalContext";
-
+// outside constants | rich text vars
+const modules = {
+  toolbar: [
+    [{ header: "1" }, { header: "2" }, { font: [] }],
+    [{ size: [] }],
+    ["bold", "italic", "underline", "strike", "blockquote"],
+    [{ list: "ordered" }, { list: "bullet" }],
+    [{ indent: "-1" }, { indent: "+1" }],
+    ["link", "image", "video"],
+    ["clean"],
+    [{ color: [] }, { background: [] }],
+    [{ align: [] }],
+    [{ direction: "rtl" }],
+  ],
+};
+const formats = [
+  "header",
+  "font",
+  "size",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "blockquote",
+  "list",
+  "bullet",
+  "indent",
+  "link",
+  "image",
+  "video",
+  "color",
+  "background",
+  "align",
+  "direction",
+];
 const MyEditor = () => {
-  const { user } = useAuthContext();
-  const {isLoading,setIsLoading} = useGlobalContext()
   const [title, setTitle] = useState("");
   const [img, setImg] = useState("");
   const [imgPreview, setImgPreview] = useState("");
   const [editorState, setEditorState] = useState("");
+  // context
+  const { user } = useAuthContext();
+  const { isLoading, setIsLoading } = useGlobalContext();
+  // hooks
   const navigate = useNavigate();
   const { blogId } = useParams();
-  useEffect(() => {
-    console.log(img);
-  }, [img]);
-  //   check to see if we are trying to edit the blog,
-  //  then set the editorState with the content from that blog
-  useEffect(() => {
-    if (blogId) {
-      const fetchExistingBlog = async () => {
-        try {
-          const existingBlogData = await getBlog(blogId);
-          setTitle(existingBlogData.title);
-          setImg(null);
-          setEditorState(existingBlogData.content);
-        } catch (err) {
-          console.error(err);
-          console.log("Cannot find existing blog");
-        }
-      };
-      fetchExistingBlog();
-    }
-  }, [blogId]);
 
+  ///////////////////////////
+  // Handle Submit
+  ///////////////////////////
   const handleSubmit = async (e) => {
     e.preventDefault();
     // edit existing form
@@ -87,54 +108,40 @@ const MyEditor = () => {
     }
   };
 
+  ///////////////////////////
+  // Hanlde File Change
+  ///////////////////////////
   const handleFileChange = (e) => {
     const { target } = e;
     setImg(target.files[0]);
     setImgPreview(URL.createObjectURL(target.files[0]));
   };
-  useEffect(() => {
-    console.log(editorState);
-  }, [editorState]);
 
-  const modules = {
-    toolbar: [
-      [{ header: "1" }, { header: "2" }, { font: [] }],
-      [{ size: [] }],
-      ["bold", "italic", "underline", "strike", "blockquote"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      [{ indent: "-1" }, { indent: "+1" }],
-      ["link", "image", "video"],
-      ["clean"],
-      [{ color: [] }, { background: [] }],
-      [{ align: [] }],
-      [{ direction: "rtl" }],
-    ],
-  };
-  const formats = [
-    "header",
-    "font",
-    "size",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "image",
-    "video",
-    "color",
-    "background",
-    "align",
-    "direction",
-  ];
+  ///////////////////////////
+  // Fetch Existing Blog
+  ///////////////////////////
+  useEffect(() => {
+    if (blogId) {
+      const fetchExistingBlog = async () => {
+        try {
+          const existingBlogData = await getBlog(blogId);
+          setTitle(existingBlogData.title);
+          setImg(null);
+          setEditorState(existingBlogData.content);
+        } catch (err) {
+          console.error(err);
+          console.log("Cannot find existing blog");
+        }
+      };
+      fetchExistingBlog();
+    }
+  }, [blogId]);
 
   return (
     <div className="flex flex-col lg:flex-row gap-4 p-4 max-w-[160rem] mx-auto pt-12 mt-52 md:mt-80">
       <div className="w-full min-h-[75svh] flex flex-col justify-between lg:w-1/2 bg-neutral-900 text-gray-300 rounded-lg shadow-md p-4">
         <div className=" ">
+          {/* title */}
           <label className="text-4xl capitalize " htmlFor="title">
             blog title
           </label>
@@ -146,6 +153,7 @@ const MyEditor = () => {
             className="w-full  bg-[#111213] text-gray-300 rounded-lg shadow-md p-4 my-8"
             type="text"
           />
+          {/* header */}
           <label className="text-4xl capitalize " htmlFor="img">
             header image
           </label>
@@ -156,6 +164,7 @@ const MyEditor = () => {
             className="w-full  bg-[#111213] text-gray-300 rounded-lg shadow-md p-4 my-8"
             type="file"
           />
+          {/* content */}
           <label className="text-4xl capitalize">Blog content</label>
           <ReactQuill
             className="my-8"
@@ -166,6 +175,7 @@ const MyEditor = () => {
             formats={formats}
           />{" "}
         </div>
+        {/* create vs edit based on blogId param */}
         {blogId ? (
           <div className="w-full flex gap-4">
             <button
@@ -228,7 +238,6 @@ const MyEditor = () => {
                 ADD_ATTR: ["style", "class"],
               }),
             }}
-            //   dangerouslySetInnerHTML={{ __html: editorState }}
           ></div>
         </div>
       </div>

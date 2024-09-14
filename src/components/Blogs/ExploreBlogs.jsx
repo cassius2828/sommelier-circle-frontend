@@ -1,15 +1,10 @@
 import { useState, useEffect } from "react";
+// context
 import useBlogContext from "../../context/blog/useBlogContext";
-import Blog from "./Blog";
-import {
-  BlogTable,
-  MultipleBlogsFull,
-  MultipleBlogsList,
-} from "./MultipleBlogs";
-import { useParams } from "react-router-dom";
 import useGlobalContext from "../../context/global/useGlobalContext";
-import Loader from "../CommonComponents/Loader";
+// components
 import DisplayBlogs from "./DisplayBlogs";
+import Loader from "../CommonComponents/Loader";
 
 const ExploreBlogs = () => {
   const { blogs, fetchAllBlogs } = useBlogContext();
@@ -23,7 +18,6 @@ const ExploreBlogs = () => {
   // fetch blogs on render
   useEffect(() => {
     fetchAllBlogs();
-    console.log(blogs, ' <-- explore blogs')
     scrollToTop();
   }, []);
 
@@ -41,5 +35,3 @@ const ExploreBlogs = () => {
 };
 
 export default ExploreBlogs;
-
-

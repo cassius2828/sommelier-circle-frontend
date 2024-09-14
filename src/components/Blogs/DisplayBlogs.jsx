@@ -14,6 +14,7 @@ const DisplayBlogs = ({ display, handleDisplayChange, blogs, title }) => {
           <label className="text-gray-100" htmlFor="blog-display">
             Display blogs
           </label>
+          {/* select | display blogs style */}
           <select
             className="text-gray-800 px-4 py-2 rounded-sm"
             name="blog-display"
@@ -34,7 +35,7 @@ const DisplayBlogs = ({ display, handleDisplayChange, blogs, title }) => {
             {blogs?.map((blog, idx) => (
               <li key={blog.title + idx}>
                 <MultipleBlogsFull
-                id={blog.owner._id}
+                  id={blog.owner._id}
                   path={`/blogs/${blog._id}`}
                   title={blog.title}
                   img={blog.img}

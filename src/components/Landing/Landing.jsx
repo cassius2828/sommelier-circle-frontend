@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import LandingBlogs from "../Blogs/LandingBlogs";
+import LandingBlogs from "../Blogs/LandingBlogs/LandingBlogs";
 import FeaturedCriticsGallery from "../Critics/FeaturedCritics";
 import Footer from "../Footer";
 import Hero from "../Hero/Hero";
