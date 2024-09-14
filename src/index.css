@@ -327,3 +327,60 @@ h2 {
     transform: rotate(360deg);
   }
 }
+
+
+/* /////////////////// */
+/* //! MEDIA QUERIES */
+/* /////////////////// */
+
+@media (max-width: 768px) {
+  .ql-container {
+    background-color: #111213;
+    color: #f3f4f6;
+    border-radius: 2px; /* Reduced radius for smaller screens */
+  }
+
+  .ql-toolbar {
+    background-color: #111213;
+    color: #f3f4f6;
+    margin-bottom: 1rem; /* Less margin for smaller screens */
+  }
+
+  .ql-editor {
+    padding: 5px; /* Reduced padding for smaller screens */
+  }
+
+  .ql-editor h1 {
+    font-size: 2.5rem !important; /* Smaller font size for h1 */
+  }
+
+  .ql-editor h2 {
+    font-size: 2rem !important; /* Smaller font size for h2 */
+  }
+
+  .ql-editor h3 {
+    font-size: 1.8rem !important; /* Smaller font size for h3 */
+  }
+
+  .ql-editor h4 {
+    font-size: 1.5rem !important; /* Smaller font size for h4 */
+  }
+
+  .ql-editor span,
+  .ql-editor p,
+  .ql-editor li {
+    font-size: 1.4rem !important; /* Smaller font size for paragraphs and lists */
+    line-height: 2rem; /* Adjust line height */
+  }
+
+  .ql-editor strong {
+    font-size: 1.6rem !important; /* Adjust strong text font size */
+  }
+
+  .ql-editor p,
+  .ql-editor li {
+    line-height: 2.5rem; /* Adjust line height for paragraphs and lists */
+  }
+
+
+}

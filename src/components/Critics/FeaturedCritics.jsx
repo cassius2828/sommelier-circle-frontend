@@ -26,7 +26,7 @@ const FeaturedCriticsGallery = () => {
   }, []);
   return (
     <>
-      <h2 className="text-gray-100 text-6xl text-center mt-80 mb-16">
+      <h2 className="text-gray-100 text-6xl text-center mt-40 md:mt-80 mb-16">
         Featured Critics
       </h2>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-24">

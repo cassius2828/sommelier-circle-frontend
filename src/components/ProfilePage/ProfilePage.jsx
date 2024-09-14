@@ -22,10 +22,10 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="flex flex-col justify-around gap-4 mt-80 mb-48 w-full ">
+    <div className="flex flex-col justify-around gap-4 pt-12 mt-52 md:mt-80  mb-48 w-full ">
       {/* user info */}
       <UserInfo isSignedInUsersProfile={isSignedInUsersProfile} />{" "}
-      <div className="flex justify-center">
+      <div className="flex flex-col md:flex-row justify-center items-center gap-20 md:gap-0">
         {/* favorites */}
         <FavoritesList />
         {/* search */}

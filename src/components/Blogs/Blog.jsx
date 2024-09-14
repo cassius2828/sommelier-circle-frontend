@@ -22,6 +22,7 @@ const Blog = ({ propsBlogId }) => {
     setShowBlog,
     fetchCommunityBlogIds,
   } = useBlogContext();
+  const { scrollToTop } = useGlobalContext();
   const [isCopiedMessage, setIsCopiedMessage] = useState("");
   const {
     handleAddToFavorites,
@@ -42,8 +43,11 @@ const Blog = ({ propsBlogId }) => {
   } else {
     blogType = "style";
   }
-  const handleBlogNavigation = (direction) => {
+  const handleBlogNavigation = async (direction) => {
     if (blogType === "community") {
+      if (communityBlogs.length === 0) {
+        await fetchCommunityBlogIds();
+      }
       handleCommunityBlogNav(direction);
     } else {
       handleStyleBlogNav(direction);
@@ -128,20 +132,17 @@ const Blog = ({ propsBlogId }) => {
         setIsLoading(false);
       }
     };
-    const scrollToTop = () => {
-      window.scrollTo({
-        top: 0,
-      });
-    };
-    scrollToTop();
+
     console.log(showBlog);
     fetchBlog();
   }, [blogId, propsBlogId]);
 
   useEffect(() => {
-    fetchCommunityBlogIds();
-    console.log(showBlog);
-  }, []);
+    if (blogId && communityBlogs.length === 0) {
+      fetchCommunityBlogIds();
+    }
+    scrollToTop();
+  }, [blogId]);
 
   if (isLoading) return <Loader />;
 
@@ -152,7 +153,7 @@ const Blog = ({ propsBlogId }) => {
         setIsOpen={setIsOpen}
         subject={"blog"}
       />
-      <div className="flex items-center gap-4  w-8/12 relative z-50  mx-auto text-gray-100 mt-20">
+      <div className="flex items-center gap-4  w-8/12 relative z-10  mx-auto text-gray-100 mt-20">
         {/* hides admin photo and name for blogs that are a part of the encyclopedia */}
         {user?._id.toString() !== "669190f598a19fabd8baa1a4" && (
           <>
@@ -207,7 +208,7 @@ const Blog = ({ propsBlogId }) => {
           <div className="mt-24 mb-12">
             <SocialIcons
               mediaType="blogs"
-              blogAuthor={showBlog.owner.username}
+              blogAuthor={showBlog?.owner?.username}
               title={showBlog.title}
             />
           </div>
@@ -238,7 +239,7 @@ const Blog = ({ propsBlogId }) => {
             <button
               onClick={() => handleBlogNavigation("prev")}
               type="button"
-              className="text-3xl bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
+              className="text-xl md:text-3xl bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
             >
               previous blog
             </button>
@@ -248,7 +249,7 @@ const Blog = ({ propsBlogId }) => {
             <button
               onClick={() => handleBlogNavigation("next")}
               type="button"
-              className="text-3xl bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
+              className="text-xl md:text-3xl bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
             >
               next blog
             </button>

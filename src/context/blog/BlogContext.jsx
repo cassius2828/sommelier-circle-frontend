@@ -77,6 +77,7 @@ export const BlogProvider = ({ children }) => {
     const blogIdList = blogs.map((blog) => blog._id);
   
     setCommunityBlogs(blogIdList);
+    return blogIdList
   };
 
   ///////////////////////////

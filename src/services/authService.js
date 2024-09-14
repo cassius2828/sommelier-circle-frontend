@@ -2,7 +2,7 @@ import axios from "axios";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 /////////////////////
-// User Signup Function
+// ? POST | User Signup Function
 /////////////////////
 export async function signup(formData) {
   try {

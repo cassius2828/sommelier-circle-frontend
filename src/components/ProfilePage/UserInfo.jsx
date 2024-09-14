@@ -58,7 +58,7 @@ const UserInfo = ({ isSignedInUsersProfile, userProfile }) => {
         setIsFollowing(followBoolean);
       }
     };
-
+console.log(userFromParams)
     fetchIfFollowing();
   }, [currentUser, userFromParams]);
 
@@ -85,9 +85,9 @@ const UserInfo = ({ isSignedInUsersProfile, userProfile }) => {
   if (isLoading) return <Loader />;
 
   return (
-    <div className="grid grid-cols-2 grid-rows-2 mb-24 pb-12 border-b w-3/4  mx-auto">
+    <div className="flex flex-col mb-24 pb-12 border-b w-3/4  mx-auto">
       {/* user img and name */}
-      <div className="col-start-1 col-span-2 row-span-2 row-start-1 mx-auto my-12 ">
+      <div className="mx-auto md:my-12 ">
         <img
           className="w-48 h-48 object-cover rounded-full"
           src={userFromParams?.profileImg}
@@ -97,82 +97,11 @@ const UserInfo = ({ isSignedInUsersProfile, userProfile }) => {
           {userFromParams?.displayedName}
         </h3>
       </div>
-      {/* user info */}
-      <div className=" w-full  col-span-1 col-start-1 row-span-1 row-start-2 ml-auto mr-24 text-gray-100">
-        <h4 className="text-3xl capitalize text-center">user info</h4>
-        <div className="flex justify-center items-start gap-40 mt-12">
-          <ul>
-            {isSignedInUsersProfile && (
-              <li className="text-2xl my-4 ">Email: {userFromParams?.email}</li>
-            )}
-            <li className="text-2xl my-4 ">
-              Username: {userFromParams?.username}
-            </li>
-            <li className="text-2xl my-4 ">
-              Display Name: {userFromParams?.displayedName}
-            </li>
-          </ul>
-          <ul>
-            <li className="text-2xl my-4 ">
-              Following: {userFromParams?.following?.length}
-            </li>
-            <li className="text-2xl my-4 ">
-              Followers: {userFromParams?.followers?.length}
-            </li>
-            {/* social media */}
-            <li className="text-2xl my-4 ">
-              <h4 className="capitalize text-2xl">social media</h4>
-              <ul className="relative right-10 mt-3 text-xl">
-                {/* twitter */}
-                <Link to={userFromParams?.socialMedia.twitter.link}>
-                  <li className="flex items-center gap-3">
-                    {" "}
-                    <Icon type="twitter" size="md" color="#1DA1F2" />
-                    {userFromParams?.socialMedia.twitter.username
-                      ? "@" + userFromParams?.socialMedia.twitter.username
-                      : "---"}
-                  </li>
-                </Link>
-                {/* instagram */}
-                <Link to={userFromParams?.socialMedia.instagram.link}>
-                  <li className="flex items-center gap-3">
-                    {" "}
-                    <Icon type="instagram" size="md" color="#E1306C" />
-                    {userFromParams?.socialMedia.instagram.username
-                      ? "@" + userFromParams?.socialMedia.instagram.username
-                      : "---"}
-                  </li>{" "}
-                </Link>
-                {/* facebook */}
-                <Link to={userFromParams?.socialMedia.facebook.link}>
-                  <li className="flex items-center gap-3">
-                    {" "}
-                    <Icon type="facebook" size="md" color="#3b5998" />
-                    {userFromParams?.socialMedia.facebook.username
-                      ? userFromParams?.socialMedia.facebook.username
-                      : "---"}
-                  </li>{" "}
-                </Link>
-                {/* linked in */}
-                <Link to={userFromParams?.socialMedia.linkedIn.link}>
-                  <li className="flex items-center gap-3">
-                    {" "}
-                    <Icon type="linkedin" size="md" color="#0077B5" />
-                    {userFromParams?.socialMedia.linkedIn.username
-                      ? userFromParams?.socialMedia.linkedIn.username
-                      : "---"}
-                  </li>
-                </Link>
-              </ul>
-            </li>
-          </ul>{" "}
-        </div>
-      </div>
       {/* edit profile */}
 
-      <div className="col-span-1 col-start-2 row-span-1 row-start-2 mx-auto">
+      <div className=" mx-auto">
         {isSignedInUsersProfile ? (
-          <div className="flex flex-col items-center gap-8">
+          <div className="flex items-center gap-8 my-24 md:my-12">
             <Link to={`/profiles/${userId}/edit`}>
               <button className="text-2xl bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200 w-40 capitalize">
                 edit profile
@@ -198,11 +127,105 @@ const UserInfo = ({ isSignedInUsersProfile, userProfile }) => {
         ) : (
           <button
             onClick={handleFollow}
-            className="text-2xl bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
+            className="text-2xl bg-gray-700 text-gray-100 px-4 py-2 my-12 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
           >
             Follow
           </button>
         )}
+      </div>
+      {/* user info */}
+      <div className=" w-full ml-auto mr-24 text-gray-100">
+        <h4 className="text-3xl capitalize text-center">user info</h4>
+        <div className="flex justify-center items-start gap-40 mt-12">
+          <ul>
+            {isSignedInUsersProfile && (
+              <li className="text-2xl my-4 ">
+                <span className="font-bold">Email:</span><br/>
+                {userFromParams?.email}
+              </li>
+            )}
+            <li className="text-2xl my-4 ">
+              <span className="font-bold">Username:</span><br/>{" "}
+              {userFromParams?.username}
+            </li>
+            <li className="text-2xl my-4 ">
+              <span className="font-bold">Display Name:</span><br/>{" "}
+              {userFromParams?.displayedName}
+            </li>
+          </ul>
+          <ul>
+            <li className="text-2xl my-4 ">
+              <span className="font-bold">Following:</span><br/>{" "}
+              {userFromParams?.following?.length}
+            </li>
+            <li className="text-2xl my-4 ">
+              <span className="font-bold">Followers:</span><br/>{" "}
+              {userFromParams?.followers?.length}
+            </li>
+          </ul>{" "}
+        </div>{" "}
+        {/* social media */}
+        <div className="text-2xl my-4 w-full flex flex-col items-center justify-center">
+          <h4 className="capitalize text-2xl my-5">social media</h4>
+          <div className="w-full flex flex-col mt-3 text-xl">
+            <div className="w-full flex items-center justify-center mb-6">
+              {/* twitter */}
+              <Link
+                className="w-1/2 flex justify-center"
+                to={userFromParams?.socialMedia.twitter.link}
+              >
+                <li className="flex justify-start gap-6 items-center">
+                  {" "}
+                  <Icon type="twitter" size="md" color="#1DA1F2" />
+                  {userFromParams?.socialMedia.twitter.username
+                    ? "@" + userFromParams?.socialMedia.twitter.username
+                    : "--"}
+                </li>
+              </Link>
+              {/* instagram */}
+              <Link
+                className="w-1/2 flex justify-center"
+                to={userFromParams?.socialMedia.instagram.link}
+              >
+                <li className="flex justify-start gap-6 items-center ">
+                  {" "}
+                  <Icon type="instagram" size="md" color="#E1306C" />
+                  {userFromParams?.socialMedia.instagram.username
+                    ? "@" + userFromParams?.socialMedia.instagram.username
+                    : "--"}
+                </li>{" "}
+              </Link>
+            </div>
+            <div className="w-full flex items-center justify-between">
+              {/* facebook */}
+              <Link
+                className="w-1/2 flex justify-center"
+                to={userFromParams?.socialMedia.facebook.link}
+              >
+                <li className="flex justify-start gap-6 items-center ">
+                  {" "}
+                  <Icon type="facebook" size="md" color="#3b5998" />
+                  {userFromParams?.socialMedia.facebook.username
+                    ? userFromParams?.socialMedia.facebook.username
+                    : "--"}
+                </li>{" "}
+              </Link>
+              {/* linked in */}
+              <Link
+                className="w-1/2 flex justify-center"
+                to={userFromParams?.socialMedia.linkedIn.link}
+              >
+                <li className="flex justify-start gap-6 items-center ">
+                  {" "}
+                  <Icon type="linkedin" size="md" color="#0077B5" />
+                  {userFromParams?.socialMedia.linkedIn.username
+                    ? userFromParams?.socialMedia.linkedIn.username
+                    : "--"}
+                </li>
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -34,7 +34,7 @@ const initialFormData = {
 
 export default function EditProfile() {
   const { userId } = useParams();
-  // const [photo, setPhoto] = useState("");
+  const [photo, setPhoto] = useState("");
   const [formData, setFormData] = useState(initialFormData);
   const navigate = useNavigate();
   const handleChange = (e) => {
@@ -59,13 +59,49 @@ export default function EditProfile() {
   }, [userId]);
 
   function handleFileInput(e) {
-    console.log(e.target.files);
-    setFormData({ ...formData, profileImg: e.target.files[0] });
+    console.log(e.target.files, " file target");
+    setPhoto(e.target.files[0]);
   }
 
   const handleSubmit = async () => {
+    const dataToSendToServer = new FormData();
+    dataToSendToServer.append("photo", photo);
+    dataToSendToServer.append("username", formData.username);
+    dataToSendToServer.append("displayedName", formData.displayedName);
+    dataToSendToServer.append("email", formData.email);
+    dataToSendToServer.append(
+      "twitterUsername",
+      formData.socialMedia.twitter.username
+    );
+    dataToSendToServer.append("twitterLink", formData.socialMedia.twitter.link);
+    dataToSendToServer.append(
+      "instagramUsername",
+      formData.socialMedia.instagram.username
+    );
+    dataToSendToServer.append(
+      "instagramLink",
+      formData.socialMedia.instagram.link
+    );
+    dataToSendToServer.append(
+      "facebookUsername",
+      formData.socialMedia.facebook.username
+    );
+    dataToSendToServer.append(
+      "facebookLink",
+      formData.socialMedia.facebook.link
+    );
+    dataToSendToServer.append(
+      "linkedInUsername",
+      formData.socialMedia.linkedIn.username
+    );
+    dataToSendToServer.append(
+      "linkedInLink",
+      formData.socialMedia.linkedIn.link
+    );
+
+    // dataToSendToServer.append("password", formData.password);
     try {
-      const data = await putEditProfileInfo(userId, formData);
+      const data = await putEditProfileInfo(userId, dataToSendToServer);
       if (data?.message) {
         alert(data.message);
       } else {
@@ -96,10 +132,12 @@ export default function EditProfile() {
       },
     }));
   };
-
+  useEffect(() => {
+    console.log(photo);
+  }, [photo]);
   return (
     <main className="bg-theme-dn min-h-screen flex flex-col items-center justify-center">
-      <div className="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-[60rem] mt-80">
+      <div className="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-[60rem] mt-40 md:mt-80">
         <h1 className="text-3xl text-gray-100 mb-4 text-center">
           Profile Page!
         </h1>
@@ -284,35 +322,35 @@ export default function EditProfile() {
               />
             </div>
 
-            {/* LinkedIn */}
+            {/* linkedIn */}
             <div className="mb-4">
               <label
-                htmlFor="linkedinUsername"
+                htmlFor="linkedInUsername"
                 className=" text-gray-100 mb-2 flex items-center gap-4 my-5"
               >
                 <Icon type="linkedin" size="sm" color="#0077B5" />
-                LinkedIn Username:
+                linkedIn Username:
               </label>
               <input
                 type="text"
-                id="linkedinUsername"
-                name="linkedinUsername"
-                value={socialMedia.linkedin?.username}
+                id="linkedInUsername"
+                name="linkedInUsername"
+                value={socialMedia.linkedIn?.username}
                 onChange={handleSocialMediaChange}
                 className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
               />
               <label
-                htmlFor="linkedinLink"
+                htmlFor="linkedInLink"
                 className=" text-gray-100 mb-2 flex items-center gap-4 my-5"
               >
                 <Icon type="linkedin" size="sm" color="#0077B5" />
-                LinkedIn Username:
+                linkedIn Username:
               </label>
               <input
                 type="text"
-                id="linkedinLink"
-                name="linkedinLink"
-                value={socialMedia.linkedin?.link}
+                id="linkedInLink"
+                name="linkedInLink"
+                value={socialMedia.linkedIn?.link}
                 onChange={handleSocialMediaChange}
                 className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
               />

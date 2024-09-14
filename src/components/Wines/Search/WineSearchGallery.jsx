@@ -1,8 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import SearchBar from "../../CommonComponents/SearchBar";
-import FeaturedWineCard from "../FeaturedWineCard";
-import { getWines } from "../../../services/wineService";
 import useGlobalContext from "../../../context/global/useGlobalContext";
 import { FilterComponent } from "./FilterComponent";
 import Loader from "../../CommonComponents/Loader";
@@ -11,14 +9,16 @@ import WineCard from "../WineCard";
 ///////////////////////////////
 // WineSearch Component
 //////////////////////////////
-const WineSearch = ({ title = "sample title" }) => {
+const WineSearch = () => {
   const {
     wines,
     fetchWines,
     displayedWines,
     setDisplayedWines,
     isLoading,
-    searchState,handleUpdateForm,formData
+    handleUpdateForm,
+    formData,
+    scrollToTop,
   } = useGlobalContext();
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -62,6 +62,7 @@ const WineSearch = ({ title = "sample title" }) => {
   useEffect(() => {
     fetchWines();
     setDisplayedWines(wines.slice(startIndex, endIndex));
+    scrollToTop();
   }, []);
 
   ///////////////////////////////
@@ -74,8 +75,8 @@ const WineSearch = ({ title = "sample title" }) => {
   if (isLoading) return <Loader />;
 
   return (
-    <div className="mt-80 mb-40">
-      <div className="w-1/2 mx-auto">
+    <div className="pt-12 mt-52 md:mt-80 mb-40">
+      <div className="w-full  flex flex-col items-center ">
         <SearchBar value={formData.query} handleChange={handleUpdateForm} />
         <h1 className="text-5xl font-bold mb-10 text-center text-gray-100">
           {wines.length} wines found
@@ -84,7 +85,7 @@ const WineSearch = ({ title = "sample title" }) => {
       <WineSearchGallery displayedWines={displayedWines} />
       <div>
         {wines.length > 20 && (
-          <div className="my-12 w-3/4 ml-auto p-4 rounded-md flex justify-center">
+          <div className="my-12 md:w-3/4 md:ml-auto p-4 rounded-md flex justify-center">
             <div className="w-1/2 mx-auto flex justify-center items-center">
               {Array.from({ length: winePageBtnsLength }).map((btn, idx) => {
                 return (
@@ -92,7 +93,7 @@ const WineSearch = ({ title = "sample title" }) => {
                     key={idx}
                     onClick={() => handleWinePageNavigation(idx)}
                     type="button"
-                    className={`text-3xl bg-gray-700 text-gray-100 px-6 py-4 focus:outline-none ${
+                    className={`text-3xl bg-gray-700 text-gray-100 px-4 py-2 md:px-6 md:py-4 focus:outline-none ${
                       currentPage === idx
                         ? "bg-theme-sand-dark"
                         : "hover:bg-gray-600 "
@@ -110,12 +111,12 @@ const WineSearch = ({ title = "sample title" }) => {
                   </button>
                 );
               })}
-              <span className="text-gray-100 ml-10 text-2xl">
-                {wines.length} wines found
-              </span>
             </div>
           </div>
-        )}
+        )}{" "}
+        <span className="text-gray-100 md:w-3/4 md:ml-auto  text-2xl md:text-3xl text-center block">
+          {wines.length} wines found
+        </span>
       </div>
     </div>
   );

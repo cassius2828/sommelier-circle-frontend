@@ -29,7 +29,7 @@ const WineTable = ({wines}) => {
                 <img
                   src={wine.img}
                   alt={wine.name}
-                  className="w-12 h-12 rounded-md mx-auto"
+                  className="w-12 h-12 rounded-md mx-auto object-cover"
                 />
               </td>
               <td className="py-2 px-4 border-b">{wine.name}</td>

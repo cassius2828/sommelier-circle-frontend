@@ -1,18 +1,30 @@
 /* eslint-disable react/prop-types */
 
+import { useLocation } from "react-router-dom";
 import useAuthContext from "../../context/auth/useAuthContext";
 
 import { NavBarDesktop } from "./NavBarDesktop";
+import NavBarMobile from "./NavBarMobile";
+import { useEffect, useState } from "react";
 
 const NavBar = () => {
-  const { user, handleLogout } = useAuthContext();
+  const location = useLocation();
+  const [showMobileNav, setShowMobileNav] = useState(false);
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setShowMobileNav(true);
+    } else {
+      setShowMobileNav(false);
+    }
+  }, [location.pathname]);
   return (
     <>
-      <NavBarDesktop user={user} handleLogout={handleLogout} />
+      {/* only displays  width <= 768 */}
+      {showMobileNav && <NavBarMobile />}
+
+      {/* displays width > 768 */}
+      <NavBarDesktop />
     </>
   );
 };
 export default NavBar;
-
-
-

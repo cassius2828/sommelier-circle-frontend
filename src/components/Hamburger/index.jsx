@@ -9,7 +9,7 @@ const Hamburger = ({isOpen,setIsOpen}) => {
   };
 
   return (
-    <div className="absolute right-0">
+    <div className="absolute right-0 z-40">
       <button
         className="block  p-2  rounded focus:outline-none"
         onClick={toggleMenu}

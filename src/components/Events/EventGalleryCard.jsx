@@ -61,7 +61,7 @@ const EventGalleryCard = ({
             {new Date(date).toDateString() || "Aug 8th, 2024"}
           </h3>
         </div>
-        <div className="mt-6 gap-12 flex justify-center ">
+        <div className="mt-6 gap-4 md:gap-12 flex justify-center ">
           <button
             onClick={() => handleAddToFavorites(user._id, eventId, "events")}
             className="p-2 border-2 border-[#FFD700] rounded-lg"

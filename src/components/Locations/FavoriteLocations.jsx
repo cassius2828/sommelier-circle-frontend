@@ -66,7 +66,7 @@ const FavoriteLocations = () => {
 
   return (
     <>
-      <h1 className="text-6xl text-gray-100 mt-80 mb-20 text-center">
+      <h1 className="text-6xl text-gray-100 pt-12 mt-52 md:mt-80 mb-20 text-center">
         Favorite Locations
       </h1>
       <LocationsTableList rooms={locations} />

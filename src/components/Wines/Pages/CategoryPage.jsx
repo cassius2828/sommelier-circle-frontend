@@ -4,7 +4,7 @@ import StylesColumn from "./StylesColumn"
 const CategoryPage = () => {
   return (
     <>
-    <div className="flex flex-col lg:flex-row w-3/4 mx-auto justify-between gap-4">
+    <div className="flex flex-col lg:flex-row w-full md:w-3/4 mx-auto justify-between gap-4">
       <ShowBlog propsBlogId={`6691aea098a19fabd8baa1d4`} />
       <StylesColumn />
     </div>{" "}

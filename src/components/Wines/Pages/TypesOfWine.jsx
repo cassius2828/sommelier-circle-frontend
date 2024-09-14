@@ -16,7 +16,7 @@ import ScrollToTop from "../../CommonComponents/ScrollToTop";
 const TypesOfWine = ({ blogId, allStyles }) => {
   const urlIdenitfier = location.pathname.split("/")[2];
   const urlSpecificCategoryType = location.pathname.split("/")[3];
-  const { setWinesByCategory } = useGlobalContext();
+  const { setWinesByCategory, scrollToTop } = useGlobalContext();
   const { winesByCategory } = useGlobalContext();
 
   const fetchWineByCategory = async () => {
@@ -47,12 +47,14 @@ const TypesOfWine = ({ blogId, allStyles }) => {
     }
   };
   useEffect(() => {
-    fetchWineByCategory()
+    fetchWineByCategory();
+    scrollToTop();
+
   }, [urlSpecificCategoryType]);
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row w-3/4 mx-auto justify-between gap-4">
+      <div className="flex flex-col lg:flex-row w-full md:w-3/4 mx-auto justify-between gap-4">
         <div>
           <ShowBlog propsBlogId={blogId} />
           <WineTable wines={winesByCategory} />

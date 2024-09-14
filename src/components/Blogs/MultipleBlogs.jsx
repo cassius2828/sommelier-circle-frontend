@@ -27,7 +27,7 @@ export const MultipleBlogsFull = ({
           {img && <img className="w-full mx- my-8" src={img} alt="" />}
 
           <div className=" w-9/12 text-start ml-20">
-            <span className=" text-gray-100 text-xl ">
+            <span className=" text-gray-100 md:text-xl ">
               {new Date(createdAt).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
@@ -39,11 +39,11 @@ export const MultipleBlogsFull = ({
         </div>
 
         {/* title and content */}
-        <h2 className=" text-4xl text-start leading-[3rem] text-gray-100 relative top-10  w-9/12 ">
+        <h2 className=" text-2xl md:text-4xl text-start leading-[3rem] text-gray-100 relative top-10  w-9/12 ">
           {title.length > 60 ? `${title.slice(0, 60)}...` : title}
         </h2>
         <div
-          className=" text-gray-100 text-xl mt-12 p-4 leading-[3rem]"
+          className=" text-gray-100 md:text-xl mt-12 p-4 leading-[3rem]"
           dangerouslySetInnerHTML={{
             __html: `${DOMPurify.sanitize(content).slice(0, 150)} ...`,
           }}
@@ -55,7 +55,7 @@ export const MultipleBlogsFull = ({
         <Link to={path}>
           <button
             type="button"
-            className="text-3xl bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
+            className="text-xl md:text-3xl bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
           >
             read more
           </button>
@@ -63,7 +63,7 @@ export const MultipleBlogsFull = ({
         <Link className="flex items-center gap-6" to={`/profiles/${id}`}>
           <button
             type="button"
-            className="text-3xl bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
+            className="text-xl md:text-3xl bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
           >
             view profile
           </button>
@@ -75,7 +75,7 @@ export const MultipleBlogsFull = ({
             )
           }
           type="button"
-          className="text-3xl bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
+          className="text-xl md:text-3xl bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
         >
           share blog
         </button>
@@ -110,7 +110,7 @@ export const MultipleBlogsList = ({
         <div className="flex items-center justify-start gap-4 w-1/2 ">
           {img && <img className="w-full mx- my-8" src={img} alt="" />}
 
-          <h3 className=" text-4xl text-center text-gray-100 text-xl cursor-pointer">
+          <h3 className=" text-4xl text-center text-gray-100 md:text-xl cursor-pointer">
             {title.length > 55 ? `${title.slice(0, 55)} ...` : title}
           </h3>
         </div>{" "}
@@ -126,25 +126,25 @@ export const BlogTable = ({ blogs }) => {
         {/* head */}
         <thead>
           <tr>
-            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 md:text-xl">
               Profile Image
             </th>
-            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 md:text-xl">
               Author
             </th>
-            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 md:text-xl">
               Blog Header
             </th>
-            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 md:text-xl">
               Blog Title
             </th>
-            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 md:text-xl">
               Date Created
             </th>
-            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 md:text-xl">
               View Blog
             </th>
-            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 md:text-xl">
               Share Blog
             </th>
           </tr>
@@ -159,33 +159,33 @@ export const BlogTable = ({ blogs }) => {
                   <img
                     src={blog.owner.profileImg}
                     alt={blog.owner.username}
-                    className="w-20 h-20 object-cover rounded-full mx-auto"
+                    className="w-16 md:w-20 h-16 md:h-20 object-cover rounded-full mx-auto"
                   />
                 </Link>
               </td>
-              <td className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
+              <td className="py-2 px-4 border-b border-gray-700 text-gray-100 md:text-xl">
                 <Link to={`/profiles/${blog.owner._id}`}>
                   {blog.owner.username}
                 </Link>
               </td>
               {/* header */}
-              <td className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
+              <td className="py-2 px-4 border-b border-gray-700 text-gray-100 md:text-xl">
                 {blog.img && (
                   <img className="w-24 mx- my-8" src={blog.img} alt="" />
                 )}
               </td>
               {/* title */}
-              <td className="py-2 px-4 border-b border-gray-700 text-center text-gray-100 text-xl">
+              <td className="py-2 px-4 border-b border-gray-700 text-center text-gray-100 md:text-xl">
                 {blog.title}
               </td>
               {/* date */}
-              <td className="py-2 px-4 border-b border-gray-700 text-center text-gray-100 text-xl">
+              <td className="py-2 px-4 border-b border-gray-700 text-center text-gray-100 md:text-xl">
                 {new Date(blog.createdAt).toLocaleDateString()}
               </td>
               {/* action btns */}
               <td className="py-2 px-4 border-b border-gray-700 text-center">
                 <Link to={`/blogs/${blog._id}`}>
-                  <button className="border px-3 py-1 text-xl rounded-md text-gray-100  border-gray-800 transition-colors duration-300 hover:bg-gray-900 hover:text-white">
+                  <button className="border px-3 py-1 md:text-xl rounded-md text-gray-100  border-gray-800 transition-colors duration-300 hover:bg-gray-900 hover:text-white">
                     view
                   </button>
                 </Link>
@@ -198,7 +198,7 @@ export const BlogTable = ({ blogs }) => {
                     )
                   }
                   type="button"
-                  className="border px-3 py-1 text-xl text-gray-100 rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-900 hover:text-white"
+                  className="border px-3 py-1 md:text-xl text-gray-100 rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-900 hover:text-white"
                 >
                   share blog
                 </button>
