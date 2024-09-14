@@ -192,6 +192,7 @@ h2 {
 }
 .ql-editor h2 {
   font-family: Georgia, "Times New Roman", Times, serif;
+  line-height: 4rem;
 }
 
 .ql-editor a {
