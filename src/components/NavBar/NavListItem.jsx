@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 
 export const NavListItem = ({ dropDownItems, listItemText }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const logout = dropDownItems[1].onClick;
+  const logout = dropDownItems[1]?.onClick;
+
   console.log(logout, "logout items");
   return (
     <div className="relative">
@@ -22,8 +23,8 @@ export const NavListItem = ({ dropDownItems, listItemText }) => {
           {dropDownItems.map((item, idx) => {
             return (
               <>
-                {logout ? (
-                  <Link onClick={logout ? () => logout() : null} to={"/"}>
+                {item.text === "signout" ? (
+                  <Link onClick={logout} to={item.path}>
                     <li className="dropdown-li hover:bg-neutral-700 text-gray-100 relative z-10 text-lg">
                       {item.text}
                     </li>

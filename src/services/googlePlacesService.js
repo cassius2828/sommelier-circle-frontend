@@ -70,7 +70,6 @@ export const getNearbyWinePlaces = async () => {
         radius: 5000,
         type: "restaurant|bar|winery",
         keyword: "wine",
- 
       },
     });
 
@@ -93,7 +92,7 @@ export const getPhotosOfLocation = async (photo_reference, deviceWidth) => {
       {
         params: {
           photo_reference,
-   
+
           deviceWidth,
         },
       }
