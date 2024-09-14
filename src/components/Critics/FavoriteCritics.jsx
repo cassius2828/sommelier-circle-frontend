@@ -24,14 +24,14 @@ const FavoriteCritics = () => {
   return (
     <>
       {critics.length === 0 ? (
-        <h2 className="text-gray-100 text-6xl text-center mt-80 mb-16">
+        <h2 className="text-gray-100 text-6xl text-center pt-12 mt-52 md:mt-80 mb-16">
           Total of{" "}
           <span className="text-theme-sand-dark">{critics.length}</span>{" "}
           favorited {critics.length > 1 ? "critics" : "critic"}
         </h2>
       ) : (
         <>
-          <h2 className="text-gray-100 text-6xl text-center mt-80 mb-16">
+          <h2 className="text-gray-100 text-6xl text-center pt-12 mt-52 md:mt-80  mb-16">
             Total of{" "}
             <span className="text-theme-sand-dark">{critics.length}</span>{" "}
             favorited {critics.length > 1 ? "critics" : "critic"}

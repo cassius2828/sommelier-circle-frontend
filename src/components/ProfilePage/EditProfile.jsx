@@ -99,7 +99,7 @@ export default function EditProfile() {
 
   return (
     <main className="bg-theme-dn min-h-screen flex flex-col items-center justify-center">
-      <div className="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-[60rem] mt-80">
+      <div className="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-[60rem] mt-40 md:mt-80">
         <h1 className="text-3xl text-gray-100 mb-4 text-center">
           Profile Page!
         </h1>

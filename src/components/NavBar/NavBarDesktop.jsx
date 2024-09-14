@@ -3,8 +3,11 @@ import Hamburger from "../Hamburger";
 import { pinNavToTop } from "../../gsap/gsapFunctions";
 import { useGSAP } from "@gsap/react";
 import { useRef, useState } from "react";
+import useAuthContext from "../../context/auth/useAuthContext";
 
-export const NavBarDesktop = ({ user, handleLogout }) => {
+export const NavBarDesktop = () => {
+  const { user, handleLogout } = useAuthContext();
+
   const [isOpen, setIsOpen] = useState(false);
   const container = useRef(null);
   const location = useLocation();
@@ -24,7 +27,7 @@ export const NavBarDesktop = ({ user, handleLogout }) => {
             id="desktop-nav-landing"
             className={`bg-theme-sand-dark text-gray-100 p-4 absolute z-10 top-52 h-screen ${
               isOpen ? "w-80i" : "w-40i"
-            } transition-all duration-200 ease-in-out `}
+            } transition-all duration-200 ease-in-out hidden md:block`}
           >
             <Hamburger isOpen={isOpen} setIsOpen={setIsOpen} />
             <ul

@@ -100,7 +100,7 @@ const CategoryGallery = ({ category }) => {
 
   return (
     <div className="bg-neutral-950 text-gray-100 min-h-screen p-8 mt-52">
-      <div className="max-w-[120rem] mx-auto mt-24">
+      <div className="max-w-[120rem] mx-auto mt-12 md:mt-24">
         {/* <SearchBar /> */}
         {/* Header */}
         <h1 className="text-4xl font-bold mb-8 text-center">{title}</h1>
@@ -131,8 +131,8 @@ const CategoryGallery = ({ category }) => {
         ))}
       </div>
       {/* extra info box */}
-      <div className="mb-12 bg-neutral-900 p-6 rounded-md max-w-[120rem] mx-auto flex justify-between gap-12">
-        <img className="rounded-md w-1/2" src={learnMoreImg} alt="" />
+      <div className="mb-12 bg-neutral-900 p-6 rounded-md max-w-[120rem] mx-auto flex flex-col md:flex-row items-center md:justify-between gap-12">
+        <img className="rounded-md w-full md:w-1/2 object-cover" src={learnMoreImg} alt="" />
 
         <div className="flex flex-col items-center justify-between">
           <div>
@@ -140,7 +140,7 @@ const CategoryGallery = ({ category }) => {
             <p className="text-xl">{learnMoreDescription}</p>
           </div>
           <Link to={learnMoreLink}>
-            <button className="px-6 py-4 border rounded-md relative text-3xl text-gray-100 border-gray-100 capitalize hover:bg-gray-100 hover:text-gray-800 transition-all duration-200 ease-in-out -translate-y-1">
+            <button className="px-6 py-4 border rounded-md relative text-xl md:text-3xl mt-6 md:mt-0 text-gray-100 border-gray-100 capitalize hover:bg-gray-100 hover:text-gray-800 transition-all duration-200 ease-in-out -translate-y-1">
               learn more
             </button>
           </Link>

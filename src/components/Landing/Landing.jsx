@@ -10,7 +10,7 @@ import FeaturedWineCategoryGallery from "../Wines/FeaturedWineCategoryGallery";
 const Landing = () => {
   
   return (
-    <div id="landing" className="pl-[10rem]">
+    <div id="landing" className="md:pl-[10rem]">
       <Hero />
       <FeaturedWineCategoryGallery />
       <FeaturedWineCardList />

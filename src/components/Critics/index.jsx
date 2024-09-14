@@ -45,7 +45,7 @@ const CriticsGallery = () => {
   }, []);
   return (
     <>
-      <h2 className="text-gray-100 text-6xl text-center mt-80 mb-16">
+      <h2 className="text-gray-100 text-6xl text-center pt-12 mt-52 md:mt-80 mb-16">
         Showing <span className="text-theme-sand-dark">{critics.length}</span>{" "}
         of <span className="text-theme-sand-dark">{totalCritics}</span> Critics
       </h2>

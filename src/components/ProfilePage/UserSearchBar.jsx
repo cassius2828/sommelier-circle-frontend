@@ -24,11 +24,11 @@ const UserSearchBar = () => {
     fetchUsersFromSearch();
   }, [query]);
   return (
-    <div className="col-start-2 col-span-1 row-start-1 flex flex-col items-center justify-start gap-4 mx-12 w-full max-w-[50rem] bg-neutral-900 rounded-md">
+    <div className="flex flex-col items-center justify-start gap-4 mx-12 w-3/4 max-w-[50rem] bg-neutral-900 rounded-md">
       <h2 className="text-5xl p-3 text-gray-100 bg-neutral-900 border-b">
         Search Users
       </h2>
-      <div className="flex justify-center items-center w-3/4">
+      <div className="flex justify-center items-center w-10/12">
         <div className="relative mb-8 w-full  items-center">
           {/* search bar */}
           <input
@@ -54,7 +54,7 @@ const UserSearchBar = () => {
         {/* clear search btn */}
         <button
           onClick={() => setQuery("")}
-          className=" border-neutral-200 border text-2xl ml-12 text-neutral-200 hover:bg-neutral-500 hover:border-neutral-500 transition-colors duration-200 ease-in-out px-4 py-2 mb-8 rounded-md "
+          className=" border-neutral-200 border md:text-2xl ml-12 text-neutral-200 hover:bg-neutral-500 hover:border-neutral-500 transition-colors duration-200 ease-in-out px-4 py-2 mb-8 rounded-md "
         >
           clear search
         </button>

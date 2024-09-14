@@ -19,7 +19,7 @@ import usePlacesContext from "../../context/places/usePlacesContext";
 ///////////////////////////
 const ShowLocation = () => {
   return (
-    <div className="w-full mt-80">
+    <div className="w-full mt-40 md:mt-80">
       <ShowLocationCard />
     </div>
   );

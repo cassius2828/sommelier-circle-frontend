@@ -12,7 +12,7 @@ const FavoriteBlogs = () => {
   const { scrollToTop } = useGlobalContext();
   const [isLoading, setIsLoading] = useState(false);
   const [display, setDisplay] = useState("list");
-
+  const windowWidth = window.innerWidth;
   const handleDisplayChange = (e) => {
     setDisplay(e.target.value);
   };
@@ -34,6 +34,9 @@ const FavoriteBlogs = () => {
     };
     fetchFavoriteBlogs();
     scrollToTop();
+    if (windowWidth < 768) {
+      setDisplay("full");
+    }
   }, []);
 
   if (isLoading) return <Loader />;

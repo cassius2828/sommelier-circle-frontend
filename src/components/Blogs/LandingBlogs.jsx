@@ -10,7 +10,7 @@ const LandingBlogs = () => {
       <h2 className="text-6xl text-gray-100 text-center mb-32 my-48">
         Explore Our Community Blogs
       </h2>
-      <div className="flex flex-col md:hidden items-center justify-center gap-12 mx-3">
+      <div className="flex flex-col md:hidden items-center justify-center md:gap-12 md:mx-3">
         {landingBlogs.map((blog, idx) => {
           if (idx % 2 === 0) {
             return <BlogHorz key={idx + blog?._id} blog={blog} imgRight />;
@@ -83,7 +83,7 @@ export const BlogFullSq = ({ size, blog }) => {
     >
       <div className="hover:brightness-50 transition-all duration-200 ease-in-out">
         <img
-          className="rounded-lg max-h-[50rem] overflow-hidden"
+          className="md:rounded-lg max-h-[50rem] overflow-hidden"
           src={blog?.img}
           alt={blog?.title}
         />
@@ -112,7 +112,7 @@ export const BlogFullSq = ({ size, blog }) => {
           </h3>
           <button
             className={`border absolute top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 px-6 py-2 ${
-              size === "sm" ? "text-xl" : "text-3xl"
+              size === "sm" ? "text-lg md:text-xl" : "text-xl md:text-3xl"
             } text-gray-100 bg-slate-600 rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-800 hover:text-white`}
           >
             read blog
@@ -133,7 +133,7 @@ export const BlogTall = ({ blog }) => {
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="flex flex-col items-center justify-start bg-neutral-900 text-gray-100 rounded-lg overflow-hidden relative h-full"
+      className="flex flex-col items-center justify-start bg-neutral-900 text-gray-100 md:rounded-lg overflow-hidden relative h-full"
     >
       <img src={blog?.img} alt={blog?.title} />
       <h3 className="text-3xl mt-12 text-center">{blog?.title}</h3>
@@ -152,7 +152,7 @@ export const BlogTall = ({ blog }) => {
         }`}
       >
         <Link to={`/blogs/${blog?._id}`}>
-          <button className="border absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 px-6 py-2 text-3xl text-gray-100 bg-slate-600 rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-800 hover:text-white">
+          <button className="border absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 px-6 py-2 text-xl md:text-3xl text-gray-100 bg-slate-600 rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-800 hover:text-white">
             read blog
           </button>
         </Link>
@@ -172,7 +172,7 @@ export const BlogHorz = ({ imgRight, blog }) => {
       onMouseLeave={() => setIsHovered(false)}
       className={`w-full flex ${
         imgRight ? "flex-row-reverse" : ""
-      } items-center justify-between gap-4  relative h-full bg-neutral-900 text-gray-100 rounded-lg overflow-hidden `}
+      } items-center justify-between gap-4  relative h-full bg-neutral-900 text-gray-100 md:rounded-lg overflow-hidden `}
     >
       <img
         className="w-1/2 h-full object-cover"
@@ -200,7 +200,7 @@ export const BlogHorz = ({ imgRight, blog }) => {
           <button
             className={`border lg:min-w-60 absolute top-1/2 ${
               imgRight ? "left-3/4" : "left-1/4"
-            } -translate-x-1/2 -translate-y-1/2 px-6 py-2 text-3xl text-gray-100 bg-slate-600 rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-800 hover:text-white`}
+            } -translate-x-1/2 -translate-y-1/2 px-6 py-2 text-xl md:text-3xl text-gray-100 bg-slate-600 rounded-md border-gray-800 transition-colors duration-300 hover:bg-gray-800 hover:text-white`}
           >
             read blog
           </button>

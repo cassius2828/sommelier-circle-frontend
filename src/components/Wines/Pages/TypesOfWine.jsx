@@ -52,7 +52,7 @@ const TypesOfWine = ({ blogId, allStyles }) => {
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row w-3/4 mx-auto justify-between gap-4">
+      <div className="flex flex-col lg:flex-row w-full md:w-3/4 mx-auto justify-between gap-4">
         <div>
           <ShowBlog propsBlogId={blogId} />
           <WineTable wines={winesByCategory} />

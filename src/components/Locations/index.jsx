@@ -45,7 +45,7 @@ const Locations = () => {
   }, []);
 
   return (
-    <div className="flex flex-col w-full  min-h-screen mt-80 items-center relative">
+    <div className="flex flex-col w-full  min-h-screen pt-12 mt-52 md:mt-80 items-center relative">
       <AutoCompleteInput />
 
       <div className="flex items-start gap-12 ">

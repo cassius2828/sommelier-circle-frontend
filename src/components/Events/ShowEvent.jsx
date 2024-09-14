@@ -11,7 +11,7 @@ import AddedToFavoritesModal from "../Modals/AddedToFavoritesModal";
 
 const EventDetailContainer = () => {
   return (
-    <div className="w-full mt-80">
+    <div className="w-full mt-40 md:mt-80">
       <EventDetail />
     </div>
   );

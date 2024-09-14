@@ -42,28 +42,4 @@ const ExploreBlogs = () => {
 
 export default ExploreBlogs;
 
-/*
-    <ul className="flex flex-wrap gap-4 w-full lg:w-[80vw] mx-auto justify-around">
-          {blogs?.map((blog, idx) => (
-            <li key={blog.title + idx}>
-              {display === "full" ? (
-                <MultipleBlogsFull
-                  path={`/blogs/${blog._id}`}
-                  title={blog.title}
-                  img={blog.img}
-                  content={blog.content}
-                  relativeTime={blog.relativeTime}
-                />
-              ) : (
-                <MultipleBlogsList
-                  path={`/blogs/${blog._id}`}
-                  title={blog.title}
-                  img={blog.img}
-                  relativeTime={blog.relativeTime}
-                />
-              )}
-            </li>
-          ))}
-        </ul>
 
-*/

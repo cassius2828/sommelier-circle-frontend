@@ -50,7 +50,7 @@ const Events = () => {
   }, []);
 
   return (
-    <div className="flex flex-col w-full min-h-screen mt-80 items-center">
+    <div className="flex flex-col w-full min-h-screen pt-12 mt-52 md:mt-80 items-center">
       <h1 className="text-8xl text-gray-100 mb-12">Events</h1>
       <div className="w-1/2 mx-auto">
         <div className="flex justify-center items-center">

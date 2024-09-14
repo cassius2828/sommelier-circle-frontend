@@ -4,7 +4,7 @@ import useGlobalContext from "../../context/global/useGlobalContext";
 const SearchBar = ({ value, handleChange }) => {
   const { formData, setFormData } = useGlobalContext();
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center w-full md:w-1/2">
       <div className="relative mb-8 w-1/2  items-center">
         {/* search bar */}
         <input

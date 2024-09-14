@@ -9,7 +9,7 @@ const Hero = () => {
         id="Hero"
         className="bg-theme-dn text-gray-100 p-8 w-screen h-screen flex flex-col items-center justify-center relative"
       >
-        <div className="relative right-28 z-10 flex flex-col items-center justify-around">
+        <div className="relative md:right-28 z-10 flex flex-col items-center justify-around">
           <h1 className="text-7xl font-bold mb-4">
             Welcome to Sommelier Circle
           </h1>
