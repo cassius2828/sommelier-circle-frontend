@@ -70,7 +70,7 @@ export const getNearbyWinePlaces = async () => {
         radius: 5000,
         type: "restaurant|bar|winery",
         keyword: "wine",
-        key: import.meta.env.VITE_GOOGLE_PLACES_API_KEY,
+ 
       },
     });
 
@@ -93,7 +93,7 @@ export const getPhotosOfLocation = async (photo_reference, deviceWidth) => {
       {
         params: {
           photo_reference,
-          key: import.meta.env.VITE_GOOGLE_PLACES_API_KEY,
+   
           deviceWidth,
         },
       }
