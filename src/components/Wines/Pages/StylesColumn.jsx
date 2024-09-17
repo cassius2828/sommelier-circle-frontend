@@ -1,11 +1,10 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
+
+import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import useGlobalContext from "../../../context/global/useGlobalContext";
 import useBlogContext from "../../../context/blog/useBlogContext";
-import { useEffect } from "react";
 
-const StylesColumn = ({ style }) => {
+const StylesColumn = () => {
   const { wineCategories } = useGlobalContext();
   const { fetchStyleBlogPaths } = useBlogContext();
   const location = useLocation();

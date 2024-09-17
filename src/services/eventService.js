@@ -20,7 +20,6 @@ export const postCreateEvent = async (formData, userId) => {
 
   try {
     const response = await axios.post(url, completeFormData, options);
-    // console.log(response, " <-- response");
     if (response.ok) {
       return response.data;
     }
@@ -41,14 +40,12 @@ export const getExploreEvents = async (userId, query) => {
       const response = await axios.get(
         EVENT_BASE_URL + `?userId=${userId}&searchQuery=${query}`
       );
-      console.log(response.data);
       if (response.data.message) {
         return response.data.message;
       }
       return response.data;
     } else {
       const response = await axios.get(EVENT_BASE_URL + `?userId=${userId}`);
-      console.log(response.data);
       if (response.data.message) {
         return response.data.message;
       }
@@ -74,14 +71,12 @@ export const getExploreEvents = async (userId, query) => {
 ///////////////////////////
 
 export const getUserEvents = async (userId, searchQuery) => {
-
   try {
     if (searchQuery) {
       const url =
         EVENT_BASE_URL +
         `/user-events/?userId=${userId}&searchQuery=${searchQuery}`;
       const response = await axios.get(url);
-      console.log(response.data);
       if (response.data.message) {
         return response.data.message;
       }
@@ -89,13 +84,12 @@ export const getUserEvents = async (userId, searchQuery) => {
     } else {
       const url = EVENT_BASE_URL + `/user-events/?userId=${userId}`;
       const response = await axios.get(url);
-      console.log(response.data);
       if (response.data.message) {
         return response.data.message;
       }
       return response.data;
     }
-  } catch (err)  {
+  } catch (err) {
     if (err.response && err.response.data && err.response.data.message) {
       // Handle the error response from the server
       console.log("Error response:", err.response);
@@ -118,7 +112,6 @@ export const getEventDetails = async (eventId) => {
   const url = EVENT_BASE_URL + `/${eventId}`;
   try {
     const response = await axios.get(url);
-    console.log(response.data);
     return response.data;
   } catch (err) {
     console.error(err);
@@ -143,7 +136,6 @@ export const putEditEvent = async (formData, eventId, userId) => {
   try {
     const response = await axios.put(url, completeFormData, options);
 
-    console.log(response.data);
     return response.data;
   } catch (err) {
     console.error(err);
@@ -162,20 +154,9 @@ export const getExploreEventByCity = async (city, userId) => {
   try {
     const response = await axios.get(url);
 
-    console.log(response.data);
     return response.data;
   } catch (err) {
     console.error(err);
     console.log(`Unable to communicate with MongoDb to filter explore events`);
   }
 };
-
-// export const getEventByNameSearch = async (query) => {
-//   try {
-//     const response = await axios.get(EVENT_BASE_URL + `?searchQuery=${query}`)
-//   } catch (err) {
-//     console.error(err);
-//     console.log(`Unable to communicate with MongoDb to filter explore events by name search`);
-//   }
-
-// }

@@ -5,9 +5,9 @@ import { NavListItem } from "./NavListItem";
 export const NavBarTop = () => {
   const { user } = useAuthContext();
   const { handleLogout } = useAuthContext();
-
   const location = useLocation();
   const isRoot = location.pathname === "/";
+  
   if (isRoot) return;
   return (
     <>

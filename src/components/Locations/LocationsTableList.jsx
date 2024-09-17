@@ -1,30 +1,27 @@
-import { Link } from "react-router-dom";
-import usePlacesContext from "../../context/places/usePlacesContext";
-import { Star } from "../CommonComponents/StarList";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
+// context
 import useAuthContext from "../../context/auth/useAuthContext";
 import useGlobalContext from "../../context/global/useGlobalContext";
+// components
+import { Star } from "../CommonComponents/StarList";
 import AddedToFavoritesModal from "../Modals/AddedToFavoritesModal";
-import { deleteItemIndexedDB } from "../../utils/indexedDB.config";
 
 const LocationsTableList = ({ rooms }) => {
-  // const { rooms } = usePlacesContext();
-  const { handleRefreshFavLocationCache, favoritesMessage, setFavoritesMessage } =
-    useGlobalContext();
+  const {
+    handleRefreshFavLocationCache,
+    favoritesMessage,
+    setFavoritesMessage,
+  } = useGlobalContext();
   const { user } = useAuthContext();
 
-
-
-  useEffect(() => {
-    console.log(user, " <-- LOCATIONS");
-  }, []);
   return (
     <div className="overflow-x-auto mb-24 bg-[#111213]">
       <table className="min-w-full bg-[#111213] border border-gray-700">
         {/* head */}
         <thead>
           <tr>
-          <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
+            <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
               Name
             </th>
             <th className="py-2 px-4 border-b border-gray-700 text-gray-100 text-xl">
@@ -53,8 +50,7 @@ const LocationsTableList = ({ rooms }) => {
             <tr key={location.place_id + idx} className="hover:bg-gray-800">
               {/* location.result name */}
               <td className="py-2 px-4  border-b border-gray-700 text-center  gap-4 text-gray-100 text-xl">
-
-              <img
+                <img
                   className="w-20 h-20 object-cover mx-auto"
                   src={location.photo}
                   alt=""

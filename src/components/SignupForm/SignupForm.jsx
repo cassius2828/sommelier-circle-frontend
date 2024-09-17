@@ -1,14 +1,12 @@
-/* eslint-disable react/prop-types */
-// SignupForm.jsx
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+// services
 import { signup } from "../../services/authService";
+//  context
 import useAuthContext from "../../context/auth/useAuthContext";
 
 const SignupForm = () => {
-  const { setUser } = useAuthContext();
-  const navigate = useNavigate();
+  const [photo, setPhoto] = useState("");
   const [message, setMessage] = useState([""]);
   const [formData, setFormData] = useState({
     username: "",
@@ -16,21 +14,30 @@ const SignupForm = () => {
     password: "",
     passwordConf: "",
   });
+  const { username, email, password, passwordConf } = formData;
+  // hooks
+  const { setUser } = useAuthContext();
+  const navigate = useNavigate();
 
-  const [photo, setPhoto] = useState("");
-
+  ///////////////////////////
+  // Update Message
+  ///////////////////////////
   const updateMessage = (msg) => {
     setMessage(msg);
   };
-
+  ///////////////////////////
+  // Handle Change
+  ///////////////////////////
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  ///////////////////////////
+  // Handle Submit
+  ///////////////////////////
   const handleSubmit = async (e) => {
     e.preventDefault();
     updateMessage("");
-    console.log(formData); // this line will print the form data to the console
 
     // We need to create FormData, because we have to send a multipart/form-data request
     const dataToSendToServer = new FormData();
@@ -49,12 +56,16 @@ const SignupForm = () => {
     }
   };
 
-  const { username, email, password, passwordConf } = formData;
-
+  ///////////////////////////
+  // Form Validation
+  ///////////////////////////
   const isFormInvalid = () => {
     return !(username && password && password === passwordConf);
   };
 
+  ///////////////////////////
+  // Hanlde File Input
+  ///////////////////////////
   function handleFileInput(e) {
     console.log(e.target.files);
     setPhoto(e.target.files[0]);
@@ -66,6 +77,7 @@ const SignupForm = () => {
         <h1 className="text-3xl text-gray-100 mb-4 text-center">Sign Up</h1>
         <p className="text-gray-100 mb-4 text-center">{message}</p>
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* username */}
           <div>
             <label htmlFor="username" className="block text-gray-100 mb-2">
               Username:
@@ -79,6 +91,7 @@ const SignupForm = () => {
               className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
             />
           </div>
+          {/* email */}
           <div>
             <label htmlFor="email" className="block text-gray-100 mb-2">
               Email:
@@ -92,6 +105,7 @@ const SignupForm = () => {
               className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
             />
           </div>
+          {/* password */}
           <div>
             <label htmlFor="password" className="block text-gray-100 mb-2">
               Password:
@@ -105,6 +119,7 @@ const SignupForm = () => {
               className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
             />
           </div>
+          {/* confirm password */}
           <div>
             <label htmlFor="confirm" className="block text-gray-100 mb-2">
               Confirm Password:
@@ -118,6 +133,7 @@ const SignupForm = () => {
               className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
             />
           </div>
+          {/* profile picture */}
           <div>
             <label htmlFor="profile-pic" className="block text-gray-100 mb-2">
               Profile Picture:
@@ -129,6 +145,7 @@ const SignupForm = () => {
               className="w-full p-2 border border-gray-300 text-gray-100 rounded-md focus:outline-none focus:border-[#e8d1ae]"
             />
           </div>
+          {/* action btns */}
           <div className="flex justify-between items-center">
             <button
               type="submit"

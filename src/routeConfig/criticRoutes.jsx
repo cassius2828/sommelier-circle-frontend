@@ -1,4 +1,3 @@
-// src/routes/criticRoutes.js
 import { lazy } from "react";
 import FavoriteCritics from "../components/Critics/FavoriteCritics";
 

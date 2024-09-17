@@ -1,10 +1,6 @@
-/* eslint-disable react/prop-types */
-// src/components/WineStyles.jsx
-
 import { useEffect } from "react";
-import useGlobalContext from "../../context/global/useGlobalContext";
 import { Link } from "react-router-dom";
-import SearchBar from "../CommonComponents/SearchBar";
+import useGlobalContext from "../../context/global/useGlobalContext";
 
 ////////////////////
 // CategoryGallery Component
@@ -96,12 +92,9 @@ const CategoryGallery = ({ category }) => {
       break;
   }
 
-  console.log(`Title: ${title}, Show Footer: ${showFooter}`);
-
   return (
     <div className="bg-neutral-950 text-gray-100 min-h-screen p-8 mt-52">
       <div className="max-w-[120rem] mx-auto mt-12 md:mt-24">
-        {/* <SearchBar /> */}
         {/* Header */}
         <h1 className="text-4xl font-bold mb-8 text-center">{title}</h1>
         {/* Categories */}
@@ -132,7 +125,11 @@ const CategoryGallery = ({ category }) => {
       </div>
       {/* extra info box */}
       <div className="mb-12 bg-neutral-900 p-6 rounded-md max-w-[120rem] mx-auto flex flex-col md:flex-row items-center md:justify-between gap-12">
-        <img className="rounded-md w-full md:w-1/2 object-cover" src={learnMoreImg} alt="" />
+        <img
+          className="rounded-md w-full md:w-1/2 object-cover"
+          src={learnMoreImg}
+          alt=""
+        />
 
         <div className="flex flex-col items-center justify-between">
           <div>

@@ -1,6 +1,5 @@
-
-
 const AddedToFavoritesModal = ({ message, setMessage }) => {
+
   const handleClose = () => {
     setMessage("");
   };
@@ -13,7 +12,12 @@ const AddedToFavoritesModal = ({ message, setMessage }) => {
         >
           x
         </span>{" "}
-        <h2 id="modal-text" className="text-2xl mb-4 text-gray-100 font-serif text-center">{message}</h2>
+        <h2
+          id="modal-text"
+          className="text-2xl mb-4 text-gray-100 font-serif text-center"
+        >
+          {message}
+        </h2>
         <div className="flex justify-end space-x-4">
           <button
             onClick={handleClose}

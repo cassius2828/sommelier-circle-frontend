@@ -1,12 +1,11 @@
-// src/main.jsx
-
-import { BrowserRouter } from "react-router-dom"; // import BrowserRouter
 import React from "react";
+import { BrowserRouter } from "react-router-dom";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
+// styles
 import "./index.css";
 import "react-quill/dist/quill.snow.css";
-
+// providers
 import { AuthProvider } from "./context/auth/AuthContext.jsx";
 import { BlogProvider } from "./context/blog/BlogContext.jsx";
 import { GlobalProvider } from "./context/global/GlobalProvider.jsx";

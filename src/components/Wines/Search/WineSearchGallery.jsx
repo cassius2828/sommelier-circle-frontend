@@ -1,7 +1,8 @@
-/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import SearchBar from "../../CommonComponents/SearchBar";
+// context
 import useGlobalContext from "../../../context/global/useGlobalContext";
+// components
+import SearchBar from "../../CommonComponents/SearchBar";
 import { FilterComponent } from "./FilterComponent";
 import Loader from "../../CommonComponents/Loader";
 import WineCard from "../WineCard";
@@ -10,6 +11,7 @@ import WineCard from "../WineCard";
 // WineSearch Component
 //////////////////////////////
 const WineSearch = () => {
+  const [currentPage, setCurrentPage] = useState(1);
   const {
     wines,
     fetchWines,
@@ -21,7 +23,6 @@ const WineSearch = () => {
     scrollToTop,
   } = useGlobalContext();
 
-  const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
   let winePageBtnsLength = Math.ceil(wines.length / itemsPerPage + 2);
 

@@ -1,13 +1,9 @@
-/* eslint-disable react/prop-types */
-
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import StarList from "../CommonComponents/StarList";
-import { useEffect, useState } from "react";
 import { getSelectedWine } from "../../services/wineService";
 
-const FeaturedWineCard = ({
-wineId
-}) => {
+const FeaturedWineCard = ({ wineId }) => {
   const [wine, setWine] = useState({});
 
   useEffect(() => {
@@ -15,7 +11,7 @@ wineId
       const data = await getSelectedWine(wineId);
       setWine(data);
     };
-    fetchWine()
+    fetchWine();
   }, []);
 
   return (
@@ -65,5 +61,3 @@ wineId
 };
 
 export default FeaturedWineCard;
-
-

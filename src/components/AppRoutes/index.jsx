@@ -7,7 +7,7 @@ import Loader from "../CommonComponents/Loader.jsx";
 
 const AppRoutes = () => {
   return (
-    <Suspense fallback={<Loader/>}>
+    <Suspense fallback={<Loader />}>
       <Routes>
         {routes.map((route, idx) => (
           <Route key={idx} path={route.path} element={route.element} />

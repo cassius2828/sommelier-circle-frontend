@@ -1,9 +1,6 @@
-/* eslint-disable react/prop-types */
-import { UilStar } from "@iconscout/react-unicons";
-
 const StarList = ({ absolute, criticScore = 90, bgColor = "gray-50" }) => {
   const widthToCover = (100 - criticScore).toString();
- 
+
   return (
     <div
       className={`relative stars-container w-48 flex text-gray-800 ${
@@ -16,7 +13,7 @@ const StarList = ({ absolute, criticScore = 90, bgColor = "gray-50" }) => {
       <Star />
       <Star />
       <div
-      style={{ width: `${widthToCover}%` }}
+        style={{ width: `${widthToCover}%` }}
         className={`absolute top-0 right-0  h-full bg-${bgColor}`}
       ></div>
     </div>
@@ -24,7 +21,7 @@ const StarList = ({ absolute, criticScore = 90, bgColor = "gray-50" }) => {
 };
 export default StarList;
 
-export const Star = ({width=10}) => {
+export const Star = ({ width = 10 }) => {
   return (
     <svg
       className={`w-${width}`}

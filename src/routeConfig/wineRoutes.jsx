@@ -82,7 +82,9 @@ const wineRoutes = [
     ),
   },
 
-  // regions
+  ///////////////////////////
+  // Regions
+  ///////////////////////////
   {
     path: "wines/regions/napa-valley",
     element: <TypesOfWine allStyles blogId={`6692415bd74ed7e5212b8e19`} />,
@@ -144,7 +146,9 @@ const wineRoutes = [
     element: <TypesOfWine allStyles blogId={`6692f3bbd74ed7e5212b8f83`} />,
   },
 
-  // grapes
+  ///////////////////////////
+  // Grapes
+  ///////////////////////////
   {
     path: "wines/grapes/cabernet-sauvignon",
     element: <TypesOfWine allStyles blogId={`6692f7a7d74ed7e5212b8fb3`} />,
@@ -186,7 +190,9 @@ const wineRoutes = [
     element: <TypesOfWine allStyles blogId={`669300b3d74ed7e5212b9011`} />,
   },
 
-  // wine types
+  ///////////////////////////
+  // Wine Types
+  ///////////////////////////
   {
     path: "wines/wine-types",
     element: <TypesOfWine allStyles blogId={`6691aea098a19fabd8baa1d4`} />,

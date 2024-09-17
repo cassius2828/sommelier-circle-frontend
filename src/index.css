@@ -329,7 +329,6 @@ h2 {
   }
 }
 
-
 /* /////////////////// */
 /* //! MEDIA QUERIES */
 /* /////////////////// */
@@ -382,6 +381,4 @@ h2 {
   .ql-editor li {
     line-height: 2.5rem; /* Adjust line height for paragraphs and lists */
   }
-
-
 }

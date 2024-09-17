@@ -13,8 +13,6 @@ export async function signup(formData) {
       throw new Error(data.err);
     }
 
-    console.log(data.token, " < - data.token");
-
     if (data.token) {
       // store the token! in localstorage
       localStorage.setItem("token", data.token);
@@ -97,18 +95,15 @@ export const refreshToken = async () => {
 ///////////////////////////
 
 export const getTokenFromGoogleOAuth = async () => {
-
   try {
     const response = await axios.get(`${BASE_URL}/auth/token`, {
       withCredentials: true,
     });
     const { token } = response.data;
-    console.log(token, ' <-- token, proof the function ran')
     if (token) {
       localStorage.setItem("token", token);
       const user = JSON.parse(atob(token.split(".")[1]));
-  return user.user;
-     
+      return user.user;
     } else return { message: "User was not authenitcated with google OAuth" };
   } catch (err) {
     console.error(`Error obtaining token err: ${err}`);

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 
-/* eslint-disable react/prop-types */
 const WineCategoryCard = ({ img, title, path }) => {
   return (
     <div className="h-[40rem] bg-theme-darkest pb-5 rounded-md overflow-hidden flex flex-col items-center justify-around border">

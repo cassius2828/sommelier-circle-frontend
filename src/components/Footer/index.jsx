@@ -1,13 +1,5 @@
-import React from "react";
-import {
-  UilFacebookF,
-  UilGithub,
-  UilInstagram,
-  UilTwitter,
-  //   UilTwitch,
-} from "@iconscout/react-unicons";
-import SocialIcons from "../Icons/Social-Icons";
 import { Link } from "react-router-dom";
+import { UilGithub } from "@iconscout/react-unicons";
 
 const sections = [
   {
@@ -24,18 +16,11 @@ const sections = [
   },
 ];
 
-const items = [
-  { name: "Facebook", icon: UilFacebookF, link: "https://www.facebook.com/" },
-  { name: "Instagram", icon: UilInstagram, link: "https://www.instagram.com/" },
-  { name: "Twitter", icon: UilTwitter, link: "https://twitter.com/" },
-  //   { name: "Twitch", icon: UilTwitch, link: "https://www.twitch.tv/" },
-  { name: "Github", icon: UilGithub, link: "https://github.com/" },
-];
-
 const Footer = () => {
   return (
     <div className="w-full mt-24 bg-black text-gray-300 py-y px-2">
       <div className="max-w-[1240px] mx-auto grid grid-cols-2 md:grid-cols-4 border-b-2 border-gray-600 md:py-8 p-8">
+        {/* footer sections */}
         {sections.map((section, index) => (
           <div key={index}>
             <h6 className="font-bold uppercase pt-2 text-xl">
@@ -59,6 +44,7 @@ const Footer = () => {
       </div>
 
       <div className="flex  max-w-[1240px] px-2 py-4 mx-auto items-center gap-8 justify-center md:justify-start sm:flex-row text-center text-gray-500">
+        {/* github link */}
         <p className="py-4">Developed by Cassius Reynolds</p>
         <Link
           className="text-[#e4dccc] hover:text-[#747464] transition-colors duration-200"

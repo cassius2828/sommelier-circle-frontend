@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import useEventsContext from "../../context/events/useEventsContext";
 import useGlobalContext from "../../context/global/useGlobalContext";
 import Loader from "../CommonComponents/Loader";
 import EventGalleryCard from "./EventGalleryCard";

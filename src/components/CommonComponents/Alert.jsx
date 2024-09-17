@@ -14,6 +14,9 @@ const Alert = ({ success, message }) => {
 };
 export default Alert;
 
+///////////////////////////
+// Fixed Alert
+///////////////////////////
 export const FixedAlert = ({ success, message }) => {
   if (success) {
     return (

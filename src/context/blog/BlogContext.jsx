@@ -1,5 +1,4 @@
-/* eslint-disable react/prop-types */
-import React, { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import useAuthContext from "../auth/useAuthContext";
 import useGlobalContext from "../global/useGlobalContext";
@@ -16,18 +15,18 @@ export const BlogContext = createContext();
 
 export const BlogProvider = ({ children }) => {
   const [blogs, setBlogs] = useState([]);
-  const [showBlog, setShowBlog] = useState({})
+  const [showBlog, setShowBlog] = useState({});
   const [communityBlogs, setCommunityBlogs] = useState([]);
   const [styleBlogs, setStyleBlogs] = useState([]);
   const [landingBlogs, setLandingBlogs] = useState([]);
   const [myBlogs, setMyBlogs] = useState([]);
+  // context
   const { setIsLoading } = useGlobalContext();
   const { user } = useAuthContext();
 
   ///////////////////////////////
   // Fetch Current User Blogs
   ///////////////////////////////
-
   const fetchCurrentUserBlogs = async () => {
     setIsLoading(true);
 
@@ -75,9 +74,9 @@ export const BlogProvider = ({ children }) => {
   const fetchCommunityBlogIds = async () => {
     await fetchAllBlogs();
     const blogIdList = blogs.map((blog) => blog._id);
-  
+
     setCommunityBlogs(blogIdList);
-    return blogIdList
+    return blogIdList;
   };
 
   ///////////////////////////
@@ -134,7 +133,9 @@ export const BlogProvider = ({ children }) => {
         fetchCommunityBlogIds,
         fetchStyleBlogPaths,
         communityBlogs,
-        styleBlogs,showBlog,setShowBlog
+        styleBlogs,
+        showBlog,
+        setShowBlog,
       }}
     >
       {children}

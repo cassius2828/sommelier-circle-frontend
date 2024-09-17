@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react";
-import { getSearchUsers } from "../../services/profileService";
 import { Link } from "react-router-dom";
+import { getSearchUsers } from "../../services/profileService";
 
 const UserSearchBar = () => {
   const [query, setQuery] = useState("");
   const [users, setUsers] = useState([]);
+  ///////////////////////////
+  // Handle Change
+  ///////////////////////////
   const handleChange = (e) => {
     const { value } = e.target;
     setQuery(value);
     console.log(query);
   };
 
+  ///////////////////////////
+  // Fetch Users From Search
+  ///////////////////////////
   useEffect(() => {
     const fetchUsersFromSearch = async () => {
       try {
@@ -64,7 +70,11 @@ const UserSearchBar = () => {
         {query.length !== 0 && (
           <ul className="flex flex-col items-center justify-start w-full">
             {users.map((user, idx) => (
-              <Link className="w-full" key={user.username + idx} to={`/profiles/${user._id}`}>
+              <Link
+                className="w-full"
+                key={user.username + idx}
+                to={`/profiles/${user._id}`}
+              >
                 <li className="p-4 hover:bg-neutral-600 bg-neutral-800  w-full text-gray-100 text-2xl">
                   {user.username}
                 </li>

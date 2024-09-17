@@ -49,6 +49,7 @@ const DisplayEvents = ({
             >
               filter by
             </button>
+            {/* filters */}
             {showFilters && (
               <ul className="w-full absolute top-full bg-blue-500 flex flex-col items-center justify-start rounded-md">
                 <li

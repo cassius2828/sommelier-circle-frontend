@@ -7,7 +7,9 @@ const FeaturedCriticsGallery = () => {
   const [critics, setCritics] = useState([]);
   const [message, setMessage] = useState("");
 
+  ///////////////////////////
   // fetch featured critics
+  ///////////////////////////
   const fetchFeaturedCritics = async () => {
     try {
       const data = await getFeaturedCritics();

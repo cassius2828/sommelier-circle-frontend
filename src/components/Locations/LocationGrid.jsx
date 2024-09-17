@@ -1,15 +1,13 @@
-
 import { useEffect } from "react";
+// context
 import useAuthContext from "../../context/auth/useAuthContext";
 import usePlacesContext from "../../context/places/usePlacesContext";
+// compoents
 import Loader from "../CommonComponents/Loader";
 import { LocationCard } from "./LocationCard";
 
 export const LocationsGrid = () => {
-  const { locations,isLoading } = usePlacesContext();
-useEffect(() => {
-console.log(locations)
-},[locations])
+  const { locations, isLoading } = usePlacesContext();
   const { user } = useAuthContext();
   if (isLoading) return <Loader />;
   return (
@@ -24,7 +22,7 @@ console.log(locations)
           key={idx}
           isOpen={location.opening_hours.open_now}
           placeId={location.place_id}
-          currentUser={user&&user}
+          currentUser={user && user}
         />
       ))}
     </div>

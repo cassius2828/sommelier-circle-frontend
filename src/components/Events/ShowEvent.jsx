@@ -1,12 +1,15 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+// context
+import useGlobalContext from "../../context/global/useGlobalContext";
+import useAuthContext from "../../context/auth/useAuthContext";
+// service
+import { getEventDetails } from "../../services/eventService";
+// components
+import TicketModal from "./Tickets/TicketModal";
+import ShowRoomImageCarousel from "../Locations/ShowLocationImgCarousel";
 import Loader from "../CommonComponents/Loader";
 import { Star } from "../CommonComponents/StarList";
-import { useEffect, useState } from "react";
-import useGlobalContext from "../../context/global/useGlobalContext";
-import ShowRoomImageCarousel from "../Locations/ShowLocationImgCarousel";
-import { getEventDetails } from "../../services/eventService";
-import TicketModal from "./Tickets/TicketModal";
-import useAuthContext from "../../context/auth/useAuthContext";
 import AddedToFavoritesModal from "../Modals/AddedToFavoritesModal";
 
 const EventDetailContainer = () => {

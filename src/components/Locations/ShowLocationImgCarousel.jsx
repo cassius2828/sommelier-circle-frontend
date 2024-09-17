@@ -7,9 +7,10 @@ const ShowLocationImageCarousel = ({
 }) => {
   const [indexOfPhotoArr, setIndexOfPhotoArr] = useState(0);
   const endOfPhotoArr = photos.length - 1;
+  ///////////////////////////
   // handle carousel slide based on action
+  ///////////////////////////
   const handleCarouselChange = (action) => {
-    console.log("click");
     if (action === "next") {
       if (indexOfPhotoArr < endOfPhotoArr)
         setIndexOfPhotoArr((prev) => prev + 1);

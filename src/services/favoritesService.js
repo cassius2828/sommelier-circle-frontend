@@ -10,9 +10,7 @@ export const addItemToFavorites = async (userId, itemId, itemType) => {
     userId,
     itemId,
   };
-  console.log(userId, " <-- userId");
-  console.log(itemId, " <-- itemId");
-  console.log(itemType, " <-- itemType");
+
   try {
     const response = await axios.post(FAVS_BASE_URL + `/${itemType}`, data);
 
@@ -79,7 +77,6 @@ export const getFavoriteItems = async (userId, itemType) => {
       `${FAVS_BASE_URL}/${itemType}?userId=${userId}`
     );
     if (response.data.message) {
-      console.log(response.data.messgae, ' <-- message')
       return response.data.message;
     }
 
@@ -100,8 +97,6 @@ export const addLocationsItemToFavorites = async (userId, placeId) => {
     userId,
     placeId,
   };
-  console.log(userId, " <-- userId");
-  console.log(placeId, " <-- placeId");
 
   try {
     const response = await axios.post(FAVS_BASE_URL + `/locations`, data);
@@ -127,7 +122,7 @@ export const addLocationsItemToFavorites = async (userId, placeId) => {
 ///////////////////////////
 export const deleteLocationsRemoveItemFromFavorites = async (
   userId,
-  placeId,
+  placeId
 ) => {
   const data = {
     userId,
@@ -158,8 +153,10 @@ export const deleteLocationsRemoveItemFromFavorites = async (
 ///////////////////////////
 export const getLocationsFavoriteItems = async (userId) => {
   try {
-    const response = await axios.get(`${FAVS_BASE_URL}/locations?userId=${userId}`);
-    console.log(response.data, ' <-- service response')
+    const response = await axios.get(
+      `${FAVS_BASE_URL}/locations?userId=${userId}`
+    );
+
     if (response.data.message) {
       return response.data.message;
     }

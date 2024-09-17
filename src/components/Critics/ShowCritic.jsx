@@ -1,21 +1,31 @@
+// React and Hooks
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+// Services
 import { getCriticDetails } from "../../services/criticService";
+// Icons
 import { UilStar } from "@iconscout/react-unicons";
-
+// Components
 import LoaderSpin from "../CommonComponents/LoaderSpin";
 import AddedToFavoritesModal from "../Modals/AddedToFavoritesModal";
+// Context and Hooks
 import useGlobalContext from "../../context/global/useGlobalContext";
 import useAuthContext from "../../context/auth/useAuthContext";
 
 const ShowCritic = () => {
-  const { criticId } = useParams();
   const [criticDetails, setCriticDetails] = useState({});
+  const { img, name, awards, experience, bio } = criticDetails;
+  // context
   const { favoritesMessage, setFavoritesMessage, handleAddToFavorites } =
     useGlobalContext();
-    const {user} = useAuthContext()
+  const { user } = useAuthContext();
+  // hooks
+  const { criticId } = useParams();
   const navigate = useNavigate();
-  const { img, name, awards, experience, bio } = criticDetails;
+
+  ///////////////////////////
+  // Fetch Critic Details
+  ///////////////////////////
   const fetchCriticDetails = async () => {
     try {
       const data = await getCriticDetails(criticId);
@@ -36,6 +46,7 @@ const ShowCritic = () => {
   return (
     <div className="p-4 bg-neutral-900 flex flex-col md:flex-row max-w-[90rem] pt-12 mt-52 md:mt-80 mx-auto relative">
       <div className="w-full md:ml-8">
+        {/* image */}
         {img ? (
           <img
             className="h-full object-cover"
@@ -54,12 +65,12 @@ const ShowCritic = () => {
         <div className="w-full md:w-3/4">
           <h3 className="text-4xl text-center">{name}</h3>
         </div>
-
+        {/* exp */}
         <div className="flex justify-start items-center gap-12 w-full md:w-3/4 md:ml-auto mt-8">
           <h4 className="text-3xl text-center">Experience: </h4>{" "}
           <span className="text-2xl"> {experience} years</span>
         </div>
-
+        {/* awards */}
         <div className="flex flex-col items-start justify-between w-full md:w-3/4 md:ml-auto my-8">
           <h4 className="text-3xl text-center mb-8">Awards:</h4>
 
@@ -72,6 +83,7 @@ const ShowCritic = () => {
 
         <p className="p-8 text-2xl">{bio}</p>
       </div>{" "}
+      {/* action btns */}
       <button
         onClick={() => navigate(-1)}
         className="md:absolute  -bottom-52 left-1/2 md:-translate-x-1/2 text-3xl w-full md:w-1/3 mx-auto my-12 bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"

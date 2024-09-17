@@ -1,11 +1,8 @@
 import { NavLink, useLocation } from "react-router-dom";
-
-import useAuthContext from "../../context/auth/useAuthContext";
 import { NavBarTop } from "../NavBar/NavBarTop";
 
 const Header = () => {
   const location = useLocation();
-  const { handleLogout } = useAuthContext();
   const isRoot = location.pathname === "/";
   return (
     <header
@@ -26,7 +23,6 @@ const Header = () => {
           alt="logo"
         />
       </div>
-
       <NavBarTop />
     </header>
   );

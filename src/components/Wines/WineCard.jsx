@@ -1,9 +1,5 @@
-/* eslint-disable react/prop-types */
-
 import { Link } from "react-router-dom";
 import StarList from "../CommonComponents/StarList";
-import { useEffect, useState } from "react";
-import { getSelectedWine } from "../../services/wineService";
 
 const WineCard = ({
   name,
@@ -14,10 +10,7 @@ const WineCard = ({
   avgPrice,
   criticScore,
   linkToBuy,
- 
 }) => {
-
-
   return (
     <div className="bg-gray-50 p-5 pb-12 max-w-[45rem] grid grid-cols-3 grid-rows-4 relative rounded-md gap-4">
       {/* Image */}
@@ -64,4 +57,4 @@ const WineCard = ({
   );
 };
 
-export default WineCard
+export default WineCard;

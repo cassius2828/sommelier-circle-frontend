@@ -6,22 +6,11 @@ Current Issues
 ///////////////////////////
 Tips
 ///////////////////////////
-____________________________
-Fixed Navbar Spacing
-____________________________
-The height of the header / navbar is 13rem, so for the mt for all components affected by its 
-fixed position, give them a mt-52 
 
 
 ///////////////////////////
 Things to Do
 ///////////////////////////
-- add ability to edit profile info
-** done except for updating image and deleting current s3 image
-- set up favorites (ensure model relationships are adequate and create the CRUD for favorites of all given categories )
-- ensure mobile responsiveness
-
-- MAYBE: create a context for critics or add critic info into the global context 
 
 Extra:
 - refactor contexts to use reducer functions 

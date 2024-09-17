@@ -1,20 +1,27 @@
+// Third-Party Libraries
 import DOMPurify from "dompurify";
-import SocialIcons from "../Icons/Social-Icons";
-import { useEffect, useState } from "react";
-import EditOrDeleteModal from "../Modals/EditOrDelete";
-import useAuthContext from "../../context/auth/useAuthContext";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import useGlobalContext from "../../context/global/useGlobalContext";
 import { UilStar } from "@iconscout/react-unicons";
+import { useEffect, useState } from "react";
+// Context and Hooks
+import useAuthContext from "../../context/auth/useAuthContext";
+import useGlobalContext from "../../context/global/useGlobalContext";
+import useBlogContext from "../../context/blog/useBlogContext";
+// Services
+import { getBlog } from "../../services/blogService";
+// Components
+import SocialIcons from "../Icons/Social-Icons";
+import EditOrDeleteModal from "../Modals/EditOrDelete";
 import AddedToFavoritesModal from "../Modals/AddedToFavoritesModal";
 import { FixedAlert } from "../CommonComponents/Alert";
-import useBlogContext from "../../context/blog/useBlogContext";
-import { getBlog } from "../../services/blogService";
 import Loader from "../CommonComponents/Loader";
 
 const Blog = ({ propsBlogId }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isCopiedMessage, setIsCopiedMessage] = useState("");
+  // auth context
   const { user } = useAuthContext();
+  // blog context
   const {
     styleBlogs,
     communityBlogs,
@@ -22,22 +29,25 @@ const Blog = ({ propsBlogId }) => {
     setShowBlog,
     fetchCommunityBlogIds,
   } = useBlogContext();
-  const { scrollToTop } = useGlobalContext();
-  const [isCopiedMessage, setIsCopiedMessage] = useState("");
+  // global context
   const {
     handleAddToFavorites,
     favoritesMessage,
     setFavoritesMessage,
     isLoading,
     setIsLoading,
+    scrollToTop,
   } = useGlobalContext();
+  // hooks
   const navigate = useNavigate();
   const { blogId } = useParams();
   const location = useLocation();
+  // variables
   const totalBlogsLength = communityBlogs.length;
   const currentBlogIdx = communityBlogs.indexOf(blogId);
   const currentStyleBlogIdx = styleBlogs.indexOf(location.pathname);
   let blogType;
+  // handle navigation based on blog type
   if (blogId) {
     blogType = "community";
   } else {
@@ -45,6 +55,7 @@ const Blog = ({ propsBlogId }) => {
   }
   const handleBlogNavigation = async (direction) => {
     if (blogType === "community") {
+      // refetch community blogs if they are not present on load
       if (communityBlogs.length === 0) {
         await fetchCommunityBlogIds();
       }
@@ -119,6 +130,9 @@ const Blog = ({ propsBlogId }) => {
     }
   };
 
+  ///////////////////////////
+  // Fetch Blogs
+  ///////////////////////////
   useEffect(() => {
     const fetchBlog = async () => {
       setIsLoading(true);
@@ -132,11 +146,12 @@ const Blog = ({ propsBlogId }) => {
         setIsLoading(false);
       }
     };
-
-    console.log(showBlog);
     fetchBlog();
   }, [blogId, propsBlogId]);
 
+  ///////////////////////////
+  // Refetch if community blogs do not extst, scroll to top, all when the id param changes
+  ///////////////////////////
   useEffect(() => {
     if (blogId && communityBlogs.length === 0) {
       fetchCommunityBlogIds();
@@ -154,22 +169,18 @@ const Blog = ({ propsBlogId }) => {
         subject={"blog"}
       />
       <div className="flex items-center gap-4  w-8/12 relative z-10  mx-auto text-gray-100 mt-20">
-        {/* hides admin photo and name for blogs that are a part of the encyclopedia */}
-        {user?._id.toString() !== "669190f598a19fabd8baa1a4" && (
-          <>
-            <Link
-              className="flex items-center gap-4"
-              to={`/profiles/${showBlog.owner?._id}`}
-            >
-              <img
-                className="rounded-full view-blog-img "
-                src={showBlog?.owner?.profileImg}
-                alt={showBlog?.owner?.username}
-              />
-              <span className="text-2xl">{showBlog.owner?.username}</span>{" "}
-            </Link>
-          </>
-        )}
+        {/* owner profile photo and  displayname */}
+        <Link
+          className="flex items-center gap-4"
+          to={`/profiles/${showBlog.owner?._id}`}
+        >
+          <img
+            className="rounded-full view-blog-img "
+            src={showBlog?.owner?.profileImg}
+            alt={showBlog?.owner?.username}
+          />
+          <span className="text-2xl">{showBlog.owner?.displayName}</span>{" "}
+        </Link>
       </div>
       <div className="blog-container relative p-5  ql-snow ql-editor w-full max-w-[90rem]  mx-auto mb-24">
         {user?._id.toString() === showBlog.owner?._id && (
@@ -182,6 +193,7 @@ const Blog = ({ propsBlogId }) => {
         )}
         {/* blog info */}
         <div className="flex gap-4 relative">
+          {/* title */}
           <h2 className=" text-5xl text-center text-gray-100">
             {showBlog.title}
           </h2>
@@ -189,10 +201,11 @@ const Blog = ({ propsBlogId }) => {
             {new Date(showBlog.createdAt).toLocaleDateString()}
           </span>
         </div>
+        {/* image */}
         {showBlog.img && (
           <img className="w-full mx- my-8" src={showBlog.img} alt="" />
         )}
-
+        {/* content */}
         <div
           className="preview test bg-gray-100 p-4  ql-editor  "
           dangerouslySetInnerHTML={{
@@ -235,6 +248,7 @@ const Blog = ({ propsBlogId }) => {
         </div>
         {/* blog nav btns */}
         <div className="blog-navigation flex items-center justify-between">
+          {/* prev */}
           <div className="prev-blog">
             <button
               onClick={() => handleBlogNavigation("prev")}
@@ -244,6 +258,7 @@ const Blog = ({ propsBlogId }) => {
               previous blog
             </button>
           </div>
+          {/* next */}
           <div className="next-blog">
             {" "}
             <button
@@ -255,7 +270,7 @@ const Blog = ({ propsBlogId }) => {
             </button>
           </div>
         </div>
-
+        {/* favorites modal */}
         {favoritesMessage && (
           <AddedToFavoritesModal
             message={favoritesMessage}

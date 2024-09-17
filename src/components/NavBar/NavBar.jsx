@@ -1,11 +1,8 @@
-/* eslint-disable react/prop-types */
-
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import useAuthContext from "../../context/auth/useAuthContext";
-
+// components
 import { NavBarDesktop } from "./NavBarDesktop";
 import NavBarMobile from "./NavBarMobile";
-import { useEffect, useState } from "react";
 
 const NavBar = () => {
   const location = useLocation();

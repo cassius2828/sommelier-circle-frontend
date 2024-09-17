@@ -1,4 +1,3 @@
-// src/routes/blogRoutes.js
 import { lazy } from "react";
 import FavoriteBlogs from "../components/Blogs/FavoriteBlogs";
 

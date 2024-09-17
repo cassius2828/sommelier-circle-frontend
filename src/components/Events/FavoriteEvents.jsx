@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { EventGrid } from "./EventGrid";
-
 import { useParams } from "react-router-dom";
+// context
 import useAuthContext from "../../context/auth/useAuthContext";
-
+// services
 import { getFavoriteItems } from "../../services/favoritesService";
+// components
+import { EventGrid } from "./EventGrid";
 import Loader from "../CommonComponents/Loader";
 
 const FavoriteEvents = () => {

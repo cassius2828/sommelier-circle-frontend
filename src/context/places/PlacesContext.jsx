@@ -1,19 +1,18 @@
-/* eslint-disable react/prop-types */
-import { createContext, useEffect, useReducer, useState } from "react";
-
+import { createContext, useReducer } from "react";
+// services
 import {
   getNearbyWinePlaces,
   getPhotosOfLocation,
   getPlaceDetails,
 } from "../../services/googlePlacesService";
-import useGlobalContext from "../global/useGlobalContext";
+// indexedDB
 import {
   getItemIndexedDB,
   setItemIndexedDB,
 } from "../../utils/indexedDB.config";
 
 export const PlacesContext = createContext();
-
+// initial state
 const initialState = {
   locations: [],
   locationDetails: {
@@ -55,8 +54,6 @@ export const PlacesProvider = ({ children }) => {
     initialState
   );
 
-  // const [events, setEvents] = useState([]);
-  // const [eventDetails, setEventDetails] = useState({});
   // ! Go to where isLoading is used for location specific events and change them to use
   // ! isLoading from this context
 
@@ -75,6 +72,10 @@ export const PlacesProvider = ({ children }) => {
       deviceWidth = "tablet";
       break;
   }
+
+  ///////////////////////////
+  // Fetch Locations With Cover Photo
+  ///////////////////////////
   const fetchLocationsWithCoverPhoto = async () => {
     dispatch({ type: "startLoading/locations" });
     // check for cached suggestions
@@ -90,7 +91,7 @@ export const PlacesProvider = ({ children }) => {
       dispatch({ type: "stopLoading/locations" });
       return;
     }
-// use backend to fetch info from google places
+    // use backend to fetch info from google places
     try {
       const locationList = await getNearbyWinePlaces();
       const updatedPlacesWithPhoto = await Promise.all(
@@ -104,7 +105,6 @@ export const PlacesProvider = ({ children }) => {
           return location;
         })
       );
-      // console.log(updatedPlacesWithPhoto, " <-- updatedPlaces");
       await setItemIndexedDB(
         "locationsWithPhotos",
         updatedPlacesWithPhoto,
@@ -114,8 +114,6 @@ export const PlacesProvider = ({ children }) => {
         type: "setLocations/locations",
         payload: updatedPlacesWithPhoto,
       });
-
-      console.log(locations);
     } catch (err) {
       console.error(err);
       console.log(
@@ -141,7 +139,6 @@ export const PlacesProvider = ({ children }) => {
       dispatch({ type: "startLoading/locations" });
 
       const data = await getPlaceDetails(locationId);
-      // console.log(data, ' <-- data for photo refs')
       //  asynchronously fetch photos
       const photoReferences = data?.photos.map(
         (photo) => photo.photo_reference
@@ -150,14 +147,6 @@ export const PlacesProvider = ({ children }) => {
         fetchLocationPhotos(photo_ref)
       );
       const photoResults = await Promise.all(photoPromises);
-      // console.log(photoResults, ' <-- photo results after going thorugh fetchLocation Photos')
-      // set state data
-      // setPhotos(photoResults);
-      // dispatch({type:'setPlaceDetailPhotos/locations', payload: photoResults})
-      // setPlaceDetails(data);
-      // console.log(photoResults, ' <-- photo results')
-      // console.log(data, ' <-- data')
-      // console.log(reducer, ' <-- data')
       const storageObject = {
         fetchedPhotos: photoResults,
         ...data, // Spread the properties of data into the storageObject
@@ -193,19 +182,6 @@ export const PlacesProvider = ({ children }) => {
     }
   };
 
-  // const fetchLocationDetails = async () => {
-  //   try {
-  //     console.log("fetching location details ");
-  //   } catch (err) {
-  //     console.error(err);
-  //     console.log(
-  //       `Unable to fetch location details from google place details api | Before service file`
-  //     );
-  //   }
-  // };
-
-
-
   return (
     <PlacesContext.Provider
       value={{
@@ -213,7 +189,8 @@ export const PlacesProvider = ({ children }) => {
         locationDetails,
         isLoading,
         fetchPlaceDetails,
-        fetchLocationsWithCoverPhoto,fetchLocationPhotos
+        fetchLocationsWithCoverPhoto,
+        fetchLocationPhotos,
       }}
     >
       {children}

@@ -3,15 +3,17 @@
 //////////////////////////////
 
 import { createContext, useReducer } from "react";
+// services
 import {
   getExploreEventByCity,
   getExploreEvents,
   getUserEvents,
 } from "../../services/eventService";
+// context
 import useAuthContext from "../auth/useAuthContext";
 
 export const EventsContext = createContext();
-
+// inital event state
 const initialEventsState = {
   exploreEvents: [],
   userEvents: [],
@@ -83,7 +85,14 @@ const reducer = (state, action) => {
 
 export const EventsProvider = ({ children }) => {
   const [
-    { exploreEvents, userEvents, displayEvents, eventDetails, eventForm,eventsMessage },
+    {
+      exploreEvents,
+      userEvents,
+      displayEvents,
+      eventDetails,
+      eventForm,
+      eventsMessage,
+    },
     dispatch,
   ] = useReducer(reducer, initialEventsState);
   const { user } = useAuthContext();
@@ -141,22 +150,19 @@ export const EventsProvider = ({ children }) => {
   ///////////////////////////
   // GET | User Events
   ///////////////////////////
-  const fetchUserEvents = async (userId,searchQuery) => {
+  const fetchUserEvents = async (userId, searchQuery) => {
     dispatch({ type: "startLoading/events" });
 
     try {
-      const data = await getUserEvents(userId,searchQuery);
+      const data = await getUserEvents(userId, searchQuery);
       if (data.message) {
         return dispatch({
           type: "setEventsMessage/events",
           payload: data.message,
         });
       }
-     
 
-          dispatch({ type: "getUserEvents/events", payload: data });
-      
-      //   dispatch({ type: "setDisplayEvents/events", payload: data });
+      dispatch({ type: "getUserEvents/events", payload: data });
     } catch (err) {
       console.error(err);
       console.log(`Unable to get user events from service function`);
@@ -164,7 +170,7 @@ export const EventsProvider = ({ children }) => {
       dispatch({ type: "stopLoading/events" });
     }
   };
-
+  // US states | name & abbr
   const states = [
     { code: "AL", name: "Alabama" },
     { code: "AK", name: "Alaska" },
@@ -236,7 +242,8 @@ export const EventsProvider = ({ children }) => {
         fetchExploreEvents,
         handleSelectCityFilter,
         setDisplayEvents,
-        fetchUserEvents,eventsMessage
+        fetchUserEvents,
+        eventsMessage,
       }}
     >
       {children}

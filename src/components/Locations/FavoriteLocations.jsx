@@ -3,10 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useGlobalContext from "../../context/global/useGlobalContext";
 import Loader from "../CommonComponents/Loader";
-import {
-  getFavoriteItems,
-  getLocationsFavoriteItems,
-} from "../../services/favoritesService";
+import { getLocationsFavoriteItems } from "../../services/favoritesService";
 import LocationsTableList from "./LocationsTableList";
 import { getPhotosOfLocation } from "../../services/googlePlacesService";
 import {
@@ -19,9 +16,10 @@ const FavoriteLocations = () => {
   const { userId } = useParams();
   const { scrollToTop } = useGlobalContext();
   const [isLoading, setIsLoading] = useState(false);
-  const favoriteRooms = [];
 
+  ///////////////////////////
   // fetch locations on render
+  ///////////////////////////
   useEffect(() => {
     const fetchFavoriteLocations = async () => {
       setIsLoading(true);
@@ -36,6 +34,7 @@ const FavoriteLocations = () => {
       }
       try {
         const data = await getLocationsFavoriteItems(userId, "locations");
+        // add photo key to obj
         const updatedLocationsWithCoverPhoto = await Promise.all(
           data.map(async (location) => {
             const photo = await getPhotosOfLocation(

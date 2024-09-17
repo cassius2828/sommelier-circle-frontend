@@ -1,9 +1,6 @@
 import { Link } from "react-router-dom";
-import useGlobalContext from "../../context/global/useGlobalContext";
 
-const WineTable = ({wines}) => {
-
-
+const WineTable = ({ wines }) => {
   return (
     <div className="overflow-x-auto mb-24">
       <table className="min-w-full bg-white border border-gray-200">

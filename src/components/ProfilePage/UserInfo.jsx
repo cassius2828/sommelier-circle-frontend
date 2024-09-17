@@ -1,26 +1,58 @@
-/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import useAuthContext from "../../context/auth/useAuthContext";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { getUser } from "../../services/authService";
+// context
+import useAuthContext from "../../context/auth/useAuthContext";
+import useGlobalContext from "../../context/global/useGlobalContext";
+// services
 import {
   checkIfFollowing,
   getUserDoc,
   postFollowUser,
   postUnfollowUser,
 } from "../../services/profileService";
-import useGlobalContext from "../../context/global/useGlobalContext";
+// components
 import Loader from "../CommonComponents/Loader";
 import { Icon } from "../Icons/Social-Icons";
 
-const UserInfo = ({ isSignedInUsersProfile, userProfile }) => {
+const UserInfo = ({ isSignedInUsersProfile }) => {
   const [userFromParams, setUserFromParams] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
-  const { isLoading, setIsLoading, scrollToTop } = useGlobalContext();
   const [isFollowing, setIsFollowing] = useState(false);
-  const { user, setUser, handleLogout } = useAuthContext();
+  // context
+  const { isLoading, setIsLoading, scrollToTop } = useGlobalContext();
+  const { user, handleLogout } = useAuthContext();
+  // hooks
   const { userId } = useParams();
   const navigate = useNavigate("/");
+
+  ///////////////////////////
+  // Handle Follow
+  ///////////////////////////
+  const handleFollow = async () => {
+    try {
+      await postFollowUser(user._id, userFromParams._id);
+      setIsFollowing(true);
+    } catch (err) {
+      console.error(err);
+      console.log(`Unable to follow user | UserInfo.jsx`);
+    }
+  };
+  ///////////////////////////
+  // Handle Unfollow
+  ///////////////////////////
+  const handleUnfollow = async () => {
+    try {
+      await postUnfollowUser(user._id, userFromParams._id);
+      setIsFollowing(false);
+    } catch (err) {
+      console.error(err);
+      console.log(`Unable to unfollow user | UserInfo.jsx`);
+    }
+  };
+
+  ///////////////////////////
+  // Fetch User From Params
+  ///////////////////////////
 
   useEffect(() => {
     const fetchUserFromParams = async () => {
@@ -28,7 +60,6 @@ const UserInfo = ({ isSignedInUsersProfile, userProfile }) => {
       try {
         const userData = await getUserDoc(userId);
         setUserFromParams(userData);
-
         const currentUserData = await getUserDoc(user._id);
         setCurrentUser(currentUserData);
       } catch (err) {
@@ -48,6 +79,9 @@ const UserInfo = ({ isSignedInUsersProfile, userProfile }) => {
   // checks if current user is following displayed user or not
   // useEffect with user dependencies to ensure it runs each time these users change so
   // state is fresh
+  ///////////////////////////
+  // Fetch If Following
+  ///////////////////////////
   useEffect(() => {
     const fetchIfFollowing = async () => {
       if (currentUser && userFromParams) {
@@ -58,30 +92,10 @@ const UserInfo = ({ isSignedInUsersProfile, userProfile }) => {
         setIsFollowing(followBoolean);
       }
     };
-console.log(userFromParams)
+    console.log(userFromParams);
     fetchIfFollowing();
   }, [currentUser, userFromParams]);
 
-  // handle follow
-  const handleFollow = async () => {
-    try {
-      await postFollowUser(user._id, userFromParams._id);
-      setIsFollowing(true);
-    } catch (err) {
-      console.error(err);
-      console.log(`Unable to follow user | UserInfo.jsx`);
-    }
-  };
-  // handle unfollow
-  const handleUnfollow = async () => {
-    try {
-      await postUnfollowUser(user._id, userFromParams._id);
-      setIsFollowing(false);
-    } catch (err) {
-      console.error(err);
-      console.log(`Unable to unfollow user | UserInfo.jsx`);
-    }
-  };
   if (isLoading) return <Loader />;
 
   return (
@@ -140,27 +154,28 @@ console.log(userFromParams)
           <ul>
             {isSignedInUsersProfile && (
               <li className="text-2xl my-4 ">
-                <span className="font-bold">Email:</span><br/>
+                <span className="font-bold">Email:</span>
+                <br />
                 {userFromParams?.email}
               </li>
             )}
             <li className="text-2xl my-4 ">
-              <span className="font-bold">Username:</span><br/>{" "}
-              {userFromParams?.username}
+              <span className="font-bold">Username:</span>
+              <br /> {userFromParams?.username}
             </li>
             <li className="text-2xl my-4 ">
-              <span className="font-bold">Display Name:</span><br/>{" "}
-              {userFromParams?.displayedName}
+              <span className="font-bold">Display Name:</span>
+              <br /> {userFromParams?.displayedName}
             </li>
           </ul>
           <ul>
             <li className="text-2xl my-4 ">
-              <span className="font-bold">Following:</span><br/>{" "}
-              {userFromParams?.following?.length}
+              <span className="font-bold">Following:</span>
+              <br /> {userFromParams?.following?.length}
             </li>
             <li className="text-2xl my-4 ">
-              <span className="font-bold">Followers:</span><br/>{" "}
-              {userFromParams?.followers?.length}
+              <span className="font-bold">Followers:</span>
+              <br /> {userFromParams?.followers?.length}
             </li>
           </ul>{" "}
         </div>{" "}
