@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -6,7 +5,6 @@ export const NavListItem = ({ dropDownItems, listItemText }) => {
   const [isHovered, setIsHovered] = useState(false);
   const logout = dropDownItems[1]?.onClick;
 
-  console.log(logout, "logout items");
   return (
     <div className="relative">
       <li

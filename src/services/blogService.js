@@ -33,7 +33,6 @@ export const updateBlogWithImg = async (formData, blogId) => {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   };
-  console.log(formData);
   try {
     const response = await axios.put(
       `${BLOG_BASE_URL}/${blogId}`,
@@ -59,7 +58,6 @@ export const updateBlogNoImg = async (formData, blogId) => {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   };
-  console.log(formData);
   try {
     const response = await axios.put(
       `${BLOG_BASE_URL}/${blogId}`,
@@ -107,4 +105,3 @@ export const getBlog = async (blogId) => {
     throw err;
   }
 };
-

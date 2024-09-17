@@ -1,9 +1,4 @@
-/* eslint-disable react/prop-types */
-
-
-const Hamburger = ({isOpen,setIsOpen}) => {
-
-
+const Hamburger = ({ isOpen, setIsOpen }) => {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };

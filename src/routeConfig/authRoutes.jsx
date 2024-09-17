@@ -1,4 +1,3 @@
-// src/routes/authRoutes.js
 import { lazy } from "react";
 
 const SignupForm = lazy(() => import("../components/SignupForm/SignupForm"));

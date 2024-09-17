@@ -1,14 +1,15 @@
-import { Link, useLocation } from "react-router-dom";
-import useGlobalContext from "../../../context/global/useGlobalContext";
 import { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+// context
+import useGlobalContext from "../../../context/global/useGlobalContext";
 import useBlogContext from "../../../context/blog/useBlogContext";
 
 export const AllStylesColumn = () => {
   const { wineCategories, wineRegions, grapeCategories } = useGlobalContext();
   const { fetchStyleBlogPaths } = useBlogContext();
   const location = useLocation();
-  const urlIdenitfier = location.pathname.split("/")[2];
   // more readable way to use conditional logic for routing and ui based on url
+  const urlIdenitfier = location.pathname.split("/")[2];
 
   const isWineTypesUrl =
     urlIdenitfier !== "grapes" && urlIdenitfier !== "regions";
@@ -26,7 +27,9 @@ export const AllStylesColumn = () => {
       array = wineCategories;
       break;
   }
+  ///////////////////////////
   // finds the category from the url | ex: red
+  ///////////////////////////
   const findCurrentCategory = (urlStr, dataStr) => {
     return urlStr === dataStr.split("/")[3].split("-").join("");
   };

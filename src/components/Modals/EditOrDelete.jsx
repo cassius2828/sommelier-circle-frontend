@@ -1,8 +1,6 @@
-/* eslint-disable react/prop-types */
-// src/components/BlogModal.jsx
-import React, { useState } from "react";
-import { deleteBlog } from "../../services/blogService";
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { deleteBlog } from "../../services/blogService";
 
 const EditOrDeleteModal = ({
   isOpen,
@@ -14,9 +12,15 @@ const EditOrDeleteModal = ({
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
   const { blogId } = useParams();
   if (!isOpen) return null;
+  ///////////////////////////
+  // Show Delete Modal
+  ///////////////////////////
   const showDeleteModal = () => {
     setShowConfirmDelete(true);
   };
+  ///////////////////////////
+  // Handle Delete
+  ///////////////////////////
   const handleDelete = async () => {
     try {
       await deleteBlog(blogId);
@@ -24,10 +28,12 @@ const EditOrDeleteModal = ({
       console.error(err);
     }
   };
+  ///////////////////////////
+  // Handle Cancel
+  ///////////////////////////
   const handleCancel = () => {
     setShowConfirmDelete(false);
   };
-
 
   return (
     <>
@@ -48,15 +54,12 @@ const EditOrDeleteModal = ({
             </span>{" "}
             <h2 className="text-2xl mb-4 text-gray-100">Blog Actions</h2>
             <div className="flex justify-end space-x-4">
-                <Link to={`/blogs/${blogId}/edit`}>
-                 <button
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300"
-               
-              >
-                Edit {subject}
-              </button>   
-                </Link>
-          
+              <Link to={`/blogs/${blogId}/edit`}>
+                <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300">
+                  Edit {subject}
+                </button>
+              </Link>
+
               <button
                 className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700 transition duration-300"
                 onClick={showDeleteModal}

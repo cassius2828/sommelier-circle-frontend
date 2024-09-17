@@ -1,24 +1,27 @@
 import { useEffect, useState } from "react";
-import WineTable from "./WineTable";
-import ScrollToTop from "../CommonComponents/ScrollToTop";
-import { getFavoriteItems } from "../../services/favoritesService";
-import Loader from "../CommonComponents/Loader";
 import { useParams } from "react-router-dom";
+// services
+import { getFavoriteItems } from "../../services/favoritesService";
+// components
+import WineTable from "./WineTable";
+import Loader from "../CommonComponents/Loader";
 import useGlobalContext from "../../context/global/useGlobalContext";
 
 const FavoriteWines = () => {
   const [wines, setWines] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  // hooks
   const { userId } = useParams();
   const { scrollToTop } = useGlobalContext();
 
-  // fetch favorite wines
+  ///////////////////////////
+  // Fetch Fav Wines
+  ///////////////////////////
   useEffect(() => {
     const fetchFavoriteWines = async () => {
       setIsLoading(true);
       try {
         const data = await getFavoriteItems(userId, "wines");
-        console.log(data, " favorite wines");
         setWines(data);
       } catch (err) {
         console.error(err);

@@ -1,13 +1,14 @@
-/* eslint-disable react/prop-types */
+
 import { useEffect, useState } from "react";
+// services
 import { getUserLocation } from "../../services/googlePlacesService";
 import { getWines, postFilterWineResults } from "../../services/wineService";
-import { GlobalContext } from "./GlobalContext";
 import { getCriticsCount } from "../../services/criticService";
 import {
   addItemToFavorites,
   addLocationsItemToFavorites,
 } from "../../services/favoritesService";
+// indexedDB
 import {
   deleteItemIndexedDB,
   getItemIndexedDB,
@@ -22,6 +23,8 @@ const initialFormData = {
   rating: "",
   query: "",
 };
+// context
+import { GlobalContext } from "./GlobalContext";
 export const GlobalProvider = ({ children }) => {
   const [wines, setWines] = useState([]);
   const [winesByCategory, setWinesByCategory] = useState([]);
@@ -461,7 +464,6 @@ export const GlobalProvider = ({ children }) => {
   ///////////////////////////////
 
   const fetchFilteredWineData = async (formData) => {
-    // setIsLoading(true);
     try {
       const data = await postFilterWineResults(formData);
       setWines(data);

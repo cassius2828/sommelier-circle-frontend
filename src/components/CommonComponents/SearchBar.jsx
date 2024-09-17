@@ -1,6 +1,5 @@
 import useGlobalContext from "../../context/global/useGlobalContext";
 
-/* eslint-disable react/prop-types */
 const SearchBar = ({ value, handleChange }) => {
   const { formData, setFormData } = useGlobalContext();
   return (

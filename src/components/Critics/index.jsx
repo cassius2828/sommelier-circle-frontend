@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { getAllCritics } from "../../services/criticService";
 import { CriticCard } from "./CriticCard";
 import useGlobalContext from "../../context/global/useGlobalContext";
@@ -8,23 +7,14 @@ const CriticsGallery = () => {
   const [critics, setCritics] = useState([]);
   const [message, setMessage] = useState("");
   const [page, setPage] = useState(1);
+  // context
   const { totalCritics } = useGlobalContext();
-  // fetch all critics
-  const fetchAllCritics = async () => {
-    try {
-      const data = await getAllCritics(page);
-      if (data.message) {
-        setMessage(data.message);
-      }
-      setCritics(data);
-    } catch (err) {
-      console.error(err);
-      console.log(`Unable to use service function to fetch all critics`);
-    }
-  };
+
+  ///////////////////////////
+  // Handle Load More Critics
+  ///////////////////////////
   const handleLoadMoreCritics = () => {
     setPage((prev) => prev + 1);
-
     fetchNextPageOfCritics(page + 1);
   };
   const fetchNextPageOfCritics = async (page) => {
@@ -34,6 +24,22 @@ const CriticsGallery = () => {
         setMessage(data.message);
       }
       setCritics((prev) => [...prev, ...data]);
+    } catch (err) {
+      console.error(err);
+      console.log(`Unable to use service function to fetch all critics`);
+    }
+  };
+
+  ///////////////////////////
+  // fetch all critics
+  ///////////////////////////
+  const fetchAllCritics = async () => {
+    try {
+      const data = await getAllCritics(page);
+      if (data.message) {
+        setMessage(data.message);
+      }
+      setCritics(data);
     } catch (err) {
       console.error(err);
       console.log(`Unable to use service function to fetch all critics`);
@@ -61,18 +67,16 @@ const CriticsGallery = () => {
           />
         ))}
       </div>
-      {
-critics.length < totalCritics &&
-
-      <div className="w-full flex justify-center mt-12 mb-20">
-        <button
-          onClick={handleLoadMoreCritics}
-          className="px-4 py-2 text-center text-3xl w-80 border border-gray-100 text-gray-100 rounded-lg transition-colors duration-300 hover:bg-gray-800 hover:text-white capitalize"
-        >
-          view more critics
-        </button>
-      </div>
-      }
+      {critics.length < totalCritics && (
+        <div className="w-full flex justify-center mt-12 mb-20">
+          <button
+            onClick={handleLoadMoreCritics}
+            className="px-4 py-2 text-center text-3xl w-80 border border-gray-100 text-gray-100 rounded-lg transition-colors duration-300 hover:bg-gray-800 hover:text-white capitalize"
+          >
+            view more critics
+          </button>
+        </div>
+      )}
     </>
   );
 };

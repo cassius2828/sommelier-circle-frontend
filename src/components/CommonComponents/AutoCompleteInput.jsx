@@ -54,7 +54,7 @@ const AutoCompleteInput = () => {
           placeholder="Search wine locations | ex: Napa Wineries"
         />{" "}
         <div className="rounded-e-2xl relative ">
-            {/* clear search */}
+          {/* clear search */}
           <span
             onClick={() => setQuery("")}
             className=" p-2  h-full w-full inline-block text-2xl text-gray-600  cursor-pointer "

@@ -1,4 +1,3 @@
-// src/routes/eventRoutes.js
 import { lazy } from "react";
 import CreateEvent from "../components/Events/CreateEvent";
 import MyEvents from "../components/Events/MyEvents";
@@ -15,6 +14,9 @@ const eventRoutes = [
   { path: "favorites/events/:userId", element: <FavoriteEvents /> },
   { path: "events/:eventId", element: <ShowEvent /> },
   { path: "events/:eventId/edit", element: <CreateEvent /> },
-  { path: "events/:eventId/confirm-transaction", element: <ConfirmTransaction /> },
+  {
+    path: "events/:eventId/confirm-transaction",
+    element: <ConfirmTransaction />,
+  },
 ];
 export default eventRoutes;

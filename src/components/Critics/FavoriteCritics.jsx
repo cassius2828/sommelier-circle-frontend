@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
+// components
 import { CriticCard } from "./CriticCard";
+// service
 import { getFavoriteItems } from "../../services/favoritesService";
 
 const FavoriteCritics = () => {
   const [critics, setCritics] = useState([]);
   const { userId } = useParams();
+
+  ///////////////////////////
   // fetch favorite critics
+  ///////////////////////////
   const fetchFavoriteCritics = async () => {
     try {
       const data = await getFavoriteItems(userId, "critics");

@@ -2,6 +2,9 @@ import { useState } from "react";
 
 export const LocationSearchbar = () => {
     const [formData, setFormData] = useState({});
+    ///////////////////////////
+    // Handle Search Query
+    ///////////////////////////
     const handleSearchQuery = (e) => {
       const { value } = e.target;
       setFormData(value);

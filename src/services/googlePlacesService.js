@@ -29,11 +29,6 @@ export const getUserLocation = () => {
       sessionStorage.setItem("countryCode", countryCode);
       sessionStorage.setItem("lat", lat);
       sessionStorage.setItem("lng", lng);
-
-      // console.log(
-      //   `Latitude: ${lat}, Longitude: ${lng}, Country Code: ${countryCode}`
-      // );
-      // Use lat and lng to find nearby places
     });
   } else {
     console.error("Geolocation is not supported by this browser.");
@@ -142,7 +137,6 @@ export const getWinePlacesAutocomplete = async (query, country) => {
         `${GOOGLE_PLACES_BASE_URL}/autocomplete-search-locations`,
         options
       );
-      console.log(response.data);
       return response.data.predictions;
     } else return [];
   } catch (err) {

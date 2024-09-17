@@ -1,14 +1,15 @@
-import { Link, useLocation } from "react-router-dom";
-import Hamburger from "../Hamburger";
-import { pinNavToTop } from "../../gsap/gsapFunctions";
-import { useGSAP } from "@gsap/react";
 import { useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+// gsap
+import { useGSAP } from "@gsap/react";
+import { pinNavToTop } from "../../gsap/gsapFunctions";
+// components
+import Hamburger from "../Hamburger";
 import useAuthContext from "../../context/auth/useAuthContext";
 
 export const NavBarDesktop = () => {
-  const { user, handleLogout } = useAuthContext();
-
   const [isOpen, setIsOpen] = useState(false);
+  const { user, handleLogout } = useAuthContext();
   const container = useRef(null);
   const location = useLocation();
   const isRoot = location.pathname === "/";
@@ -38,7 +39,6 @@ export const NavBarDesktop = () => {
               <li
                 onClick={() => {
                   setIsOpen(false);
-                  // window.location.reload();
                 }}
               >
                 <Link

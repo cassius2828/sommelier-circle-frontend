@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
-import Loader from "../CommonComponents/Loader";
-import { Star } from "../CommonComponents/StarList";
+// context
 import useGlobalContext from "../../context/global/useGlobalContext";
 import useAuthContext from "../../context/auth/useAuthContext";
+// components
+import Loader from "../CommonComponents/Loader";
+import { Star } from "../CommonComponents/StarList";
 import AddedToFavoritesModal from "../Modals/AddedToFavoritesModal";
 
 const EventGalleryCard = ({

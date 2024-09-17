@@ -6,13 +6,15 @@ import { useEffect, useState } from "react";
 import { getSelectedWine } from "../../services/wineService";
 import useGlobalContext from "../../context/global/useGlobalContext";
 import Loader from "../CommonComponents/Loader";
-import { addItemToFavorites } from "../../services/favoritesService";
 import useAuthContext from "../../context/auth/useAuthContext";
 import AddedToFavoritesModal from "../Modals/AddedToFavoritesModal";
 import SocialMediaShareModal from "../Modals/SocialMediaShareModal";
 
 const ShowWine = () => {
   const [showFullDetails, setShowFullDetails] = useState(false);
+  const [shareModelIsOpen, setShareModalIsOpen] = useState(false);
+  const [wine, setWine] = useState({});
+  // context
   const {
     isLoading,
     setIsLoading,
@@ -20,12 +22,14 @@ const ShowWine = () => {
     favoritesMessage,
     setFavoritesMessage,
   } = useGlobalContext();
-  const [message, setMessage] = useState("");
-  const [shareModelIsOpen, setShareModalIsOpen] = useState(false);
   const { user } = useAuthContext();
+  // hooks
   const { wineId } = useParams();
-  const [wine, setWine] = useState({});
   const navigate = useNavigate();
+
+  ///////////////////////////
+  // Handle Display Full Details
+  ///////////////////////////
   const handleDisplayFullDetails = () => {
     setShowFullDetails((prev) => !prev);
   };
@@ -151,7 +155,9 @@ const ShowWine = () => {
           </button>
         </div>
         {shareModelIsOpen && (
-          <SocialMediaShareModal mediaType={`wineId`} wineName={wine.name}
+          <SocialMediaShareModal
+            mediaType={`wineId`}
+            wineName={wine.name}
             handleClose={() => setShareModalIsOpen(false)}
           />
         )}{" "}

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -11,10 +10,10 @@ const TicketModal = ({
   setShowTicketModal,
 }) => {
   const [formData, setFormData] = useState({
-    eventName, // This would typically be passed in or fetched
+    eventName,
     ticketQuantity: 1,
     totalPrice: ticketPrice,
-    ticketPrice, // Assume each ticket costs $50
+    ticketPrice,
     ticketsAvailable,
   });
 
@@ -36,6 +35,9 @@ const TicketModal = ({
     });
   };
 
+  ///////////////////////////
+  // Handle Submit
+  ///////////////////////////
   const handleSubmit = () => {};
 
   return (
@@ -47,6 +49,7 @@ const TicketModal = ({
         >
           <h2 className="text-2xl text-gray-100 mb-6">Purchase Tickets</h2>
           <span>Tickets Left: {formData.ticketsAvailable}</span>
+          {/* event name */}
           <div>
             <label htmlFor="event-name" className="block text-gray-100 mb-2">
               Event Name:
@@ -61,7 +64,7 @@ const TicketModal = ({
               disabled
             />
           </div>
-
+          {/* num of tickets */}
           <div>
             <label
               htmlFor="ticket-quantity"
@@ -79,7 +82,7 @@ const TicketModal = ({
               min="1"
             />
           </div>
-
+          {/* total price */}
           <div>
             <label htmlFor="total-amount" className="block text-gray-100 mb-2">
               Total Price:
@@ -94,7 +97,7 @@ const TicketModal = ({
               disabled
             />
           </div>
-
+          {/* cancel */}
           <div className="flex justify-between items-center gap-12">
             <button
               onClick={() => setShowTicketModal(false)}
@@ -102,6 +105,7 @@ const TicketModal = ({
             >
               Cancel
             </button>
+            {/* confirm */}
             <Link to={`confirm-transaction`}>
               <button
                 type="submit"

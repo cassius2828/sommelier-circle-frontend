@@ -1,19 +1,23 @@
-import LocationsTableList from "./LocationsTableList";
-
-import AutoCompleteInput from "../CommonComponents/AutoCompleteInput";
-
-import { LocationsGrid } from "./LocationGrid";
 import { useEffect, useState } from "react";
-import { getNearbyWinePlaces } from "../../services/googlePlacesService";
+// context
 import usePlacesContext from "../../context/places/usePlacesContext";
+// indexedDB
 import { deleteItemIndexedDB } from "../../utils/indexedDB.config";
+// components
+import LocationsTableList from "./LocationsTableList";
+import AutoCompleteInput from "../CommonComponents/AutoCompleteInput";
+import { LocationsGrid } from "./LocationGrid";
 import Alert from "../CommonComponents/Alert";
 
 const Locations = () => {
   const [display, setDisplay] = useState("full");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  // context
   const { fetchLocationsWithCoverPhoto, rooms } = usePlacesContext();
+  ///////////////////////////
+  // Handle Display Change
+  ///////////////////////////
   const handleDisplayChange = (e) => {
     setDisplay(e.target.value);
   };
@@ -54,6 +58,7 @@ const Locations = () => {
           <label className="text-gray-100" htmlFor="blog-display">
             Display Locations
           </label>
+          {/* select */}
           <select
             className="text-gray-800 px-4 py-2 rounded-sm"
             name="blog-display"
@@ -84,72 +89,3 @@ const Locations = () => {
   );
 };
 export default Locations;
-
-/*
-PLACES API OBJECT
-Main Img: 
-Title: 
-Details: 
-Address: 
-Rating: 
-Price: 
-Website: 
-Hours of Operation: 
-Place ID: 
-
-       {
-            "business_status": "OPERATIONAL",
-            "geometry": {
-                "location": {
-                    "lat": 38.386936,
-                    "lng": -121.933056
-                },
-                "viewport": {
-                    "northeast": {
-                        "lat": 38.38841077989272,
-                        "lng": -121.9316805701072
-                    },
-                    "southwest": {
-                        "lat": 38.38571112010727,
-                        "lng": -121.9343802298927
-                    }
-                }
-            },
-            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/bar-71.png",
-            "icon_background_color": "#FF9E67",
-            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/bar_pinlet",
-            "name": "Hide-A-Way Lounge & Grill",
-            "opening_hours": {
-                "open_now": true
-            },
-            "photos": [
-                {
-                    "height": 1536,
-                    "html_attributions": [
-                        "<a href=\"https://maps.google.com/maps/contrib/107061166225374119247\">Wez So_N_So</a>"
-                    ],
-                    "photo_reference": "AUc7tXViEv5OfN09WTJ4yUbwx5h3pikBlEX9ly-cP79zDzL9syRQV0oJEPYUhRG8dF7TZXOaS_myepa7TKcdYV6SfrA6a1e79ye_6MgQlP_Xw1YUQsdKN-MTLDyPrGwZWYSQHIoGPDS8T3ud77u9K2vRCw0A7KqhieSd-E_X5jS7cpvH-cj-",
-                    "width": 2048
-                }
-            ],
-            "place_id": "ChIJg9zeYjojhYARcjTx7WobLTQ",
-            "plus_code": {
-                "compound_code": "93P8+QQ Vacaville, California",
-                "global_code": "84CW93P8+QQ"
-            },
-            "price_level": 2,
-            "rating": 4.2,
-            "reference": "ChIJg9zeYjojhYARcjTx7WobLTQ",
-            "scope": "GOOGLE",
-            "types": [
-                "bar",
-                "restaurant",
-                "food",
-                "point_of_interest",
-                "establishment"
-            ],
-            "user_ratings_total": 427,
-            "vicinity": "1080 Orange Dr, Vacaville"
-        },
-
-*/

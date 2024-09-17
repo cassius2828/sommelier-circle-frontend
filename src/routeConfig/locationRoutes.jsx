@@ -1,4 +1,3 @@
-// src/routes/LocationRoutes.js
 import { lazy } from "react";
 import FavoriteLocations from "../components/Locations/FavoriteLocations";
 

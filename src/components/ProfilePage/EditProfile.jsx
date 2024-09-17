@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+// service
 import {
   getProfileService,
   putEditProfileInfo,
 } from "../../services/profileService";
-// import { getProfileService } from "../../services/profileService";
+// components
 import { Icon } from "../Icons/Social-Icons";
-
+// inital Form Data
 const initialFormData = {
   profileImg: "",
   username: "",
@@ -33,36 +34,31 @@ const initialFormData = {
 };
 
 export default function EditProfile() {
-  const { userId } = useParams();
   const [photo, setPhoto] = useState("");
   const [formData, setFormData] = useState(initialFormData);
+  // hooks
+  const { userId } = useParams();
   const navigate = useNavigate();
+
+  ///////////////////////////
+  // Handle Change
+  ///////////////////////////
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    console.log(value);
   };
   const { profileImg, username, email, socialMedia, displayedName } = formData;
 
-  useEffect(() => {
-    async function getProfile() {
-      try {
-        const userProfile = await getProfileService(userId);
-        setFormData(userProfile);
-        console.log(userProfile);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-
-    getProfile();
-  }, [userId]);
-
+  ///////////////////////////
+  // Handle File Input
+  ///////////////////////////
   function handleFileInput(e) {
-    console.log(e.target.files, " file target");
     setPhoto(e.target.files[0]);
   }
 
+  ///////////////////////////
+  // Handle Submit
+  ///////////////////////////
   const handleSubmit = async () => {
     const dataToSendToServer = new FormData();
     dataToSendToServer.append("photo", photo);
@@ -98,8 +94,6 @@ export default function EditProfile() {
       "linkedInLink",
       formData.socialMedia.linkedIn.link
     );
-
-    // dataToSendToServer.append("password", formData.password);
     try {
       const data = await putEditProfileInfo(userId, dataToSendToServer);
       if (data?.message) {
@@ -115,6 +109,9 @@ export default function EditProfile() {
     }
   };
 
+  ///////////////////////////
+  // Handle Social Media Change
+  ///////////////////////////
   const handleSocialMediaChange = (e) => {
     const { name, value } = e.target;
 
@@ -132,9 +129,22 @@ export default function EditProfile() {
       },
     }));
   };
+
+  ///////////////////////////
+  // Get profile and set user data
+  ///////////////////////////
   useEffect(() => {
-    console.log(photo);
-  }, [photo]);
+    async function getProfile() {
+      try {
+        const userProfile = await getProfileService(userId);
+        setFormData(userProfile);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    getProfile();
+  }, [userId]);
   return (
     <main className="bg-theme-dn min-h-screen flex flex-col items-center justify-center">
       <div className="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-[60rem] mt-40 md:mt-80">

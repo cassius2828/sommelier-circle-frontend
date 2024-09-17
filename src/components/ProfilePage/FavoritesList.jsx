@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+// services
 import {
   getFavoriteItems,
   getLocationsFavoriteItems,
 } from "../../services/favoritesService";
-import useAuthContext from "../../context/auth/useAuthContext";
-import { Link, useParams } from "react-router-dom";
+// inital favorites
 const initialFavorites = {
   wines: [],
   blogs: [],
@@ -15,12 +16,18 @@ const initialFavorites = {
 const FavoritesList = () => {
   const [favorites, setFavorites] = useState(initialFavorites);
   const [isLoading, setIsLoading] = useState(false);
+  // hooks
   const { userId } = useParams();
+
+  ///////////////////////////
+  // Handle Set Local Favorites
+  ///////////////////////////
   const handleSetLocalFavorites = async (name, value) => {
     setFavorites((prev) => ({ ...prev, [name]: value }));
   };
-  // TODO: The way i am trying to update all of these at the same time is wrong
-
+  ///////////////////////////
+  // Fetch Favorite Item
+  ///////////////////////////
   const fetchFavoriteItem = async (name) => {
     try {
       const data = await getFavoriteItems(userId, name);
@@ -31,19 +38,21 @@ const FavoritesList = () => {
     }
   };
 
+  ///////////////////////////
+  // Fetch Favorite Locations
+  ///////////////////////////
   const fetchFavoriteLocations = async () => {
     try {
       const data = await getLocationsFavoriteItems(userId);
       await handleSetLocalFavorites("locations", data);
-      console.log(
-        data,
-        "===================\n <-- favorite locations from server \n ===================="
-      );
     } catch (err) {
       console.error(err);
       console.log(`Unable to retrieve favorite locations`);
     }
   };
+  ///////////////////////////
+  // Fetch All Favorites
+  ///////////////////////////
   const fetchAllFavorites = async () => {
     setIsLoading(true);
     try {
@@ -61,7 +70,6 @@ const FavoritesList = () => {
   };
   useEffect(() => {
     fetchAllFavorites();
-    // console.log(favorites)
   }, [userId]);
   return (
     <div className="col-start-1 col-span-1 row-start-1 w-3/4 mx-12 max-w-[50rem] rounded-md">

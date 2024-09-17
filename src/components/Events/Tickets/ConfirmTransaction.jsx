@@ -1,6 +1,5 @@
-/* eslint-disable react/prop-types */
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+// inital data
 const initialFormData = {
   eventName: "Wine Tasting Event",
   ticketQuantity: 100,
@@ -9,15 +8,24 @@ const initialFormData = {
 };
 const ConfirmTransaction = ({ formData = initialFormData }) => {
   const { eventName, ticketQuantity, totalAmount, paymentMethod } = formData;
+  // hooks
   const navigate = useNavigate();
+
+  ///////////////////////////
+  // Confirm Ticket Purchase
+  ///////////////////////////
   const handleConfirm = () => {
     alert(
       "In a real app this will go throught the api of the selected payment merchant"
     );
   };
-const handleBack = () => {
-    console.log('handle')
-}
+
+  ///////////////////////////
+  // Handle Navigate Back
+  ///////////////////////////
+  const handleBack = () => {
+    console.log("handle");
+  };
   return (
     <div className="w-full h-screen flex flex-col justify-center items-center bg-gray-900 text-gray-100 p-8">
       <div className="bg-gray-800 p-10 rounded-lg shadow-lg w-full max-w-4xl">

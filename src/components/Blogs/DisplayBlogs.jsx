@@ -1,4 +1,5 @@
-import { BlogTable, MultipleBlogsFull } from "./MultipleBlogs";
+import { BlogTable } from "./MultipleBlogs/BlogTable";
+import { MultipleBlogsFull } from "./MultipleBlogs/MultBlogsFull";
 
 const DisplayBlogs = ({ display, handleDisplayChange, blogs, title }) => {
   return (

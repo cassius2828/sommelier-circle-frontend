@@ -1,24 +1,27 @@
-/* eslint-disable react/prop-types */
-import { Link } from "react-router-dom";
-import useGlobalContext from "../../../context/global/useGlobalContext";
-import ShowBlog from "../../Blogs/ShowBlog";
-import { AllStylesColumn } from "./AllStylesColumn";
-import StylesColumn from "./StylesColumn";
-import WineTable from "../WineTable";
 import { useEffect } from "react";
+// context
+import useGlobalContext from "../../../context/global/useGlobalContext";
+// services
 import {
   getWinesByGrape,
   getWinesByRegion,
   getWinesByStyle,
 } from "../../../services/wineService";
-import ScrollToTop from "../../CommonComponents/ScrollToTop";
+// components
+import ShowBlog from "../../Blogs/ShowBlog";
+import { AllStylesColumn } from "./AllStylesColumn";
+import StylesColumn from "./StylesColumn";
+import WineTable from "../WineTable";
 
 const TypesOfWine = ({ blogId, allStyles }) => {
-  const urlIdenitfier = location.pathname.split("/")[2];
-  const urlSpecificCategoryType = location.pathname.split("/")[3];
   const { setWinesByCategory, scrollToTop } = useGlobalContext();
   const { winesByCategory } = useGlobalContext();
+  const urlIdenitfier = location.pathname.split("/")[2];
+  const urlSpecificCategoryType = location.pathname.split("/")[3];
 
+  ///////////////////////////
+  // Fetch Wine By Category
+  ///////////////////////////
   const fetchWineByCategory = async () => {
     if (urlIdenitfier === "regions") {
       try {
@@ -49,7 +52,6 @@ const TypesOfWine = ({ blogId, allStyles }) => {
   useEffect(() => {
     fetchWineByCategory();
     scrollToTop();
-
   }, [urlSpecificCategoryType]);
 
   return (
@@ -62,7 +64,6 @@ const TypesOfWine = ({ blogId, allStyles }) => {
         {allStyles ? <AllStylesColumn /> : <StylesColumn />}
       </div>{" "}
       <div className="fixed top-0 left-0 h-full w-full -z-10 bg-neutral-950"></div>
-    
     </>
   );
 };

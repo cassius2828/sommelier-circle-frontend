@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
+// context
 import useGlobalContext from "../../context/global/useGlobalContext";
+// components
 import LoaderSpin from "../CommonComponents/LoaderSpin";
 import StarList, { Star } from "../CommonComponents/StarList";
 import AddedToFavoritesModal from "../Modals/AddedToFavoritesModal";

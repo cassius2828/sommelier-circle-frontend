@@ -1,18 +1,15 @@
-/* eslint-disable react/prop-types */
-import { Link, useNavigate, useParams } from "react-router-dom";
-import StarList, { Star } from "../CommonComponents/StarList";
 import { useEffect, useState } from "react";
-import {
-  getPhotosOfLocation,
-  getPlaceDetails,
-} from "../../services/googlePlacesService";
-import useGlobalContext from "../../context/global/useGlobalContext";
-import Loader from "../CommonComponents/Loader";
-import ShowLocationImageCarousel from "./ShowLocationImgCarousel";
+import { Link, useNavigate, useParams } from "react-router-dom";
+// context
 import useAuthContext from "../../context/auth/useAuthContext";
+import useGlobalContext from "../../context/global/useGlobalContext";
+import usePlacesContext from "../../context/places/usePlacesContext";
+// components
+import Loader from "../CommonComponents/Loader";
+import StarList, { Star } from "../CommonComponents/StarList";
+import ShowLocationImageCarousel from "./ShowLocationImgCarousel";
 import AddedToFavoritesModal from "../Modals/AddedToFavoritesModal";
 import LoaderSpin from "../CommonComponents/LoaderSpin";
-import usePlacesContext from "../../context/places/usePlacesContext";
 
 ///////////////////////////
 // * Show Location | Main Component
@@ -53,7 +50,6 @@ export const ShowLocationCard = () => {
   // Call this function every time a new place_id is in the params
   useEffect(() => {
     fetchPlaceDetails(locationId);
-    console.log(fetchedPhotos, " <-- fetched photos");
   }, []);
 
   // run this function again if part of the location details are loaded the but photo is not, this is
@@ -115,10 +111,13 @@ export const ShowLocationCard = () => {
             </div>
 
             <div className="flex-col flex gap-8">
-              <h1 className=" text-3xl md:text-6xl mt-4">{locationDetails.name}</h1>
-              <h2 className=" text-2xl md:text-4xl">{locationDetails.formatted_address}</h2>
+              <h1 className=" text-3xl md:text-6xl mt-4">
+                {locationDetails.name}
+              </h1>
+              <h2 className=" text-2xl md:text-4xl">
+                {locationDetails.formatted_address}
+              </h2>
               <StarList bgColor="[#]" criticScore={rating} />
-            
             </div>
           </div>
           {/* details */}
@@ -157,39 +156,37 @@ export const ShowLocationCard = () => {
                 </Link>
               </ul>
             </div>
-            
-          </div>  {/* buttons | fav, directions, website */}
-              <div className="flex items-center  justify-center md:justify-start gap-4 mr-auto mt-12 ">
-                <button
-                  onClick={() =>
-                    handleAddToFavorites(
-                      user._id,
-                      locationDetails.place_id,
-                      "locations"
-                    )
-                  }
-                  className="p-2 h-16 border-2 border-[#FFD700] rounded-lg"
-                >
-                  <Star />
-                </button>
+          </div>{" "}
+          {/* buttons | fav, directions, website */}
+          <div className="flex items-center  justify-center md:justify-start gap-4 mr-auto mt-12 ">
+            <button
+              onClick={() =>
+                handleAddToFavorites(
+                  user._id,
+                  locationDetails.place_id,
+                  "locations"
+                )
+              }
+              className="p-2 h-16 border-2 border-[#FFD700] rounded-lg"
+            >
+              <Star />
+            </button>
 
-                {favoritesMessage && (
-                  <AddedToFavoritesModal
-                    message={favoritesMessage}
-                    setMessage={setFavoritesMessage}
-                  />
-                )}
-                <Link to={locationDetails.website}>
-                  <button className="border h-16 px-3 py-1 text-2xl rounded-md border-gray-100 transition-colors duration-300 hover:bg-gray-800 hover:text-white">
-                    website
-                  </button>
-                </Link>
-                <button className="border h-16 px-3 py-1 text-2xl rounded-md border-gray-100 transition-colors duration-300 hover:bg-gray-800 hover:text-white cursor-default">
-                  {locationDetails.reservable
-                    ? "reserveable"
-                    : "non-reservable"}
-                </button>
-              </div>
+            {favoritesMessage && (
+              <AddedToFavoritesModal
+                message={favoritesMessage}
+                setMessage={setFavoritesMessage}
+              />
+            )}
+            <Link to={locationDetails.website}>
+              <button className="border h-16 px-3 py-1 text-2xl rounded-md border-gray-100 transition-colors duration-300 hover:bg-gray-800 hover:text-white">
+                website
+              </button>
+            </Link>
+            <button className="border h-16 px-3 py-1 text-2xl rounded-md border-gray-100 transition-colors duration-300 hover:bg-gray-800 hover:text-white cursor-default">
+              {locationDetails.reservable ? "reserveable" : "non-reservable"}
+            </button>
+          </div>
         </>
       )}
     </div>

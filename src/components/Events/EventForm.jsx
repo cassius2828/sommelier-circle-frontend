@@ -1,34 +1,16 @@
-// ? If mobile then break into multiple steps, desktop allow all info to be seen and entered
-// ? at once
-// *BASIC
-// photo
-// name
-// description
-// *LOCATION
-// street address
-// city
-// state
-// *EVENT TIME
-// date
-// start time
-// end time
-// *CONTACT
-// contact (prefilled with info set in user profile)
-// - email
-// -phone
-// *EXTRA
-// ticketed event (Bool)
-// google maps address link (i will set this up with info given from location details)
+
 
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+// context
+import useAuthContext from "../../context/auth/useAuthContext";
+import useEventsContext from "../../context/events/useEventsContext";
+// service
 import {
   getEventDetails,
   postCreateEvent,
   putEditEvent,
 } from "../../services/eventService";
-import useAuthContext from "../../context/auth/useAuthContext";
-import useEventsContext from "../../context/events/useEventsContext";
 
 
 const initialFormData = {
@@ -53,8 +35,8 @@ const initialFormData = {
   endTimeTod: "AM",
 
   // Contact
-  email: "", // Prefill this from user profile if available
-  phone: "", // Prefill this from user profile if available
+  email: "", 
+  phone: "", 
 
   // Extra
   ticketedEvent: false,
@@ -69,9 +51,13 @@ export const EventForm = () => {
   const [formStep, setFormStep] = useState(1);
   const [formData, setFormData] = useState(initialFormData);
   const [message, setMessage] = useState("");
+  // context
   const {states} = useEventsContext()
-  const { eventId } = useParams();
   const { user } = useAuthContext();
+  // hooks
+  const navigate = useNavigate();
+  const { eventId } = useParams();
+  // destructured formData
   const {
     photo,
     eventName,
@@ -93,6 +79,7 @@ export const EventForm = () => {
     ticketsAvailable,
     owner,
   } = formData;
+  
   const dataToSendToServer = new FormData();
 
   dataToSendToServer.append("photo", photo);
@@ -112,7 +99,6 @@ export const EventForm = () => {
   dataToSendToServer.append("phone", phone);
   dataToSendToServer.append("ticketedEvent", ticketedEvent);
 
-  const navigate = useNavigate();
 
   ///////////////////////////
   //   Navigate Form

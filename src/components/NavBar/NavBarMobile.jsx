@@ -1,7 +1,9 @@
 import { useState } from "react";
-import Hamburger from "../Hamburger";
 import { Link, NavLink } from "react-router-dom";
+// context
 import useAuthContext from "../../context/auth/useAuthContext";
+// components
+import Hamburger from "../Hamburger";
 
 const NavBarMobile = () => {
   const [isOpen, setIsOpen] = useState(false);

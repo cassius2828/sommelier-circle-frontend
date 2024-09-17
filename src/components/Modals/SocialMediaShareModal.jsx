@@ -6,6 +6,9 @@ const SocialMediaShareModal = ({ handleClose, wineName, mediaType }) => {
   const [isCopiedMessage, setIsCopiedMessage] = useState("");
 
   const url = encodeURI(window.location.href);
+  ///////////////////////////
+  // Handle Copy Link
+  ///////////////////////////
   const handleCopyLink = async () => {
     try {
       await navigator.clipboard.writeText(url); // Copy the URL to clipboard

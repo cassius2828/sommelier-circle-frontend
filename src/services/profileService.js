@@ -1,5 +1,4 @@
 import axios from "axios";
-import { refreshToken } from "./authService";
 const BASE_URL = import.meta.env.VITE_BASE_URL + "/profiles";
 
 /////////////////////
@@ -19,12 +18,6 @@ export async function getProfileService(id) {
     throw error;
   }
 }
-
-// POST
-// headers: {
-// 	'Authorization': 'Bearer ' + localStorage.getItem('token'),
-// 	'Content-type': 'application/json'
-// }
 
 /////////////////////
 // ? POST | Follow User
@@ -89,7 +82,6 @@ export const getUserDoc = async (id) => {
     },
   };
   try {
-    // const token = await refreshToken();
     const response = await axios.get(`${BASE_URL}/${id}`, {}, options);
     return response.data;
   } catch (err) {
@@ -132,7 +124,6 @@ export const putEditProfileInfo = async (userId, formData) => {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   };
-  console.log(formData, " <-- formData");
   try {
     const response = await axios.put(
       `${BASE_URL}/${userId}`,
