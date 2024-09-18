@@ -43,7 +43,7 @@ export const NavBarDesktop = () => {
               >
                 <Link
                   to="/"
-                  className="hover:text-theme-sand transition-colors duration-200"
+                  className="hover:text-slate-900 transition-colors duration-300"
                 >
                   Home
                 </Link>
@@ -51,7 +51,7 @@ export const NavBarDesktop = () => {
               <li onClick={() => setIsOpen(false)}>
                 <Link
                   to="/locations/explore"
-                  className="hover:text-theme-sand transition-colors duration-200"
+                  className="hover:text-slate-900 transition-colors duration-300"
                 >
                   Locations
                 </Link>
@@ -59,7 +59,7 @@ export const NavBarDesktop = () => {
               <li onClick={() => setIsOpen(false)}>
                 <Link
                   to="/events"
-                  className="hover:text-theme-sand transition-colors duration-200"
+                  className="hover:text-slate-900 transition-colors duration-300"
                 >
                   Events
                 </Link>
@@ -67,7 +67,7 @@ export const NavBarDesktop = () => {
               <li onClick={() => setIsOpen(false)}>
                 <Link
                   to="/wines/search"
-                  className="hover:text-theme-sand transition-colors duration-200"
+                  className="hover:text-slate-900 transition-colors duration-300"
                 >
                   Wines
                 </Link>
@@ -75,7 +75,7 @@ export const NavBarDesktop = () => {
               <li onClick={() => setIsOpen(false)}>
                 <Link
                   to="/blogs/explore"
-                  className="hover:text-theme-sand transition-colors duration-200"
+                  className="hover:text-slate-900 transition-colors duration-300"
                 >
                   Blogs
                 </Link>
@@ -83,7 +83,7 @@ export const NavBarDesktop = () => {
               <li onClick={() => setIsOpen(false)}>
                 <Link
                   to="/critics"
-                  className="hover:text-theme-sand transition-colors duration-200"
+                  className="hover:text-slate-900 transition-colors duration-300"
                 >
                   Critics
                 </Link>
@@ -91,13 +91,13 @@ export const NavBarDesktop = () => {
               <li onClick={() => setIsOpen(false)}>
                 <Link
                   to={`/profiles/${user._id}`}
-                  className="hover:text-theme-sand transition-colors duration-200"
+                  className="hover:text-slate-900 transition-colors duration-300"
                 >
                   Profile
                 </Link>
               </li>
               <li
-                className="hover:text-theme-sand transition-colors duration-200"
+                className="hover:text-slate-900 transition-colors duration-300"
                 onClick={() => {
                   setIsOpen(false);
                   handleLogout();
@@ -122,10 +122,51 @@ export const NavBarDesktop = () => {
                 isOpen ? "flex" : "hidden"
               } flex-col space-x-4 items-center justify-around mt-20 gap-12 text-2xl staggered-list`}
             >
+          
+              <li onClick={() => setIsOpen(false)}>
+                <Link
+                  to="/locations/explore"
+                  className="hover:text-slate-900 transition-colors duration-300"
+                >
+                  Locations
+                </Link>
+              </li>
+              <li onClick={() => setIsOpen(false)}>
+                <Link
+                  to="/events"
+                  className="hover:text-slate-900 transition-colors duration-300"
+                >
+                  Events
+                </Link>
+              </li>
+              <li onClick={() => setIsOpen(false)}>
+                <Link
+                  to="/wines/search"
+                  className="hover:text-slate-900 transition-colors duration-300"
+                >
+                  Wines
+                </Link>
+              </li>
+              <li onClick={() => setIsOpen(false)}>
+                <Link
+                  to="/blogs/explore"
+                  className="hover:text-slate-900 transition-colors duration-300"
+                >
+                  Blogs
+                </Link>
+              </li>
+              <li onClick={() => setIsOpen(false)}>
+                <Link
+                  to="/critics"
+                  className="hover:text-slate-900 transition-colors duration-300"
+                >
+                  Critics
+                </Link>
+              </li>
               <li onClick={() => setIsOpen(false)}>
                 <Link
                   to="/auth/signin"
-                  className="hover:text-theme-sand transition-colors duration-200"
+                  className="hover:text-slate-900 transition-colors duration-300"
                 >
                   Sign in
                 </Link>
@@ -133,7 +174,7 @@ export const NavBarDesktop = () => {
               <li onClick={() => setIsOpen(false)}>
                 <Link
                   to="/auth/signup"
-                  className="hover:text-theme-sand transition-colors duration-200"
+                  className="hover:text-slate-900 transition-colors duration-300"
                 >
                   Sign Up
                 </Link>

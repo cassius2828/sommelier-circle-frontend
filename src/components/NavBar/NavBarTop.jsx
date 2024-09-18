@@ -18,7 +18,7 @@ export const NavBarTop = () => {
         >
           <ul
             className={`flex
-               space-x-2 items-center justify-evenly  md:text-xl w-screen  staggered-list `}
+               space-x-2 items-center justify-evenly  md:text-xl w-screen  staggered-list-same `}
           >
             <li
               onClick={() => {
@@ -154,11 +154,11 @@ export const NavBarTop = () => {
       ) : (
         <nav
           id="desktop-nav"
-          className={`text-gray-100 p-4 transition-all duration-200 ease-in-out `}
+          className={` text-gray-100 p-4  transition-all duration-200 ease-in-out absolute -bottom-8 w-full`}
         >
           <ul
             className={`flex
-      space-x-2 items-center justify-evenly  md:text-xl w-screen  staggered-list `}
+      space-x-2 items-center justify-evenly  md:text-xl w-screen  staggered-list-same `}
           >
             <li
               onClick={() => {
