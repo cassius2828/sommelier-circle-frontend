@@ -28,6 +28,7 @@ export const BlogProvider = ({ children }) => {
   // Fetch Current User Blogs
   ///////////////////////////////
   const fetchCurrentUserBlogs = async () => {
+    if (!user) return [];
     setIsLoading(true);
 
     try {

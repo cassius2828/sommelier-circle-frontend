@@ -14,6 +14,7 @@ import DOMPurify from "dompurify";
 // Context and Hooks
 import useAuthContext from "../../context/auth/useAuthContext";
 import useGlobalContext from "../../context/global/useGlobalContext";
+import PromptSignIn from "../CommonComponents/PromptSignIn";
 // outside constants | rich text vars
 const modules = {
   toolbar: [
@@ -136,7 +137,12 @@ const MyEditor = () => {
       fetchExistingBlog();
     }
   }, [blogId]);
-
+  if (!user)
+    return (
+      <>
+        <PromptSignIn subject={"\"Create a Blog\""} />
+      </>
+    );
   return (
     <div className="flex flex-col lg:flex-row gap-4 p-4 max-w-[160rem] mx-auto pt-12 mt-52 md:mt-80">
       <div className="w-full min-h-[75svh] flex flex-col justify-between lg:w-1/2 bg-neutral-900 text-gray-300 rounded-lg shadow-md p-4">

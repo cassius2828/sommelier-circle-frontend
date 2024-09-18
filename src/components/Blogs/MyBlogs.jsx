@@ -1,16 +1,21 @@
 import { useState, useEffect } from "react";
-import useBlogContext from "../../context/blog/useBlogContext";
-
 import { useParams } from "react-router-dom";
+// context
+import useBlogContext from "../../context/blog/useBlogContext";
 import useGlobalContext from "../../context/global/useGlobalContext";
+// components
 import Loader from "../CommonComponents/Loader";
 import DisplayBlogs from "./DisplayBlogs";
+import PromptSignIn from "../CommonComponents/PromptSignIn";
+import useAuthContext from "../../context/auth/useAuthContext";
 
 const MyBlogs = () => {
   const [display, setDisplay] = useState("list");
   // context
   const { myBlogs, fetchCurrentUserBlogs } = useBlogContext();
   const { isLoading } = useGlobalContext();
+  const { user } = useAuthContext();
+
   // hooks
   const { userId } = useParams();
   // vars
@@ -26,6 +31,7 @@ const MyBlogs = () => {
   // Fetch Current User Blogs
   ///////////////////////////
   useEffect(() => {
+    if (!user) return;
     fetchCurrentUserBlogs();
     if (windowWidth < 768) {
       setDisplay("full");
@@ -33,7 +39,12 @@ const MyBlogs = () => {
   }, [userId]);
 
   if (isLoading) return <Loader />;
-
+  if (!user)
+    return (
+      <>
+        <PromptSignIn subject={"Your Blogs"} />
+      </>
+    );
   return (
     <DisplayBlogs
       title="My Blogs"

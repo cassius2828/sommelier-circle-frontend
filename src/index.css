@@ -61,7 +61,7 @@ h2 {
   width: 20rem !important;
 }
 
-.staggered-list li {
+.staggered-list li, .staggered-list-same li {
   opacity: 0;
   transform: translateX(-50px);
   margin: 10px 0;

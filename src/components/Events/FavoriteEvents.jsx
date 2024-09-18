@@ -7,6 +7,7 @@ import { getFavoriteItems } from "../../services/favoritesService";
 // components
 import { EventGrid } from "./EventGrid";
 import Loader from "../CommonComponents/Loader";
+import PromptSignIn from "../CommonComponents/PromptSignIn";
 
 const FavoriteEvents = () => {
   const { user } = useAuthContext();
@@ -33,7 +34,12 @@ const FavoriteEvents = () => {
   }, []);
 
   if (isLoading) return <Loader />;
-
+  if (!user)
+    return (
+      <>
+        <PromptSignIn subject={"Favorite Events"} />
+      </>
+    );
   return (
     <div className="flex flex-col w-full min-h-screen pt-12 mt-52 md:mt-80 items-center">
       <h1 className="text-8xl text-gray-100 mb-12">Events</h1>

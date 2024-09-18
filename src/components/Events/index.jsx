@@ -31,9 +31,9 @@ const Events = () => {
   const handleSearchEventsByTitle = debounce(async () => {
     const normalizedValue = formData.query.toLowerCase().replace(/&/g, "and");
     if (formData.query.length > 2) {
-      await fetchExploreEvents(user._id, normalizedValue);
+      await fetchExploreEvents(user?._id, normalizedValue);
     } else if (formData.query.length === 0) {
-      await fetchExploreEvents(user._id);
+      await fetchExploreEvents(user?._id);
     }
   }, 300);
 
@@ -43,7 +43,7 @@ const Events = () => {
   }, [formData.query]);
 
   useEffect(() => {
-    fetchExploreEvents(user._id);
+    fetchExploreEvents(user?._id);
   }, []);
 
   return (

@@ -6,6 +6,8 @@ import { getFavoriteItems } from "../../services/favoritesService";
 import WineTable from "./WineTable";
 import Loader from "../CommonComponents/Loader";
 import useGlobalContext from "../../context/global/useGlobalContext";
+import PromptSignIn from "../CommonComponents/PromptSignIn";
+import useAuthContext from "../../context/auth/useAuthContext";
 
 const FavoriteWines = () => {
   const [wines, setWines] = useState([]);
@@ -13,11 +15,13 @@ const FavoriteWines = () => {
   // hooks
   const { userId } = useParams();
   const { scrollToTop } = useGlobalContext();
+  const { user } = useAuthContext();
 
   ///////////////////////////
   // Fetch Fav Wines
   ///////////////////////////
   useEffect(() => {
+    if (!user) return;
     const fetchFavoriteWines = async () => {
       setIsLoading(true);
       try {
@@ -35,7 +39,12 @@ const FavoriteWines = () => {
   }, []);
 
   if (isLoading) return <Loader />;
-
+  if (!user)
+    return (
+      <>
+        <PromptSignIn subject={"Favorite Wines"} />
+      </>
+    );
   return (
     <>
       {/* overlay bg */}

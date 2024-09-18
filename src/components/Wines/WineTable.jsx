@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 const WineTable = ({ wines }) => {
+  if (wines.length === 0) return;
   return (
     <div className="overflow-x-auto mb-24">
       <table className="min-w-full bg-white border border-gray-200">

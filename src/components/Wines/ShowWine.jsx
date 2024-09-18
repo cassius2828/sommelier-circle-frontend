@@ -141,7 +141,7 @@ const ShowWine = () => {
           </Link>
           {/* favorite */}
           <button
-            onClick={() => handleAddToFavorites(user._id, wineId, "wines")}
+            onClick={() => handleAddToFavorites(user?._id, wineId, "wines")}
             className="p-2 border-2 border-[#FFD700] rounded-lg"
           >
             <UilStar size="24" color="#FFD700" />

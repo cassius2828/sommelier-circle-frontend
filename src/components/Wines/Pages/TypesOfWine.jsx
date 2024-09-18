@@ -59,9 +59,17 @@ const TypesOfWine = ({ blogId, allStyles }) => {
       <div className="flex flex-col lg:flex-row w-full md:w-3/4 mx-auto justify-between gap-4">
         <div>
           <ShowBlog propsBlogId={blogId} />
+          {/* wine table directly under blog on md up */}
+          <div className="hidden md:block">
+            <WineTable wines={winesByCategory} />
+          </div>
+        </div>
+
+        {allStyles ? <AllStylesColumn /> : <StylesColumn />}
+        {/* wine table comes after style cols on sm down */}
+        <div className="md:hidden mt-20">
           <WineTable wines={winesByCategory} />
         </div>
-        {allStyles ? <AllStylesColumn /> : <StylesColumn />}
       </div>{" "}
       <div className="fixed top-0 left-0 h-full w-full -z-10 bg-neutral-950"></div>
     </>

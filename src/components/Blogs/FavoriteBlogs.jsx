@@ -7,6 +7,8 @@ import { getFavoriteItems } from "../../services/favoritesService";
 // components
 import Loader from "../CommonComponents/Loader";
 import DisplayBlogs from "./DisplayBlogs";
+import PromptSignIn from "../CommonComponents/PromptSignIn";
+import useAuthContext from "../../context/auth/useAuthContext";
 
 const FavoriteBlogs = () => {
   const [blogs, setBlogs] = useState([]);
@@ -15,6 +17,8 @@ const FavoriteBlogs = () => {
   // hooks
   const { userId } = useParams();
   const { scrollToTop } = useGlobalContext();
+  const { user } = useAuthContext();
+
   // vars
   const windowWidth = window.innerWidth;
 
@@ -29,6 +33,7 @@ const FavoriteBlogs = () => {
   // Fetch Blogs On Load | Scroll to top | Default display to full on mobile
   ///////////////////////////
   useEffect(() => {
+    if (!user) return;
     const fetchFavoriteBlogs = async () => {
       setIsLoading(true);
       try {
@@ -50,8 +55,13 @@ const FavoriteBlogs = () => {
   }, []);
 
   if (isLoading) return <Loader />;
+  if (!user)
+    return (
+      <>
+        <PromptSignIn subject={"Favorite Blogs"} />
+      </>
+    );
 
-  console.log(blogs);
   return (
     <DisplayBlogs
       title="Favorite Blogs"
