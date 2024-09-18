@@ -4,15 +4,19 @@ import { useParams } from "react-router-dom";
 import { CriticCard } from "./CriticCard";
 // service
 import { getFavoriteItems } from "../../services/favoritesService";
+import PromptSignIn from "../CommonComponents/PromptSignIn";
+import useAuthContext from "../../context/auth/useAuthContext";
 
 const FavoriteCritics = () => {
   const [critics, setCritics] = useState([]);
   const { userId } = useParams();
+  const { user } = useAuthContext();
 
   ///////////////////////////
   // fetch favorite critics
   ///////////////////////////
   const fetchFavoriteCritics = async () => {
+    if (!user) return;
     try {
       const data = await getFavoriteItems(userId, "critics");
       setCritics(data);
@@ -25,6 +29,12 @@ const FavoriteCritics = () => {
   useEffect(() => {
     fetchFavoriteCritics();
   }, []);
+  if (!user)
+    return (
+      <>
+        <PromptSignIn subject={"Favorite Critics"} />
+      </>
+    );
   return (
     <>
       {critics.length === 0 ? (

@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 // services
 import { getUserLocation } from "../../services/googlePlacesService";
@@ -32,7 +31,7 @@ export const GlobalProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [totalCritics, setTotalCritics] = useState(0);
   const [favoritesMessage, setFavoritesMessage] = useState("");
-  
+
   ///////////////////////////////
   // Hard Coded Data Sets for Categories
   ///////////////////////////////
@@ -261,7 +260,7 @@ export const GlobalProvider = ({ children }) => {
       ],
     },
   ];
-  
+
   // regions
   const wineRegions = [
     {
@@ -484,20 +483,26 @@ export const GlobalProvider = ({ children }) => {
     });
   };
 
-
   ///////////////////////////
   // Handle Add To Favorites
   ///////////////////////////
   const handleAddToFavorites = async (userId, itemId, itemType) => {
+  console.log(userId, ' <-- user id')
+    if (!userId) {
+      setFavoritesMessage(
+        `Please sign in or create an account to add to your favorite ${itemType}`
+      );
+      return;
+    }
     try {
       if (itemType === "locations") {
         const data = await addLocationsItemToFavorites(userId, itemId);
         setFavoritesMessage(data);
-        return data
+        return data;
       } else {
         const data = await addItemToFavorites(userId, itemId, itemType);
         setFavoritesMessage(data);
-        return data
+        return data;
       }
     } catch (err) {
       console.error(err);

@@ -120,6 +120,7 @@ export const EventsProvider = ({ children }) => {
   const fetchExploreEvents = async (userId, searchQuery) => {
     dispatch({ type: "startLoading/events" });
     dispatch({ type: "clearEventsMessage/events" });
+    
 
     try {
       const data = await getExploreEvents(userId, searchQuery);

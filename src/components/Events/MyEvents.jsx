@@ -5,6 +5,7 @@ import useAuthContext from "../../context/auth/useAuthContext";
 import useEventsContext from "../../context/events/useEventsContext";
 // components
 import DisplayEvents from "./DisplayEvents";
+import PromptSignIn from "../CommonComponents/PromptSignIn";
 
 const initialFormData = {
   query: "",
@@ -39,6 +40,7 @@ const MyEvents = () => {
     }
   }, 300);
   useEffect(() => {
+    if (!user) return;
     fetchUserEvents(user._id);
   }, []);
 
@@ -49,6 +51,12 @@ const MyEvents = () => {
     handleSearchEventsByTitle();
   }, [formData.query]);
 
+  if (!user)
+    return (
+      <>
+        <PromptSignIn subject={"Your Events"} />
+      </>
+    );
   return (
     <DisplayEvents
       formData={formData}

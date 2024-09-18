@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import useGlobalContext from "../../../context/global/useGlobalContext";
@@ -32,7 +31,7 @@ const StylesColumn = () => {
     fetchStyleBlogPaths(selectedCategory[0].types);
   }, []);
   return (
-    <div className="w-1/2 mt-96">
+    <div className="mx-5 md:mx-0 md:w-1/2 md:mt-96 ">
       <h3 className="border border-neutral-500 text-gray-100 text-4xl p-5">
         Other {selectedCategory[0]?.title} Styles
       </h3>

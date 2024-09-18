@@ -141,7 +141,7 @@ export const EventDetail = () => {
                 <div className="flex items-center justify-center gap-4 mr-auto mt-12">
                   <button
                     onClick={() =>
-                      handleAddToFavorites(user._id, eventId, "events")
+                      handleAddToFavorites(user?._id, eventId, "events")
                     }
                     className="p-2 h-20 w-20 border-2 border-[#FFD700] rounded-lg flex items-center justify-center"
                   >
@@ -167,7 +167,7 @@ export const EventDetail = () => {
                   >
                     {ticketedEvent ? `Tickets: $${ticketPrice}` : "Free Event"}
                   </button>
-                  {owner?.toString() === user._id?.toString() && (
+                  {owner?.toString() === user?._id.toString() && (
                     <Link to={`/events/${eventId}/edit`}>
                       <button
                         className={`border h-20 px-3 py-1 text-2xl rounded-md border-gray-100 transition-colors duration-300 hover:bg-gray-800 hover:text-white cursor-pointer`}

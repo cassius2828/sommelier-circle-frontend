@@ -1,26 +1,30 @@
 import { useState, useEffect } from "react";
-
 import { useParams } from "react-router-dom";
+// context
 import useGlobalContext from "../../context/global/useGlobalContext";
-import Loader from "../CommonComponents/Loader";
+// services
 import { getLocationsFavoriteItems } from "../../services/favoritesService";
-import LocationsTableList from "./LocationsTableList";
 import { getPhotosOfLocation } from "../../services/googlePlacesService";
 import {
   getItemIndexedDB,
   setItemIndexedDB,
 } from "../../utils/indexedDB.config";
+// components
+import Loader from "../CommonComponents/Loader";
+import LocationsTableList from "./LocationsTableList";
+import PromptSignIn from "../CommonComponents/PromptSignIn";
 
 const FavoriteLocations = () => {
   const [locations, setLocations] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { userId } = useParams();
   const { scrollToTop } = useGlobalContext();
-  const [isLoading, setIsLoading] = useState(false);
 
   ///////////////////////////
   // fetch locations on render
   ///////////////////////////
   useEffect(() => {
+    if (userId === 'undefined') return;
     const fetchFavoriteLocations = async () => {
       setIsLoading(true);
       const cachedUserFavoriteLocations = await getItemIndexedDB(
@@ -62,7 +66,12 @@ const FavoriteLocations = () => {
   }, []);
 
   if (isLoading) return <Loader />;
-
+  if (userId === 'undefined')
+    return (
+      <>
+        <PromptSignIn subject={'Favorite Locations'}/>
+      </>
+    );
   return (
     <>
       <h1 className="text-6xl text-gray-100 pt-12 mt-52 md:mt-80 mb-20 text-center">

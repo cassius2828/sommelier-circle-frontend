@@ -93,7 +93,7 @@ const ShowCritic = () => {
       {/* favorite */}
       <div className="flex items-center gap-8 mb-12 justify-center md:absolute  -bottom-36 left-1/2 md:-translate-x-1/2">
         <button
-          onClick={() => handleAddToFavorites(user._id, criticId, "critics")}
+          onClick={() => handleAddToFavorites(user?._id, criticId, "critics")}
           className="p-2 border-2 border-[#FFD700] rounded-lg"
         >
           <UilStar size="24" color="#FFD700" />

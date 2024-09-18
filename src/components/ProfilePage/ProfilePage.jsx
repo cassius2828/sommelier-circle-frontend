@@ -10,7 +10,7 @@ export default function ProfilePage() {
   const { user } = useAuthContext();
   const { userId } = useParams();
 
-  const isSignedInUsersProfile = user._id === userId;
+  const isSignedInUsersProfile = user?._id === userId;
 
   return (
     <div className="flex flex-col justify-around gap-4 pt-12 mt-52 md:mt-80  mb-48 w-full ">
