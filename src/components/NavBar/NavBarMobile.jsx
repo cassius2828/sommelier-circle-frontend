@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 // context
 import useAuthContext from "../../context/auth/useAuthContext";
 // components
@@ -9,6 +9,8 @@ import { NavListItem } from "./NavListItem";
 const NavBarMobile = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, handleLogout } = useAuthContext();
+  const navigate = useNavigate();
+
   const handleClick = () => {
     setIsOpen(false);
   };
@@ -21,7 +23,9 @@ const NavBarMobile = () => {
       {user ? (
         <ul
           className={` bg-theme-darkest w-full h-screen pt-20 text-xl text-center flex flex-col justify-start gap-28 p-5  absolute z-20 staggered-list-vert  transition-all duration-500 ${
-            isOpen ? "-translate-y-0 text-gray-100" : "-translate-y-[80rem] text-transparent pointer-events-none"
+            isOpen
+              ? "-translate-y-0 text-gray-100"
+              : "-translate-y-[80rem] text-transparent pointer-events-none"
           }`}
         >
           {/* locations */}
@@ -145,6 +149,7 @@ const NavBarMobile = () => {
             onClick={() => {
               setIsOpen(false);
               handleLogout();
+              navigate("/");
             }}
           >
             Sign Out
@@ -153,7 +158,9 @@ const NavBarMobile = () => {
       ) : (
         <ul
           className={` bg-theme-darkest w-full h-screen pt-20 text-xl text-center flex flex-col justify-start gap-28 p-5  absolute z-20 staggered-list-vert  transition-all duration-500 ${
-            isOpen ? "-translate-y-0 text-gray-100" : "-translate-y-[80rem] text-transparent pointer-events-none"
+            isOpen
+              ? "-translate-y-0 text-gray-100"
+              : "-translate-y-[80rem] text-transparent pointer-events-none"
           }`}
         >
           {/* locations */}
@@ -265,7 +272,7 @@ const NavBarMobile = () => {
             ]}
           />
           {/* login */}
-     
+
           <li onClick={() => setIsOpen(false)}>
             <Link
               to="/auth/signin"
@@ -280,7 +287,6 @@ const NavBarMobile = () => {
           </li>
           {/* register */}
           <li onClick={() => setIsOpen(false)}>
-
             <Link
               to="/auth/signup"
               className="

@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 // gsap
 import { useGSAP } from "@gsap/react";
 import { pinNavToTop } from "../../gsap/gsapFunctions";
@@ -13,7 +13,7 @@ export const NavBarDesktop = () => {
   const container = useRef(null);
   const location = useLocation();
   const isRoot = location.pathname === "/";
-
+const navigate = useNavigate()
   // this solves issue of not being able to ensure nav is pinned when a user navigates but does not rerender the app
   useGSAP(() => {
     pinNavToTop("#desktop-nav-landing");
@@ -101,6 +101,8 @@ export const NavBarDesktop = () => {
                 onClick={() => {
                   setIsOpen(false);
                   handleLogout();
+                navigate("/");
+
                 }}
               >
                 Sign Out

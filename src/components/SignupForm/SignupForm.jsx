@@ -147,21 +147,27 @@ const SignupForm = () => {
           </div>
           {/* action btns */}
           <div className="flex justify-between items-center">
-            <button
-              type="submit"
-              disabled={isFormInvalid()}
-              className="bg-stone-500  px-4 py-2 rounded-md focus:outline-none hover:bg-stone-600 hover:text-gray-100 transition-colors duration-200 cursor-pointer"
-            >
-              Sign Up
-            </button>
+            {" "}
             <Link to="/">
               <button className="bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200">
                 Cancel
               </button>
             </Link>
+            <button
+              type="submit"
+              disabled={isFormInvalid()}
+              className="bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
+            >
+              Sign Up
+            </button>
           </div>
         </form>
       </div>
+      <Link to="/auth/signin">
+        <button className="mt-12 bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none border hover:bg-gray-600 transition-colors duration-200">
+          Sign In
+        </button>
+      </Link>
     </main>
   );
 };
