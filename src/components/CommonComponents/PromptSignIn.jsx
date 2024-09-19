@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const PromptSignIn = ({ subject }) => {
   return (
-    <div className="pt-12 mt-40 md:mt-80 min-h-screen w-screen ">
+    <div className="pt-32 mt-40 md:mt-80 min-h-screen w-screen ">
       <h1 className="text-4xl md:text-6xl text-gray-100 text-center font-serif">
         Please Sign in or Create an Accout to Access {subject}
       </h1>

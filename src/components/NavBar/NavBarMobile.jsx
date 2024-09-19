@@ -4,11 +4,14 @@ import { Link, NavLink } from "react-router-dom";
 import useAuthContext from "../../context/auth/useAuthContext";
 // components
 import Hamburger from "../Hamburger";
+import { NavListItem } from "./NavListItem";
 
 const NavBarMobile = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, handleLogout } = useAuthContext();
-
+const handleClick = () => {
+  setIsOpen(false)
+}
   return (
     <nav className="bg-theme-darkest block md:hidden">
       {/* hamburgher */}
@@ -21,55 +24,114 @@ const NavBarMobile = () => {
             isOpen ? "-translate-y-0" : "-translate-y-[30rem]"
           }`}
         >
-          <li>
-            <NavLink
-              to="/"
-              className="hover:text-theme-sand transition-colors duration-200"
-            >
-              Home
-            </NavLink>
-          </li>
+           {/* locations */}
+           <NavListItem
+           handleClick={handleClick}
+              listItemText={`Locations`}
+              dropDownItems={[
+                {
+                  text: "explore locations",
+                  path: "/locations/explore",
+                },
+                {
+                  text: "favorite locations",
+                  path: `/favorites/locations/${user?._id}`,
+                },
+              ]}
+            />
+            {/* events */}
+            <NavListItem
+           handleClick={handleClick}
+              listItemText={`Events`}
+              dropDownItems={[
+                {
+                  text: "explore events",
+                  path: "/events",
+                },
+                {
+                  text: "my events",
+                  path: "/events/my-events",
+                },
+                {
+                  text: "post an event",
+                  path: "/events/create",
+                },
+                {
+                  text: "favorite events",
+                  path: `/favorites/events/${user?._id}`,
+                },
+              ]}
+            />
+            {/* wines */}
+            <NavListItem
+           handleClick={handleClick}
+              listItemText={`Wines`}
+              dropDownItems={[
+                {
+                  text: "wine styles",
+                  path: "/wines/styles",
+                },
+                {
+                  text: "wine regions",
+                  path: "/wines/regions",
+                },
+                {
+                  text: "grapes",
+                  path: "/wines/grapes",
+                },
+                {
+                  text: "favorite wines",
+                  path: `/favorites/wines/${user?._id}`,
+                },
+                {
+                  text: "search wines",
+                  path: "/wines/search",
+                },
+              ]}
+            />
+{/* blogs */}
+            <NavListItem
+           handleClick={handleClick}
+              listItemText={`Blogs`}
+              dropDownItems={[
+                {
+                  text: "community blogs",
+                  path: "/blogs/explore",
+                },
+                {
+                  text: "create a blog",
+                  path: "/blogs/new",
+                },
+                {
+                  text: "my blogs",
+                  path: `/blogs/user-blogs/${user?._id}`,
+                },
+                {
+                  text: "favorite blogs",
+                  path: `/favorites/blogs/${user?._id}`,
+                },
+                // {
+                //   text: "search blogs",
+                //   path: "/blogs",
+                // },
+              ]}
+            />
+            {/* critics */}
+            <NavListItem
+           handleClick={handleClick}
+              listItemText={`Critics`}
+              dropDownItems={[
+                {
+                  text: "explore critics",
+                  path: "/critics",
+                },
 
-          <li onClick={() => setIsOpen(false)}>
-            <NavLink
-              to="/locations/explore"
-              className="hover:text-theme-sand transition-colors duration-200"
-            >
-              Locations
-            </NavLink>
-          </li>
-          <li onClick={() => setIsOpen(false)}>
-            <NavLink
-              to="/events"
-              className="hover:text-theme-sand transition-colors duration-200"
-            >
-              Events
-            </NavLink>
-          </li>
-          <li onClick={() => setIsOpen(false)}>
-            <NavLink
-              to="/wines/search"
-              className="hover:text-theme-sand transition-colors duration-200"
-            >
-              Wines
-            </NavLink>
-          </li>
-          <li onClick={() => setIsOpen(false)}>
-            <NavLink
-              to="/blogs/explore"
-              className="hover:text-theme-sand transition-colors duration-200"
-            >
-              Blogs
-            </NavLink>
-          </li>
-          <li onClick={() => setIsOpen(false)}>
-            <NavLink
-              to="/critics"
-              className="hover:text-theme-sand transition-colors duration-200"
-            >
-              Critics
-            </NavLink>
-          </li>
+                {
+                  text: "favorite critics",
+                  path: `/favorites/critics/${user?._id}`,
+                },
+              ]}
+            />
           <li onClick={() => setIsOpen(false)}>
             <NavLink
               to={`/profiles/${user?._id}`}
@@ -94,22 +156,156 @@ const NavBarMobile = () => {
             isOpen ? "-translate-y-0" : "-translate-y-[30rem]"
           }`}
         >
-          <li onClick={() => setIsOpen(false)}>
-            <Link
-              to="/auth/signin"
-              className="hover:text-theme-sand transition-colors duration-200"
+            <li
+              onClick={() => {
+                window.location.reload();
+              }}
             >
-              Sign in
-            </Link>
-          </li>
-          <li onClick={() => setIsOpen(false)}>
-            <Link
-              to="/auth/signup"
-              className="hover:text-theme-sand transition-colors duration-200"
-            >
-              Sign Up
-            </Link>
-          </li>
+              <Link
+                to="/"
+                className="
+                
+                  pb-1
+              
+                "
+              >
+                Home
+              </Link>
+            </li>
+            {/* locations */}
+            <NavListItem
+           handleClick={handleClick}
+              listItemText={`Locations`}
+              dropDownItems={[
+                {
+                  text: "explore locations",
+                  path: "/locations/explore",
+                },
+                {
+                  text: "favorite locations",
+                  path: `/favorites/locations/${user?._id}`,
+                },
+              ]}
+            />
+            {/* events */}
+            <NavListItem
+           handleClick={handleClick}
+              listItemText={`Events`}
+              dropDownItems={[
+                {
+                  text: "explore events",
+                  path: "/events",
+                },
+                {
+                  text: "my events",
+                  path: "/events/my-events",
+                },
+                {
+                  text: "post an event",
+                  path: "/events/create",
+                },
+                {
+                  text: "favorite events",
+                  path: `/favorites/events/${user?._id}`,
+                },
+              ]}
+            />
+            {/* wines */}
+            <NavListItem
+           handleClick={handleClick}
+              listItemText={`Wines`}
+              dropDownItems={[
+                {
+                  text: "wine styles",
+                  path: "/wines/styles",
+                },
+                {
+                  text: "wine regions",
+                  path: "/wines/regions",
+                },
+                {
+                  text: "grapes",
+                  path: "/wines/grapes",
+                },
+                {
+                  text: "favorite wines",
+                  path: `/favorites/wines/${user?._id}`,
+                },
+                {
+                  text: "search wines",
+                  path: "/wines/search",
+                },
+              ]}
+            />
+{/* blogs */}
+            <NavListItem
+           handleClick={handleClick}
+              listItemText={`Blogs`}
+              dropDownItems={[
+                {
+                  text: "community blogs",
+                  path: "/blogs/explore",
+                },
+                {
+                  text: "create a blog",
+                  path: "/blogs/new",
+                },
+                {
+                  text: "my blogs",
+                  path: `/blogs/user-blogs/${user?._id}`,
+                },
+                {
+                  text: "favorite blogs",
+                  path: `/favorites/blogs/${user?._id}`,
+                },
+                // {
+                //   text: "search blogs",
+                //   path: "/blogs",
+                // },
+              ]}
+            />
+            {/* critics */}
+            <NavListItem
+           handleClick={handleClick}
+              listItemText={`Critics`}
+              dropDownItems={[
+                {
+                  text: "explore critics",
+                  path: "/critics",
+                },
+
+                {
+                  text: "favorite critics",
+                  path: `/favorites/critics/${user?._id}`,
+                },
+              ]}
+            />
+            {/* login */}
+            <li>
+              <Link
+                to="/auth/signin"
+                className="
+                
+                  pb-1
+              
+                "
+              >
+                Sign in
+              </Link>
+            </li>
+            {/* register */}
+            <li>
+              <Link
+                to="/auth/signup"
+                className="
+                
+                  pb-1
+              
+                "
+              >
+                Sign Up
+              </Link>
+            </li>
         </ul>
       )}
     </nav>

@@ -1,10 +1,14 @@
+import { useEffect } from "react";
+
 const Hamburger = ({ isOpen, setIsOpen }) => {
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prev) => !prev);
   };
-
+  useEffect(() => {
+    console.log(isOpen)
+  }, [isOpen]);
   return (
-    <div className="absolute right-0 z-40">
+    <div className="fixed right-0 z-40">
       <button
         className="block  p-2  rounded focus:outline-none"
         onClick={toggleMenu}

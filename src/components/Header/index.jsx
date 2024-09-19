@@ -1,6 +1,7 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { NavBarTop } from "../NavBar/NavBarTop";
 
+
 const Header = () => {
   const location = useLocation();
   const isRoot = location.pathname === "/";
