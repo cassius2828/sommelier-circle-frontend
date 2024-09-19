@@ -146,12 +146,12 @@ export default function EditProfile() {
     getProfile();
   }, [userId]);
   return (
-    <main className="bg-theme-dn min-h-screen flex flex-col items-center justify-center">
-      <div className="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-[60rem] mt-40 md:mt-80">
+    <main className="bg-theme-dn min-h-screen flex flex-col items-center justify-center mt-52 md:mt-0">
+      <div className="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-[60rem]  md:mt-80">
         <h1 className="text-3xl text-gray-100 mb-4 text-center">
           Profile Page!
         </h1>
-        <form className="space-y-8 p-6 bg-gray-800 rounded-lg w-full flex items-center gap-12">
+        <form className="space-y-8 p-6 bg-gray-800 rounded-lg w-full flex flex-col md:flex-row items-center gap-12">
           {/* col 1 */}
           <div className="w-full md:w-1/2">
             {/* photo */}
