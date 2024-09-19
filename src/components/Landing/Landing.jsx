@@ -14,7 +14,7 @@ const Landing = () => {
     fetchCommunityBlogIds();
   }, []);
   return (
-    <div id="landing" className="md:pl-[10rem]">
+    <div id="landing" className="md:pl-[10rem] mt-52 md:mt-0">
       <Hero />
       <FeaturedWineCategoryGallery />
       <FeaturedWineCardList />

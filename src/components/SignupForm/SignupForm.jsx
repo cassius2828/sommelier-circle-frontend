@@ -72,8 +72,8 @@ const SignupForm = () => {
   }
 
   return (
-    <main className="bg-theme-dn min-h-screen flex flex-col items-center justify-center">
-      <div className="bg-theme-darkest border-gray-400 border-2 p-8 rounded-lg shadow-md w-full max-w-md">
+    <main className="bg-theme-dn min-h-screen flex flex-col items-center justify-start md:justify-center mt-52 md:mt-0">
+      <div className="bg-theme-darkest border-gray-400 border-2 p-8 rounded-lg shadow-md w-full max-w-md mt-20">
         <h1 className="text-3xl text-gray-100 mb-4 text-center">Sign Up</h1>
         <p className="text-gray-100 mb-4 text-center">{message}</p>
         <form onSubmit={handleSubmit} className="space-y-6">
