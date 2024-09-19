@@ -4,23 +4,15 @@ import usePlacesContext from "../../context/places/usePlacesContext";
 // indexedDB
 import { deleteItemIndexedDB } from "../../utils/indexedDB.config";
 // components
-import LocationsTableList from "./LocationsTableList";
 import AutoCompleteInput from "../CommonComponents/AutoCompleteInput";
 import { LocationsGrid } from "./LocationGrid";
 import Alert from "../CommonComponents/Alert";
 
 const Locations = () => {
-  const [display, setDisplay] = useState("full");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   // context
-  const { fetchLocationsWithCoverPhoto, rooms } = usePlacesContext();
-  ///////////////////////////
-  // Handle Display Change
-  ///////////////////////////
-  const handleDisplayChange = (e) => {
-    setDisplay(e.target.value);
-  };
+  const { fetchLocationsWithCoverPhoto } = usePlacesContext();
 
   ///////////////////////////
   // Handle Refresh Recommendations
@@ -54,22 +46,6 @@ const Locations = () => {
 
       <div className="flex items-start gap-12 ">
         <h1 className="text-gray-100 text-5xl mb-12">Recommendations</h1>
-        <div className="flex gap-4 items-center">
-          <label className="text-gray-100" htmlFor="blog-display">
-            Display Locations
-          </label>
-          {/* select */}
-          <select
-            className="text-gray-800 px-4 py-2 rounded-sm"
-            name="blog-display"
-            id="blog-display"
-            value={display}
-            onChange={handleDisplayChange}
-          >
-            <option value="full">Full</option>
-            <option value="list">List</option>
-          </select>
-        </div>
       </div>
       <button
         onClick={handleRefreshRecommendations}
@@ -79,11 +55,9 @@ const Locations = () => {
       </button>
       {message && <Alert success message={message} />}
       {error && <Alert message={error} />}
-      {display === "full" ? (
-        <LocationsGrid />
-      ) : (
-        <LocationsTableList rooms={rooms} />
-      )}
+
+      <LocationsGrid />
+
       <div className="fixed top-0 left-0 h-full w-full -z-10 bg-neutral-950"></div>
     </div>
   );
