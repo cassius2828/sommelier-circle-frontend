@@ -104,20 +104,28 @@ const SigninForm = () => {
             </Link>
             <button
               type="submit"
-              className="bg-stone-500  px-4 py-2 rounded-md focus:outline-none hover:bg-stone-600 hover:text-gray-100 transition-colors duration-200"
+              className="bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
+
             >
               Log In
             </button>
           </div>
         </form>
       </div>
-      {/* google sign in */}
-      <button
-        onClick={handleGoogleLogin}
-        className="border-gray-100 bg-theme-darkest rounded-md text-3xl text-gray-100 border mt-20 px-6 py-3"
-      >
-        Sign in With Google
-      </button>
+      <div className="w-full  flex justify-center items-end gap-12 text-xl">
+        <Link to="/auth/signup">
+          <button className="mt-12 bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none border hover:bg-gray-600 transition-colors duration-200">
+            Sign Up
+          </button>
+        </Link>{" "}
+        {/* google sign in */}
+        <button
+          onClick={handleGoogleLogin}
+          className="mt-12 bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none border hover:bg-gray-600 transition-colors duration-200"
+        >
+          Sign in With Google
+        </button>
+      </div>
     </main>
   );
 };

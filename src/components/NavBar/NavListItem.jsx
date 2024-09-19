@@ -21,7 +21,7 @@ export const NavListItem = ({ dropDownItems, listItemText, handleClick }) => {
           {dropDownItems.map((item, idx) => {
             return (
               <>
-                {item.text === "signout" ? (
+                {item.text === "sign out" ? (
                   <Link
                     className="hover:bg-neutral-700 text-gray-100 w-full"
                     onClick={logout}

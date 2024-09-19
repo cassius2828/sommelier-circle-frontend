@@ -156,7 +156,7 @@ export default function EditProfile() {
           <div className="w-full md:w-1/2">
             {/* photo */}
             <div>
-              <label className=" text-gray-100 mb-2 flex items-center gap-4">
+              <label className=" text-xl text-gray-100 mb-2 flex items-center gap-4">
                 Current Profile Image:
               </label>
               <img
@@ -168,7 +168,7 @@ export default function EditProfile() {
             <div className="my-4">
               <label
                 htmlFor="upload-photo"
-                className="block text-gray-100 mb-2"
+                className="block text-xl text-gray-100 mb-2"
               >
                 Upload New Photo:
               </label>
@@ -177,7 +177,7 @@ export default function EditProfile() {
                 id="upload-photo"
                 name="photo"
                 onChange={handleFileInput}
-                className="w-full p-2 border border-gray-300 text-gray-100 rounded-md focus:outline-none focus:border-[#e8d1ae]"
+                className="w-full p-2 border text-xl border-gray-300 text-gray-100 rounded-md focus:outline-none focus:border-[#e8d1ae]"
               />
             </div>
             {/* username */}
@@ -191,14 +191,14 @@ export default function EditProfile() {
                 name="username"
                 value={username}
                 onChange={handleChange}
-                className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
+                className="w-full p-2 border text-xl border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
               />
             </div>
             {/* displayedName */}
             <div className="mb-4">
               <label
                 htmlFor="displayedName"
-                className="block text-gray-100 mb-2"
+                className="block text-xl text-gray-100 mb-2"
               >
                 Displayed Name:
               </label>
@@ -208,12 +208,12 @@ export default function EditProfile() {
                 name="displayedName"
                 value={displayedName}
                 onChange={handleChange}
-                className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
+                className="w-full p-2 border text-xl border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
               />
             </div>
             {/* email */}
             <div className="mb-4">
-              <label htmlFor="email" className="block text-gray-100 mb-2">
+              <label htmlFor="email" className="block text-xl text-gray-100 mb-2">
                 Email:
               </label>
               <input
@@ -222,7 +222,7 @@ export default function EditProfile() {
                 name="email"
                 value={email}
                 onChange={handleChange}
-                className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
+                className="w-full p-2 border text-xl border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
               />
             </div>
           </div>
@@ -232,7 +232,7 @@ export default function EditProfile() {
             <div className="mb-4">
               <label
                 htmlFor="twitterUsername"
-                className=" text-gray-100 mb-2 flex items-center gap-4"
+                className=" text-xl text-gray-100 mb-2 flex items-center gap-4"
               >
                 <Icon type="twitter" size="sm" color="#0077B5" />
                 Twitter Username:
@@ -247,7 +247,7 @@ export default function EditProfile() {
               />
               <label
                 htmlFor="twitterLink"
-                className=" text-gray-100 mb-2 flex items-center gap-4 my-5"
+                className=" text-xl text-gray-100 mb-2 flex items-center gap-4 my-5"
               >
                 <Icon type="twitter" size="sm" color="#0077B5" />
                 Twitter Link:
@@ -266,7 +266,7 @@ export default function EditProfile() {
             <div className="mb-4">
               <label
                 htmlFor="instagramUsername"
-                className=" text-gray-100 mb-2 flex items-center gap-4"
+                className=" text-xl text-gray-100 mb-2 flex items-center gap-4"
               >
                 <Icon type="instagram" size="sm" color="#E1306C" />
                 Instagram Username:
@@ -281,7 +281,7 @@ export default function EditProfile() {
               />
               <label
                 htmlFor="instagramLink"
-                className=" text-gray-100 mb-2 flex items-center gap-4 my-5"
+                className=" text-xl text-gray-100 mb-2 flex items-center gap-4 my-5"
               >
                 <Icon type="instagram" size="sm" color="#E1306C" />
                 Instagram Link:
@@ -302,7 +302,7 @@ export default function EditProfile() {
             <div className="mb-4">
               <label
                 htmlFor="facebookUsername"
-                className=" text-gray-100 mb-2 flex items-center gap-4"
+                className=" text-xl text-gray-100 mb-2 flex items-center gap-4"
               >
                 <Icon type="facebook" size="sm" color="#3b5998" />
                 Facebook Username:
@@ -317,7 +317,7 @@ export default function EditProfile() {
               />
               <label
                 htmlFor="facebookLink"
-                className=" text-gray-100 mb-2 flex items-center gap-4 my-5"
+                className=" text-xl text-gray-100 mb-2 flex items-center gap-4 my-5"
               >
                 <Icon type="facebook" size="sm" color="#3b5998" />
                 Facebook Link:
@@ -336,7 +336,7 @@ export default function EditProfile() {
             <div className="mb-4">
               <label
                 htmlFor="linkedInUsername"
-                className=" text-gray-100 mb-2 flex items-center gap-4 my-5"
+                className=" text-xl text-gray-100 mb-2 flex items-center gap-4 my-5"
               >
                 <Icon type="linkedin" size="sm" color="#0077B5" />
                 linkedIn Username:
@@ -351,7 +351,7 @@ export default function EditProfile() {
               />
               <label
                 htmlFor="linkedInLink"
-                className=" text-gray-100 mb-2 flex items-center gap-4 my-5"
+                className=" text-xl text-gray-100 mb-2 flex items-center gap-4 my-5"
               >
                 <Icon type="linkedin" size="sm" color="#0077B5" />
                 linkedIn Username:
@@ -371,13 +371,13 @@ export default function EditProfile() {
         <div className="flex justify-center items-center gap-12">
           <button
             onClick={() => navigate(-1)}
-            className="bg-stone-500 px-4 py-2 rounded-md text-gray-100 focus:outline-none hover:bg-stone-600 transition-colors duration-200 cursor-pointer"
+            className="bg-stone-500 px-4 py-2 rounded-md text-xl text-gray-100 focus:outline-none hover:bg-stone-600 transition-colors duration-200 cursor-pointer"
           >
             Cancel
           </button>
           <button
             onClick={handleSubmit}
-            className="bg-stone-500 px-4 py-2 rounded-md text-gray-100 focus:outline-none hover:bg-stone-600 transition-colors duration-200 cursor-pointer"
+            className="bg-stone-500 px-4 py-2 rounded-md text-xl text-gray-100 focus:outline-none hover:bg-stone-600 transition-colors duration-200 cursor-pointer"
           >
             Confirm Changes
           </button>
