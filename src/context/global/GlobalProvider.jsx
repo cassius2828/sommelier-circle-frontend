@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Fuse from "fuse.js";
 // services
 import { getUserLocation } from "../../services/googlePlacesService";
 import { getWines, postFilterWineResults } from "../../services/wineService";
@@ -524,20 +525,34 @@ export const GlobalProvider = ({ children }) => {
   ///////////////////////////
 
   const searchInvertedIndex = (query, wines, invertedIdx) => {
-    console.log(query)
-    console.log(wines)
-    console.log(invertedIdx)
+    //  split query into small array of words
     const obtainSearchWordsArray = query.toLocaleLowerCase().split(/\s+/);
+    // initalize a set for unique wine indices
     const matchedWineIndices = new Set();
-
+    // iterate over query and add each word to the set
     obtainSearchWordsArray.forEach((word) => {
       if (invertedIdx[word]) {
         invertedIdx[word].forEach((idx) => matchedWineIndices.add(idx));
       }
     });
-    const matchedWines = Array.from(matchedWineIndices).map(
+
+    // inital matches | looking for inversed index exact  key name match
+    const closelyMatchedWines = Array.from(matchedWineIndices).map(
       (idx) => wines[idx]
     );
+    // if there is no inversed idx match then use the entire list
+    const winesToSearch =
+      closelyMatchedWines.length > 0 ? closelyMatchedWines : wines;
+    // fuse options for fuzzy search
+    const fuseOptions = {
+      keys: ["name"],
+      threshold: 0.3,
+    };
+    // initialize new fuse with wines to search adn options
+    const fuse = new Fuse(winesToSearch, fuseOptions);
+    const fuzzyResults = fuse.search(query);
+    // match the wines with the logic of fuse
+    const matchedWines = fuzzyResults.map((result) => result.item);
     return matchedWines;
   };
 
