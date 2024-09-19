@@ -20,8 +20,8 @@ const handleClick = () => {
       </div>
       {user ? (
         <ul
-          className={` bg-theme-darkest w-full text-gray-100 text-xl text-center flex flex-col justify-start gap-8 p-5  absolute z-20 staggered-list-vert  transition-all duration-500 ${
-            isOpen ? "-translate-y-0" : "-translate-y-[30rem]"
+          className={` bg-theme-darkest w-full h-screen pt-20  text-gray-100 text-xl text-center flex flex-col justify-start gap-28 p-5  absolute z-20 staggered-list-vert  transition-all duration-500 ${
+            isOpen ? "-translate-y-0" : "-translate-y-[80rem]"
           }`}
         >
            {/* locations */}

@@ -56,9 +56,9 @@ const TypesOfWine = ({ blogId, allStyles }) => {
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row w-full md:w-3/4 mx-auto justify-between gap-4">
+      <div className="flex flex-col lg:flex-row w-full md:w-3/4 mt-52 mx-auto justify-between gap-4">
         <div>
-          <ShowBlog propsBlogId={blogId} />
+          <ShowBlog style={{marginTop:'0'}} propsBlogId={blogId} />
           {/* wine table directly under blog on md up */}
           <div className="hidden md:block">
             <WineTable wines={winesByCategory} />

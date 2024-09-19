@@ -79,7 +79,8 @@ export const ShowLocationCard = () => {
             >
               {fetchedPhotos[0] ? (
                 <img
-                  className="h-full object-cover"
+                className=" h-96  mx-auto object-contain md:object-cover"
+
                   src={
                     fetchedPhotos[0]
                       ? fetchedPhotos[0]

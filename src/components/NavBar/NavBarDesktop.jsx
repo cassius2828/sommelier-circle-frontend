@@ -26,7 +26,7 @@ export const NavBarDesktop = () => {
         <div ref={container}>
           <nav
             id="desktop-nav-landing"
-            className={`bg-theme-sand-dark text-gray-100 p-4 absolute z-10 top-52 h-screen ${
+            className={`bg-theme-sand-dark text-gray-100 p-4 absolute z-20 top-52 h-screen ${
               isOpen ? "w-80i" : "w-40i"
             } transition-all duration-200 ease-in-out hidden md:block`}
           >
@@ -112,7 +112,7 @@ export const NavBarDesktop = () => {
         <div ref={container}>
           <nav
             id="desktop-nav-landing"
-            className={`bg-theme-sand-dark text-gray-100 p-4 absolute z-10 top-52 h-screen ${
+            className={`bg-theme-sand-dark text-gray-100 p-4 absolute z-20 top-52 h-screen ${
               isOpen ? "w-80i" : "w-40i"
             } transition-all duration-200 ease-in-out hidden md:block`}
           >
