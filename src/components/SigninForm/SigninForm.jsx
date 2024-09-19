@@ -119,12 +119,12 @@ const SigninForm = () => {
           </button>
         </Link>{" "}
         {/* google sign in */}
-        <button
+        {/* <button
           onClick={handleGoogleLogin}
           className="mt-12 bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none border hover:bg-gray-600 transition-colors duration-200"
         >
           Sign in With Google
-        </button>
+        </button> */}
       </div>
     </main>
   );
