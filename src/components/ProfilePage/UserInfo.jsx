@@ -134,7 +134,7 @@ const UserInfo = ({ isSignedInUsersProfile }) => {
         ) : isFollowing ? (
           <button
             onClick={handleUnfollow}
-            className="text-2xl bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
+            className="text-2xl bg-gray-700 text-gray-100 px-4 py-2 my-12 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
           >
             Unfollow
           </button>

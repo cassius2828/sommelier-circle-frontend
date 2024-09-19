@@ -1,5 +1,3 @@
-
-
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 // context
@@ -11,7 +9,6 @@ import {
   postCreateEvent,
   putEditEvent,
 } from "../../services/eventService";
-
 
 const initialFormData = {
   // Basic Info
@@ -35,8 +32,8 @@ const initialFormData = {
   endTimeTod: "AM",
 
   // Contact
-  email: "", 
-  phone: "", 
+  email: "",
+  phone: "",
 
   // Extra
   ticketedEvent: false,
@@ -52,7 +49,7 @@ export const EventForm = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [message, setMessage] = useState("");
   // context
-  const {states} = useEventsContext()
+  const { states } = useEventsContext();
   const { user } = useAuthContext();
   // hooks
   const navigate = useNavigate();
@@ -79,7 +76,7 @@ export const EventForm = () => {
     ticketsAvailable,
     owner,
   } = formData;
-  
+
   const dataToSendToServer = new FormData();
 
   dataToSendToServer.append("photo", photo);
@@ -98,7 +95,6 @@ export const EventForm = () => {
   dataToSendToServer.append("email", email);
   dataToSendToServer.append("phone", phone);
   dataToSendToServer.append("ticketedEvent", ticketedEvent);
-
 
   ///////////////////////////
   //   Navigate Form
@@ -195,9 +191,9 @@ export const EventForm = () => {
       <form className="space-y-8 p-6 bg-gray-800 rounded-lg w-full md:w-1/2">
         {formStep === 1 ? (
           <>
-            <div className="flex items-start justify-around gap-20">
+            <div className="flex flex-col md:flex-row items-center md:items-start justify-around gap-20">
               {/* General Info */}
-              <div className="w-1/2">
+              <div className="w-full md:w-1/2">
                 <h3 className="text-xl font-semibold text-gray-100 mb-4">
                   General Info
                 </h3>
@@ -230,7 +226,7 @@ export const EventForm = () => {
                     className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
                   />
                 </div>
-                <div className="mb-4">
+                <div className="md:mb-4">
                   <label
                     htmlFor="eventDescription"
                     className="block text-gray-100 mb-2"
@@ -248,7 +244,7 @@ export const EventForm = () => {
                 </div>
               </div>
               {/* Location */}
-              <div className="w-1/2">
+              <div className="w-full md:w-1/2">
                 <h3 className="text-xl font-semibold text-gray-100 mb-4">
                   Location
                 </h3>
@@ -311,7 +307,7 @@ export const EventForm = () => {
             </div>{" "}
             <div className="flex items-center gap-12">
               <button
-                onClick={() => navigate('/events/my-events')}
+                onClick={() => navigate("/events/my-events")}
                 className="bg-stone-500 px-4 py-2 rounded-md text-gray-100 focus:outline-none hover:bg-stone-600 transition-colors duration-200 cursor-pointer"
               >
                 Cancel
@@ -327,9 +323,9 @@ export const EventForm = () => {
         ) : (
           <>
             {/* Group 2 */}
-            <div className="flex items-start justify-around gap-20">
+            <div className="flex flex-col md:flex-row items-center md:items-start justify-around gap-20">
               {/* Event Time */}
-              <div className="w-1/2">
+              <div className="w-full md:w-1/2">
                 <h3 className="text-xl font-semibold text-gray-100 mb-4">
                   Event Time
                 </h3>
@@ -446,7 +442,7 @@ export const EventForm = () => {
                 </div>
               </div>
               {/* Contact */}
-              <div className="w-1/2">
+              <div className="w-full md:w-1/2">
                 <h3 className="text-xl font-semibold text-gray-100 mb-4">
                   Contact
                 </h3>

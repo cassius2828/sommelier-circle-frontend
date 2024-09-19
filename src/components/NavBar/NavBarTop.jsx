@@ -9,12 +9,13 @@ export const NavBarTop = () => {
   const isRoot = location.pathname === "/";
 
   if (isRoot) return;
+  // hidden on small devices, shows on md and up devices
   return (
     <>
       {user ? (
         <nav
           id="desktop-nav"
-          className={` text-gray-100 p-4  transition-all duration-200 ease-in-out absolute -bottom-8 w-full`}
+          className={` text-gray-100 p-4  transition-all duration-200 ease-in-out absolute -bottom-8 w-full hidden md:block`}
         >
           <ul
             className={`flex
@@ -154,7 +155,7 @@ export const NavBarTop = () => {
       ) : (
         <nav
           id="desktop-nav"
-          className={` text-gray-100 p-4  transition-all duration-200 ease-in-out absolute -bottom-8 w-full`}
+          className={` text-gray-100 p-4  transition-all duration-200 ease-in-out absolute -bottom-8 w-full hidden md:block`}
         >
           <ul
             className={`flex
