@@ -487,7 +487,6 @@ export const GlobalProvider = ({ children }) => {
   // Handle Add To Favorites
   ///////////////////////////
   const handleAddToFavorites = async (userId, itemId, itemType) => {
-  console.log(userId, ' <-- user id')
     if (!userId) {
       setFavoritesMessage(
         `Please sign in or create an account to add to your favorite ${itemType}`
