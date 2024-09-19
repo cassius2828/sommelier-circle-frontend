@@ -187,7 +187,7 @@ export const PlacesProvider = ({ children }) => {
       value={{
         locations,
         locationDetails,
-        isLoading,
+        isLoading,deviceWidth,
         fetchPlaceDetails,
         fetchLocationsWithCoverPhoto,
         fetchLocationPhotos,
