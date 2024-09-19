@@ -78,7 +78,11 @@ const WineSearch = () => {
   return (
     <div className="pt-12 mt-52 md:mt-80 mb-40">
       <div className="w-full  flex flex-col items-center ">
-        <SearchBar value={formData.query} handleChange={handleUpdateForm} />
+        <SearchBar
+          placeholder="Search Wine Names"
+          value={formData.query.toLowerCase()}
+          handleChange={handleUpdateForm}
+        />
         <h1 className="text-5xl font-bold mb-10 text-center text-gray-100">
           {wines.length} wines found
         </h1>
