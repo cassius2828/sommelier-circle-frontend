@@ -536,11 +536,11 @@ export const GlobalProvider = ({ children }) => {
       }
     });
 
-    // inital matches | looking for inversed index exact  key name match
+    // inital matches | looking for inverted index exact  key name match
     const closelyMatchedWines = Array.from(matchedWineIndices).map(
       (idx) => wines[idx]
     );
-    // if there is no inversed idx match then use the entire list
+    // if there is no inverted idx match then use the entire list
     const winesToSearch =
       closelyMatchedWines.length > 0 ? closelyMatchedWines : wines;
     // fuse options for fuzzy search
