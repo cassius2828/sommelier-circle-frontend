@@ -95,11 +95,13 @@ export const refreshToken = async () => {
 ///////////////////////////
 
 export const getTokenFromGoogleOAuth = async () => {
+  console.log('trying to fetch user from google OAuth')
   try {
     const response = await axios.get(`${BASE_URL}/auth/token`, {
       withCredentials: true,
     });
     const { token } = response.data;
+    console.log(token, ' <-- google OAuth token')
     if (token) {
       localStorage.setItem("token", token);
       const user = JSON.parse(atob(token.split(".")[1]));

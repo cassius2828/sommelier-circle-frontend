@@ -115,7 +115,7 @@ const SigninForm = () => {
       <div className="w-full  flex justify-center items-end gap-12 text-xl">
         <Link to="/auth/signup">
           <button className="mt-12 bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none border hover:bg-gray-600 transition-colors duration-200">
-            Sign Up
+            Use Sign Up
           </button>
         </Link>{" "}
         {/* google sign in */}
