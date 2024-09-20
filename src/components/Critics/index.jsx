@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getAllCritics } from "../../services/criticService";
 import { CriticCard } from "./CriticCard";
 import useGlobalContext from "../../context/global/useGlobalContext";
+import LoaderSpin from "../CommonComponents/LoaderSpin";
 
 const CriticsGallery = () => {
   const [critics, setCritics] = useState([]);
@@ -52,7 +53,7 @@ const CriticsGallery = () => {
   return (
     <>
       <h2 className="text-gray-100 text-6xl text-center pt-12 mt-52 md:mt-80 mb-16">
-        Showing <span className="text-theme-sand-dark">{critics.length}</span>{" "}
+        Showing <span className="text-theme-sand-dark">{critics.length || <LoaderSpin/>}</span>{" "}
         of <span className="text-theme-sand-dark">{totalCritics}</span> Critics
       </h2>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-24">
