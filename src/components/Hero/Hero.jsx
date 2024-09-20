@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import useAuthContext from "../../context/auth/useAuthContext";
-
+import { UilAngleDown } from "@iconscout/react-unicons";
 const Hero = () => {
   const { user } = useAuthContext();
   return (
@@ -29,6 +29,12 @@ const Hero = () => {
               </button>
             </Link>
           )}
+          <div className="flex items-center justify-center gap-6 mt-12">
+            <p className="text-xl md:text-2xl">Scroll to see more content</p>
+            <div className="animate-slowBounce">
+              <UilAngleDown size="40" color="#FFFFFF" />
+            </div>
+          </div>
         </div>
 
         <div className="overlay absolute w-screen h-screen"></div>

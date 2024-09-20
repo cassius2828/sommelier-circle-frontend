@@ -53,6 +53,7 @@ const SignupForm = () => {
       navigate("/");
     } catch (err) {
       console.log(err);
+      console.log(`Unable to sign up user`)
     }
   };
 
