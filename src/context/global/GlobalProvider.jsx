@@ -418,7 +418,6 @@ export const GlobalProvider = ({ children }) => {
   const handleUpdateForm = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    console.log(formData.query);
   };
 
   ///////////////////////////
