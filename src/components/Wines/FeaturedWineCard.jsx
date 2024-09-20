@@ -18,7 +18,7 @@ const FeaturedWineCard = ({ wineId }) => {
     <div className="bg-gray-50 p-5 pb-12 max-w-[30rem] grid grid-cols-3 grid-rows-4 relative rounded-md gap-4">
       {/* Image */}
       <div className="col-span-2 col-start-1 row-start-1 row-span-3 flex flex-col justify-center items-center">
-        <img className=" h-40" src={wine.img} alt={wine.name} />
+        <img className="h-40" src={wine.img} alt={wine.name} />
         {/* Name */}
         <h4 className=" text-gray-800 text-3xl my-12 text-center">
           {wine.name} {wine.year}

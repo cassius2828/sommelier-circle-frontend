@@ -6,7 +6,7 @@ import useGlobalContext from "../../context/global/useGlobalContext";
 import usePlacesContext from "../../context/places/usePlacesContext";
 // components
 import Loader from "../CommonComponents/Loader";
-import StarList, { Star } from "../CommonComponents/StarList";
+import StarList, { Star, StarListDark } from "../CommonComponents/StarList";
 import ShowLocationImageCarousel from "./ShowLocationImgCarousel";
 import AddedToFavoritesModal from "../Modals/AddedToFavoritesModal";
 import LoaderSpin from "../CommonComponents/LoaderSpin";
@@ -79,8 +79,7 @@ export const ShowLocationCard = () => {
             >
               {fetchedPhotos[0] ? (
                 <img
-                className=" h-96  mx-auto object-contain md:object-cover"
-
+                  className=" h-96  mx-auto object-contain md:object-cover"
                   src={
                     fetchedPhotos[0]
                       ? fetchedPhotos[0]
@@ -118,7 +117,7 @@ export const ShowLocationCard = () => {
               <h2 className=" text-2xl md:text-4xl">
                 {locationDetails.formatted_address}
               </h2>
-              <StarList bgColor="[#]" criticScore={rating} />
+              <StarList bgColor="[#111213]" criticScore={rating} />
             </div>
           </div>
           {/* details */}

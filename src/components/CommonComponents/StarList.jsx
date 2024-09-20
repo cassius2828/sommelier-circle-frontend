@@ -48,3 +48,24 @@ export const Star = ({ width = 10 }) => {
     </svg>
   );
 };
+export const StarListDark = ({ absolute, criticScore = 90 }) => {
+  const widthToCover = (100 - criticScore).toString();
+
+  return (
+    <div
+      className={`relative stars-container w-48 flex text-gray-800 ${
+        absolute ? "absolute left-12 bottom-32" : ""
+      }`}
+    >
+      <Star />
+      <Star />
+      <Star />
+      <Star />
+      <Star />
+      <div
+        style={{ width: `${widthToCover}%` }}
+        className={`absolute top-0 right-0  h-full bg-[#0a0a0a]`}
+      ></div>
+    </div>
+  );
+};

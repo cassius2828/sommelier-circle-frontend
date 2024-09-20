@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import useGlobalContext from "../../context/global/useGlobalContext";
 // components
 import LoaderSpin from "../CommonComponents/LoaderSpin";
-import StarList, { Star } from "../CommonComponents/StarList";
+import StarList, { Star, StarListDark } from "../CommonComponents/StarList";
 import AddedToFavoritesModal from "../Modals/AddedToFavoritesModal";
 
 export const LocationCard = ({
@@ -40,7 +40,7 @@ export const LocationCard = ({
         <div className="flex flex-col items-center justify-between p-4">
           <div className="text-center">
             <span className="text-3xl text-gray-100"> rating: {rating} </span>
-            <StarList bgColor="[#0a0a0a]" criticScore={calculatedRating} />
+            <StarListDark  criticScore={calculatedRating} />
           </div>
   
           {isOpen ? (
