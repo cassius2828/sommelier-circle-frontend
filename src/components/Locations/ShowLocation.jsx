@@ -39,6 +39,7 @@ export const ShowLocationCard = () => {
   const { favoritesMessage, setFavoritesMessage, handleAddToFavorites } =
     useGlobalContext();
   const { user } = useAuthContext();
+  const {scrollToTop} = useGlobalContext()
   // regex for phone number tel:5555555555
   const regex = /\d+/g;
   const nonformattedTelNumber = locationDetails.formatted_phone_number
@@ -51,6 +52,10 @@ export const ShowLocationCard = () => {
   useEffect(() => {
     fetchPlaceDetails(locationId);
   }, []);
+
+  useEffect(() => {
+    scrollToTop()
+  })
 
   // run this function again if part of the location details are loaded the but photo is not, this is
   // to prevent when the photo never arrives and a constant loading state remains
