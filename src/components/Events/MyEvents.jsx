@@ -6,6 +6,7 @@ import useEventsContext from "../../context/events/useEventsContext";
 // components
 import DisplayEvents from "./DisplayEvents";
 import PromptSignIn from "../CommonComponents/PromptSignIn";
+import NoContentFound from "../CommonComponents/NoContentFound";
 
 const initialFormData = {
   query: "",
@@ -57,6 +58,15 @@ const MyEvents = () => {
         <PromptSignIn subject={"Your Events"} />
       </>
     );
+
+  if (userEvents.length < 1)
+    return (
+      <NoContentFound
+        subject={"events"}
+        message='Add to your favorite events by clicking the star on any event card. Visit "explore events" to find event cards.'
+      />
+    );
+
   return (
     <DisplayEvents
       formData={formData}

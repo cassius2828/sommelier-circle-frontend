@@ -8,6 +8,7 @@ import Loader from "../CommonComponents/Loader";
 import DisplayBlogs from "./DisplayBlogs";
 import PromptSignIn from "../CommonComponents/PromptSignIn";
 import useAuthContext from "../../context/auth/useAuthContext";
+import NoContentFound from "../CommonComponents/NoContentFound";
 
 const MyBlogs = () => {
   const [display, setDisplay] = useState("list");
@@ -44,6 +45,13 @@ const MyBlogs = () => {
       <>
         <PromptSignIn subject={"Your Blogs"} />
       </>
+    );
+  if (myBlogs.length < 1)
+    return (
+      <NoContentFound
+        subject={"blogs"}
+        message='Create your first blog by visiting "create a blog"!'
+      />
     );
   return (
     <DisplayBlogs

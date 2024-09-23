@@ -13,18 +13,20 @@ import {
 import Loader from "../CommonComponents/Loader";
 import LocationsTableList from "./LocationsTableList";
 import PromptSignIn from "../CommonComponents/PromptSignIn";
+import NoContentFound from "../CommonComponents/NoContentFound";
+import useAuthContext from "../../context/auth/useAuthContext";
 
 const FavoriteLocations = () => {
-  const [locations, setLocations] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [locations, setLocations] = useState(null);
   const { userId } = useParams();
-  const { scrollToTop } = useGlobalContext();
+  const { scrollToTop, isLoading, setIsLoading } = useGlobalContext();
+  const { displayTargetedUsername } = useAuthContext();
 
   ///////////////////////////
   // fetch locations on render
   ///////////////////////////
   useEffect(() => {
-    if (userId === 'undefined') return;
+    if (userId === "undefined") return;
     const fetchFavoriteLocations = async () => {
       setIsLoading(true);
       const cachedUserFavoriteLocations = await getItemIndexedDB(
@@ -65,17 +67,24 @@ const FavoriteLocations = () => {
     scrollToTop();
   }, []);
 
-  if (isLoading) return <Loader />;
-  if (userId === 'undefined')
+  if (isLoading || locations === null) return <Loader />;
+  if (userId === "undefined")
     return (
       <>
-        <PromptSignIn subject={'Favorite Locations'}/>
+        <PromptSignIn subject={"Favorite Locations"} />
       </>
+    );
+  if (locations.length < 1)
+    return (
+      <NoContentFound
+        subject={"locations"}
+        message='Add your favorite locations by visiting "explore locations" and selecting the star.'
+      />
     );
   return (
     <>
       <h1 className="text-6xl text-gray-100 pt-12 mt-52 md:mt-80 mb-20 text-center">
-        Favorite Locations
+        {`${displayTargetedUsername || ""} Favorite Locations`}
       </h1>
       <LocationsTableList rooms={locations} />
     </>

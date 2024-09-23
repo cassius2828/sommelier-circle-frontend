@@ -25,6 +25,16 @@ const UserInfo = ({ isSignedInUsersProfile }) => {
   const { userId } = useParams();
   const navigate = useNavigate("/");
 
+  const {
+    profileImg,
+    username,
+    displayedName,
+    email,
+    following = [],
+    followers = [],
+  } = userFromParams || {};
+
+
   ///////////////////////////
   // Handle Follow
   ///////////////////////////
@@ -79,6 +89,7 @@ const UserInfo = ({ isSignedInUsersProfile }) => {
   // checks if current user is following displayed user or not
   // useEffect with user dependencies to ensure it runs each time these users change so
   // state is fresh
+
   ///////////////////////////
   // Fetch If Following
   ///////////////////////////
@@ -92,7 +103,7 @@ const UserInfo = ({ isSignedInUsersProfile }) => {
         setIsFollowing(followBoolean);
       }
     };
-    console.log(userFromParams);
+
     fetchIfFollowing();
   }, [currentUser, userFromParams]);
 
@@ -104,11 +115,11 @@ const UserInfo = ({ isSignedInUsersProfile }) => {
       <div className="mx-auto md:my-12 ">
         <img
           className="w-48 h-48 object-cover rounded-full"
-          src={userFromParams?.profileImg}
-          alt={userFromParams?.username + " avatar"}
+          src={profileImg}
+          alt={username + " avatar"}
         />
         <h3 className="text-center mt-5 text-5xl text-gray-100 ">
-          {userFromParams?.displayedName}
+          {displayedName}
         </h3>
       </div>
       {/* edit profile */}
@@ -140,10 +151,12 @@ const UserInfo = ({ isSignedInUsersProfile }) => {
           </button>
         ) : (
           <button
-            onClick={user ? handleFollow : () => console.log('No user is signed in')}
+            onClick={
+              user ? handleFollow : () => console.log("No user is signed in")
+            }
             className="text-2xl bg-gray-700 text-gray-100 px-4 py-2 my-12 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
           >
-            {user ? 'Follow':'Sign In to Follow'}
+            {user ? "Follow" : "Sign In to Follow"}
           </button>
         )}
       </div>
@@ -156,26 +169,26 @@ const UserInfo = ({ isSignedInUsersProfile }) => {
               <li className="text-2xl my-4 ">
                 <span className="font-bold">Email:</span>
                 <br />
-                {userFromParams?.email}
+                {email}
               </li>
             )}
             <li className="text-2xl my-4 ">
               <span className="font-bold">Username:</span>
-              <br /> {userFromParams?.username}
+              <br /> {username}
             </li>
             <li className="text-2xl my-4 ">
               <span className="font-bold">Display Name:</span>
-              <br /> {userFromParams?.displayedName}
+              <br /> {displayedName}
             </li>
           </ul>
           <ul>
             <li className="text-2xl my-4 ">
               <span className="font-bold">Following:</span>
-              <br /> {userFromParams?.following?.length}
+              <br /> {following.length}
             </li>
             <li className="text-2xl my-4 ">
               <span className="font-bold">Followers:</span>
-              <br /> {userFromParams?.followers?.length}
+              <br /> {followers.length}
             </li>
           </ul>{" "}
         </div>{" "}
@@ -183,61 +196,15 @@ const UserInfo = ({ isSignedInUsersProfile }) => {
         <div className="text-2xl my-4 w-full flex flex-col items-center justify-center">
           <h4 className="capitalize text-2xl my-5">social media</h4>
           <div className="w-full flex flex-col mt-3 text-xl">
+            {/* twitter + ig */}
             <div className="w-full flex items-center justify-center mb-6">
-              {/* twitter */}
-              <Link
-                className="w-1/2 flex justify-center"
-                to={userFromParams?.socialMedia.twitter.link}
-              >
-                <li className="flex justify-start gap-6 items-center">
-                  {" "}
-                  <Icon type="twitter" size="md" color="#1DA1F2" />
-                  {userFromParams?.socialMedia.twitter.username
-                    ? "@" + userFromParams?.socialMedia.twitter.username
-                    : "--"}
-                </li>
-              </Link>
-              {/* instagram */}
-              <Link
-                className="w-1/2 flex justify-center"
-                to={userFromParams?.socialMedia.instagram.link}
-              >
-                <li className="flex justify-start gap-6 items-center ">
-                  {" "}
-                  <Icon type="instagram" size="md" color="#E1306C" />
-                  {userFromParams?.socialMedia.instagram.username
-                    ? "@" + userFromParams?.socialMedia.instagram.username
-                    : "--"}
-                </li>{" "}
-              </Link>
+              {renderSocialMedia("twitter", "#1DA1F2")}
+              {renderSocialMedia("instagram", "#E1306C")}
             </div>
+            {/* facebook + linkedin */}
             <div className="w-full flex items-center justify-between">
-              {/* facebook */}
-              <Link
-                className="w-1/2 flex justify-center"
-                to={userFromParams?.socialMedia.facebook.link}
-              >
-                <li className="flex justify-start gap-6 items-center ">
-                  {" "}
-                  <Icon type="facebook" size="md" color="#3b5998" />
-                  {userFromParams?.socialMedia.facebook.username
-                    ? userFromParams?.socialMedia.facebook.username
-                    : "--"}
-                </li>{" "}
-              </Link>
-              {/* linked in */}
-              <Link
-                className="w-1/2 flex justify-center"
-                to={userFromParams?.socialMedia.linkedIn.link}
-              >
-                <li className="flex justify-start gap-6 items-center ">
-                  {" "}
-                  <Icon type="linkedin" size="md" color="#0077B5" />
-                  {userFromParams?.socialMedia.linkedIn.username
-                    ? userFromParams?.socialMedia.linkedIn.username
-                    : "--"}
-                </li>
-              </Link>
+              {renderSocialMedia("facebook", "#3b5998")}
+              {renderSocialMedia("linkedin", "#0077B5")}
             </div>
           </div>
         </div>
@@ -247,3 +214,15 @@ const UserInfo = ({ isSignedInUsersProfile }) => {
 };
 
 export default UserInfo;
+
+const renderSocialMedia = (platform, color) => {
+  return (
+    <Link className="w-1/2 flex justify-center" to={platform?.link}>
+      <li className="flex justify-start gap-6 items-center ">
+        {" "}
+        <Icon type={platform} size="md" color={color} />
+        {platform?.username ? "@" + platform?.username : "--"}
+      </li>
+    </Link>
+  );
+};

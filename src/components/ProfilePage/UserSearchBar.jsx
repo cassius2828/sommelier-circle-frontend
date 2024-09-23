@@ -20,6 +20,10 @@ const UserSearchBar = () => {
   useEffect(() => {
     const fetchUsersFromSearch = async () => {
       try {
+        if(query.length < 3){
+          setUsers([])
+          return
+        }
         const data = await getSearchUsers(query);
         setUsers(data);
       } catch (err) {
