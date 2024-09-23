@@ -9,19 +9,20 @@ import Loader from "../CommonComponents/Loader";
 import DisplayBlogs from "./DisplayBlogs";
 import PromptSignIn from "../CommonComponents/PromptSignIn";
 import useAuthContext from "../../context/auth/useAuthContext";
+import NoContentFound from "../CommonComponents/NoContentFound";
 
 const FavoriteBlogs = () => {
-  const [blogs, setBlogs] = useState([]);
+  const [blogs, setBlogs] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [display, setDisplay] = useState("list");
   // hooks
   const { userId } = useParams();
   const { scrollToTop } = useGlobalContext();
-  const { user } = useAuthContext();
+  const { user, fetchTargetUser, displayTargetedUsername } = useAuthContext();
 
   // vars
-  const windowWidth = window.innerWidth;
 
+  const windowWidth = window.innerWidth;
   ///////////////////////////
   // Handle Display Change
   ///////////////////////////
@@ -38,8 +39,8 @@ const FavoriteBlogs = () => {
       setIsLoading(true);
       try {
         const data = await getFavoriteItems(userId, "blogs");
-        console.log(data, " favorite blogs");
         setBlogs(data);
+        fetchTargetUser(userId);
       } catch (err) {
         console.error(err);
         console.log(`Unable to retrieve user's favorite blogs`);
@@ -54,17 +55,24 @@ const FavoriteBlogs = () => {
     }
   }, []);
 
-  if (isLoading) return <Loader />;
-  if (!user)
+  if (isLoading || blogs === null) return <Loader />;
+  if (!user && !isLoading)
     return (
       <>
         <PromptSignIn subject={"Favorite Blogs"} />
       </>
     );
+  if (blogs.length < 1)
+    return (
+      <NoContentFound
+        subject={"blogs"}
+        message='Create your first blog by visiting "create a blog"!'
+      />
+    );
 
   return (
     <DisplayBlogs
-      title="Favorite Blogs"
+      title={`${displayTargetedUsername || ""} Favorite Blogs`}
       display={display}
       handleDisplayChange={handleDisplayChange}
       blogs={blogs}

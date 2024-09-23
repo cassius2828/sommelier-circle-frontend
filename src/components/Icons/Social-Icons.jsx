@@ -32,8 +32,9 @@ const SocialIcons = ({ blogAuthor, title, width, mediaType, wineName }) => {
   const { user } = useAuthContext();
 
   const url = encodeURI(window.location.href);
-
-  const userIGProfile = user?.socialMedia.instagram.username || "";
+  const { socialMedia } = user || {};
+  const { instagram } = socialMedia || {};
+  const userIGProfile = instagram?.username || "";
   let text = "";
   if (mediaType === "blogs") {
     text = encodeURIComponent(

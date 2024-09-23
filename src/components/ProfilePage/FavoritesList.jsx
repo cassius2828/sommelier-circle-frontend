@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 // services
 import {
   getFavoriteItems,
   getLocationsFavoriteItems,
 } from "../../services/favoritesService";
+import { FavoritesLink } from "./FavoritesLink";
 // inital favorites
 const initialFavorites = {
   wines: [],
@@ -23,7 +24,10 @@ const FavoritesList = () => {
   // Handle Set Local Favorites
   ///////////////////////////
   const handleSetLocalFavorites = async (name, value) => {
-    setFavorites((prev) => ({ ...prev, [name]: value }));
+    //  if the backend returns a message explaining there is no favorites, then ensure we set an empty array
+    if (typeof value === "string") {
+      setFavorites((prev) => ({ ...prev, [name]: [] }));
+    } else setFavorites((prev) => ({ ...prev, [name]: value }));
   };
   ///////////////////////////
   // Fetch Favorite Item
@@ -82,36 +86,31 @@ const FavoritesList = () => {
         </h3>
       ) : (
         <ul className="w-full flex flex-col justify-start items-start">
-          <Link
-            className="p-4 hover:bg-neutral-600 bg-neutral-900 w-full text-gray-100 text-2xl"
-            to={`/favorites/blogs/${userId}`}
-          >
-            <li className="">Blogs: {favorites.blogs?.length || 0}</li>
-          </Link>
-          <Link
-            className="p-4 hover:bg-neutral-600 bg-neutral-900 w-full text-gray-100 text-2xl"
-            to={`/favorites/critics/${userId}`}
-          >
-            <li className="">Critics: {favorites.critics?.length || 0}</li>
-          </Link>
-          <Link
-            className="p-4 hover:bg-neutral-600 bg-neutral-900 w-full text-gray-100 text-2xl"
-            to={`/favorites/events/${userId}`}
-          >
-            <li className="">Events: {favorites.events?.length || 0}</li>{" "}
-          </Link>
-          <Link
-            className="p-4 hover:bg-neutral-600 bg-neutral-900 w-full text-gray-100 text-2xl"
-            to={`/favorites/locations/${userId}`}
-          >
-            <li className="">Locations: {favorites.locations?.length || 0}</li>
-          </Link>
-          <Link
-            className="p-4 hover:bg-neutral-600 bg-neutral-900 w-full text-gray-100 text-2xl"
-            to={`/favorites/wines/${userId}`}
-          >
-            <li className="">Wines: {favorites.wines?.length || 0}</li>
-          </Link>
+          <FavoritesLink
+            count={favorites.blogs?.length}
+            label="Blogs"
+            path={`/favorites/blogs/${userId}`}
+          />
+          <FavoritesLink
+            count={favorites.critics?.length}
+            label="Critics"
+            path={`/favorites/critics/${userId}`}
+          />
+          <FavoritesLink
+            count={favorites.events?.length}
+            label="Events"
+            path={`/favorites/events/${userId}`}
+          />
+          <FavoritesLink
+            count={favorites.locations?.length}
+            label="Locations"
+            path={`/favorites/locations/${userId}`}
+          />
+          <FavoritesLink
+            count={favorites.wines?.length}
+            label="Wines"
+            path={`/favorites/wines/${userId}`}
+          />
         </ul>
       )}
     </div>
