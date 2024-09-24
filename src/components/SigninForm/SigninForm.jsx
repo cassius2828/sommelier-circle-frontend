@@ -105,7 +105,6 @@ const SigninForm = () => {
             <button
               type="submit"
               className="bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
-
             >
               Log In
             </button>

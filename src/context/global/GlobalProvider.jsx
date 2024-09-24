@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Fuse from "fuse.js";
 // services
 import { getUserLocation } from "../../services/googlePlacesService";
 import { getWines, postFilterWineResults } from "../../services/wineService";
@@ -417,7 +418,6 @@ export const GlobalProvider = ({ children }) => {
   const handleUpdateForm = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    console.log(formData.query);
   };
 
   ///////////////////////////
@@ -463,14 +463,96 @@ export const GlobalProvider = ({ children }) => {
   ///////////////////////////////
 
   const fetchFilteredWineData = async (formData) => {
-    try {
-      const data = await postFilterWineResults(formData);
-      setWines(data);
-    } catch (err) {
-      console.log(`Error filtering and fetching wines: ${err}`);
-    } finally {
-      setIsLoading(false);
+    const { grape, region, style, price, rating, query } = formData;
+    const invertedIdx = await getItemIndexedDB("wines", "invertedIndex");
+    let wines = await getItemIndexedDB("wines", "all");
+    // filter wine data from indexedDB
+    if (invertedIdx && wines) {
+      try {
+        if (grape) {
+          wines = wines.filter((wine) => wine.grape === grape);
+        }
+        if (region) {
+          wines = wines.filter((wine) => wine.region === region);
+        }
+        if (style) {
+          wines = wines.filter(
+            (wine) => wine.category.toLocaleLowerCase() === style
+          );
+        }
+        if (price) {
+          if (price === "low") {
+            wines = wines.sort((a, b) => a.avgPrice - b.avgPrice);
+          } else {
+            wines = wines.sort((a, b) => b.avgPrice - a.avgPrice);
+          }
+        }
+        if (rating) {
+          if (rating === "100") {
+            wines = wines.filter((wine) => wine.criticScore === 100);
+          } else if (rating === "95+") {
+            wines = wines.filter((wine) => wine.criticScore > 94);
+          } else {
+            wines = wines.filter(
+              (wine) => wine.criticScore > 89 && wine.criticScore < 95
+            );
+          }
+        }
+        if (query) {
+          wines = searchInvertedIndex(query, wines, invertedIdx);
+        }
+        setWines(wines);
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      // fitler wine data on backend
+      try {
+        const data = await postFilterWineResults(formData);
+        console.log(data);
+        setWines(data);
+      } catch (err) {
+        console.log(`Error filtering and fetching wines: ${err}`);
+      } finally {
+        setIsLoading(false);
+      }
     }
+  };
+
+  ///////////////////////////
+  // Search Inverted Index
+  ///////////////////////////
+
+  const searchInvertedIndex = (query, wines, invertedIdx) => {
+    //  split query into small array of words
+    const obtainSearchWordsArray = query.toLocaleLowerCase().split(/\s+/);
+    // initalize a set for unique wine indices
+    const matchedWineIndices = new Set();
+    // iterate over query and add each word to the set
+    obtainSearchWordsArray.forEach((word) => {
+      if (invertedIdx[word]) {
+        invertedIdx[word].forEach((idx) => matchedWineIndices.add(idx));
+      }
+    });
+
+    // inital matches | looking for inverted index exact  key name match
+    const closelyMatchedWines = Array.from(matchedWineIndices).map(
+      (idx) => wines[idx]
+    );
+    // if there is no inverted idx match then use the entire list
+    const winesToSearch =
+      closelyMatchedWines.length > 0 ? closelyMatchedWines : wines;
+    // fuse options for fuzzy search
+    const fuseOptions = {
+      keys: ["name"],
+      threshold: 0.3,
+    };
+    // initialize new fuse with wines to search adn options
+    const fuse = new Fuse(winesToSearch, fuseOptions);
+    const fuzzyResults = fuse.search(query);
+    // match the wines with the logic of fuse
+    const matchedWines = fuzzyResults.map((result) => result.item);
+    return matchedWines;
   };
 
   ///////////////////////////////

@@ -47,8 +47,15 @@ export default function EditProfile() {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  const { profileImg, username, email, socialMedia, displayedName } = formData;
 
+  const {
+    profileImg,
+    username,
+    displayedName,
+    email,
+    socialMedia = {},
+  } = formData || {};
+  const { twitter, instagram, facebook, linkedIn } = socialMedia || {};
   ///////////////////////////
   // Handle File Input
   ///////////////////////////
@@ -65,35 +72,14 @@ export default function EditProfile() {
     dataToSendToServer.append("username", formData.username);
     dataToSendToServer.append("displayedName", formData.displayedName);
     dataToSendToServer.append("email", formData.email);
-    dataToSendToServer.append(
-      "twitterUsername",
-      formData.socialMedia.twitter.username
-    );
-    dataToSendToServer.append("twitterLink", formData.socialMedia.twitter.link);
-    dataToSendToServer.append(
-      "instagramUsername",
-      formData.socialMedia.instagram.username
-    );
-    dataToSendToServer.append(
-      "instagramLink",
-      formData.socialMedia.instagram.link
-    );
-    dataToSendToServer.append(
-      "facebookUsername",
-      formData.socialMedia.facebook.username
-    );
-    dataToSendToServer.append(
-      "facebookLink",
-      formData.socialMedia.facebook.link
-    );
-    dataToSendToServer.append(
-      "linkedInUsername",
-      formData.socialMedia.linkedIn.username
-    );
-    dataToSendToServer.append(
-      "linkedInLink",
-      formData.socialMedia.linkedIn.link
-    );
+    dataToSendToServer.append("twitterUsername", twitter?.username);
+    dataToSendToServer.append("twitterLink", twitter?.link);
+    dataToSendToServer.append("instagramUsername", instagram?.username);
+    dataToSendToServer.append("instagramLink", instagram?.link);
+    dataToSendToServer.append("facebookUsername", facebook?.username);
+    dataToSendToServer.append("facebookLink", facebook?.link);
+    dataToSendToServer.append("linkedInUsername", linkedIn?.username);
+    dataToSendToServer.append("linkedInLink", linkedIn?.link);
     try {
       const data = await putEditProfileInfo(userId, dataToSendToServer);
       if (data?.message) {
@@ -213,7 +199,10 @@ export default function EditProfile() {
             </div>
             {/* email */}
             <div className="mb-4">
-              <label htmlFor="email" className="block text-xl text-gray-100 mb-2">
+              <label
+                htmlFor="email"
+                className="block text-xl text-gray-100 mb-2"
+              >
                 Email:
               </label>
               <input
@@ -241,7 +230,7 @@ export default function EditProfile() {
                 type="text"
                 id="twitterUsername"
                 name="twitterUsername"
-                value={socialMedia.twitter?.username}
+                value={twitter?.username}
                 onChange={handleSocialMediaChange}
                 className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
               />
@@ -256,7 +245,7 @@ export default function EditProfile() {
                 type="text"
                 id="twitterLink"
                 name="twitterLink"
-                value={socialMedia.twitter?.link}
+                value={twitter?.link}
                 onChange={handleSocialMediaChange}
                 className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
               />
@@ -275,7 +264,7 @@ export default function EditProfile() {
                 type="text"
                 id="instagramUsername"
                 name="instagramUsername"
-                value={socialMedia.instagram?.username}
+                value={instagram?.username}
                 onChange={handleSocialMediaChange}
                 className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
               />
@@ -290,7 +279,7 @@ export default function EditProfile() {
                 type="text"
                 id="instagramLink"
                 name="instagramLink"
-                value={socialMedia.instagram?.link}
+                value={instagram?.link}
                 onChange={handleSocialMediaChange}
                 className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
               />
@@ -311,7 +300,7 @@ export default function EditProfile() {
                 type="text"
                 id="facebookUsername"
                 name="facebookUsername"
-                value={socialMedia.facebook?.username}
+                value={facebook?.username}
                 onChange={handleSocialMediaChange}
                 className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
               />
@@ -326,7 +315,7 @@ export default function EditProfile() {
                 type="text"
                 id="facebookLink"
                 name="facebookLink"
-                value={socialMedia.facebook?.link}
+                value={facebook?.link}
                 onChange={handleSocialMediaChange}
                 className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
               />
@@ -345,7 +334,7 @@ export default function EditProfile() {
                 type="text"
                 id="linkedInUsername"
                 name="linkedInUsername"
-                value={socialMedia.linkedIn?.username}
+                value={linkedIn?.username}
                 onChange={handleSocialMediaChange}
                 className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
               />
@@ -360,7 +349,7 @@ export default function EditProfile() {
                 type="text"
                 id="linkedInLink"
                 name="linkedInLink"
-                value={socialMedia.linkedIn?.link}
+                value={linkedIn?.link}
                 onChange={handleSocialMediaChange}
                 className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
               />

@@ -20,6 +20,7 @@ export default {
       animation: {
         fadeIn: "fadeIn .25s ease-in-out",
         fadeInQuick: "fadeIn .1s ease-out",
+        slowBounce: 'bounce 2s infinite',
       },
     },
   },

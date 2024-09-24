@@ -21,7 +21,7 @@ const ShowLocationImageCarousel = ({
     }
   };
   return (
-    <div className="absolute w-full h-screen max-h-[50rem] bg-neutral-950">
+    <div className="absolute w-full h-screen max-h-[50rem] left-1/2 -translate-x-1/2 top-0 ">
       {/* conditionally render if photos are present or not */}
       {photos.length <= 0 ? (
         <>
@@ -32,7 +32,7 @@ const ShowLocationImageCarousel = ({
                 setShowCarousel(false);
                 setIsImgHovered(false);
               }}
-              className="  border h-16 px-3 py-1 text-2xl rounded-md border-gray-100 transition-colors duration-300 hover:bg-gray-800 hover:text-white"
+              className="  border h-16 px-3 py-1  text-2xl rounded-md border-gray-100 transition-colors duration-300 hover:bg-gray-800 hover:text-white"
             >
               back to details
             </button>
@@ -40,11 +40,11 @@ const ShowLocationImageCarousel = ({
         </>
       ) : (
         <>
-          <div className="flex justify-center pb-6 bg-neutral-950 text-4xl">
+          <div className="flex justify-center pb-6 text-4xl bg-[#0b0b0b] w-full pt-12">
             <span>{indexOfPhotoArr + 1}</span> / <span>{photos.length}</span>
           </div>
           <img
-            className="w-full h-full object-cover"
+            className="w-4/5 md:w-full mx-auto h-full object-cover"
             src={photos[indexOfPhotoArr]}
             alt=""
           />{" "}
@@ -60,7 +60,7 @@ const ShowLocationImageCarousel = ({
           {/* right arrow */}
           <svg
             onClick={() => handleCarouselChange("next")}
-            className="rotate-180 absolute top-1/2 -right-20 cursor-pointer"
+            className="rotate-180 absolute top-1/2 right-5 md:-right-20 cursor-pointer"
             fill="#fff"
             xmlns="http://www.w3.org/2000/svg"
             width="11"
@@ -75,7 +75,7 @@ const ShowLocationImageCarousel = ({
           {/* left arrow */}
           <svg
             onClick={() => handleCarouselChange("prev")}
-            className=" absolute top-1/2 -left-20 cursor-pointer"
+            className=" absolute top-1/2 left-5 md:-left-20 cursor-pointer"
             fill="#fff"
             xmlns="http://www.w3.org/2000/svg"
             width="11"

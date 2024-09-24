@@ -8,18 +8,21 @@ import { getFavoriteItems } from "../../services/favoritesService";
 import { EventGrid } from "./EventGrid";
 import Loader from "../CommonComponents/Loader";
 import PromptSignIn from "../CommonComponents/PromptSignIn";
+import useGlobalContext from "../../context/global/useGlobalContext";
+import NoContentFound from "../CommonComponents/NoContentFound";
 
 const FavoriteEvents = () => {
-  const { user } = useAuthContext();
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState(null);
+  // context
+  const { user,displayTargetedUsername } = useAuthContext();
+  const { isLoading, setIsLoading } = useGlobalContext();
+  // hooks
   const { userId } = useParams();
-  const [isLoading, setIsLoading] = useState(false);
 
   const fetchFavoriteEvents = async () => {
     setIsLoading(true);
     try {
       const data = await getFavoriteItems(userId, "events");
-      console.log(data, " favorite events");
       setEvents(data);
     } catch (err) {
       console.error(err);
@@ -33,16 +36,23 @@ const FavoriteEvents = () => {
     fetchFavoriteEvents();
   }, []);
 
-  if (isLoading) return <Loader />;
+  if (isLoading || events === null) return <Loader />;
   if (!user)
     return (
       <>
         <PromptSignIn subject={"Favorite Events"} />
       </>
     );
+    if (events.length < 1)
+      return (
+        <NoContentFound
+          subject={"events"}
+          message='Add to your favorite events by clicking the star on any event card. See "explore events" to find events to add.'
+        />
+      );
   return (
     <div className="flex flex-col w-full min-h-screen pt-12 mt-52 md:mt-80 items-center">
-      <h1 className="text-8xl text-gray-100 mb-12">Events</h1>
+      <h1 className="text-8xl text-gray-100 mb-12">{`${displayTargetedUsername || ''} Favorite Events`}</h1>
       <div className="w-1/2 mx-auto">
         <h1 className="text-5xl font-bold mb-10 text-center text-gray-100">
           {events?.length} events found

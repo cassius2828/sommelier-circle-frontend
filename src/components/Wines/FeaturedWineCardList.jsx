@@ -7,7 +7,7 @@ const FeaturedWineCardList = () => {
     
     <div className="grid grid-cols-1 xl:grid-cols-3 p-5 my-12 gap-12 place-items-center xl:pl-40">
       <FeaturedWineCard wineId="66935a4bb38c5309ef548912" title={`Armand de Brignac Ace of Spades `} />
-      <FeaturedWineCard wineId="66935a4bb38c5309ef548988" title={`Sassicaia`} />
+      <FeaturedWineCard wineId="66935a4bb38c5309ef5488eb" title={`Louis Roederer Cristal`} />
       <FeaturedWineCard wineId="66935a4bb38c5309ef54890c" title={`Dom Pérignon`} />
     </div>
     </>

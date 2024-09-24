@@ -23,6 +23,7 @@ export const NavListItem = ({ dropDownItems, listItemText, handleClick }) => {
               <>
                 {item.text === "sign out" ? (
                   <Link
+                    key={item.text + idx}
                     className="hover:bg-neutral-700 text-gray-100 w-full"
                     onClick={logout}
                     to={item.path}

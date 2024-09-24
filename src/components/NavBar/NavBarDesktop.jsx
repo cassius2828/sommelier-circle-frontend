@@ -43,7 +43,7 @@ const navigate = useNavigate()
               >
                 <Link
                   to="/"
-                  className="hover:text-slate-900 transition-colors duration-300"
+                  className="hover:text-slate-900 transition-colors duration-300 cursor-pointer"
                 >
                   Home
                 </Link>
@@ -51,7 +51,7 @@ const navigate = useNavigate()
               <li onClick={() => setIsOpen(false)}>
                 <Link
                   to="/locations/explore"
-                  className="hover:text-slate-900 transition-colors duration-300"
+                  className="hover:text-slate-900 transition-colors duration-300 cursor-pointer"
                 >
                   Locations
                 </Link>
@@ -59,7 +59,7 @@ const navigate = useNavigate()
               <li onClick={() => setIsOpen(false)}>
                 <Link
                   to="/events"
-                  className="hover:text-slate-900 transition-colors duration-300"
+                  className="hover:text-slate-900 transition-colors duration-300 cursor-pointer"
                 >
                   Events
                 </Link>
@@ -67,7 +67,7 @@ const navigate = useNavigate()
               <li onClick={() => setIsOpen(false)}>
                 <Link
                   to="/wines/search"
-                  className="hover:text-slate-900 transition-colors duration-300"
+                  className="hover:text-slate-900 transition-colors duration-300 cursor-pointer"
                 >
                   Wines
                 </Link>
@@ -75,7 +75,7 @@ const navigate = useNavigate()
               <li onClick={() => setIsOpen(false)}>
                 <Link
                   to="/blogs/explore"
-                  className="hover:text-slate-900 transition-colors duration-300"
+                  className="hover:text-slate-900 transition-colors duration-300 cursor-pointer"
                 >
                   Blogs
                 </Link>
@@ -83,7 +83,7 @@ const navigate = useNavigate()
               <li onClick={() => setIsOpen(false)}>
                 <Link
                   to="/critics"
-                  className="hover:text-slate-900 transition-colors duration-300"
+                  className="hover:text-slate-900 transition-colors duration-300 cursor-pointer"
                 >
                   Critics
                 </Link>
@@ -91,13 +91,13 @@ const navigate = useNavigate()
               <li onClick={() => setIsOpen(false)}>
                 <Link
                   to={`/profiles/${user._id}`}
-                  className="hover:text-slate-900 transition-colors duration-300"
+                  className="hover:text-slate-900 transition-colors duration-300 cursor-pointer"
                 >
                   Profile
                 </Link>
               </li>
               <li
-                className="hover:text-slate-900 transition-colors duration-300"
+                className="hover:text-slate-900 transition-colors duration-300 cursor-pointer"
                 onClick={() => {
                   setIsOpen(false);
                   handleLogout();
@@ -128,7 +128,7 @@ const navigate = useNavigate()
               <li onClick={() => setIsOpen(false)}>
                 <Link
                   to="/locations/explore"
-                  className="hover:text-slate-900 transition-colors duration-300"
+                  className="hover:text-slate-900 transition-colors duration-300 cursor-pointer"
                 >
                   Locations
                 </Link>
@@ -136,7 +136,7 @@ const navigate = useNavigate()
               <li onClick={() => setIsOpen(false)}>
                 <Link
                   to="/events"
-                  className="hover:text-slate-900 transition-colors duration-300"
+                  className="hover:text-slate-900 transition-colors duration-300 cursor-pointer"
                 >
                   Events
                 </Link>
@@ -144,7 +144,7 @@ const navigate = useNavigate()
               <li onClick={() => setIsOpen(false)}>
                 <Link
                   to="/wines/search"
-                  className="hover:text-slate-900 transition-colors duration-300"
+                  className="hover:text-slate-900 transition-colors duration-300 cursor-pointer"
                 >
                   Wines
                 </Link>
@@ -152,7 +152,7 @@ const navigate = useNavigate()
               <li onClick={() => setIsOpen(false)}>
                 <Link
                   to="/blogs/explore"
-                  className="hover:text-slate-900 transition-colors duration-300"
+                  className="hover:text-slate-900 transition-colors duration-300 cursor-pointer"
                 >
                   Blogs
                 </Link>
@@ -160,7 +160,7 @@ const navigate = useNavigate()
               <li onClick={() => setIsOpen(false)}>
                 <Link
                   to="/critics"
-                  className="hover:text-slate-900 transition-colors duration-300"
+                  className="hover:text-slate-900 transition-colors duration-300 cursor-pointer"
                 >
                   Critics
                 </Link>
@@ -168,7 +168,7 @@ const navigate = useNavigate()
               <li onClick={() => setIsOpen(false)}>
                 <Link
                   to="/auth/signin"
-                  className="hover:text-slate-900 transition-colors duration-300"
+                  className="hover:text-slate-900 transition-colors duration-300 cursor-pointer"
                 >
                   Sign in
                 </Link>
@@ -176,7 +176,7 @@ const navigate = useNavigate()
               <li onClick={() => setIsOpen(false)}>
                 <Link
                   to="/auth/signup"
-                  className="hover:text-slate-900 transition-colors duration-300"
+                  className="hover:text-slate-900 transition-colors duration-300 cursor-pointer"
                 >
                   Sign Up
                 </Link>

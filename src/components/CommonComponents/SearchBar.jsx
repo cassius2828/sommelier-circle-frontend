@@ -1,6 +1,6 @@
 import useGlobalContext from "../../context/global/useGlobalContext";
 
-const SearchBar = ({ value, handleChange }) => {
+const SearchBar = ({ value, handleChange, placeholder='Search' }) => {
   const { formData, setFormData } = useGlobalContext();
   return (
     <div className="flex justify-center items-center w-full md:w-1/2">
@@ -11,7 +11,7 @@ const SearchBar = ({ value, handleChange }) => {
           value={value}
           onChange={handleChange}
           type="text"
-          placeholder="Search"
+          placeholder={placeholder}
           className="w-full p-4 text-gray-800 rounded-md"
         />
         {/* search icon */}

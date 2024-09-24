@@ -1,5 +1,5 @@
 import { openDB } from "idb";
-
+import diacritics from "diacritics";
 const DB_NAME = "smc-cached-data";
 const STORE_NAME = "smc-cached_store";
 
@@ -22,11 +22,34 @@ export async function setItemIndexedDB(key, value, type) {
     if (count >= 1000) {
       await deleteOldestItem(db);
     }
+   await db.put(STORE_NAME, value, typeKey);
+   console.log(key, ' <-- key set item')
+   if (key === "wines") {
+    const invertedIdx =  await buildInvertedIndex(value)
+   await db.put(STORE_NAME, invertedIdx, 'wines-invertedIndex');
 
-    await db.put(STORE_NAME, value, typeKey);
+   }
   } catch (err) {
     console.error("Error setting item in indexedDB:", err);
   }
+}
+
+async function buildInvertedIndex(wines) {
+  const invertedIndex = {};
+  wines.forEach((wine, idx) => {
+    // normalize our str with diacritics package
+    const normalizedStr = diacritics.remove(wine.name).toLowerCase();
+    // split words into mult values in array
+    const words = normalizedStr.split(/\s+/);
+    // for each word in array, add it to invertedIdx or push its idx (from original wines) in the invertedIdx
+    words.forEach((word) => {
+      if (!invertedIndex[word]) {
+        invertedIndex[word] = [];
+      }
+      invertedIndex[word].push(idx);
+    });
+  });
+  return invertedIndex
 }
 
 export async function getItemIndexedDB(key, type) {
@@ -70,9 +93,7 @@ async function deleteOldestItem(db) {
   await transaction.done;
 }
 
-
-export async function addSingleItem(key,value,type){
-  const currentData = await getItemIndexedDB(key,type);
-  return {...currentData, value}
-
+export async function addSingleItem(key, value, type) {
+  const currentData = await getItemIndexedDB(key, type);
+  return { ...currentData, value };
 }

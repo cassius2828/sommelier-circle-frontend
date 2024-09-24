@@ -57,7 +57,7 @@ const ShowWine = () => {
 
   return (
     <>
-      <div className="relative p-4 mb-32 mt-96 mx-auto border-4 overflow-hidden border-theme-sand-dark rounded-md border-3 bg-gray-50 max-w-[60rem]">
+      <div className="relative top-20 md:top-0 p-4 mb-32 mt-52 md:mt-96 mx-auto border-4 overflow-hidden border-theme-sand-dark rounded-md  bg-gray-50 max-w-[60rem]">
         <span
           onClick={() => navigate(-1)}
           className="absolute text-3xl cursor-pointer top-4 right-4"

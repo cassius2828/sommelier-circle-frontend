@@ -22,7 +22,7 @@ const NavBarMobile = () => {
       </div>
       {user ? (
         <ul
-          className={` bg-theme-darkest w-full h-screen pt-20 text-xl text-center flex flex-col justify-start gap-28 p-5  absolute z-20 staggered-list-vert  transition-all duration-500 ${
+          className={` bg-theme-darkest w-full h-screen pt-20 text-xl text-center flex flex-col justify-start gap-28 p-5  fixed z-20 staggered-list-vert  transition-all duration-500 ${
             isOpen
               ? "-translate-y-0 text-gray-100"
               : "-translate-y-[80rem] text-transparent pointer-events-none"
@@ -157,7 +157,7 @@ const NavBarMobile = () => {
         </ul>
       ) : (
         <ul
-          className={` bg-theme-darkest w-full h-screen pt-20 text-xl text-center flex flex-col justify-start gap-28 p-5  absolute z-20 staggered-list-vert  transition-all duration-500 ${
+          className={` bg-theme-darkest w-full h-screen pt-20 text-xl text-center flex flex-col justify-start gap-28 p-5  fixed z-20 staggered-list-vert  transition-all duration-500 ${
             isOpen
               ? "-translate-y-0 text-gray-100"
               : "-translate-y-[80rem] text-transparent pointer-events-none"
