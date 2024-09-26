@@ -9,12 +9,19 @@ import Footer from "../Footer";
 import Hero from "../Hero/Hero";
 import FeaturedWineCardList from "../Wines/FeaturedWineCardList";
 import FeaturedWineCategoryGallery from "../Wines/FeaturedWineCategoryGallery";
+import { getUser } from "../../services/authService";
 
 const Landing = () => {
   const { fetchCommunityBlogIds } = useBlogContext();
   const { scrollToTop } = useGlobalContext();
+  const runGetUser = () => {
+    console.log('running get user')
+    getUser()
+
+  }
   useEffect(() => {
     fetchCommunityBlogIds();
+    runGetUser()
   }, []);
 
   useEffect(() => {
