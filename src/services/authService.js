@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 /////////////////////
@@ -62,11 +63,39 @@ export async function signin(userCredentials) {
 // Get User Function
 /////////////////////
 export function getUser() {
-  const token = localStorage.getItem("token");
-  if (!token) return null;
-  const user = JSON.parse(atob(token.split(".")[1]));
+  const LsToken = localStorage.getItem("token");
+  // if no ls token then look for cookie token
+  if (!LsToken || LsToken === "undefined") {
+    const cookieToken = Cookies.get("jwt");
+    // if no cookie token then return null
+    if (!cookieToken || cookieToken === "undefined") {
+      return null;
+    }
+    // else set the local storage to the cookie token, parse the token, and return the parsed token
+    else {
+      // set the local storage as the cookie token
+      localStorage.setItem("token", cookieToken);
+      const newLsToken = localStorage.getItem("token");
+      const user = JSON.parse(atob(newLsToken.split(".")[1]));
+      return user.user;
+    }
+  }
+  // if there was a local storage token, the parse and return the token
+  const user = JSON.parse(atob(LsToken.split(".")[1]));
   return user.user;
 }
+
+///////////////////////////
+// ! Delete Cookie Token
+///////////////////////////
+export const deleteJwtCookie = () => {
+  try {
+    Cookies.remove("jwt");
+  } catch (err) {
+    console.error(err);
+    console.log(`Unable to remove cookie token of name "jwt"`);
+  }
+};
 
 /////////////////////
 // Refresh Token
@@ -95,17 +124,14 @@ export const refreshToken = async () => {
 ///////////////////////////
 
 export const getTokenFromGoogleOAuth = async () => {
-  console.log('trying to fetch user from google OAuth')
+  console.log("trying to fetch user from google OAuth");
   try {
     const response = await axios.get(`${BASE_URL}/auth/token`, {
       withCredentials: true,
     });
-    const { token } = response.data;
-    console.log(token, ' <-- google OAuth token')
-    if (token) {
-      localStorage.setItem("token", token);
-      const user = JSON.parse(atob(token.split(".")[1]));
-      return user.user;
+
+    if (response.data) {
+      getUser();
     } else return { message: "User was not authenitcated with google OAuth" };
   } catch (err) {
     console.error(`Error obtaining token err: ${err}`);

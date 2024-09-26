@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { getUser } from "../../services/authService";
+import { deleteJwtCookie, getUser } from "../../services/authService";
 import { getUserDoc } from "../../services/profileService";
 
 export const AuthContext = createContext();
@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }) => {
   /////////////////////
   function handleLogout() {
     localStorage.removeItem("token");
+    deleteJwtCookie();
     setUser(null);
   }
   const fetchTargetUser = async (userId) => {
@@ -36,7 +37,7 @@ export const AuthProvider = ({ children }) => {
     // fetchTargetUser(userId);
     const showUserName =
       userId !== user._id && (targetedDisplayName || targetedUsername) + "'s";
-      console.log(showUserName, ' <--show user name function result')
+    console.log(showUserName, " <--show user name function result");
     return showUserName;
   };
   return (
