@@ -53,7 +53,13 @@ const SigninForm = () => {
   ///////////////////////////
   const handleGoogleLogin = () => {
     fetchUserFromGoogleOAuth();
-    window.location.href = `${import.meta.env.VITE_BASE_URL}/auth/google`;
+    let baseUrl = import.meta.env.VITE_BASE_URL;
+
+    if (import.meta.env.MODE === 'production' && window.location.protocol === 'http:') {
+      baseUrl = baseUrl.replace('http:', 'https:');
+    }
+    
+    window.location.href = `${baseUrl}/auth/google`;
   };
 
   return (
