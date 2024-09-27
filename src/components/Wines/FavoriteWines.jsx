@@ -21,7 +21,7 @@ const FavoriteWines = () => {
   // Fetch Fav Wines
   ///////////////////////////
   useEffect(() => {
-    if (!user) return;
+    
     const fetchFavoriteWines = async () => {
       setIsLoading(true);
       try {
@@ -30,6 +30,8 @@ const FavoriteWines = () => {
       } catch (err) {
         console.error(err);
         console.log(`Unable to retrieve user's favorite blogs`);
+        setWines([]);
+
       } finally {
         setIsLoading(false);
       }
