@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 // service
 import {
   getProfileService,
@@ -26,7 +26,7 @@ const initialFormData = {
       username: "",
       link: "",
     },
-    linkedIn: {
+    linkedin: {
       username: "",
       link: "",
     },
@@ -55,7 +55,7 @@ export default function EditProfile() {
     email,
     socialMedia = {},
   } = formData || {};
-  const { twitter, instagram, facebook, linkedIn } = socialMedia || {};
+  const { twitter, instagram, facebook, linkedin } = socialMedia || {};
   ///////////////////////////
   // Handle File Input
   ///////////////////////////
@@ -78,14 +78,14 @@ export default function EditProfile() {
     dataToSendToServer.append("instagramLink", instagram?.link);
     dataToSendToServer.append("facebookUsername", facebook?.username);
     dataToSendToServer.append("facebookLink", facebook?.link);
-    dataToSendToServer.append("linkedInUsername", linkedIn?.username);
-    dataToSendToServer.append("linkedInLink", linkedIn?.link);
+    dataToSendToServer.append("linkedinUsername", linkedin?.username);
+    dataToSendToServer.append("linkedinLink", linkedin?.link);
     try {
       const data = await putEditProfileInfo(userId, dataToSendToServer);
       if (data?.message) {
         alert(data.message);
       } else {
-        navigate(-1);
+        navigate(`/profiles/${userId}`);
       }
     } catch (err) {
       console.error(err);
@@ -321,35 +321,35 @@ export default function EditProfile() {
               />
             </div>
 
-            {/* linkedIn */}
+            {/* linkedin */}
             <div className="mb-4">
               <label
-                htmlFor="linkedInUsername"
+                htmlFor="linkedinUsername"
                 className=" text-xl text-gray-100 mb-2 flex items-center gap-4 my-5"
               >
                 <Icon type="linkedin" size="sm" color="#0077B5" />
-                linkedIn Username:
+                linkedin Username:
               </label>
               <input
                 type="text"
-                id="linkedInUsername"
-                name="linkedInUsername"
-                value={linkedIn?.username}
+                id="linkedinUsername"
+                name="linkedinUsername"
+                value={linkedin?.username}
                 onChange={handleSocialMediaChange}
                 className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
               />
               <label
-                htmlFor="linkedInLink"
+                htmlFor="linkedinLink"
                 className=" text-xl text-gray-100 mb-2 flex items-center gap-4 my-5"
               >
                 <Icon type="linkedin" size="sm" color="#0077B5" />
-                linkedIn Username:
+                linkedin Username:
               </label>
               <input
                 type="text"
-                id="linkedInLink"
-                name="linkedInLink"
-                value={linkedIn?.link}
+                id="linkedinLink"
+                name="linkedinLink"
+                value={linkedin?.link}
                 onChange={handleSocialMediaChange}
                 className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
               />
@@ -358,12 +358,17 @@ export default function EditProfile() {
         </form>{" "}
         {/* confirm changes */}
         <div className="flex justify-center items-center gap-12">
-          <button
-            onClick={() => navigate(-1)}
-            className="bg-stone-500 px-4 py-2 rounded-md text-xl text-gray-100 focus:outline-none hover:bg-stone-600 transition-colors duration-200 cursor-pointer"
-          >
-            Cancel
-          </button>
+          <Link to={`/profiles/${userId}`}>
+            <button className="bg-stone-500 px-4 py-2 rounded-md text-xl text-gray-100 focus:outline-none hover:bg-stone-600 transition-colors duration-200 cursor-pointer">
+              Back to Profile
+            </button>
+          </Link>
+          <Link to={`/profiles/${userId}/update-password`}>
+            <button className="bg-stone-500 px-4 py-2 rounded-md text-xl text-gray-100 focus:outline-none hover:bg-stone-600 transition-colors duration-200 cursor-pointer">
+              Change Password
+            </button>
+          </Link>
+
           <button
             onClick={handleSubmit}
             className="bg-stone-500 px-4 py-2 rounded-md text-xl text-gray-100 focus:outline-none hover:bg-stone-600 transition-colors duration-200 cursor-pointer"
