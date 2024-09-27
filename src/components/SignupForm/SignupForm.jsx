@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 // services
 import { signup } from "../../services/authService";
@@ -8,6 +8,8 @@ import useAuthContext from "../../context/auth/useAuthContext";
 const SignupForm = () => {
   const [photo, setPhoto] = useState("");
   const [message, setMessage] = useState([""]);
+  const [inputError, setInputError] = useState({});
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -29,8 +31,23 @@ const SignupForm = () => {
   // Handle Change
   ///////////////////////////
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    setInputError({ ...inputError, [name]: value.length < 1 });
   };
+///////////////////////////
+// Password Matching Validation
+///////////////////////////
+  useEffect(() => {
+    const isMismatch = password !== passwordConf;
+    const hasLength = password.length > 0 && passwordConf.length > 0;
+
+    setInputError((prev) => ({
+      ...prev,
+      password: isMismatch || !hasLength,
+      passwordConf: isMismatch || !hasLength,
+    }));
+  }, [password, passwordConf]);
 
   ///////////////////////////
   // Handle Submit
@@ -53,7 +70,7 @@ const SignupForm = () => {
       navigate("/");
     } catch (err) {
       console.log(err);
-      console.log(`Unable to sign up user`)
+      console.log(`Unable to sign up user`);
     }
   };
 
@@ -61,7 +78,7 @@ const SignupForm = () => {
   // Form Validation
   ///////////////////////////
   const isFormInvalid = () => {
-    return !(username && password && password === passwordConf);
+    return !username || !password || password !== passwordConf;
   };
 
   ///////////////////////////
@@ -89,7 +106,9 @@ const SignupForm = () => {
               value={username}
               name="username"
               onChange={handleChange}
-              className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
+              className={`w-full p-2 border text-xl ${
+                inputError.username ? "border-red-500" : "border-gray-300"
+              }  text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]`}
             />
           </div>
           {/* email */}
@@ -103,7 +122,9 @@ const SignupForm = () => {
               value={email}
               name="email"
               onChange={handleChange}
-              className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
+              className={`w-full p-2 border text-xl ${
+                inputError.email ? "border-red-500" : "border-gray-300"
+              }  text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]`}
             />
           </div>
           {/* password */}
@@ -117,7 +138,9 @@ const SignupForm = () => {
               value={password}
               name="password"
               onChange={handleChange}
-              className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
+              className={`w-full p-2 border text-xl ${
+                inputError.password ? "border-red-500" : "border-gray-300"
+              }  text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]`}
             />
           </div>
           {/* confirm password */}
@@ -131,7 +154,9 @@ const SignupForm = () => {
               value={passwordConf}
               name="passwordConf"
               onChange={handleChange}
-              className="w-full p-2 border border-gray-300 text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]"
+              className={`w-full p-2 border text-xl ${
+                inputError.passwordConf ? "border-red-500" : "border-gray-300"
+              }  text-gray-800 rounded-md focus:outline-none focus:border-[#e8d1ae]`}
             />
           </div>
           {/* profile picture */}

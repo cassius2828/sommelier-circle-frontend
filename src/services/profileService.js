@@ -145,6 +145,22 @@ export const putEditProfileInfo = async (userId, formData) => {
 };
 
 ///////////////////////////
+// PUT * | Update Password
+///////////////////////////
+export const putUpdatePassword = async (formData, userId) => {
+  const url = `${BASE_URL}/${userId}/update-password`
+try {
+  const response = await axios.put(url, formData);
+  console.log(response.data, ' <-- response.data Service')
+  return response.data
+} catch (err) {
+  console.error(err);
+  console.log(`Unable to communicate with server to update password`);
+  return err
+}
+}
+
+///////////////////////////
 // GET | Check user social media status
 ///////////////////////////
 

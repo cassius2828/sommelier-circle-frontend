@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import useGlobalContext from "../../../context/global/useGlobalContext";
 
 const regionOptions = [
@@ -67,7 +68,9 @@ const grapeOptions = [
 export const FilterComponent = () => {
   const { formData, setFormData, handleUpdateForm, initialFormData } =
     useGlobalContext();
-
+  useEffect(() => {
+    setFormData(initialFormData);
+  }, []);
   return (
     <div className=" w-3/4 md:w-2/5 lg:w-1/5 mx-auto mb-12 md:mb-auto bg-neutral-800 text-gray-100 rounded-md p-4 h-full flex flex-col justify-start items-center">
       <h4 className="text-3xl mb-4">Filter</h4>
