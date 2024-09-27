@@ -34,7 +34,6 @@ const FavoriteBlogs = () => {
   // Fetch Blogs On Load | Scroll to top | Default display to full on mobile
   ///////////////////////////
   useEffect(() => {
-    if (!user) return;
     const fetchFavoriteBlogs = async () => {
       setIsLoading(true);
       try {
@@ -44,6 +43,7 @@ const FavoriteBlogs = () => {
       } catch (err) {
         console.error(err);
         console.log(`Unable to retrieve user's favorite blogs`);
+        setBlogs([]);
       } finally {
         setIsLoading(false);
       }

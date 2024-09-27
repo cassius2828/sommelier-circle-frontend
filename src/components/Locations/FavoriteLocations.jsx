@@ -26,7 +26,7 @@ const FavoriteLocations = () => {
   // fetch locations on render
   ///////////////////////////
   useEffect(() => {
-    if (userId === "undefined") return;
+   
     const fetchFavoriteLocations = async () => {
       setIsLoading(true);
       const cachedUserFavoriteLocations = await getItemIndexedDB(

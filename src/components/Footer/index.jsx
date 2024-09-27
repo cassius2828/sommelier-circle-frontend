@@ -12,28 +12,28 @@ const Footer = () => {
         { title: "Regions", path: "/wines/regions" },
         { title: "Grapes", path: "/wines/grapes" },
         { title: "Search", path: "/wines/search" },
-        { title: "Favorites", path: `/favorites/wines/${user._id}` },
+        { title: "Favorites", path: `/favorites/wines/${user?._id}` },
       ],
     },
     {
       category: "Locations",
       items: [
         { title: "Explore", path: "/locations/explore" },
-        { title: "Favorites", path: `/favorites/locations/${user._id}` },
+        { title: "Favorites", path: `/favorites/locations/${user?._id}` },
       ],
     },
     {
       category: "Events",
       items: [
         { title: "Explore", path: "/events" },
-        { title: "Favorites", path: `/favorites/events/${user._id}` },
+        { title: "Favorites", path: `/favorites/events/${user?._id}` },
       ],
     },
     {
       category: "Community",
       items: [
         { title: "Blogs", path: "/blogs/explore" },
-        { title: "Favorites", path: `/favorites/blogs/${user._id}` },
+        { title: "Favorites", path: `/favorites/blogs/${user?._id}` },
       ],
     },
   ];

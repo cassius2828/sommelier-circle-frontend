@@ -19,12 +19,10 @@ const FavoriteCritics = () => {
   const { isLoading, setIsLoading } = useGlobalContext();
   // show target username
 
-
   ///////////////////////////
   // fetch favorite critics
   ///////////////////////////
   const fetchFavoriteCritics = async () => {
-    if (!user) return;
     setIsLoading(true);
     try {
       const data = await getFavoriteItems(userId, "critics");
@@ -32,6 +30,7 @@ const FavoriteCritics = () => {
     } catch (err) {
       console.error(err);
       console.log(`Unable to use service function to fetch favorite critics`);
+      setCritics([]);
     } finally {
       setIsLoading(false);
     }
