@@ -1,22 +1,42 @@
 import { Link } from "react-router-dom";
 import { UilGithub } from "@iconscout/react-unicons";
-
-const sections = [
-  {
-    title: "Wines",
-    items: ["Featured", "Categories", "Search", "Favorites", "Explore"],
-  },
-  {
-    title: "Rooms",
-    items: ["Featured", "Search", "Favorites", "Explore"],
-  },
-  {
-    title: "Community",
-    items: ["Blogs", "Search Users", "News", "Locations", "Support"],
-  },
-];
+import useAuthContext from "../../context/auth/useAuthContext";
 
 const Footer = () => {
+  const { user } = useAuthContext();
+  const sections = [
+    {
+      category: "Wines",
+      items: [
+        { title: "Styles", path: "/wines/styles" },
+        { title: "Regions", path: "/wines/regions" },
+        { title: "Grapes", path: "/wines/grapes" },
+        { title: "Search", path: "/wines/search" },
+        { title: "Favorites", path: `/favorites/wines/${user._id}` },
+      ],
+    },
+    {
+      category: "Locations",
+      items: [
+        { title: "Explore", path: "/locations/explore" },
+        { title: "Favorites", path: `/favorites/locations/${user._id}` },
+      ],
+    },
+    {
+      category: "Events",
+      items: [
+        { title: "Explore", path: "/events" },
+        { title: "Favorites", path: `/favorites/events/${user._id}` },
+      ],
+    },
+    {
+      category: "Community",
+      items: [
+        { title: "Blogs", path: "/blogs/explore" },
+        { title: "Favorites", path: `/favorites/blogs/${user._id}` },
+      ],
+    },
+  ];
   return (
     <div className="w-full mt-24 bg-black text-gray-300 py-y px-2">
       <div className="max-w-[1240px] mx-auto grid grid-cols-2 md:grid-cols-4 border-b-2 border-gray-600 md:py-8 p-8">
@@ -24,16 +44,15 @@ const Footer = () => {
         {sections.map((section, index) => (
           <div key={index}>
             <h6 className="font-bold uppercase pt-2 text-xl">
-              {section.title}
+              {section.category}
             </h6>
             <ul className="p-2 md:p-0">
               {section.items.map((item, i) => (
-                <li
-                  key={i}
-                  className="py-1 text-gray-500 text-lg hover:text-white"
-                >
-                  {item}
-                </li>
+                <Link key={item.title + i} to={item.path}>
+                  <li className="py-1 text-gray-500 text-lg hover:text-white">
+                    {item.title}
+                  </li>
+                </Link>
               ))}
             </ul>
           </div>
