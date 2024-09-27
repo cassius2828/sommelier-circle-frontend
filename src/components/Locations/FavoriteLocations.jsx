@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 // context
+import useAuthContext from "../../context/auth/useAuthContext";
 import useGlobalContext from "../../context/global/useGlobalContext";
 // services
 import { getLocationsFavoriteItems } from "../../services/favoritesService";
@@ -14,7 +15,6 @@ import Loader from "../CommonComponents/Loader";
 import LocationsTableList from "./LocationsTableList";
 import PromptSignIn from "../CommonComponents/PromptSignIn";
 import NoContentFound from "../CommonComponents/NoContentFound";
-import useAuthContext from "../../context/auth/useAuthContext";
 
 const FavoriteLocations = () => {
   const [locations, setLocations] = useState(null);
@@ -59,6 +59,7 @@ const FavoriteLocations = () => {
       } catch (err) {
         console.error(err);
         console.log(`Unable to retrieve user's favorite locations`);
+        setLocations([]);
       } finally {
         setIsLoading(false);
       }
