@@ -67,6 +67,7 @@ export function getUser() {
   // if no ls token then look for cookie token
   if (!LsToken || LsToken === "undefined") {
     const cookieToken = Cookies.get("jwt");
+    console.log(cookieToken, ' <-- cookie Token')
     // if no cookie token then return null
     if (!cookieToken || cookieToken === "undefined") {
       return null;
