@@ -13,7 +13,7 @@ const LandingBlogs = () => {
         Explore Our Community Blogs
       </h2>
       <div className="flex flex-col md:hidden items-center justify-center md:gap-12 md:mx-3">
-        {landingBlogs.map((blog, idx) => {
+        {landingBlogs?.map((blog, idx) => {
           // set img side to right for every other blog 
           if (idx % 2 === 0) {
             return <BlogHorz key={idx + blog?._id} blog={blog} imgRight />;
