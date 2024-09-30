@@ -43,24 +43,27 @@ const SigninForm = () => {
   ///////////////////////////
   // Fetch User From Google OAuth
   ///////////////////////////
-  const fetchUserFromGoogleOAuth = async () => {
-    const data = await getTokenFromGoogleOAuth();
-    setUser(data);
-  };
+  // const fetchUserFromGoogleOAuth = async () => {
+  //   const data = await getTokenFromGoogleOAuth();
+  //   setUser(data);
+  // };
 
   ///////////////////////////
   // Handle Google Login
   ///////////////////////////
-  const handleGoogleLogin = () => {
-    fetchUserFromGoogleOAuth();
-    let baseUrl = import.meta.env.VITE_BASE_URL;
+  // const handleGoogleLogin = () => {
+  //   fetchUserFromGoogleOAuth();
+  //   let baseUrl = import.meta.env.VITE_BASE_URL;
 
-    if (import.meta.env.MODE === 'production' && window.location.protocol === 'http:') {
-      baseUrl = baseUrl.replace('http:', 'https:');
-    }
-    
-    window.location.href = `${baseUrl}/auth/google`;
-  };
+  //   if (
+  //     import.meta.env.MODE === "production" &&
+  //     window.location.protocol === "http:"
+  //   ) {
+  //     baseUrl = baseUrl.replace("http:", "https:");
+  //   }
+
+  //   window.location.href = `${baseUrl}/auth/google`;
+  // };
 
   return (
     <main className="bg-theme-dn min-h-screen flex flex-col items-center justify-start md:justify-center mt-52 md:mt-0">
@@ -124,12 +127,12 @@ const SigninForm = () => {
           </button>
         </Link>{" "}
         {/* google sign in */}
-        <button
+        {/* <button
           onClick={handleGoogleLogin}
           className="mt-12 bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none border hover:bg-gray-600 transition-colors duration-200"
         >
           Sign in With Google
-        </button>
+        </button> */}
       </div>
     </main>
   );

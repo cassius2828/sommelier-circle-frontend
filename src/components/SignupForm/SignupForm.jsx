@@ -22,12 +22,6 @@ const SignupForm = () => {
   const navigate = useNavigate();
 
   ///////////////////////////
-  // Update Message
-  ///////////////////////////
-  const updateMessage = (msg) => {
-    setMessage(msg);
-  };
-  ///////////////////////////
   // Handle Change
   ///////////////////////////
   const handleChange = (e) => {
@@ -35,9 +29,9 @@ const SignupForm = () => {
     setFormData({ ...formData, [name]: value });
     setInputError({ ...inputError, [name]: value.length < 1 });
   };
-///////////////////////////
-// Password Matching Validation
-///////////////////////////
+  ///////////////////////////
+  // Password Matching Validation
+  ///////////////////////////
   useEffect(() => {
     const isMismatch = password !== passwordConf;
     const hasLength = password.length > 0 && passwordConf.length > 0;
@@ -54,7 +48,16 @@ const SignupForm = () => {
   ///////////////////////////
   const handleSubmit = async (e) => {
     e.preventDefault();
-    updateMessage("");
+    setMessage("");
+
+    if (!email || !username || !password || !passwordConf) {
+      setMessage("Please fill out all fields");
+      return;
+    }
+    if (password !== passwordConf) {
+      setMessage("New password must match confirmed password");
+      return;
+    }
 
     // We need to create FormData, because we have to send a multipart/form-data request
     const dataToSendToServer = new FormData();
@@ -65,21 +68,18 @@ const SignupForm = () => {
 
     try {
       const user = await signup(dataToSendToServer);
-      console.log(user);
-      setUser(user);
-      navigate("/");
+      if (user.error) {
+        setMessage(user.error);
+      } else {
+        setUser(user);
+        navigate("/");
+      }
     } catch (err) {
-      console.log(err);
+      console.log(err.error);
       console.log(`Unable to sign up user`);
     }
   };
 
-  ///////////////////////////
-  // Form Validation
-  ///////////////////////////
-  const isFormInvalid = () => {
-    return !username || !password || password !== passwordConf;
-  };
 
   ///////////////////////////
   // Hanlde File Input
@@ -181,7 +181,6 @@ const SignupForm = () => {
             </Link>
             <button
               type="submit"
-              disabled={isFormInvalid()}
               className="bg-gray-700 text-gray-100 px-4 py-2 rounded-md focus:outline-none hover:bg-gray-600 transition-colors duration-200"
             >
               Sign Up
