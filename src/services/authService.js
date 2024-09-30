@@ -23,7 +23,7 @@ export async function signup(formData) {
     }
   } catch (err) {
     console.log(err);
-    throw new Error(err);
+    return err
   }
 }
 
