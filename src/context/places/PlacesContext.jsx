@@ -83,7 +83,7 @@ export const PlacesProvider = ({ children }) => {
       "locationsWithPhotos",
       "location"
     );
-    if (cachedLocationSuggestions) {
+    if (cachedLocationSuggestions?.length > 0) {
       dispatch({
         type: "setLocations/locations",
         payload: cachedLocationSuggestions,
@@ -114,6 +114,7 @@ export const PlacesProvider = ({ children }) => {
         type: "setLocations/locations",
         payload: updatedPlacesWithPhoto,
       });
+      console.log(updatedPlacesWithPhoto, ' <-- updated places with photos')
     } catch (err) {
       console.error(err);
       console.log(
