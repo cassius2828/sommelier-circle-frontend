@@ -67,7 +67,7 @@ export const getNearbyWinePlaces = async () => {
         keyword: "wine",
       },
     });
-
+console.log(response.data)
     return response.data.results;
   } catch (err) {
     console.error(err);
