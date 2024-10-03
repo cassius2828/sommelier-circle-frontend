@@ -38,7 +38,7 @@ Blog Posts
 
 **In Context Provider**
 
-    ``` javascript
+``` javascript
 ///////////////////////////
 
 // Form Data For Filtering Search
@@ -116,7 +116,8 @@ setIsLoading(false);
 }
 }
 };
-
+```
+```js
 ///////////////////////////
 // Search Inverted Index
 ///////////////////////////
@@ -154,7 +155,7 @@ invertedIdx[word].forEach((idx) => matchedWineIndices.add(idx));
 
 };
 
-    ```
+```
 
 ### Events
 
@@ -202,7 +203,7 @@ Users can now navigate between the next and previous blogs, with logic ensuring 
 
 **Example of Setting Items in IndexedDB**
 
-    ``` javascript
+``` javascript
 
 export async function setItemIndexedDB(key, value, type) {
 try {
