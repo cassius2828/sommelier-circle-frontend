@@ -63,7 +63,7 @@ const MyEvents = () => {
     return (
       <NoContentFound
         subject={"events"}
-        message='Add to your favorite events by clicking the star on any event card. Visit "explore events" to find event cards.'
+        message={`Visit the 'Post an Event' page to add to your events`}
       />
     );
 
