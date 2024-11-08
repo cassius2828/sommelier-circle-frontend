@@ -231,7 +231,7 @@ export const GlobalProvider = ({ children }) => {
           path: "/wines/grapes/pinot-noir",
         },
         {
-          img: "https://winecuentista.com/wp-content/uploads/2018/02/Cabernet-Sauvignon-Grapes-1.jpg",
+          img: "https://www.thewinecellarinsider.com/wp-content/uploads/2011/08/Syrah-Grapes-on-the-vine.jpg",
           name: "Syrah",
           description:
             "A bold and spicy red wine grape variety with flavors of blackberry, black pepper, and smoky notes.",
