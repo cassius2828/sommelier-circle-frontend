@@ -14,7 +14,11 @@ const FeaturedWineCategoryGallery = () => {
         />
         <WineCategoryCard
           title={`Grapes`}
-          img={`https://www.monrovia.com/media/catalog/product/cache/e04ab064d507a8311b0c9a903817e129/r/e/rest_4_1_4171.jpeg`}
+          // img={`https://www.monrovia.com/media/catalog/product/cache/e04ab064d507a8311b0c9a903817e129/r/e/rest_4_1_4171.jpeg`}
+          img={`https://lazenne.com/cdn/shop/articles/Red_Grapes_a44fb818-6156-4955-b7db-3e7733cfac87.jpg?v=1537482047&width=2048
+`}
+
+
           alt={``}
           path="/wines/grapes"
         />
